@@ -1,0 +1,608 @@
+# 🛡️ E-UJIAN PRO — Sistem Asesmen Sekolah Anti-Cheat Zero-Tolerance & E-Jurnal Otomatis
+
+[![React](https://img.shields.io/badge/Frontend-React%2018%20%2B%20Vite-61DAFB?logo=react&logoColor=black)](https://react.dev/)
+[![TailwindCSS](https://img.shields.io/badge/Styling-Tailwind%20CSS-38B2AC?logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+[![Django](https://img.shields.io/badge/Backend-Django%205.0%20%2B%20DRF-092E20?logo=django&logoColor=white)](https://www.djangoproject.com/)
+[![Channels](https://img.shields.io/badge/Realtime-Django%20Channels%20WebSocket-2C3E50?logo=websocket&logoColor=white)](https://channels.readthedocs.io/)
+[![PostgreSQL](https://img.shields.io/badge/Database-PostgreSQL%20%2F%20SQLite-336791?logo=postgresql&logoColor=white)](https://www.postgresql.org/)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![Security](https://img.shields.io/badge/Security-Zero--Tolerance%20Lockdown-red.svg)]()
+
+> **E-UJIAN PRO** adalah platform asesmen digital modern berbasis web yang dirancang khusus untuk sekolah dan madrasah guna menjamin integritas pelaksanaan ujian (UTS, UAS, Asesmen Sumatif, Ujian Mandiri). Sistem ini dilengkapi dengan **Sensor Anti-Cheat Zero-Tolerance**, **Pemantauan Real-Time (Live Proctoring)** via WebSocket, **Bank Soal Hybrid (Mandiri & Google Form)**, **Pengaturan Sekolah Dinamis**, dan **E-Jurnal Berita Acara Otomatis** (Ekspor PDF & Excel).
+
+---
+
+## 📑 DAFTAR ISI
+
+1. [🌟 Deskripsi Sistem & Fitur Unggulan](#-deskripsi-sistem--fitur-unggulan)
+2. [🏗️ Arsitektur & Teknologi (Tech Stack)](#-arsitektur--teknologi-tech-stack)
+3. [🚀 Panduan Instalasi & Menjalankan Proyek](#-panduan-instalasi--menjalankan-proyek)
+4. [🔑 Kredensial Akun Default & Django Administrator](#-kredensial-akun-default--django-administrator)
+5. [👨‍🏫 Panduan Operasional Lengkap: Role GURU (Pengawas Asesmen)](#-panduan-operasional-lengkap-role-guru-pengawas-asesmen)
+   - [Menu 1: Pengaturan Identitas Sekolah Dinamis](#menu-1-pengaturan-identitas-sekolah-dinamis)
+   - [Menu 2: Data Kelas & Rombel (CRUD Kelas)](#menu-2-data-kelas--rombel-crud-kelas)
+   - [Menu 3: Data Guru (CRUD Guru, Import & Template Excel)](#menu-3-data-guru-crud-guru-import--template-excel)
+   - [Menu 4: Data Siswa (CRUD Siswa, Import & Template Excel)](#menu-4-data-siswa-crud-siswa-import--template-excel)
+   - [Menu 5: Manajemen Pengguna & Hak Akses (Desain Modern & Reset Password)](#menu-5-manajemen-pengguna--hak-akses-gaya-tahfidz_mis--reset-password)
+   - [Menu 6: Bank Soal & Paket Ujian (Hybrid Mode)](#menu-6-bank-soal--paket-ujian-hybrid-mode)
+   - [Menu 7: Jadwal & Sesi Ujian (One-Click Copy Password & PIN Pengawas)](#menu-7-jadwal--sesi-ujian-one-click-copy-password--pin-pengawas)
+   - [Menu 8: Ruang Pengawas Real-Time (Live Proctoring & Dual Unlock)](#menu-8-ruang-pengawas-real-time-live-proctoring--dual-unlock)
+   - [Menu 9: Koreksi Jawaban Esai Guru & Rubrik Penilaian Manual](#menu-9-koreksi-jawaban-esai-guru--rubrik-penilaian-manual-teachergrading)
+   - [Menu 10: Rekap Nilai Siswa & Analisis Butir Soal](#menu-10-rekap-nilai-siswa--analisis-butir-soal-teacherresults)
+   - [Menu 11: Riwayat Pelanggaran Siswa & Sinkronisasi Dua Arah E-Jurnal](#menu-11-riwayat-pelanggaran-siswa--sinkronisasi-dua-arah-e-jurnal)
+   - [Menu 12: E-Jurnal & Rekapitulasi Berita Acara (Ekspor PDF/Excel)](#menu-12-e-jurnal--rekapitulasi-berita-acara-ekspor-pdfexcel)
+   - [Menu 13: Pengaturan Profil Akun Guru & Pop-Up Keamanan Login](#menu-13-pengaturan-profil-akun-guru--pop-up-keamanan-login)
+### Menu 12: Pengaturan Profil Akun Guru & Pop-Up Keamanan Login
+- **Rute:** `/teacher/profile`
+- **Fungsi:** Mengelola biodata diri (Nama Lengkap, NIP/Username, Email), mengganti kata sandi secara aman, dan menjamin **Sinkronisasi Otomatis 2-Arah** dengan Manajemen Pengguna & Data Guru.
+- **Fitur Utama:**
+  1. **Ikon Gerigi Header Navbar:** Tombol setting cepat di samping kiri profil pengguna pada header pengawas.
+  2. **Logika Welcome Security Modal:** Pop-up otomatis saat pertama kali login yang mengingatkan guru jika kata sandi masih bawaan atau email belum terisi (dengan opsi *"Lengkapi Profil Sekarang"* atau *"Ingatkan Saya Nanti"*).
+  3. **Sinkronisasi Real-Time:** Perubahan nama atau password seketika mengubah record di tabel database pengguna dan memperbarui data di menu Manajemen Pengguna tanpa memerlukan restart server.
+
+---
+
+6. [👨‍🎓 Panduan Operasional Lengkap: Role SISWA (Peserta Asesmen)](#-panduan-operasional-lengkap-role-siswa-peserta-asesmen)
+   - [Layar 1: Login Terpadu (NISN) & Gatekeeper PIN Masuk](#layar-1-login-terpadu-nisn--gatekeeper-pin-masuk)
+   - [Layar 2: Beranda Peserta & Orientasi Layar (Portrait/Landscape)](#layar-2-beranda-peserta--orientasi-layar-portraitlandscape)
+   - [Layar 3: Portal Mata Pelajaran & Masuk Mode Fullscreen](#layar-3-portal-mata-pelajaran--masuk-mode-fullscreen)
+   - [Layar 4: Arena Ujian Terkunci (Pengerjaan Soal Mandiri / Google Form)](#layar-4-arena-ujian-terkunci-pengerjaan-soal-mandiri--google-form)
+   - [Penanganan Layar Terkunci Akibat Pelanggaran Sensor](#penanganan-layar-terkunci-akibat-pelanggaran-sensor)
+   - [Penyelesaian Ujian & Konfirmasi Selesai Ujian (Alarm Resmi)](#penyelesaian-ujian--konfirmasi-selesai-ujian-alarm-resmi)
+   - [Pembatalan Ujian (Fitur "Batal Ujian")](#pembatalan-ujian-fitur-batal-ujian)
+7. [📁 Struktur Folder Proyek](#-struktur-folder-proyek)
+8. [❓ Tanya Jawab & Troubleshooting Lapangan (FAQ)](#-tanya-jawab--troubleshooting-lapangan-faq)
+
+---
+
+## 🌟 Deskripsi Sistem & Fitur Unggulan
+
+Asesmen daring konvensional kerap menghadapi tantangan integritas: siswa mudah membuka tab baru, mencari jawaban di internet/AI, membagi layar (*split-screen*), atau saling bertukar jawaban. **E-UJIAN PRO** hadir sebagai solusi komprehensif tanpa memerlukan instalasi aplikasi tambahan yang rumit di gawai siswa.
+
+### Fitur Kunci:
+
+1. **🛡️ Zero-Tolerance Lockdown Engine (Anti-Cheat Otomatis Multi-Device):**
+   - **Mandatory Fullscreen (Auto-Lock):** Memaksa peramban berada dalam mode layar penuh HTML5 secara mutlak. Menekan `Esc` atau membatalkan fullscreen langsung membekukan layar ke mode merah dan memicu sirene.
+   - **Anti-Tab Switching (Auto-Lock):** Mendeteksi pembukaan tab baru atau perpindahan tab peramban via `Page Visibility API`. Layar seketika terkunci.
+   - **Anti-Split Screen & Window Blur (Auto-Lock):** Mendeteksi pembagian layar atau membuka aplikasi lain (`window.onblur` & `document.hasFocus()`).
+   - **Proteksi Khusus Smartphone (HP):**
+     - **Kunci Orientasi Layar (Screen Orientation Lock):** Siswa yang memilih mode Portrait di beranda akan tetap terkunci tegak penuh (Portrait Fullscreen) menggunakan Screen Orientation API, tanpa terbalik menjadi landscape saat masuk fullscreen.
+     - **Anti-Screenshot Multi-Jari (Swap 2 & 3 Jari HP), Anti-Rekam Layar & Instant Blackout Shield:** Menangkap gesture multi-touch 2 jari & 3 jari, membatalkan event sistem, mengaktifkan `#instant-blackout-shield` hitam pekat 0ms, dan mengunci ujian (`SCREENSHOT_GESTURE`).
+      - **Anti-Perekaman Layar (Screen Recording) & Dynamic Forensic Watermark:** Memblokir tarikan bilah notifikasi HP (`NOTIFICATION_BAR_PULLDOWN`), shortcut perekam laptop (Win+G, Win+Alt+R, Win+Shift+R, Cmd+Shift+5), dan WebRTC `getDisplayMedia`. Dilengkapi watermark dinamis (Nama, NISN, Kelas, Jam berdetik) di seluruh soal sehingga video/foto rekaman membakar identitas pembocor.
+     - **Anti-Screenshot Tombol Fisik Volume & Power (`SCREENSHOT_HARDWARE_BUTTON`):** Menangkap penekanan tombol volume hardware dan mendeteksi perubahan visibilitas (`visibilitychange`) saat tombol Power/On-Off ditekan bersamaan.
+     - **Anti-Floating Window & Bilah Notifikasi:** Mendeteksi pembukaan aplikasi mengambang (Floating Window seperti Google Gemini AI, WhatsApp, ChatGPT, Kalkulator) atau bilah status notifikasi Android via evaluasi fokus OS (document.hasFocus()). Layar ujian seketika terkunci (FLOATING_WINDOW_ATTEMPT) dan clipboard dikosongkan.
+      - **Anti-Mode Layar Belah (Split Screen / Multi-Window Lock):** Mendeteksi pembagian layar di smartphone Android via rasio tinggi viewport (< 58%) dan pelepasan fullscreen paksa (SPLIT_SCREEN_ATTEMPT).
+      - **Direct Question Resume & Anti-Block Teks (Anti-AI Overview):** Penghapusan modal perantara konfirmasi; siswa langsung kembali melanjutkan pengerjaan sisa soal secara instan. Dilengkapi pencegat sentuhan stasioner (Stationary Touch Interceptor 320ms) di HP dan pencegat drag kursor di Laptop untuk memblokir penyeleksian teks soal sebelum Android sempat memicu fitur Google Touch to Search / Ringkasan AI.
+      - **Audio & Voice AI Integrity Sentinel (Anti-Gemini Live & Zero-Permission):** Melindungi ujian dari Gemini Live dan asisten suara AI via OS Focus Loss Watchdog ($\le 500\text{ms}$) tanpa meminta izin mikrofon peramban dan 100% hening bebas suara beeping/chime, serta Layar Pembekuan Kunci Anti-Blank 100dvh dengan tombol darurat Layar Penuh responsif.
+   - **Proteksi Khusus Laptop & Desktop PC:**
+     - **Pembersihan Otomatis Clipboard (Background Purge Daemon 100ms):** Interval aktif 100ms yang secara terus-menerus mengosongkan clipboard sistem (`navigator.clipboard.writeText('')`). Teks yang disalin dari manapun (termasuk iframe soal eksternal) seketika musnah dalam 100 milidetik tanpa jeda.
+     - **Anti-Klik Kanan & AuxClick (Auto-Lock):** Memblokir `contextmenu` dan klik mouse tengah/kanan (`auxclick`) di seluruh viewport maupun lembar soal ujian.
+     - **Anti-Copy Paste & Keyboard Shortcuts:** Memblokir secara spesifik `Ctrl + C` (Copy), `Ctrl + V` (Paste), `Ctrl + X` (Cut), `Ctrl + A` (Select All), `Ctrl + P` (Print Soal), `Ctrl + U` (View Source), `Ctrl + S` (Save Page), `F12`, dan `Ctrl + Shift + I/J/C` (DevTools Inspect Element).
+     - **Anti-Screenshot Keyboard Lock:** Mencegah tombol `PrintScreen`, Windows Snipping Tool (`Win + Shift + S`, `Meta + Shift + S`), dan shortcut Mac (`Cmd + Shift + 3/4`).
+     - **Anti-Drag & Drop serta Seleksi Teks:** Menangkap dan memblokir event `dragstart`, `dragover`, `drop`, `selectstart`, serta menonaktifkan dragging pada seluruh elemen gambar.
+   - **Log Pelanggaran Rinci & Spesifik di E-Jurnal (Bukan Kalimat Gabungan):** Seluruh catatan pelanggaran di Live Proctoring dan E-Jurnal merekam rincian tindakan otentik yang dilakukan siswa (misalnya: *"Siswa mencoba menyalin teks/soal menggunakan shortcut keyboard (Ctrl+C)"* atau *"Siswa terdeteksi mencoba tangkapan layar menggunakan gesture usap 3 jari di HP"*), bukan kalimat template gabungan yang ambigu.
+   - **Heartbeat Sensor Anti-Screenshot & Focus Loss (150ms):** Sistem memonitor status `!document.hasFocus()` secara aktif setiap 150 milidetik. Menangkap aktivasi Windows Snipping Tool (`Win + Shift + S`), menu konteks eksternal, atau pembukaan aplikasi latar belakang, lalu seketika mengunci layar merah.
+   - **Anti-Screenshot Keyboard Lock:** Mencegah penangkapan layar via tombol `PrintScreen`, shortcut Windows Snipping Tool (`Win + Shift + S`, `Meta + Shift + S`, `Ctrl + Shift + S`), dan shortcut Mac (`Cmd + Shift + 3/4`). Sistem seketika mengosongkan buffer clipboard secara instan, mengunci layar, dan membunyikan sirene peringatan.
+   - **Anti-Klik Kanan (Auto-Lock):** Memblokir pembukaan menu konteks (`contextmenu`) di seluruh arena ujian maupun lembar Google Form. Upaya klik kanan langsung memicu pembekuan layar merah.
+   - **Anti-Copy Paste & Text Selection (Auto-Lock):** Memblokir shortcut `Ctrl + C`, `Ctrl + V`, `Ctrl + X`, `Ctrl + P` (Print), `Ctrl + U` (View Source), `Ctrl + S` (Save), serta memblokir event global `copy`, `cut`, dan `paste`. Clipboard dikosongkan secara paksa dan layar otomatis terkunci. Izin clipboard pada iframe formulir juga dinonaktifkan secara ketat.
+   - **Anti-DevTools & Inspect Element (Auto-Lock):** Memblokir tombol `F12` dan shortcut `Ctrl + Shift + I/J/C`.
+   - **Iframe Focus Guard & Window Blur Priority:** Membedakan klik wajar di dalam Google Form dengan upaya memindahkan fokus ke aplikasi eksternal (Snipping Tool, Alt+Tab).
+   - **Penalty Freeze Overlay:** Seketika membekukan lembar ujian menjadi layar merah darurat dan memicu **sirine audio peringatan keras berulang** dari *Web Audio API Synthesizer*.
+   - **Dual-Mode Unlock & 5-Second Grace Period:** Layar merah dapat dibuka kembali melalui dua cara yang bekerja simultan: (1) Siswa memasukkan PIN Pengawas Ruangan yang sah secara mandiri, atau (2) Guru mengklik tombol "Buka Kunci Layar Siswa" pada Live Proctoring. Dilengkapi masa imunitas 5 detik agar transisi kembali ke fullscreen berjalan stabil tanpa false alarm.
+   - **Bebas Pop-up Google Password Manager & Rekomendasi Isian:** Menggunakan input disk masking CSS modern tanpa tag form native, `autoComplete="one-time-code"`, dan `role="presentation"` di seluruh 4 form sistem (Login, Gatekeeper, Layar Kunci PIN, dan Password Keluar) sehingga browser Chrome/Edge 100% tidak memunculkan pop-up "Update password?" maupun riwayat autocomplete isian sebelumnya.
+
+2. **📝 Hybrid Exam Engine (Mandiri + Google Form / Teams):**
+   - **Soal Mandiri (Native):** Pilihan ganda (opsi A-E dengan kunci jawaban terenkripsi di server) dan soal esai, dilengkapi sistem penilaian otomatis (*auto-grading*).
+   - **Google Form / MS Teams:** Cukup masukkan URL biasa; sistem secara otomatis mengonversinya menjadi tautan sematan aman (`/viewform?embedded=true`) yang berjalan di dalam *Secure Iframe*.
+
+3. **📡 Live Proctoring Real-Time (WebSocket):**
+   - Pengawas memantau aktivitas ujian seluruh siswa secara langsung (*real-time*) tanpa perlu memuat ulang (*refresh*) halaman.
+   - Indikator status dinamis: 🟢 **Fokus Mengerjakan**, 🔴 **Layar Terkunci (Pelanggaran)**, dan 🔵 **Selesai Terkirim**.
+   - **Remote 1-Click Unlock:** Guru dapat membuka kunci layar siswa yang terblokir langsung dari layar laptop pengawas.
+
+4. **🔐 Sistem Token Keamanan Terpadu & Regenerasi Otomatis 10 Menit (Duo-Token Security):**
+   - **Regenerasi Otomatis Setiap 10 Menit (Dynamic Time-Window):** Token Masuk Siswa (`entry_password`) dan PIN Pengawas Ruangan (`supervisor_pin`) secara otomatis berganti menjadi token baru setiap 10 menit (600 detik). Hal ini mencegah siswa mengerjakan soal berkali-kali menggunakan token yang sama atau membocorkan token antar-kelas. Siswa yang terlambat atau terkena penalti wajib meminta token aktif terbaru kepada pengawas ruangan.
+   - **Pencocokan Multi-Sesi & Toleransi Jam Perangkat (Clock Drift Tolerance):** Sistem secara cerdas mendeteksi paket ujian siswa dan mencocokkan token secara presisi ke sesi yang sesuai sekalipun terdapat beberapa sesi aktif dalam mata pelajaran yang sama (misal sesama mapel IPA). Dilengkapi toleransi pergeseran waktu $\pm 1$ slot (20 menit window) dan normalisasi sanitasi input otomatis (penghapusan spasi dan tanda minus) sehingga token dapat langsung digunakan tanpa kendala perbedaan detik jam HP/Laptop.
+   - **Password Masuk (Token Masuk):** Token unik (format `MSK-XXXX`) untuk membuka gerbang ujian per mata pelajaran dengan toleransi masa tenggang (grace period). Dilengkapi fitur **One-Click Copy ke keyboard** dan countdown timer langsung pada kartu sesi guru.
+   - **PIN Pengawas Ruangan:** PIN darurat (format `PIN-YYYY`) bagi guru pengawas untuk membuka kembali layar siswa yang terblokir penalti secara mandiri langsung di gawai siswa.
+   *(Catatan: Sistem tidak lagi memerlukan Password Keluar; siswa cukup menekan tombol konfirmasi selesai ujian yang aman dan ramah pengguna).*
+
+5. **🏫 Pengaturan Identitas Sekolah Dinamis:**
+   - Nama sekolah, instansi kop surat, alamat, email, telepon, nama kepala sekolah, NIP, serta titimangsa kota dapat disesuaikan langsung lewat antarmuka web dengan **Live Pratinjau Kop Surat**.
+
+6. **📊 E-Jurnal Berita Acara & Ekspor Laporan Resmi:**
+   - Filter bertingkat per Paket Soal dan per Rombel/Kelas.
+   - Rekapitulasi nilai, kehadiran, sisa durasi, dan log forensik pelanggaran sensor anti-cheat.
+   - Generator **PDF Resmi** (ReportLab) lengkap dengan kop dinas dan kolom tanda tangan pengawas.
+   - Generator **Excel Multi-Sheet** (OpenPyXL) untuk olah nilai rapor.
+
+---
+
+## 🏗️ Arsitektur & Teknologi (Tech Stack)
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                       CLIENT TIER                           │
+│  React 18 + Vite + Tailwind CSS + Zustand + Lucide React    │
+│  - Web Audio API (Sirine Pelanggaran & Alarm Keluar)         │
+│  - Zero-Tolerance Sensor (Fullscreen, Blur, Visibility)     │
+│  - Responsive UI (Desktop Monitor & Mobile HP/Tablet)       │
+└──────────────────────────────┬──────────────────────────────┘
+                               │ HTTP REST API (JWT) & WebSocket
+┌──────────────────────────────┴──────────────────────────────┐
+│                       SERVER TIER                           │
+│  Python Django 5.0 + Django REST Framework + Daphne ASGI    │
+│  - apps.accounts   : Autentikasi JWT, CRUD User, CRUD Kelas  │
+│  - apps.exams      : Hybrid Bank Soal, Sesi & Auto-Grading   │
+│  - apps.proctoring : WebSocket Consumer & Violation Log      │
+│  - apps.ejournal   : SchoolSetting, ReportLab PDF, OpenPyXL  │
+└──────────────────────────────┬──────────────────────────────┘
+                               │ ORM
+┌──────────────────────────────┴──────────────────────────────┐
+│                      DATABASE TIER                          │
+│  PostgreSQL (Produksi) / SQLite (Pengembangan Lokal)        │
+│  - 9 Tabel Relasional dengan Forensik Integritas Asesmen    │
+└─────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 🚀 Panduan Instalasi & Menjalankan Proyek
+
+### Prasyarat Sistem:
+- **Node.js** (v18.0 atau lebih baru) & **npm**
+- **Python** (v3.10 atau v3.11/v3.12)
+- Peramban web modern (Google Chrome, Microsoft Edge, Mozilla Firefox)
+
+---
+
+### Langkah 1: Kloning Repositori
+```bash
+git clone https://github.com/RizalAhmadMaulana/e-ujian-anticheat.git
+cd e-ujian-anticheat
+```
+
+---
+
+### Langkah 2: Setup Backend (Python Django)
+Buka terminal pertama:
+```bash
+cd backend
+
+# Buat virtual environment (jika belum ada)
+python -m venv venv
+
+# Aktifkan virtual environment
+# Windows (PowerShell / CMD):
+venv\Scripts\activate
+# Linux / macOS:
+source venv/bin/activate
+
+# Pasang dependensi
+pip install -r requirements.txt
+
+# Jalankan migrasi basis data
+python manage.py migrate
+
+# (Rekomendasi) Buat Akun Superuser Administrator Anda sendiri
+python manage.py createsuperuser
+
+# Jalankan server Django (Daphne ASGI di port 8001)
+python manage.py runserver 0.0.0.0:8001
+```
+> Server backend akan berjalan di `http://localhost:8001` (dan siap diakses via jaringan LAN di `0.0.0.0:8001`).
+
+---
+
+### Langkah 3: Setup Frontend (React Vite)
+Buka terminal kedua:
+```bash
+cd frontend
+
+# Pasang dependensi JavaScript
+npm install
+
+# Jalankan server frontend dalam mode host LAN
+npm run dev
+```
+> Server frontend akan berjalan di `http://localhost:5173` (dan dapat diakses oleh siswa di jaringan Wi-Fi sekolah melalui IP komputer host, misal: `http://192.168.1.74:5173`).
+
+---
+
+## 🔑 Hak Akses Pengguna & Manajemen Kredensial
+
+Sistem ini menerapkan arsitektur **Role-Based Access Control (RBAC)** yang memisahkan hak akses secara ketat demi menjamin keamanan dan integritas asesmen:
+
+| Hak Akses / Role | Portal Akses | Metode Autentikasi | Keterangan & Kewenangan |
+|---|---|---|---|
+| **Django Administrator** | `http://localhost:8001/admin/` | Superuser CLI / Django Auth | Mengelola basis data teknis, audit log forensik, dan struktur tabel |
+| **Guru Pengawas** | `http://localhost:5173/login` | NIP / Username & Password Guru | Mengelola bank soal, sesi ujian, live proctoring, & e-jurnal |
+| **Siswa Peserta** | `http://localhost:5173/login` | NISN & Password Siswa | Mengakses lembar soal dengan penguncian layar penuh (lockdown) |
+
+> [!IMPORTANT]
+> **Praktik Keamanan & Proteksi Akses:**
+> - Demi menjaga integritas data asesmen dan mencegah celah keamanan, kredensial akun administrator maupun pengawas **tidak dipublikasikan secara terbuka** di dokumentasi publik.
+> - Administrator sekolah dapat membuat akun superuser baru secara aman langsung melalui terminal backend:
+>   ```bash
+>   python manage.py createsuperuser
+>   ```
+> - Akun Guru Pengawas dan Siswa Peserta dikelola dan didaftarkan langsung oleh panitia ujian melalui menu **Manajemen Pengguna** (`/teacher/users`) pada portal guru.
+> - Seluruh kata sandi terenkripsi menggunakan algoritma hashing aman Django (`PBKDF2 SHA256`).
+
+---
+
+## 👨‍🏫 Panduan Operasional Lengkap: Role GURU (Pengawas Asesmen)
+
+Setelah masuk melalui portal login terpadu (`/login`) menggunakan **NIP** dan kata sandi (default: sama dengan NIP), sistem secara otomatis mendeteksi peran guru dan mengarahkannya ke dashboard pengawas (`/teacher/dashboard`). Guru memiliki akses ke 9 menu utama pada navigasi samping:
+
+### Menu 1: Pengaturan Identitas Sekolah Dinamis
+- **Rute:** `/teacher/settings`
+- **Fungsi:** Mengatur identitas resmi instansi tanpa menyentuh kode program.
+- **Langkah-langkah:**
+  1. Masukkan **Nama Sekolah / Madrasah** (contoh: `SMPN 4 SEMARANG` atau `MIS RISALAH`).
+  2. Masukkan **Sub-Header Kop Surat** (contoh: `PEMERINTAH KOTA SEMARANG / DINAS PENDIDIKAN`).
+  3. Masukkan **Alamat Lengkap**, **Kota/Kabupaten** (menjadi titimangsa tanda tangan dokumen), **Nomor Telepon**, dan **Email Resmi**.
+  4. Masukkan **Nama Kepala Sekolah** beserta **NIP/NUPTK**.
+  5. Sisi kanan layar menampilkan **Live Preview Kop Surat & Tanda Tangan**.
+  6. Klik **"Simpan Pengaturan Sekolah"**.
+
+---
+
+### Menu 2: Data Kelas & Rombel (CRUD Kelas)
+- **Rute:** `/teacher/classrooms`
+- **Fungsi:** Mengelola daftar rombongan belajar sekolah secara dinamis.
+- **Langkah-langkah:**
+  1. Klik **"+ Tambah Kelas Baru"**.
+  2. Isi Nama Kelas (misal: `IX`, `VIII`, `VII`) dan Tahun Ajaran (`2026/2027`).
+  3. Data kelas otomatis menjadi pilihan dropdown saat membuat akun siswa dan sesi ujian.
+  4. Tersedia tombol **Edit** (pensil kuning) dan **Hapus** (tempat sampah merah).
+
+---
+
+### Menu 3: Data Guru (CRUD Guru, Import & Template Excel)
+- **Rute:** `/teacher/teachers`
+- **Fungsi:** Mengelola data dewan guru pengawas asesmen sekolah.
+- **Tampilan Desain (Desain Modern E-Ujian):**
+  - Kolom Tabel: `#`, `NAMA GURU`, `NIP`, `EMAIL`, dan `AKSI` (Tombol Edit & Hapus).
+  - Kontrol: `Show [10] entries`, pencarian `Search: Cari Nama atau NIP...`.
+- **Fitur Tambah Guru & Sinkronisasi 2 Arah:**
+  1. Klik **"+ Tambah Guru"**, isi Nama Lengkap, NIP, dan Email (opsional).
+  2. *Tidak ada input password*: sistem otomatis membuat akun login dengan Username = NIP dan Kata Sandi = NIP.
+  3. Akun baru seketika tersinkronisasi dan otomatis muncul di menu **Manajemen Pengguna**.
+  4. Perubahan data atau penghapusan guru di menu ini otomatis memperbarui/menghapus akun di **Manajemen Pengguna**.
+- **Import Massal Guru via Excel:**
+  1. Klik tombol **"Template Excel"** untuk mengunduh format resmi `Template_Import_Guru_E-Ujian.xlsx` (Header: `NIP, Nama Guru, Email`).
+  2. Klik tombol **"Import Excel"**, unggah berkas `.xlsx`, lalu klik **"Import Sekarang"**.
+
+---
+
+### Menu 4: Data Siswa (CRUD Siswa, Import & Template Excel)
+- **Rute:** `/teacher/students`
+- **Fungsi:** Mengelola data seluruh peserta didik peserta asesmen.
+- **Tampilan Desain (Desain Modern E-Ujian):**
+  - Kolom Tabel: `#`, `NAMA SISWA`, `NISN`, `KELAS`, `EMAIL`, dan `AKSI` (Tombol Edit & Hapus).
+  - Kontrol: `Show [10] entries`, dropdown dinamis `Filter Kelas`, dan pencarian `Search: Cari Nama atau NISN...`.
+- **Fitur Tambah Siswa & Sinkronisasi 2 Arah:**
+  1. Klik **"+ Tambah Siswa"**, isi Nama Siswa, NISN, pilih Kelas, dan Email (opsional).
+  2. *Tidak ada input password*: sistem otomatis membuat akun login dengan Username = NISN dan Kata Sandi = NISN.
+  3. Akun baru seketika tersinkronisasi dan otomatis muncul di menu **Manajemen Pengguna**.
+  4. Perubahan data atau penghapusan siswa di menu ini otomatis memperbarui/menghapus akun di **Manajemen Pengguna**.
+- **Import Massal Siswa via Excel (Rekap GForm / SPSS):**
+  1. Klik tombol **"Template Excel"** untuk mengunduh `Template_Import_Siswa_E-Ujian.xlsx` (Header: `NISN, Nama Siswa, Kelas, Email`).
+  2. Guru dapat menyalin hasil pengisian Google Form / rekapitulasi data siswa ke template ini.
+  3. Klik tombol **"Import Excel"**, unggah berkas `.xlsx`, lalu klik **"Import Sekarang"**. Sistem otomatis mendaftarkan siswa sekaligus membuat kelas baru jika belum ada di database.
+
+---
+
+### Menu 5: Manajemen Pengguna & Hak Akses (Desain Modern & Reset Password)
+- **Rute:** `/teacher/users`
+- **Fungsi:** Pengendali seluruh akun pengguna sistem (Guru, Siswa, Administrator).
+- **Tampilan Desain & Tata Letak:**
+  - Mengadopsi tata letak resmi `Tahfidz_MIS` dengan kontainer kartu bergaris atas hijau tebal (`border-t-[5px] border-[#2ECC71]`), kontrol `Show [10] entries`, dan `Search: Cari Username / Nama...`.
+  - Kolom Tabel: `#`, `USERNAME`, `NAMA LENGKAP`, `EMAIL`, `ROLE` (Badge GURU / SISWA), dan `AKSI` (Tombol Edit hijau `#2ECC71` dan Hapus merah `#E74C3C`).
+  - *(Bebas tombol Backup DB dan Restore DB sesuai standarisasi).*
+- **Fitur Reset Password Mandiri oleh Pengawas:**
+  - Tersedia input Kata Sandi pada modal Tambah/Edit Pengguna.
+  - Jika siswa atau guru lupa sandi saat ujian berlangsung, pengawas dapat mengklik tombol **Edit** untuk me-reset kata sandinya seketika.
+- **Import Excel Pengguna Multi-Role:**
+  - Tersedia tombol `+ Tambah User`, `Import Excel`, dan `Template Excel` untuk impor akun kustom.
+
+---
+
+### Menu 6: Bank Soal & Paket Ujian Tingkat Lanjut (Ragam Tipe AKM / ANBK & Import Massal)
+- **Rute:** `/teacher/packages`
+- **Fungsi:** Menyusun bank soal berstandar Asesmen Nasional (AKM/ANBK), editor rumus matematika KaTeX, fasilitas impor massal Word/Excel, serta integrasi formulir online.
+- **Fitur Pembuatan Soal:**
+  - **Opsi A: Soal Mandiri Tingkat Lanjut (6 Tipe Butir Soal):**
+    1. **Pilihan Ganda Biasa (`MULTIPLE_CHOICE`):** Memilih 1 opsi jawaban benar dari A-E.
+    2. **Pilihan Ganda Kompleks (`MULTIPLE_CHOICE_COMPLEX`):** Multi-select checkboxes di mana siswa dapat memilih lebih dari satu jawaban benar dengan auto-grading proporsional.
+    3. **Menjodohkan / Pasangan (`MATCHING_PAIR`):** Menghubungkan premis kiri dengan pasangan jawaban kanan yang sesuai.
+    4. **Tabel Benar/Salah (`TRUE_FALSE_MATRIX`):** Matriks pernyataan ber-radio button untuk mengevaluasi tiap butir pernyataan.
+    5. **Isian Singkat (`SHORT_ANSWER`):** Input teks singkat dengan verifikasi toleransi huruf besar/kecil (*case-insensitive*) dan pembersihan spasi.
+    6. **Esai Terstruktur (`ESSAY`):** Lembar uraian panjang dengan form responsif.
+  - **Editor Rumus Matematika & Sains (KaTeX + Formula Toolbar):**
+    - Mendukung format LaTeX inline (`$...$`) dan block (`$$...$$`).
+    - Dilengkapi **Formula Toolbar** sekali klik (pecahan, akar, pangkat, indeks, integral, sigma, simbol pi, alfa, beta, derajat, dll) serta live preview rumus.
+  - **Opsi B: Import Soal Massal Word (.docx) & Excel (.xlsx) dengan Ekstraksi Gambar Otomatis:**
+    1. Klik tombol **"Import Soal (Word / Excel)"**.
+    2. **Impor Word (`.docx`):** Membaca teks soal, pilihan A-E, dan penanda kunci jawaban tebal (*bold*) secara otomatis.
+    3. **Impor Excel (`.xlsx`) & Ekstraksi Gambar Otomatis:**
+       - Mengunduh template resmi via tombol **"Unduh Template Excel"**, mengisi tabel, dan mengimpor puluhan butir soal seketika.
+       - **Ekstraksi Gambar Otomatis (Lossless Drawing Parser):** Gambar yang disisipkan guru pada sel Excel di kolom **Pertanyaan (Kolom C)** maupun kolom **Opsi Pilihan Ganda A s/d E (Kolom D s/d H)** otomatis diekstrak, disimpan ke media storage server, dan ditautkan ke soal atau opsi yang bersangkutan.
+       - **Dukungan Format Gambar & Teks Cerdas:** Mendukung gambar yang mendahului teks pertanyaan (membersihkan enter kosong di awal kalimat), butir soal yang hanya berupa gambar (tanpa teks), serta opsi pilihan ganda yang hanya berisi diagram/gambar tanpa teks.
+  - **Opsi C: Tautan Google Form / MS Teams:**
+    - Menyematkan tautan formulir dalam bingkai terproteksi (*Secure Iframe*) dengan konversi otomatis `?embedded=true`.
+  - **Fitur Pratinjau (Preview) Soal Mandiri Guru:**
+    - Pada setiap kartu paket bertipe **Soal Mandiri (AKM)**, kini tersedia tombol **"Preview"** (ikon mata).
+    - Membuka modal simulasi visual lembar soal yang interaktif persis seperti yang akan dikerjakan siswa, lengkap dengan rumus matematika KaTeX, gambar soal, opsi pilihan ganda A-E, gambar opsi jawaban, dan indikator kunci jawaban (`✓ Kunci`).
+
+---
+
+### Menu 7: Jadwal & Sesi Ujian (Multi-Kelas, Semua Kelas & One-Click Copy)
+- **Rute:** `/teacher/sessions`
+- **Fungsi:** Membuka ruangan asesmen untuk satu kelas, beberapa kelas paralel (*multi-class*), atau seluruh siswa sekolah (*all classes*) dengan pembatasan rentang waktu pengerjaan otomatis.
+- **Langkah-langkah:**
+  1. Klik **"+ Buka Sesi Ujian Baru"**, pilih Paket Soal yang akan diujikan.
+  2. **Pilih Kelas Peserta (Mendukung Multi-Kelas & Semua Kelas):**
+     - **Mode Semua Kelas:** Klik opsi **"🌟 Buka untuk Semua Kelas (Seluruh Siswa Sekolah)"**. Seluruh siswa terdaftar di sekolah dapat mengakses dan mengerjakan ujian ini secara serentak.
+     - **Mode Multi-Kelas (Spesifik):** Centang satu atau beberapa kelas rombel pada grid checkbox yang tersedia (misal: IXD dan IXH secara bersamaan).
+     - **Tombol Pintas:** Tersedia tombol *"Pilih Semua Kelas"*, *"Centang Semua"*, dan *"Bersihkan"* untuk memudahkan seleksi kelas.
+  3. Tentukan Durasi Ujian (menit) dan Judul Sesi.
+  4. Konfigurasikan rentang waktu asesmen secara presisi:
+     - **Jadwal Mulai Ujian:** Tanggal Mulai dan Waktu Mulai (jam:menit).
+     - **Jadwal Berakhir Ujian:** Tanggal Berakhir dan Waktu Berakhir (jam:menit).
+     - *Validasi Otomatis:* Waktu berakhir wajib lebih lambat dari waktu mulai.
+  5. **Pengacakan Soal & Pilihan Jawaban Deterministik:**
+     - Toggle **"Acak Urutan Butir Soal"**: Nomor soal siswa A berbeda urutannya dengan siswa B.
+     - Toggle **"Acak Urutan Pilihan (A-E)"**: Posisi pilihan diacak sehingga mematikan potensi menyontek nomor & opsi.
+     - Sistem auto-grading backend terintegrasi evaluasi ID opsi kebal terhadap pengacakan posisi pilihan.
+  6. Sistem otomatis menerapkan **Duo Token Keamanan (Regenerasi Otomatis 10 Menit)**:
+     - 🔑 **Token Masuk (Password Masuk)** (format: `MSK-XXXX`): Token gerbang gatekeeper untuk memulai ujian. Token ini berganti otomatis setiap 10 menit.
+     - 🛡️ **PIN Pengawas Ruangan** (format: `PIN-YYYY`): PIN darurat bagi guru untuk membuka layar merah siswa jika terkunci. PIN ini juga berganti otomatis setiap 10 menit.
+     - ⏱️ **Live Countdown Timer Rotasi Token:** Kartu sesi menampilkan sisa waktu (contoh: `Berganti: 08:42`) dan otomatis berganti saat hitungan mundur mencapai 00:00 tanpa perlu refresh halaman.
+     *(Tanpa password keluar: siswa dapat langsung mengonfirmasi selesai ujian saat telah selesai).*
+  7. **Status Sinkronisasi Jadwal Real-Time pada Kartu Sesi:**
+     - 🟢 **Sedang Berjalan:** Sesi aktif dalam rentang tanggal dan jam saat ini.
+     - 🟡 **Belum Dimulai:** Jadwal mulai ujian belum tercapai.
+     - ⚪ **Telah Berakhir:** Batas waktu pengerjaan telah lewat (sesi otomatis terkunci).
+  8. **Fitur Salin Cepat (One-Click Copy):**
+     - Klik langsung salah satu kotak token di kartu sesi: token aktif untuk slot waktu tersebut seketika tersalin ke clipboard/keyboard (muncul label *"Tersalin!"* dan notifikasi pop-up).
+  9. Tersedia tombol **Edit** untuk mengubah durasi/jadwal/kelas/PIN dan tombol **Hapus** untuk menghapus sesi.
+
+---
+
+### Menu 8: Ruang Pengawas Real-Time (Live Proctoring, Buka Kunci Seluruh Siswa, Dual Unlock & Live Broadcast Announcement)
+- **Rute:** `/teacher/proctoring`
+- **Fungsi:** Pusat monitoring ujian live via WebSocket tanpa perlu me-refresh browser.
+- **Langkah-langkah:**
+  1. Pilih sesi ujian aktif pada dropdown bagian atas.
+  2. Pantau kartu siswa secara real-time:
+     - 🟢 **Fokus Mengerjakan:** Siswa berada dalam mode fullscreen aman.
+     - 🔴 **Layar Terkunci (Pelanggaran):** Siswa terdeteksi melanggar sensor anti-cheat (keluar fullscreen, pindah tab, split screen, screenshot, klik kanan, atau copas).
+     - 🔵 **Selesai Terkirim:** Siswa telah menyelesaikan pengerjaan.
+  3. **Buka Kunci Seluruh Siswa Sekaligus (Mass Unlock 1-Klik — FITUR BARU):**
+     - Terletak di header atas ruang Live Proctoring dan shortcut pada filter status "Layar Terkunci".
+     - Menampilkan lencana angka jumlah siswa yang saat ini terkunci secara dinamis (`Buka Kunci Seluruh Siswa (X)`).
+     - Guru tidak perlu mengklik kartu siswa satu per satu; cukup klik tombol ini dan konfirmasi dialog modal, sistem secara serentak membuka kunci seluruh layar gawai siswa via WebSocket Daphne dan REST API seketika.
+  4. **Dual Unlock Satuan (Buka Kunci Layar 100% Fleksibel):**
+     - **Metode 1 (Remote Guru):** Guru mengklik tombol hijau **"Buka Kunci Layar"** pada kartu siswa; sinyal WebSocket dikirim dan layar siswa seketika terbuka kembali ke fullscreen.
+     - **Metode 2 (Mandiri Siswa):** Siswa memasukkan **PIN Pengawas Ruangan** yang sah pada formulir layar merah lalu klik **"Buka Kunci"**; layar seketika kembali ke arena ujian dengan masa imunitas sensor 5 detik.
+  5. **Siaran Pengumuman Langsung Pengawas (Live Broadcast Announcement):**
+     - Klik tombol ungu **"Kirim Siaran Siswa"** (ikon `Megaphone`).
+     - Tentukan tingkat urgensi: `ℹ️ Info Umum`, `⚠️ Peringatan Waktu`, atau `🚨 Ralat Vital`.
+     - Tuliskan pesan instruksi atau koreksi nomor soal tertentu, lalu klik **"Kirim ke Seluruh Siswa"**.
+     - Pesan seketika muncul sebagai **Floating Announcement Banner** melayang di atas arena ujian seluruh siswa aktif tanpa mengganggu fullscreen lockdown.
+
+---
+
+### Menu 9: Koreksi Jawaban Esai Guru & Rubrik Penilaian Manual (/teacher/grading)
+- **Rute:** `/teacher/grading`
+- **Fungsi:** Workspace penilaian terpadu bagi guru untuk mengoreksi lembar jawaban uraian/esai siswa, memberikan skor nilai terbobot, dan mencatat catatan evaluasi/umpan balik.
+- **Fitur Utama:**
+  1. **Pemilihan Sesi Ujian:** Memuat paket soal aktif dan menampilkan hanya paket yang memiliki butir pertanyaan esai.
+  2. **4 Kartu Ringkasan Progres:** Total Peserta, Butir Soal Esai, Siswa Perlu Dikoreksi, dan Siswa Selesai Dinilai.
+  3. **Panel Siswa & Quick Filter:** Tab penyaring (*Semua*, *Perlu Koreksi*, *Selesai*) serta pencarian cepat berdasarkan Nama Siswa atau NISN.
+  4. **Rubrik Nilai Fleksibel:** Guru dapat memasukkan skor angka dari 0 sampai batas maksimal butir soal, dilengkapi tombol cepat nilai **"Maks"**.
+  5. **Catatan / Umpan Balik Guru (Feedback):** Kolom input catatan guru untuk memberikan arahan perbaikan materi bagi siswa.
+  6. **Akumulasi Otomatis ke Total Nilai & E-Jurnal:** Nilai esai langsung diintegrasikan dengan skor otomatis pilihan ganda ke `total_score` dan langsung sinkron ke E-Jurnal Berita Acara tanpa proses kalkulasi manual terpisah.
+
+---
+
+### Menu 10: Rekap Nilai Siswa, Analisis Butir Soal & Unduh Excel (/teacher/results)
+- **Rute:** `/teacher/results`
+- **Fungsi:** Menampilkan rekapitulasi nilai komprehensif, capaian kelas, analisis lembar jawaban per butir soal siswa (kunci jawaban sistem vs pilihan siswa, rumus KaTeX, dan perolehan poin per butir), serta ekspor rekap spreadsheet Excel (.xlsx) presisi sesuai filter kelas dan status pengerjaan.
+- **Fitur Utama:**
+  1. **Filter Terpadu 3-Level Presisi:** Filter Paket Soal, Filter Kelas/Rombel (menyaring siswa hanya dari kelas yang dipilih pada sesi multi-kelas, misal IXG), dan Sesi Ujian Aktif.
+  2. **Default Tab Selesai (Submitted):** Secara otomatis langsung memfilter dan menampilkan siswa yang telah mengirimkan ujian dan memiliki nilai (status Selesai), dilengkapi opsi beralih ke tab *Sedang Mengerjakan* atau *Semua Peserta*.
+  3. **4 Kartu KPI & Counter Real-Time per Kelas:** Total Peserta, Selesai/Terkirim, Rata-Rata Nilai Kelas, serta Nilai Tertinggi & Terendah dihitung spesifik untuk kelas yang sedang difilter.
+  4. **Tabel Rekapitulasi Nilai:** No, NISN, Nama Siswa, Kelas, Waktu Selesai (Tanggal & Jam), Durasi Pengerjaan, Butir Benar, Sensor Anti-Cheat, Status, Nilai Akhir, dan tombol **"Lihat Jawaban"**.
+  5. **Modal Rincian Lembar Jawaban Siswa:** Bedah butir soal 1 s/d N (status Benar/Sebagian/Salah/Esai, perolehan poin, opsi pilihan siswa vs kunci jawaban sistem).
+  6. **Fitur Unduh Rekap Excel (.xlsx) Sesuai Filter:** Tombol **"Download Excel"** di atas tabel untuk mengunduh berkas spreadsheet resmi 2-sheet yang difilter spesifik menurut kelas dan status terpilih (header berkas: `Kelas / Rombel: IXG`, nama file dinamis: `Rekap_Nilai_[Paket]_[Kelas]_[Status].xlsx`), dilengkapi analisis per butir nomor 1 s/d N dan kunci jawaban resmi.
+  7. **Fitur "Buka Remidi" Siswa dengan Otomatisasi Nilai Tertinggi (Max Score):** Guru dapat memberikan kesempatan ujian remidi khusus bagi siswa tertentu dengan mengklik tombol **"Buka Remidi"** pada kolom Aksi. Sistem secara otomatis mencatat dan menyimpan nilai awal (*previous score*), mereset catatan pelanggaran siswa pada sesi ini menjadi 0 bersih, dan secara otomatis menetapkan nilai akhir terbaik `max(nilai_awal, nilai_remidi)` yang otomatis disinkronkan ke E-Jurnal.
+  8. **Proteksi Single Attempt & Self-Healing Status:** Menjamin siswa hanya dapat mengerjakan ujian 1 kali. Siswa yang telah menyelesaikan ujian tidak dapat masuk kembali kecuali jika guru membuka akses remidi. Dilengkapi mekanisme *Self-Healing Data Recovery* yang menjamin status pengerjaan siswa selalu tercatat "Selesai" (`SUBMITTED`) dan tidak dapat tertimpa oleh event pelepasan fullscreen.
+
+---
+
+### Menu 11: Riwayat Pelanggaran Siswa & Sinkronisasi Dua Arah E-Jurnal
+- **Rute:** `/teacher/violations`
+- **Fungsi:** Memonitor dan meninjau riwayat pelanggaran sensor anti-cheat dari rombel kelas dan sesi ujian terbuka, serta memberikan wewenang kepada guru/pengawas untuk menghapus data riwayat tersebut jika insiden terjadi tanpa disengaja oleh siswa (misalnya sentuhan tidak sengaja, notifikasi sistem HP, atau false positive) sebelum dokumen Berita Acara E-Jurnal dicetak.
+- **Fitur Utama:**
+  1. **Filter Terpadu (Identik dengan E-Jurnal):** Filter Paket Soal, Filter Kelas / Rombel, dan Pilih Sesi Ujian Terbuka.
+  2. **4 Kartu Metrik KPI:** Total Pelanggaran, Siswa Terdeteksi, Sudah Dibuka Kunci, dan Status Masih Terkunci dengan angka tabular monospace.
+  3. **Tabel Catatan Integritas Ujian:** Checkbox seleksi massal, Nomor, Nama Siswa, Kelas, NISN, Jenis Pelanggaran, Keterangan Sensor, Tanggal, Waktu Deteksi, Status Buka Kunci, dan tombol Aksi Hapus individual.
+  4. **Hapus Satuan & Hapus Massal:** Dukungan hapus 1 rekaman atau seleksi multi-baris melalui tombol **"Hapus Terpilih"** dan opsi **"Bersihkan Seluruh Log Sesi"**.
+  5. **Sinkronisasi Dua Arah Terpadu:** Penghapusan log di menu ini secara langsung menghapus data di database, me-reset akumulasi pelanggaran siswa (`violation_count`), memperbarui `total_violations_recorded` pada E-Jurnal, dan seketika lenyap dari tabel Catatan Integritas E-Jurnal, cetak PDF ReportLab, dan unduhan Excel Berita Acara.
+
+---
+
+### Menu 12: E-Jurnal & Rekapitulasi Berita Acara (Ekspor PDF/Excel)
+- **Rute:** `/teacher/ejournal`
+- **Fungsi:** Merekap nilai, kehadiran, log pelanggaran, dan mencetak berita acara resmi standar dinas.
+- **Langkah-langkah:**
+  1. Gunakan filter **Paket Soal** dan **Kelas/Rombel** untuk menyaring sesi yang diinginkan.
+  2. Periksa ringkasan kehadiran pada **4 Kartu KPI** (Total Peserta, Hadir, Rata-rata Nilai, dan Pelanggaran).
+  3. Tulis evaluasi kelas pada kolom **Catatan Kejadian Penting Pengawas**, lalu klik **"Simpan Catatan Berita Acara"**.
+  4. Klik **"Unduh Berita Acara (PDF)"** untuk mencetak dokumen resmi standar dinas dengan kop sekolah dan kolom tanda tangan pengawas.
+  5. Klik **"Ekspor Rekap (Excel .xlsx)"** untuk mengunduh rekap spreadsheet lengkap.
+
+---
+
+## 👨‍🎓 Panduan Operasional Lengkap: Role SISWA (Peserta Asesmen)
+
+### Layar 1: Login Terpadu (NISN) Langsung ke Beranda Peserta
+1. Siswa mengakses alamat web ujian (contoh: `http://192.168.1.74:5173/login`) di HP atau Laptop.
+2. Pada formulir login terpadu:
+   - Masukkan **NISN** pada kolom Nomor Induk (NIP / NISN).
+   - Masukkan **Kata Sandi** (Default: sama dengan NISN).
+   - Klik **"Masuk ke Sistem"**. Sistem otomatis mendeteksi peran siswa dan langsung mengarahkan ke **Beranda Asesmen Siswa (Lobby)**.
+
+### Layar 2: Pengaturan Profil Akun Siswa & Pop-Up Keamanan Login
+- **Rute:** `/student/profile`
+- **Akses:** Klik ikon gerigi (`Settings`) persis di samping teks `ExamBrowser Portal` pada navbar header siswa.
+- **Fitur:** Melengkapi Nama Lengkap, Email, NISN, dan Ganti Kata Sandi Pribadi yang otomatis tersinkronisasi 2-arah ke menu **Manajemen Pengguna** dan **Data Siswa** guru.
+- **Welcome Security Modal:** Muncul saat siswa pertama kali login jika kata sandi masih menggunakan NISN bawaan sistem.
+
+---
+
+### Layar 2: Beranda Peserta & Pemilihan Orientasi Layar (Portrait/Landscape)
+1. Siswa melihat kartu identitas, jam digital real-time, status jadwal asesmen kelas, dan tata tertib ujian.
+2. Klik tombol **"E-UJIAN"** (Menu Utama).
+3. Pilih orientasi layar yang diinginkan pada pop-up modal:
+   - **Mode Portrait (Tegak):** Rekomendasi pengerjaan via layar smartphone vertikal.
+   - **Mode Landscape (Mendatar):** Rekomendasi pengerjaan via PC, laptop, atau smartphone mendatar.
+4. Klik pilihan orientasi untuk langsung menuju **Portal Mata Pelajaran**.
+
+### Layar 3: Portal Mata Pelajaran (Pemilihan Mapel Sesuai Jadwal)
+1. Siswa melihat seluruh mata pelajaran yang terjadwal untuk kelasnya.
+2. **Sinkronisasi Rentang Jadwal Otomatis (Tutup / Buka):**
+   - 🟢 **Ujian Sedang Aktif / Berjalan:** Tombol aksi aktif **"MULAI UJIAN"** (dengan ikon panah `ArrowRight` dan badge hijau `Sedang Berjalan`). Klik tombol untuk memilih mata pelajaran tersebut.
+   - 🔴 **Ujian Telah Ditutup / Berakhir (Expired):** Jika batas jadwal telah lewat (contoh: ujian IPA tertanggal 27 Okt saat hari ini 29 Okt), tombol aksi berubah otomatis menjadi **"SOAL DITUTUP"** (warna redup dengan ikon gembok `Lock`, badge merah `Telah Ditutup`, dan keterangan jam berakhir). Siswa diblokir secara mutlak dari membuka soal yang sudah lewat.
+   - 🟡 **Ujian Belum Dibuka (Upcoming):** Jika waktu mulai belum tiba, tombol bertuliskan **"BELUM DIBUKA"** (ikon gembok `Lock`, badge kuning `Belum Dibuka`, dan keterangan jadwal dibuka).
+3. Klik tombol **"MULAI UJIAN"** pada mata pelajaran yang aktif (misal: PKN). Sistem mengarahkan siswa ke **Layar Kredensial Password Masuk Khusus Mapel Tersebut**.
+
+### Layar 4: Kredensial Password Masuk Mapel & Kunci Layar Penuh (Fullscreen)
+1. Siswa melihat kartu identitas peserta dan kartu ringkasan mata pelajaran yang dipilih (nama mapel, judul paket, durasi waktu, dan tipe soal).
+2. Masukkan **Password Masuk Ujian** yang dibagikan guru pengawas khusus untuk mapel tersebut (contoh: `MSK-2JM4`). Token mapel lain tidak dapat digunakan untuk membuka mapel ini.
+3. Klik tombol **"MULAI UJIAN"**.
+4. Sistem memverifikasi token ke server backend, mengunci peramban ke mode **Layar Penuh (Fullscreen API)** secara otomatis (*Zero-Tolerance Lockdown*), memunculkan notifikasi *"Aplikasi Dipasangi Pin"*, dan langsung membuka lembar soal di **Arena Ujian Terkunci**.
+*(Jika siswa ingin membatalkan atau mengganti mapel, tersedia tombol "Kembali ke Pilihan Mata Pelajaran").*
+
+### Layar 4: Arena Ujian Terkunci (Pengerjaan Soal Mandiri / Google Form)
+- **⚡ Dual-Layer Auto-Save (Local Mirroring & Server Sync):**
+  - Setiap perubahan jawaban langsung tersimpan di `localStorage` peramban (0 ms).
+  - Jawaban disinkronkan otomatis secara berkala ke server Django (1500 ms debounce).
+  - Bebas resiko mati listrik atau koneksi putus; siswa dapat melanjutkan ujian seketika tanpa kehilangan jawaban.
+- **📡 Indikator Kualitas Jaringan Real-Time:**
+  - Security Bar atas menampilkan latensi ping siswa (Stabil hijau <150ms, Sedang kuning 150-400ms, Terputus merah).
+  - Mengirim heartbeat berkala ke Live Proctoring guru untuk monitoring stabilitas sinyal kelas.
+- **Security Bar Atas:** Menampilkan indikator `REC • Terproteksi`, sisa waktu pengerjaan, dan tombol konfirmasi *Selesai Ujian*.
+- **Soal Mandiri:** Pilih opsi jawaban (lingkaran A–E), manfaatkan tombol kuning *Ragu-ragu*, dan pantau navigasi nomor soal di bilah kanan.
+- **Soal Google Form:** Kerjakan formulir langsung di dalam bingkai aman (*Secure Iframe*). Berkat teknologi *Iframe Focus Guard*, siswa dapat mengklik pilihan form dengan leluasa tanpa memicu deteksi kecurangan.
+
+### Penanganan Layar Terkunci Akibat Pelanggaran Sensor
+Jika siswa mencoba:
+- Menekan `Alt + Tab`, tombol `Windows`, atau membuka aplikasi lain (`WINDOW_BLUR_APP_SWITCH`).
+- Membuka tab baru di peramban atau meminimalkan jendela (`TAB_SWITCH`).
+- Menekan tombol `Esc` atau keluar dari mode layar penuh (`EXIT_FULLSCREEN`).
+- Melakukan tangkapan layar (`PrintScreen`, `Win+Shift+S`, `Meta+Shift+S`, `Cmd+Shift+3/4`).
+- Melakukan klik kanan / membuka menu konteks (`CONTEXT_MENU_ATTEMPT`).
+- Mencoba copy-paste / salin-tempel teks (`Ctrl+C`, `Ctrl+V`, `Ctrl+X` atau event `copy`/`paste`).
+- Mencoba membuka inspect element atau DevTools (`F12`, `Ctrl+Shift+I/J/C`).
+
+**Respon Sistem:**
+- Layar seketika berubah menjadi **Layar Merah Pembekuan Darurat (Penalty Freeze Overlay)**.
+- **Sirine peringatan suara keras** berbunyi berulang-ulang dari gawai siswa.
+- Lembar soal membeku total dan log forensik pelanggaran langsung terkirim secara real-time ke monitor Live Proctoring guru dan dicatat di E-Jurnal.
+- **Logika Perhitungan Akumulasi Pelanggaran & Auto-Reset Sesi:**
+  1. **Start Mulai dari 0:** Saat siswa pertama kali memulai sesi ujian, akumulasi pelanggaran bernilai 0.
+  2. **Presisi 1-ke-1 saat Mengerjakan:** Pada pelanggaran pertama saat mengerjakan soal, counter bertambah menjadi **1** dan layar terkunci. Saat berada di layar merah terkunci, sentuhan/gesture/screenshot **tidak menambah counter pelanggaran**.
+  3. **Kenaikan Pasca Buka Kunci:** Setelah kunci dibuka oleh pengawas dan siswa melanjutkan pengerjaan soal, jika terjadi pelanggaran berikutnya maka counter bertambah menjadi **2**, **3**, dan seterusnya secara presisi 1-ke-1.
+  4. **Auto-Reset saat Selesai & Ujian Lagi:** Saat siswa menyelesaikan ujian (`SUBMITTED`) dan di kemudian waktu mengikuti sesi ujian baru atau melakukan ujian ulang, akumulasi pelanggaran otomatis **direset kembali ke 0** serta rekaman log lama dibersihkan di database PostgreSQL sehingga data di **Riwayat Pelanggaran** dan **E-Jurnal Berita Acara** selalu bersih dan akurat.
+- **Prosedur Buka Kunci (Dual-Mode):**
+  1. **Mandiri Siswa:** Siswa memasukkan **PIN Pengawas Ruangan** (contoh: `PIN-2114` atau `2114`) yang diberikan guru pada form buka kunci, lalu klik **"Buka Kunci"**. Layar langsung pulih ke fullscreen tanpa memunculkan dialog native atau pop-up Google Password Manager.
+  2. **Remote Guru:** Guru menekan tombol hijau **"Buka Kunci Layar Siswa"** di menu Live Proctoring. Layar siswa otomatis terbuka seketika via WebSocket Daphne Channels.
+  3. Sistem memberikan **5-Second Grace Period** (masa imunitas 5 detik) agar browser dapat masuk kembali ke fullscreen dengan stabil tanpa memicu alarm palsu.
+
+### Penyelesaian Ujian & Kartu Skor Hasil Ujian Siswa (Rahasia Kunci)
+1. Setelah menyelesaikan seluruh butir soal atau mengirimkan formulir Google Form, siswa dapat langsung mengklik tombol **"Selesai Ujian"** di Security Bar atas atau tombol **"Selesai & Kirim Ujian"** di butir soal terakhir.
+2. Sistem memunculkan **Modal Konfirmasi Selesai Ujian** yang menampilkan rincian progres pengerjaan (jumlah butir soal terjawab, ragu-ragu, dan belum diisi) serta peringatan jika masih ada butir soal yang kosong.
+3. Siswa mengklik tombol konfirmasi **"Ya, Selesaikan Ujian"**.
+4. Sistem secara otomatis:
+   - Menyimpan seluruh rekaman jawaban ke server E-Jurnal.
+   - Membunyikan **alarm selesai resmi (~2.5 detik)**.
+   - Melepaskan mode layar penuh (*exit fullscreen*).
+   - **Menampilkan Modal Kartu Skor Hasil Ujian:** Memperlihatkan capaian nilai asesmen siswa (misal: `80 / 100 Poin`), identitas peserta, dan waktu pengiriman. **Kunci jawaban dan rincian butir benar/salah 100% dirahasiakan** demi menjaga integritas materi ujian sekolah.
+   - Siswa mengklik tombol **"Selesai & Kembali ke Lobby"** untuk kembali ke beranda siswa secara aman dan tenang.
+
+### Pembatalan Ujian (Fitur "Batal Ujian")
+1. Jika siswa ingin menghentikan pengerjaan tanpa menyelesaikan ujian (misal: salah mata pelajaran atau kondisi darurat), siswa dapat mengklik tombol **"Batal"** di samping tombol "Selesai" pada bilah atas ujian.
+2. Muncul **Modal Konfirmasi Pembatalan Ujian** yang menegaskan bahwa:
+   - Siswa keluar dari lembar ujian tanpa menyimpan jawaban.
+   - Nilai ujian **TIDAK AKAN DIREKAP** di sistem (status siswa di Rekap Nilai tetap *"Belum Masuk"* / `NOT_STARTED`).
+   - Seluruh catatan pelanggaran pada sesi tersebut **DIHAPUS BERSIH SECARA OTOMATIS** dari basis data sehingga tidak masuk ke rekap pelanggaran maupun E-Jurnal Guru.
+3. Siswa mengklik tombol konfirmasi **"Ya, Batalkan & Keluar"** untuk keluar dari fullscreen dan kembali ke beranda siswa secara aman tanpa tampilan nilai. Siswa dapat mengikuti ujian kembali dengan meminta Token Masuk baru kepada pengawas.
+
+---
+
+## 📁 Struktur Folder Proyek
+
+```text
+E-UJIAN/
+├── backend/                             # Backend Django 5 & Channels
+│   ├── apps/
+│   │   ├── accounts/                    # Auth User, ClassRoom, SchoolSetting
+│   │   ├── exams/                       # Paket Soal, Butir Soal, Sesi Ujian, Auto-Grading
+│   │   ├── proctoring/                  # WebSocket Consumer, ViolationLog, Attempt
+│   │   └── ejournal/                    # Rekap Jurnal, ReportLab PDF, OpenPyXL Excel
+│   ├── config/                          # Django Settings, ASGI, WSGI, URLs
+│   ├── manage.py                        # Django Management CLI
+│   ├── requirements.txt                 # Dependensi Python Produksi
+│   └── db.sqlite3                       # Basis Data Siap Pakai
+│
+├── frontend/                            # Frontend React 18 + Vite
+│   ├── src/
+│   │   ├── api/                         # Axios Client & Service Endpoints
+│   │   ├── components/                  # Modal, Navbar, Button, StatusBadge
+│   │   ├── hooks/                       # useExamSecurity (Anti-Cheat), useProctorSocket
+│   │   ├── layouts/                     # TeacherLayout (Sidebar responsif & badge alert)
+│   │   ├── pages/                       # Halaman Guru & Siswa (Arena Ujian, E-Jurnal, dll.)
+│   │   ├── store/                       # Zustand Global State
+│   │   └── utils/                       # Web Audio API Synthesizer (Sirine & Alarm Keluar)
+│   ├── package.json                     # Dependensi Node.js
+│   ├── vite.config.js                   # Konfigurasi Vite Host LAN
+│   └── tailwind.config.js               # Konfigurasi Styling Tailwind
+│
+├── .gitignore                           # Rule ignore venv, node_modules, dist, cache
+├── MANUAL_BOOK_PENGGUNAAN.md            # Buku Panduan Operasional Lengkap
+├── PRD - Sistem E-Ujian Anti-Cheat...md # Dokumen Spesifikasi Kebutuhan Produk
+├── session.md                           # Rekaman Historis Pengembangan & Rilis
+└── README.md                            # Halaman Utama Dokumentasi GitHub
+```
+
+---
+
+## ❓ Tanya Jawab & Troubleshooting Lapangan (FAQ)
+
+### Q1: Apakah siswa memerlukan instalasi peramban khusus (Exambro)?
+> **Tidak perlu.** E-UJIAN PRO bekerja langsung di peramban modern (Google Chrome, Edge) berkat integrasi HTML5 Fullscreen API, Page Visibility API, dan Web Audio API. Untuk penggunaan ponsel sekolah, sistem juga siap dibungkus (*wrapper*) menjadi file APK Android via CapacitorJS.
+
+### Q2: Apakah mengklik di dalam Google Form akan memicu deteksi keluar jendela (*Window Blur*)?
+> **Tidak.** Sistem dilengkapi algoritma cerdas **Iframe Focus Guard** dengan verifikasi penundaan 150 milidetik. Sistem dapat membedakan secara akurat antara siswa yang berinteraksi di dalam bingkai Google Form dengan siswa yang benar-benar meminimalkan peramban atau membuka aplikasi contekan.
+
+### Q3: Bagaimana jika koneksi internet sekolah sempat terputus?
+> Seluruh arsitektur dapat dijalankan secara **Offline / Jaringan Intranet Lokal (LAN / Wi-Fi Sekolah)** tanpa memerlukan akses internet luar, asalkan gawai siswa dan laptop server pengawas terhubung ke router Wi-Fi yang sama.
+
+### Q4: Bagaimana cara menyesuaikan nama sekolah dan kepala sekolah pada lembar PDF?
+> Buka menu **Pengaturan Sekolah** (`/teacher/settings`) di portal guru. Ubah nama sekolah, alamat, kota, dan nama kepala sekolah, lalu klik Simpan. Seluruh lembar cetak PDF ReportLab dan Excel OpenPyXL akan langsung mengikuti data tersebut secara dinamis.
+
+### Q5: Bagaimana jika ada siswa yang mengakses menggunakan HP iPhone (iOS Safari)?
+> **Didukung penuh secara mulus.** E-UJIAN PRO secara otomatis mendeteksi perangkat iOS (iPhone / iPad) dan menerapkan adaptasi cerdas: menonaktifkan sensor Fullscreen DOM API yang tidak didukung Safari iPhone tanpa mengurangi proteksi keluar tab/aplikasi (`visibilityState`), menetralkan auto-capitalize keyboard iOS pada input NISN/Password, serta membersihkan status terkunci sisa uji coba hari sebelumnya secara otomatis saat membuka halaman login.
+
+---
+
+## 📄 Lisensi & Kontribusi
+
+Proyek ini dikembangkan di bawah lisensi **MIT License**. Terbuka untuk implementasi dan penyesuaian kebutuhan asesmen di seluruh institusi pendidikan, sekolah, dan madrasah di Indonesia.
+
+*Dikelola & Dikembangkan dengan standar integritas asesmen digital tinggi.* 🇮🇩
+

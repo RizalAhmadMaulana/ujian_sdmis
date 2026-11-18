@@ -1,0 +1,311 @@
+import json
+from channels.generic.websocket import AsyncJsonWebsocketConsumer
+from channels.db import database_sync_to_async
+from django.utils import timezone
+from .models import StudentAttempt, ViolationLog
+
+class ProctoringConsumer(AsyncJsonWebsocketConsumer):
+    """
+    WebSocket Consumer untuk komunikasi real-time Live Proctoring antara Siswa dan Guru
+    Endpoint: ws://<host>/ws/proctoring/<session_id>/
+    """
+
+    async def connect(self):
+        self.session_id = self.scope['url_route']['kwargs'].get('session_id')
+        self.group_name = f"proctoring_{self.session_id}"
+
+        # Gabungkan client ke channel group sesi ujian
+        await self.channel_layer.group_add(
+            self.group_name,
+            self.channel_name
+        )
+        await self.accept()
+
+        # Kirim sinyal konfirmasi koneksi
+        await self.send_json({
+            "event": "CONNECTION_ESTABLISHED",
+            "session_id": self.session_id,
+            "message": "Terhubung ke channel real-time Live Proctoring."
+        })
+
+    async def disconnect(self, close_code):
+        # Lepaskan client dari channel group
+        if hasattr(self, 'group_name'):
+            await self.channel_layer.group_discard(
+                self.group_name,
+                self.channel_name
+            )
+
+    async def receive_json(self, content):
+        action = content.get('action')
+
+        # ========================================================
+        # 1. AKSI SISWA: LAPORKAN PELANGGARAN KECURANGAN
+        # ========================================================
+        if action == 'REPORT_VIOLATION':
+            attempt_id = content.get('attempt_id')
+            violation_type = content.get('violation_type', 'TAB_SWITCH')
+            description = content.get('description', 'Perpindahan aplikasi/layar terdeteksi.')
+
+            # Update database
+            violation_data = await self.record_violation_in_db(
+                attempt_id, violation_type, description
+            )
+
+            if violation_data and not violation_data.get('already_locked'):
+                # Broadcast ke dashboard pengawas Guru dan seluruh grup
+                await self.channel_layer.group_send(
+                    self.group_name,
+                    {
+                        "type": "broadcast_message",
+                        "data": {
+                            "event": "STUDENT_LOCKED_ALERT",
+                            "attempt_id": str(attempt_id),
+                            "student_name": violation_data['student_name'],
+                            "nisn": violation_data['nisn'],
+                            "status": "LOCKED_VIOLATION",
+                            "violation_count": violation_data['violation_count'],
+                            "violation_type": violation_type,
+                            "description": description,
+                            "detected_at": violation_data['detected_at'],
+                        }
+                    }
+                )
+
+        # ========================================================
+        # 2. AKSI GURU: BUKA KUNCI SISWA (UNLOCK)
+        # ========================================================
+        elif action == 'UNLOCK_STUDENT':
+            attempt_id = content.get('attempt_id')
+            unlock_data = await self.unlock_student_in_db(attempt_id)
+
+            if unlock_data:
+                # Broadcast ke grup agar layar siswa langsung terbuka kembali
+                await self.channel_layer.group_send(
+                    self.group_name,
+                    {
+                        "type": "broadcast_message",
+                        "data": {
+                            "event": "STUDENT_UNLOCKED",
+                            "attempt_id": str(attempt_id),
+                            "student_name": unlock_data['student_name'],
+                            "status": "WORKING",
+                            "unlocked_at": unlock_data['unlocked_at'],
+                            "message": "Layar ujian telah dibuka kembali oleh Guru Pengawas."
+                        }
+                    }
+                )
+
+        # ========================================================
+        # 2B. AKSI GURU: BUKA KUNCI SELURUH SISWA (UNLOCK ALL)
+        # ========================================================
+        elif action in ['UNLOCK_ALL_STUDENTS', 'UNLOCK_ALL']:
+            unlocked_list = await self.unlock_all_students_in_db(self.session_id)
+            for item in unlocked_list:
+                await self.channel_layer.group_send(
+                    self.group_name,
+                    {
+                        "type": "broadcast_message",
+                        "data": {
+                            "event": "STUDENT_UNLOCKED",
+                            "attempt_id": str(item['attempt_id']),
+                            "student_name": item['student_name'],
+                            "status": "WORKING",
+                            "unlocked_at": item['unlocked_at'],
+                            "message": "Layar ujian telah dibuka kembali oleh Guru Pengawas."
+                        }
+                    }
+                )
+            await self.channel_layer.group_send(
+                self.group_name,
+                {
+                    "type": "broadcast_message",
+                    "data": {
+                        "event": "ALL_STUDENTS_UNLOCKED",
+                        "session_id": str(self.session_id),
+                        "count": len(unlocked_list),
+                        "message": f"Seluruh layar siswa yang terkunci ({len(unlocked_list)} siswa) telah dibuka kembali oleh Guru Pengawas."
+                    }
+                }
+            )
+
+        # ========================================================
+        # 3. AKSI GURU: DISKUALIFIKASI SISWA (FORCE STOP)
+        # ========================================================
+        elif action == 'DISQUALIFY_STUDENT':
+            attempt_id = content.get('attempt_id')
+            disqualify_data = await self.disqualify_student_in_db(attempt_id)
+
+            if disqualify_data:
+                await self.channel_layer.group_send(
+                    self.group_name,
+                    {
+                        "type": "broadcast_message",
+                        "data": {
+                            "event": "STUDENT_DISQUALIFIED",
+                            "attempt_id": str(attempt_id),
+                            "student_name": disqualify_data['student_name'],
+                            "status": "DISQUALIFIED",
+                            "message": "Peserta telah didiskualifikasi oleh Guru Pengawas."
+                        }
+                    }
+                )
+
+        # ========================================================
+        # 4. AKSI SISWA: SINKRONISASI HEARTBEAT & LATENSI PING
+        # ========================================================
+        elif action in ['HEARTBEAT', 'NETWORK_PING']:
+            attempt_id = content.get('attempt_id')
+            latency = int(content.get('latency_ms', 0) or 0)
+            if attempt_id:
+                await self.update_latency_in_db(attempt_id, latency)
+                await self.channel_layer.group_send(
+                    self.group_name,
+                    {
+                        "type": "broadcast_message",
+                        "data": {
+                            "event": "NETWORK_HEARTBEAT",
+                            "attempt_id": str(attempt_id),
+                            "latency_ms": latency
+                        }
+                    }
+                )
+
+        # ========================================================
+        # 5. AKSI GURU: SIARAN PENGUMUMAN KE SELURUH SISWA (BROADCAST)
+        # ========================================================
+        elif action in ['BROADCAST_ANNOUNCEMENT', 'SEND_ANNOUNCEMENT']:
+            message = content.get('message', '').strip()
+            urgency = content.get('urgency', 'INFO')  # 'INFO' | 'WARNING' | 'CRITICAL'
+            sender_name = content.get('sender_name') or 'Pengawas Ruangan'
+
+            if message:
+                await self.channel_layer.group_send(
+                    self.group_name,
+                    {
+                        "type": "broadcast_message",
+                        "data": {
+                            "event": "ANNOUNCEMENT_BROADCAST",
+                            "message": message,
+                            "urgency": urgency,
+                            "sender_name": sender_name,
+                            "timestamp": timezone.now().strftime("%H:%M:%S")
+                        }
+                    }
+                )
+
+    async def broadcast_message(self, event):
+        """Handler untuk meneruskan payload event ke WebSocket client"""
+        await self.send_json(event['data'])
+
+    # ============================================================
+    # DATABASE ASYNC HELPERS
+    # ============================================================
+
+    @database_sync_to_async
+    def record_violation_in_db(self, attempt_id, violation_type, description):
+        try:
+            attempt = StudentAttempt.objects.select_related('student').get(id=attempt_id)
+            # Guard Mutlak: Jika siswa sudah SUBMITTED atau finished_at ada, abaikan!
+            if attempt.status == StudentAttempt.AttemptStatus.SUBMITTED or attempt.finished_at is not None:
+                return None
+
+            # Guard Mutlak: Jika status attempt sudah LOCKED_VIOLATION, jangan tambah akumulasi lagi!
+            if attempt.status == StudentAttempt.AttemptStatus.LOCKED_VIOLATION:
+                return {
+                    "student_name": attempt.student.full_name or attempt.student.username,
+                    "nisn": attempt.student.username,
+                    "violation_count": attempt.violation_count,
+                    "detected_at": timezone.now().strftime("%H:%M:%S"),
+                    "already_locked": True
+                }
+
+            attempt.status = StudentAttempt.AttemptStatus.LOCKED_VIOLATION
+            attempt.violation_count += 1
+            attempt.save(update_fields=['status', 'violation_count'])
+
+            log = ViolationLog.objects.create(
+                attempt=attempt,
+                violation_type=violation_type,
+                description=description
+            )
+
+            return {
+                "student_name": attempt.student.full_name or attempt.student.username,
+                "nisn": attempt.student.username,
+                "violation_count": attempt.violation_count,
+                "detected_at": log.detected_at.strftime("%H:%M:%S"),
+                "already_locked": False
+            }
+        except StudentAttempt.DoesNotExist:
+            return None
+
+    @database_sync_to_async
+    def unlock_student_in_db(self, attempt_id):
+        try:
+            attempt = StudentAttempt.objects.select_related('student').get(id=attempt_id)
+            attempt.status = StudentAttempt.AttemptStatus.WORKING
+            attempt.save(update_fields=['status'])
+
+            now = timezone.now()
+            # Tandai log terakhir dengan timestamp unlock
+            last_log = attempt.violations.filter(unlocked_by_teacher_at__isnull=True).first()
+            if last_log:
+                last_log.unlocked_by_teacher_at = now
+                last_log.save(update_fields=['unlocked_by_teacher_at'])
+
+            return {
+                "student_name": attempt.student.full_name,
+                "unlocked_at": now.strftime("%H:%M:%S"),
+            }
+        except StudentAttempt.DoesNotExist:
+            return None
+
+    @database_sync_to_async
+    def unlock_all_students_in_db(self, session_id):
+        try:
+            attempts = StudentAttempt.objects.select_related('student').filter(
+                session_id=session_id,
+                status=StudentAttempt.AttemptStatus.LOCKED_VIOLATION
+            )
+            now = timezone.now()
+            unlocked = []
+            for attempt in attempts:
+                attempt.status = StudentAttempt.AttemptStatus.WORKING
+                attempt.save(update_fields=['status'])
+                last_log = attempt.violations.filter(unlocked_by_teacher_at__isnull=True).first()
+                if last_log:
+                    last_log.unlocked_by_teacher_at = now
+                    last_log.save(update_fields=['unlocked_by_teacher_at'])
+                unlocked.append({
+                    "attempt_id": str(attempt.id),
+                    "student_name": attempt.student.full_name or attempt.student.username,
+                    "unlocked_at": now.strftime("%H:%M:%S")
+                })
+            return unlocked
+        except Exception:
+            return []
+
+    @database_sync_to_async
+    def disqualify_student_in_db(self, attempt_id):
+        try:
+            attempt = StudentAttempt.objects.select_related('student').get(id=attempt_id)
+            attempt.status = StudentAttempt.AttemptStatus.DISQUALIFIED
+            attempt.save(update_fields=['status'])
+
+            return {
+                "student_name": attempt.student.full_name,
+            }
+        except StudentAttempt.DoesNotExist:
+            return None
+
+    @database_sync_to_async
+    def update_latency_in_db(self, attempt_id, latency_ms):
+        try:
+            attempt = StudentAttempt.objects.get(id=attempt_id)
+            attempt.network_latency_ms = latency_ms
+            attempt.save(update_fields=['network_latency_ms'])
+            return True
+        except StudentAttempt.DoesNotExist:
+            return False
+
