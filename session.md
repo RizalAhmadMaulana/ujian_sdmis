@@ -9,62 +9,48 @@
 
 ## 📌 Ringkasan Update Sesi Ini (19 November 2026)
 
-### 🎯 Fitur: Peningkatan Dual-Engine Impor Data Guru via Excel (Multi-Format & High Speed)
-Memperbarui sistem impor data guru pada menu **Data Guru Pengawas** (`/teacher/teachers`) agar mendukung impor berkas Excel dari dua sumber berbeda (Export Sistem **Risalah / Tahfidz_MIS** & Template Resmi **E-Ujian PRO**) dengan seleksi kolom otomatis serta kecepatan proses instan tanpa jeda tunggu lama.
+### 🎯 Fitur: Smart Matching (Upsert Engine) & Anti-Crash Impor Excel Data Siswa & Guru
+Memperbarui sistem impor data siswa (`/teacher/students`) dan data guru (`/teacher/teachers`) dengan mekanisme **Smart Matching (Upsert: Update or Insert)** untuk mencegah data duplikat/dobel, mengatasi perbedaan angka nol di depan NISN/NIP, serta membungkus API dengan pengamanan *error-handling* anti-crash agar proses impor di server production berjalan mulus tanpa error 500.
 
 ---
 
-### 1. Masalah Utama & Solusi:
-1. **Perbedaan Struktur Kolom:**
-   - Hasil export data guru dari **Risalah / Tahfidz_MIS** memiliki struktur:
-     `[No, Nama Guru, Jenis Kelamin, NIP, Wali Kelas, Murid Ampu, Tempat Tanggal Lahir, No Telp / WA, Email]`
-   - Sedangkan berkas template standar **E-Ujian PRO** memiliki format:
-     `[No, NIP, Nama Guru, Email]` (dengan header judul di baris 1-2 dan label tabel di baris 4).
-2. **Penyaringan Kolom Spesifik (Hanya Kolom yang Dibutuhkan):**
-   - Sistem ujian hanya membutuhkan 3 data utama guru: **NIP**, **Nama Guru**, dan **Email**.
-   - Kolom lainnya (`Jenis Kelamin`, `Wali Kelas`, `Murid Ampu`, `Tempat Tanggal Lahir`, `No Telp / WA`) diabaikan total dan **tidak tersimpan** ke database.
-3. **Pemisahan Logika Menjadi 2 Fungsi Khusus:**
-   - **Fungsi 1 (`_import_teachers_from_tahfidz_mis`)**: Didedikasikan untuk memetakan kolom dari format export sistem Tahfidz_MIS.
-   - **Fungsi 2 (`_import_teachers_from_standard_template`)**: Didedikasikan untuk memetakan kolom dari format template resmi E-Ujian.
-4. **Pencegahan Salah Deteksi (False Positive Header):**
-   - Kolom `jenis kelamin` dicegah agar tidak salah terdeteksi sebagai `nip`.
-   - Baris judul/keterangan template dicegah agar tidak memicu deteksi header palsu.
-5. **Performa Tinggi (High-Speed Bulk Engine):**
-   - Deduplikasi NIP di memori.
-   - Single-query pre-fetch data guru yang sudah ada.
-   - Multithreaded password hashing paralel (`ThreadPoolExecutor`) untuk memanfaatkan seluruh core CPU.
-   - Eksekusi database menggunakan single atomic transaction `bulk_create` dan `bulk_update`.
+### 1. Masalah Utama yang Teridentifikasi & Solusinya:
+
+1. **Masalah Duplikasi & Gagal Impor di Production:**
+   - **Kondisi Local vs Production:** Di local, database masih kosong sehingga proses yang berjalan hanya *Create* (`bulk_create`). Sedangkan di server production, sudah ada 14 siswa lama terdaftar, sehingga proses *Update* (`bulk_update`) terpanggil.
+   - **Masalah Leading Zero pada NISN:** Di database production, NISN siswa tersimpan 10 digit (contoh: `0152093713`). Sementara pada berkas Excel export Risalah/Tahfidz_MIS, kolom NISN diformat sebagai *Number*, sehingga angka nol di depan otomatis hilang menjadi 9 digit (`152093713`). Sistem lama menganggap ini sebagai siswa baru dan berusaha membuat akun dobel yang berbenturan dengan database.
+2. **Solusi: Smart Matching (Pencocokan Cerdas 3 Jalur):**
+   Setiap baris data Excel kini dicocokkan ke database melalui 3 prioritas:
+   - **Prioritas 1 (NISN/NIP Eksak):** Mencocokkan string NISN/NIP persis sama.
+   - **Prioritas 2 (NISN/NIP Tanpa Leading Zero):** Mengabaikan angka nol di depan (misal: `152093713` $\leftrightarrow$ `0152093713`).
+   - **Prioritas 3 (Nama Lengkap Case-Insensitive):** Jika format NISN berbeda tetapi Nama Lengkap sama persis (misal `"Abinaya Naufal Ashadiq"`), sistem otomatis mengenali bahwa ini adalah orang yang sama!
+3. **Konsep Upsert (Update or Insert):**
+   - **Jika data cocok (Siswa/Guru Lama):** Sistem **TIDAK MEMBUAT DATA BARU**, melainkan **MENGUPDATE DATA LAMA** (memperbarui kelas terkini, email, dan merapikan data). Akun login dan riwayat ujian siswa tetap aman.
+   - **Jika data belum ada (Siswa/Guru Baru):** Sistem membuat akun baru dengan password default = NISN / NIP.
+4. **Pencegahan Duplikasi ID di `bulk_update` & Username Collision:**
+   - Menambahkan pelacak `updated_user_ids` agar instance pengguna yang sama tidak pernah masuk dua kali ke daftar `bulk_update`.
+   - Menambahkan pengecekan `all_existing_usernames` agar `bulk_create` tidak memicu *IntegrityError*.
+5. **Pengamanan Error Handling (Anti-Crash):**
+   - Seluruh pemrosesan impor di `StudentExcelImportView` dan `TeacherExcelImportView` dibungkus blok `try...except`.
+   - Jika ada anomali berkas, API tidak lagi melempar HTTP 500 bisu, melainkan mengembalikan pesan error jelas dengan status HTTP 400 ke frontend.
 
 ---
 
-## 🔗 Analisis Keterhubungan Data Guru, Data Siswa, & Manajemen Pengguna
+### 2. Apakah Perlu `makemigrations` dan `migrate` di Production?
 
-Berdasarkan arsitektur backend Django pada `apps/accounts`:
-1. **Satu Model Basis Data Tunggal (`User` / `db_table = 'users'`):**
-   - Seluruh akun guru, siswa, dan admin tersimpan di tabel yang sama: `users`.
-   - **Data Guru:** Difilter berdasarkan `role = 'TEACHER'` (`is_staff = True`).
-   - **Data Siswa:** Difilter berdasarkan `role = 'STUDENT'`.
-   - **Manajemen Pengguna:** Menampilkan seluruh user (`User.objects.all()`).
-2. **Sinkronisasi Dua Arah Otomatis (100% Real-Time):**
-   - **Jika Guru Ditambah / Diimpor di menu Data Guru:** Otomatis langsung muncul di menu **Manajemen Pengguna** dengan role `Guru Pengawas` dan status staf aktif.
-   - **Jika Guru Diubah (Edit Nama/Email/NIP) di Data Guru:** Otomatis data akun di **Manajemen Pengguna** langsung ikut terupdate.
-   - **Jika Guru Dihapus di Data Guru:** Akun user terkait di **Manajemen Pengguna** otomatis terhapus permanen.
-   - **Jika Siswa Ditambah / Diimpor di menu Data Siswa:** Otomatis langsung muncul di menu **Manajemen Pengguna** dengan role `Peserta Siswa` beserta kelasnya.
-   - **Jika CRUD dilakukan dari Manajemen Pengguna:** Menambah atau mengubah user dengan role Guru otomatis langsung tampil di menu Data Guru; menambah siswa otomatis tampil di menu Data Siswa.
+> 💡 **JAWABAN: TIDAK PERLU!**  
+> Perubahan ini **murni pada tingkat logika backend Python** (`views.py`). Tidak ada struktur tabel, kolom baru, atau tipe data yang diubah pada model basis data (`models.py`).  
+> Anda cukup melakukan **`git pull`** di server production dan me-restart service backend (`systemctl restart ujian_backend`).
 
 ---
 
-## 🏗️ Detail Arsitektur & Perubahan Kode
+## 🏗️ Detail Perubahan Kode
 
 ### File yang Diperbarui:
 * **`backend/apps/accounts/views.py`**
-  - **Fungsi Batching:** Menambahkan `_process_teacher_batch(rows_data, errors)` dengan optimasi multi-threading hashing dan transaksi atomic bulk create/update.
-  - **Fungsi 1:** Menambahkan `_import_teachers_from_tahfidz_mis(ws, header_row_idx, col_map)` khusus menyaring kolom NIP, Nama, dan Email dari export Tahfidz_MIS.
-  - **Fungsi 2:** Menambahkan `_import_teachers_from_standard_template(ws, header_row_idx, col_map)` untuk membaca berkas template bawaan.
-  - **Class API `TeacherExcelImportView`:**
-    * Deteksi pintar baris header secara otomatis (format Tahfidz_MIS vs Template Standar).
-    * Proteksi substring agar kolom `jenis kelamin` tidak tertukar dengan `nip`.
-    * Mengembalikan notifikasi hasil impor detail ke frontend beserta label format yang terdeteksi.
+  - **`_process_student_batch`**: Mengimplementasikan algoritma Smart Matching (NISN eksak, NISN zero-stripped, Nama Lengkap case-insensitive), deduplikasi ID pada `update_students`, validasi username unik pada `new_students`, serta penanganan ForeignKey kelas.
+  - **`_process_teacher_batch`**: Mengimplementasikan Smart Matching (NIP eksak, NIP zero-stripped, Nama Lengkap case-insensitive) untuk data guru.
+  - **`StudentExcelImportView` & `TeacherExcelImportView`**: Membungkus eksekusi batching dengan `try...except` dan logging lengkap untuk mencegah unhandled HTTP 500 error.
 
 ---
 
@@ -72,56 +58,58 @@ Berdasarkan arsitektur backend Django pada `apps/accounts`:
 
 | Tanggal | Komponen / File | Aksi | Rincian Perubahan |
 |---|---|---|---|
-| 2026-11-19 | `backend/apps/accounts/views.py` | Update & Optimasi | Implementasi 2 fungsi parser impor guru (`_import_teachers_from_tahfidz_mis` & `_import_teachers_from_standard_template`), seleksi kolom tertentu (NIP, Nama, Email), deteksi header pintar, serta high-speed batch processing via `ThreadPoolExecutor` dan `bulk_create`/`bulk_update`. |
-| 2026-11-19 | Database & Model `User` | Verifikasi | Memastikan integritas keterhubungan CRUD 100% tersinkronisasi dua arah antara menu Data Guru, Data Siswa, dan Manajemen Pengguna. |
-| 2026-11-19 | `session.md` | Reset & Update | Reset total log session lama dan mencatat dokumentasi lengkap pembaruan dual-engine impor guru, arsitektur sinkronisasi user, serta panduan lokal & produksi. |
+| 2026-11-19 | `backend/apps/accounts/views.py` | Update | Implementasi Smart Matching (Upsert) untuk Data Siswa & Data Guru (pencocokan NISN/NIP zero-padding dan Nama Lengkap), proteksi duplikasi ID, serta try-catch anti-crash error handling. |
+| 2026-11-19 | `session.md` | Update | Pencatatan lengkap hasil investigasi kegagalan production, arsitektur Smart Upsert, konfirmasi migrasi database, dan panduan deploy. |
 
 ---
 
-## 🚀 Panduan Eksekusi & Pengujian (Lokal & Produksi)
+## 🚀 Panduan Eksekusi & Deployment
 
-> ⚠️ **Catatan Penting:** Sesuai instruksi, semua perintah terminal di bawah ini dijalankan sendiri oleh Anda.
+> ⚠️ *Terminal dijalankan sendiri oleh Anda di PowerShell / terminal server.*
 
-### A. Pengujian di Lingkungan Lokal (Localhost):
-1. **Jalankan Backend Django (Port 8001):**
+### A. Pengujian di Lokal:
+1. Pastikan backend Django aktif:
    ```powershell
    cd C:\xampp\htdocs\mis_dev\ujian_sdmis\backend
    .\venv\Scripts\activate
    python manage.py runserver 0.0.0.0:8001
    ```
-2. **Jalankan Frontend Vite (Port 5173 / 5174):**
+2. Frontend Vite:
    ```powershell
    cd C:\xampp\htdocs\mis_dev\ujian_sdmis\frontend
    npm run dev -- --host
    ```
-3. **Uji Coba Fitur Impor Guru:**
-   - Akses web via browser: `http://localhost:5173` (atau port yang tampil pada terminal Vite).
-   - Login dengan akun admin/guru.
-   - Buka menu **Data Guru** (`/teacher/teachers`).
-   - Klik tombol **Import Excel**, lalu pilih berkas `Data_Guru_TA_2026_2027.xlsx` (hasil export Tahfidz_MIS).
-   - Klik submit: Data guru akan langsung masuk secara instan tanpa loading lama. Akun login dibuat otomatis dengan **Username & Password = NIP**.
-   - Cek menu **Manajemen Pengguna**: Data guru yang baru diimpor otomatis muncul di daftar pengguna.
-   - Coba juga unggah berkas dari tombol **Template Excel** bawaan untuk memastikan template standar tetap 100% berfungsi normal.
 
-### B. Deployment ke Server Produksi (`https://ujian.sdmis.sch.id`):
-1. **Commit & Push dari Komputer Lokal:**
-   ```powershell
-   cd C:\xampp\htdocs\mis_dev\ujian_sdmis
-   git status
-   git add backend/apps/accounts/views.py session.md
-   git commit -m "feat: dual-format high-speed teacher excel import (tahfidz_mis & standard template)"
-   git push origin main
-   ```
-2. **Tarik dan Terapkan di Server Produksi (Hostinger / VPS):**
-   - Masuk via SSH ke server:
-     ```bash
-     cd /path/to/ujian_sdmis
-     git pull origin main
-     ```
-   - Restart service ASGI/Daphne/Gunicorn backend:
-     ```bash
-     sudo systemctl restart ujian_backend
-     # atau jika menggunakan supervisor:
-     sudo supervisorctl restart ujian_backend
-     ```
-   - *(Frontend tidak memerlukan build ulang karena perubahan murni berada di backend API).*
+---
+
+### B. Commit & Push ke GitHub:
+Jalankan perintah ini di komputer lokal Anda:
+
+```powershell
+cd C:\xampp\htdocs\mis_dev\ujian_sdmis
+git status
+git add backend/apps/accounts/views.py session.md
+git commit -m "fix(import): implement smart matching upsert for student and teacher excel import"
+git push origin main
+```
+
+---
+
+### C. Menerapkan di Server Produksi (`https://ujian.sdmis.sch.id`):
+Masuk ke terminal server / VPS via SSH, lalu jalankan:
+
+```bash
+# 1. Masuk ke direktori project
+cd /path/ke/ujian_sdmis
+
+# 2. Tarik kode terbaru dari GitHub
+git pull origin main
+
+# 3. TIDAK PERLU makemigrations atau migrate (karena tidak ada perubahan model)
+
+# 4. Restart service backend Daphne / Gunicorn
+sudo systemctl restart ujian_backend
+# (atau jika memakai supervisor: sudo supervisorctl restart ujian_backend)
+```
+
+Setelah service di-restart di server production, silakan coba kembali tombol **Import Excel** pada **Data Siswa**. Berkas `Data_Siswa_TA_2026_2027.xlsx` kini akan langsung memetakan siswa lama tanpa membuat data dobel, dan mendaftarkan siswa baru secara instan!
