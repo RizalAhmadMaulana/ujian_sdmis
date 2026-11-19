@@ -468,10 +468,208 @@ class StudentExcelTemplateView(APIView):
         return response
 
 
+# ==========================================
+# HELPER & DUA FUNGSI PARSER IMPORT DATA SISWA
+# ==========================================
+def _clean_student_cell_value(val):
+    """Membersihkan nilai cell excel menjadi string bersih tanpa spasi ganda."""
+    if val is None:
+        return ""
+    if isinstance(val, float):
+        if val.is_integer():
+            return str(int(val)).strip()
+        return str(val).strip()
+    if isinstance(val, int):
+        return str(val).strip()
+    return str(val).strip()
+
+
+def _clean_student_email(email_str):
+    """Sanitasi email: jika berisi '-' atau placeholder kosong, ubah jadi string kosong."""
+    if not email_str:
+        return ""
+    s = str(email_str).strip()
+    if s.lower() in ['-', 'none', 'null', 'nan', 'undefined', '']:
+        return ""
+    return s
+
+
+def _save_or_update_student_user(raw_nisn, raw_name, raw_class, raw_email, default_classroom, academic_year, r_idx, errors):
+    """
+    Helper modular untuk membuat/memperbarui akun siswa:
+    - Username & NISN = raw_nisn
+    - Password akun baru = raw_nisn
+    - Otomatis relasi ke ClassRoom (jika belum ada, dibuatkan dengan academic_year aktif)
+    - Role = STUDENT
+    """
+    if not raw_nisn or raw_nisn.lower() in ['-', 'none', 'null', 'nan', 'undefined', '']:
+        if raw_name:
+            errors.append(f"Baris {r_idx}: NISN kosong atau '-' untuk siswa '{raw_name}' (dilewati)")
+        return None
+
+    # Tentukan target kelas
+    clean_class = str(raw_class).strip() if raw_class else ""
+    if clean_class and clean_class.lower() not in ['-', 'none', 'null', 'nan', '']:
+        cls_obj, _ = ClassRoom.objects.get_or_create(
+            name=clean_class,
+            defaults={"academic_year": academic_year}
+        )
+        target_classroom = cls_obj
+    else:
+        target_classroom = default_classroom
+
+    clean_name = raw_name or f"Siswa {raw_nisn}"
+    clean_email = _clean_student_email(raw_email)
+
+    try:
+        user, created = User.objects.get_or_create(
+            username=raw_nisn,
+            defaults={
+                "full_name": clean_name,
+                "role": User.RoleChoices.STUDENT,
+                "classroom": target_classroom,
+                "nisn": raw_nisn,
+                "email": clean_email
+            }
+        )
+
+        if created:
+            user.set_password(raw_nisn)  # Password default = NISN
+            user.save()
+            return "created"
+        else:
+            if clean_name:
+                user.full_name = clean_name
+            user.email = clean_email
+            user.classroom = target_classroom
+            user.nisn = raw_nisn
+            user.role = User.RoleChoices.STUDENT
+            user.save()
+            return "updated"
+    except Exception as e:
+        errors.append(f"Baris {r_idx} (NISN {raw_nisn}): {str(e)}")
+        return None
+
+
+def _import_students_from_tahfidz_mis(ws, header_row_idx, col_map, default_classroom, academic_year):
+    """
+    FUNGSI 1: Mengambil data siswa dari berkas Export Risalah / Tahfidz_MIS.
+    Logika Khusus:
+    - Hanya mendeteksi dan mengambil kolom yang dibutuhkan: NISN, Nama Siswa, Kelas, Email.
+    - Kolom-kolom yang tidak dibutuhkan (No, Jenis Kelamin, Guru Pengampu, Tempat Tanggal Lahir,
+      No Telp Orangtua, dll) diabaikan total dan TIDAK masuk ke database.
+    - Mengonversi data strip '-' pada kolom email menjadi string kosong.
+    """
+    created_count = 0
+    updated_count = 0
+    total_rows = 0
+    errors = []
+
+    # Indeks kolom fallback format Tahfidz_MIS standar jika sebagian header dimodifikasi user:
+    # [0: No, 1: Nama Siswa, 2: Jenis Kelamin, 3: NISN, 4: Kelas, 5: Guru Pengampu, 6: TTL, 7: Telp, 8: Email]
+    idx_name = col_map.get('name', 1)
+    idx_nisn = col_map.get('nisn', 3)
+    idx_class = col_map.get('class', 4)
+    idx_email = col_map.get('email', 8)
+
+    for r_idx, row in enumerate(ws.iter_rows(values_only=True), start=1):
+        if r_idx <= header_row_idx or not row:
+            continue
+
+        def get_val(idx):
+            if idx is not None and idx < len(row):
+                return _clean_student_cell_value(row[idx])
+            return ""
+
+        raw_nisn = get_val(idx_nisn)
+        raw_name = get_val(idx_name)
+        raw_class = get_val(idx_class)
+        raw_email = get_val(idx_email)
+
+        # Lewati jika baris kosong total
+        if not raw_nisn and not raw_name:
+            continue
+
+        total_rows += 1
+        res = _save_or_update_student_user(
+            raw_nisn, raw_name, raw_class, raw_email,
+            default_classroom, academic_year, r_idx, errors
+        )
+        if res == "created":
+            created_count += 1
+        elif res == "updated":
+            updated_count += 1
+
+    return {
+        "created_count": created_count,
+        "updated_count": updated_count,
+        "total_rows": total_rows,
+        "errors": errors,
+        "format_name": "Export Data Siswa Tahfidz_MIS / Risalah"
+    }
+
+
+def _import_students_from_standard_template(ws, header_row_idx, col_map, default_classroom, academic_year):
+    """
+    FUNGSI 2: Mengambil data siswa dari template resmi E-Ujian / Ujian SDMIS (Template_Import_Siswa_E-Ujian.xlsx).
+    Logika Khusus:
+    - Mengambil kolom sesuai template standar: [No, NISN, Nama Siswa, Kelas, Email].
+    - Memetakan NISN, Nama Siswa, Kelas, dan Email secara langsung.
+    """
+    created_count = 0
+    updated_count = 0
+    total_rows = 0
+    errors = []
+
+    # Indeks kolom fallback template standar: [1: NISN, 2: Nama Siswa, 3: Kelas, 4: Email]
+    idx_nisn = col_map.get('nisn', 1)
+    idx_name = col_map.get('name', 2)
+    idx_class = col_map.get('class', 3)
+    idx_email = col_map.get('email', 4)
+
+    for r_idx, row in enumerate(ws.iter_rows(values_only=True), start=1):
+        if r_idx <= header_row_idx or not row:
+            continue
+
+        def get_val(idx):
+            if idx is not None and idx < len(row):
+                return _clean_student_cell_value(row[idx])
+            return ""
+
+        raw_nisn = get_val(idx_nisn)
+        raw_name = get_val(idx_name)
+        raw_class = get_val(idx_class)
+        raw_email = get_val(idx_email)
+
+        # Lewati jika baris kosong total
+        if not raw_nisn and not raw_name:
+            continue
+
+        total_rows += 1
+        res = _save_or_update_student_user(
+            raw_nisn, raw_name, raw_class, raw_email,
+            default_classroom, academic_year, r_idx, errors
+        )
+        if res == "created":
+            created_count += 1
+        elif res == "updated":
+            updated_count += 1
+
+    return {
+        "created_count": created_count,
+        "updated_count": updated_count,
+        "total_rows": total_rows,
+        "errors": errors,
+        "format_name": "Template Standar E-Ujian"
+    }
+
+
 class StudentExcelImportView(APIView):
     """
     POST /api/accounts/students/import-excel/
-    Mengimpor data siswa massal (rekap Google Form / SPSS) -> otomatis buat Akun Siswa (role STUDENT, pw=NISN)
+    Mengimpor data siswa massal secara dinamis:
+    1. Mendukung Berkas Export Risalah / Tahfidz_MIS (otomatis filter kolom NISN, Nama Siswa, Kelas, Email saja).
+    2. Mendukung Berkas Template Standar E-Ujian (Template_Import_Siswa_E-Ujian.xlsx).
     """
     permission_classes = [IsTeacherRole]
 
@@ -486,25 +684,52 @@ class StudentExcelImportView(APIView):
         except Exception as e:
             return Response({"success": False, "error": f"Gagal membaca berkas Excel: {str(e)}"}, status=status.HTTP_400_BAD_REQUEST)
 
-        created_count = 0
-        updated_count = 0
-        total_rows = 0
-        errors = []
+        # 1. Ambil tahun ajaran aktif dari SchoolSetting
+        school_setting = SchoolSetting.get_settings()
+        academic_year = school_setting.academic_year if (school_setting and school_setting.academic_year) else "2026/2027"
 
+        # 2. Siapkan default classroom
+        default_classroom = ClassRoom.objects.first()
+        if not default_classroom:
+            default_classroom = ClassRoom.objects.create(name="Kelas Utama", academic_year=academic_year)
+
+        # 3. Analisis header baris untuk mendeteksi format (Tahfidz_MIS vs Template Standar)
+        detected_format = "STANDARD"
         header_row_idx = None
         col_map = {}
 
         for r_idx, row in enumerate(ws.iter_rows(values_only=True), start=1):
-            if not row:
+            if not row or r_idx > 10:
                 continue
             row_str = [str(c or '').strip().lower() for c in row]
-            
-            if any(k in h for h in row_str for k in ['nisn', 'nis', 'no induk']) or any(k in h for h in row_str for k in ['nama', 'siswa']):
+
+            # A. Deteksi Ciri Khas Format Export Risalah / Tahfidz_MIS
+            # Memiliki kolom unik seperti 'guru pengampu', 'jenis kelamin', 'tempat, tanggal lahir', atau 'no telp'
+            if any('guru pengampu' in h or 'jenis kelamin' in h or 'no telp' in h for h in row_str):
+                detected_format = "TAHFIDZ_MIS"
                 header_row_idx = r_idx
                 for c_idx, h in enumerate(row_str):
-                    if any(k in h for k in ['nisn', 'nis', 'no induk', 'username']) and 'nisn' not in col_map:
-                        col_map['nisn'] = c_idx
-                    elif any(k in h for k in ['nama', 'name', 'siswa']) and 'name' not in col_map:
+                    # PENTING: cegah 'jenis kelamin' salah terdeteksi sebagai 'nisn' dengan memastikan 'jenis' tidak ada
+                    if ('nisn' in h or h in ['nis', 'no induk']) and 'jenis' not in h:
+                        if 'nisn' not in col_map:
+                            col_map['nisn'] = c_idx
+                    elif any(k in h for k in ['nama siswa', 'nama lengkap', 'nama']) and 'name' not in col_map:
+                        col_map['name'] = c_idx
+                    elif any(k in h for k in ['kelas', 'rombel']) and 'class' not in col_map:
+                        col_map['class'] = c_idx
+                    elif 'email' in h and 'email' not in col_map:
+                        col_map['email'] = c_idx
+                break
+
+            # B. Deteksi Format Template Standar E-Ujian / Ujian SDMIS
+            if any(k in h for k in ['nisn', 'nis', 'no induk']) and any(k in h for k in ['nama', 'siswa', 'name']):
+                detected_format = "STANDARD"
+                header_row_idx = r_idx
+                for c_idx, h in enumerate(row_str):
+                    if ('nisn' in h or h in ['nis', 'no induk', 'username']) and 'jenis' not in h:
+                        if 'nisn' not in col_map:
+                            col_map['nisn'] = c_idx
+                    elif any(k in h for k in ['nama', 'siswa', 'name']) and 'name' not in col_map:
                         col_map['name'] = c_idx
                     elif any(k in h for k in ['kelas', 'rombel', 'class']) and 'class' not in col_map:
                         col_map['class'] = c_idx
@@ -512,86 +737,45 @@ class StudentExcelImportView(APIView):
                         col_map['email'] = c_idx
                 break
 
-        if header_row_idx is None or 'nisn' not in col_map:
-            col_map = {'nisn': 1, 'name': 2, 'class': 3, 'email': 4}
-            header_row_idx = 4
+        # Fallback jika header tidak terdeteksi otomatis
+        if header_row_idx is None:
+            if ws.title and ('tahfidz' in ws.title.lower() or 'siswa' in ws.title.lower()):
+                detected_format = "TAHFIDZ_MIS"
+                header_row_idx = 1
+                col_map = {'name': 1, 'nisn': 3, 'class': 4, 'email': 8}
+            else:
+                detected_format = "STANDARD"
+                header_row_idx = 4
+                col_map = {'nisn': 1, 'name': 2, 'class': 3, 'email': 4}
 
-        default_classroom = ClassRoom.objects.first()
-        if not default_classroom:
-            default_classroom = ClassRoom.objects.create(name="Kelas Utama", academic_year="2026/2027")
+        # 4. Eksekusi fungsi import sesuai format yang terdeteksi
+        if detected_format == "TAHFIDZ_MIS":
+            result = _import_students_from_tahfidz_mis(
+                ws=ws,
+                header_row_idx=header_row_idx,
+                col_map=col_map,
+                default_classroom=default_classroom,
+                academic_year=academic_year
+            )
+        else:
+            result = _import_students_from_standard_template(
+                ws=ws,
+                header_row_idx=header_row_idx,
+                col_map=col_map,
+                default_classroom=default_classroom,
+                academic_year=academic_year
+            )
 
-        for r_idx, row in enumerate(ws.iter_rows(values_only=True), start=1):
-            if r_idx <= header_row_idx or not row:
-                continue
-
-            def get_val(key):
-                idx = col_map.get(key)
-                if idx is not None and idx < len(row):
-                    val = row[idx]
-                    if val is None:
-                        return ""
-                    if isinstance(val, float) and val.is_integer():
-                        return str(int(val)).strip()
-                    return str(val).strip()
-                return ""
-
-            raw_nisn = get_val('nisn')
-            raw_name = get_val('name')
-            raw_class = get_val('class')
-            raw_email = get_val('email')
-
-            if not raw_nisn and not raw_name:
-                continue
-
-            total_rows += 1
-            if not raw_nisn:
-                errors.append(f"Baris {r_idx}: NISN kosong untuk '{raw_name}'")
-                continue
-
-            target_classroom = default_classroom
-            if raw_class:
-                cls_obj, _ = ClassRoom.objects.get_or_create(
-                    name=raw_class,
-                    defaults={"academic_year": "2026/2027"}
-                )
-                target_classroom = cls_obj
-
-            try:
-                user, created = User.objects.get_or_create(
-                    username=raw_nisn,
-                    defaults={
-                        "full_name": raw_name or f"Siswa {raw_nisn}",
-                        "role": User.RoleChoices.STUDENT,
-                        "classroom": target_classroom,
-                        "nisn": raw_nisn,
-                        "email": raw_email
-                    }
-                )
-
-                if created:
-                    user.set_password(raw_nisn) # Default password siswa = NISN
-                    user.save()
-                    created_count += 1
-                else:
-                    if raw_name:
-                        user.full_name = raw_name
-                    if raw_email:
-                        user.email = raw_email
-                    user.classroom = target_classroom
-                    user.nisn = raw_nisn
-                    user.role = User.RoleChoices.STUDENT
-                    user.save()
-                    updated_count += 1
-            except Exception as e:
-                errors.append(f"Baris {r_idx} (NISN {raw_nisn}): {str(e)}")
-
+        format_label = result.get("format_name", "Template Standar")
         return Response({
             "success": True,
-            "message": f"Impor data siswa selesai! {created_count} siswa baru terdaftar (akun aktif pw=NISN), {updated_count} diperbarui.",
-            "created_count": created_count,
-            "updated_count": updated_count,
-            "total_rows": total_rows,
-            "errors": errors
+            "message": f"Impor data siswa berhasil ({format_label})! {result['created_count']} siswa baru terdaftar (akun aktif pw=NISN), {result['updated_count']} data diperbarui.",
+            "created_count": result['created_count'],
+            "updated_count": result['updated_count'],
+            "total_rows": result['total_rows'],
+            "detected_format": detected_format,
+            "format_label": format_label,
+            "errors": result['errors']
         }, status=status.HTTP_200_OK)
 
 
