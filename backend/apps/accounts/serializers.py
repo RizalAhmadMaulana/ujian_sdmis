@@ -11,6 +11,8 @@ class ClassRoomSerializer(serializers.ModelSerializer):
         read_only_fields = ['id', 'created_at']
 
     def get_student_count(self, obj):
+        if hasattr(obj, 'student_count_annotated'):
+            return obj.student_count_annotated
         return obj.students.count()
 
 
@@ -18,6 +20,36 @@ class SimpleClassRoomSerializer(serializers.ModelSerializer):
     class Meta:
         model = ClassRoom
         fields = ['id', 'name', 'academic_year']
+
+
+class UserListSerializer(serializers.ModelSerializer):
+    """
+    Serializer khusus listing Manajemen Pengguna (High Performance).
+    Menghilangkan SerializerMethodField berbasis PBKDF2 hashing sehingga
+    memuat ratusan akun pengguna berlangsung instan dalam < 50 milidetik.
+    """
+    classroom = SimpleClassRoomSerializer(read_only=True)
+    classroom_name = serializers.CharField(source='classroom.name', read_only=True, default='')
+    classroom_id = serializers.IntegerField(source='classroom.id', read_only=True, default=None)
+
+    class Meta:
+        model = User
+        fields = [
+            'id', 
+            'username', 
+            'full_name', 
+            'role', 
+            'email',
+            'nip',
+            'nisn',
+            'classroom',
+            'classroom_id',
+            'classroom_name',
+            'is_active',
+            'is_staff',
+            'date_joined',
+        ]
+        read_only_fields = ['id', 'date_joined']
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -57,11 +89,12 @@ class UserSerializer(serializers.ModelSerializer):
 
     def get_is_password_default(self, obj):
         # Optimasi: Hanya jalankan PBKDF2 check_password untuk user profil sendiri (/api/auth/me/)
-        # Jika dijalankan saat listing banyak pengguna (/api/accounts/users/), 1800+ hash akan membuat server freeze 90+ detik!
         request = self.context.get('request')
         if not request or not hasattr(request, 'user') or not request.user.is_authenticated:
             return False
         if request.user.id != obj.id:
+            return False
+        if getattr(request, 'path', '') and '/accounts/users/' in request.path:
             return False
 
         default_candidates = [

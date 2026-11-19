@@ -8,7 +8,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.views import TokenObtainPairView
 from django.db import transaction
-from django.db.models import Q
+from django.db.models import Q, Count
 from django.http import HttpResponse
 from django.contrib.auth.hashers import make_password, PBKDF2PasswordHasher
 import openpyxl
@@ -36,6 +36,7 @@ def _make_bulk_password(raw_password):
 from .models import User, ClassRoom, SchoolSetting
 from .serializers import (
     UserSerializer, 
+    UserListSerializer,
     UserCreateUpdateSerializer,
     UserProfileUpdateSerializer,
     StudentSerializer,
@@ -82,10 +83,10 @@ class CurrentUserView(APIView):
 # ==========================================
 class ClassRoomListCreateView(generics.ListCreateAPIView):
     """
-    GET /api/accounts/classrooms/ -> Daftar seluruh kelas
+    GET /api/accounts/classrooms/ -> Daftar seluruh kelas (Dioptimasi dengan 1 query annotate)
     POST /api/accounts/classrooms/ -> Tambah kelas baru (Guru/Admin)
     """
-    queryset = ClassRoom.objects.all().order_by('name')
+    queryset = ClassRoom.objects.annotate(student_count_annotated=Count('students')).order_by('name')
     serializer_class = ClassRoomSerializer
 
     def get_permissions(self):
@@ -110,7 +111,7 @@ class ClassRoomDetailView(generics.RetrieveUpdateDestroyAPIView):
 # ==========================================
 class UserListCreateView(generics.ListCreateAPIView):
     """
-    GET /api/accounts/users/ -> Daftar user dengan filter role, kelas, search
+    GET /api/accounts/users/ -> Daftar user dengan filter role, kelas, search (High-Speed Listing)
     POST /api/accounts/users/ -> Buat user baru (Guru/Siswa)
     """
     permission_classes = [IsTeacherRole]
@@ -118,7 +119,7 @@ class UserListCreateView(generics.ListCreateAPIView):
     def get_serializer_class(self):
         if self.request.method == 'POST':
             return UserCreateUpdateSerializer
-        return UserSerializer
+        return UserListSerializer
 
     def get_queryset(self):
         queryset = User.objects.all().select_related('classroom').order_by('role', 'username')
