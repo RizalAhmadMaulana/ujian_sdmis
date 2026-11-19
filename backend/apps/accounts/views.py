@@ -1,10 +1,15 @@
+import os
+import io
+import uuid
+from concurrent.futures import ThreadPoolExecutor
 from rest_framework import generics, permissions, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.views import TokenObtainPairView
+from django.db import transaction
 from django.db.models import Q
 from django.http import HttpResponse
-import io
+from django.contrib.auth.hashers import make_password
 import openpyxl
 from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
 from openpyxl.utils import get_column_letter
@@ -494,61 +499,123 @@ def _clean_student_email(email_str):
     return s
 
 
-def _save_or_update_student_user(raw_nisn, raw_name, raw_class, raw_email, default_classroom, academic_year, r_idx, errors):
+def _process_student_batch(rows_data, default_classroom, academic_year, errors):
     """
-    Helper modular untuk membuat/memperbarui akun siswa:
-    - Username & NISN = raw_nisn
-    - Password akun baru = raw_nisn
-    - Otomatis relasi ke ClassRoom (jika belum ada, dibuatkan dengan academic_year aktif)
-    - Role = STUDENT
+    Eksekusi impor data siswa massal secara kilat (High-Performance Bulk Processing):
+    1. Deduplikasi & validasi NISN di memori.
+    2. Caching objek ClassRoom (menghilangkan ratusan query SELECT/INSERT berulang).
+    3. Pre-fetch seluruh siswa yang sudah ada via 1 query tunggal.
+    4. Parallel Multithreaded Password Hashing (memanfaatkan seluruh core CPU untuk akun baru).
+    5. Database transaction.atomic() + bulk_create & bulk_update (1 commit disk tunggal).
     """
-    if not raw_nisn or raw_nisn.lower() in ['-', 'none', 'null', 'nan', 'undefined', '']:
-        if raw_name:
-            errors.append(f"Baris {r_idx}: NISN kosong atau '-' untuk siswa '{raw_name}' (dilewati)")
-        return None
+    # 1. Filter dan deduplikasi data di memori
+    unique_rows = []
+    seen_nisns = set()
+    for r in rows_data:
+        nisn = str(r.get('nisn') or '').strip()
+        if not nisn or nisn.lower() in ['-', 'none', 'null', 'nan', 'undefined', '']:
+            if r.get('name'):
+                errors.append(f"Baris {r['r_idx']}: NISN kosong atau '-' untuk siswa '{r['name']}' (dilewati)")
+            continue
+        if nisn in seen_nisns:
+            errors.append(f"Baris {r['r_idx']}: NISN {nisn} muncul berulang dalam berkas (hanya baris pertama yang diproses)")
+            continue
+        seen_nisns.add(nisn)
+        unique_rows.append(r)
 
-    # Tentukan target kelas
-    clean_class = str(raw_class).strip() if raw_class else ""
-    if clean_class and clean_class.lower() not in ['-', 'none', 'null', 'nan', '']:
-        cls_obj, _ = ClassRoom.objects.get_or_create(
-            name=clean_class,
-            defaults={"academic_year": academic_year}
-        )
-        target_classroom = cls_obj
-    else:
-        target_classroom = default_classroom
+    if not unique_rows:
+        return {
+            "created_count": 0,
+            "updated_count": 0,
+            "total_rows": 0,
+            "errors": errors
+        }
 
-    clean_name = raw_name or f"Siswa {raw_nisn}"
-    clean_email = _clean_student_email(raw_email)
-
-    try:
-        user, created = User.objects.get_or_create(
-            username=raw_nisn,
-            defaults={
-                "full_name": clean_name,
-                "role": User.RoleChoices.STUDENT,
-                "classroom": target_classroom,
-                "nisn": raw_nisn,
-                "email": clean_email
-            }
-        )
-
-        if created:
-            user.set_password(raw_nisn)  # Password default = NISN
-            user.save()
-            return "created"
+    # 2. Cache kelas di memori (hindari query redundant)
+    classroom_cache = {c.name.strip().lower(): c for c in ClassRoom.objects.all()}
+    for r in unique_rows:
+        clean_class = str(r.get('class') or '').strip()
+        if clean_class and clean_class.lower() not in ['-', 'none', 'null', 'nan', '']:
+            cache_key = clean_class.lower()
+            if cache_key in classroom_cache:
+                r['classroom_obj'] = classroom_cache[cache_key]
+            else:
+                cls_obj = ClassRoom.objects.create(name=clean_class, academic_year=academic_year)
+                classroom_cache[cache_key] = cls_obj
+                r['classroom_obj'] = cls_obj
         else:
-            if clean_name:
-                user.full_name = clean_name
-            user.email = clean_email
-            user.classroom = target_classroom
-            user.nisn = raw_nisn
+            r['classroom_obj'] = default_classroom
+
+    # 3. Pre-fetch existing users dalam 1 query SELECT
+    all_nisns = list(seen_nisns)
+    existing_users = {
+        u.username: u
+        for u in User.objects.filter(username__in=all_nisns)
+    }
+
+    new_students = []
+    update_students = []
+
+    for r in unique_rows:
+        nisn = str(r['nisn']).strip()
+        name = r.get('name') or f"Siswa {nisn}"
+        email = _clean_student_email(r.get('email'))
+        cls_obj = r['classroom_obj']
+
+        if nisn in existing_users:
+            user = existing_users[nisn]
+            user.full_name = name
+            user.email = email
+            user.classroom = cls_obj
+            user.nisn = nisn
             user.role = User.RoleChoices.STUDENT
-            user.save()
-            return "updated"
-    except Exception as e:
-        errors.append(f"Baris {r_idx} (NISN {raw_nisn}): {str(e)}")
-        return None
+            update_students.append(user)
+        else:
+            new_students.append({
+                'nisn': nisn,
+                'name': name,
+                'email': email,
+                'classroom': cls_obj,
+            })
+
+    # 4. Multithreaded password hashing paralel untuk siswa baru (memanfaatkan semua core CPU)
+    users_to_create = []
+    if new_students:
+        cpu_workers = min(16, (os.cpu_count() or 4) * 2)
+        with ThreadPoolExecutor(max_workers=cpu_workers) as executor:
+            passwords = list(executor.map(make_password, [s['nisn'] for s in new_students]))
+
+        for s, pw in zip(new_students, passwords):
+            users_to_create.append(
+                User(
+                    id=uuid.uuid4(),
+                    username=s['nisn'],
+                    nisn=s['nisn'],
+                    full_name=s['name'],
+                    classroom=s['classroom'],
+                    email=s['email'],
+                    role=User.RoleChoices.STUDENT,
+                    password=pw
+                )
+            )
+
+    # 5. Eksekusi database dalam 1 transaksi atomic tunggal (High Speed)
+    with transaction.atomic():
+        if users_to_create:
+            User.objects.bulk_create(users_to_create, batch_size=250)
+        if update_students:
+            User.objects.bulk_update(
+                update_students,
+                fields=['full_name', 'email', 'classroom', 'nisn', 'role'],
+                batch_size=250
+            )
+
+    return {
+        "created_count": len(users_to_create),
+        "updated_count": len(update_students),
+        "total_rows": len(unique_rows),
+        "errors": errors
+    }
 
 
 def _import_students_from_tahfidz_mis(ws, header_row_idx, col_map, default_classroom, academic_year):
@@ -558,20 +625,15 @@ def _import_students_from_tahfidz_mis(ws, header_row_idx, col_map, default_class
     - Hanya mendeteksi dan mengambil kolom yang dibutuhkan: NISN, Nama Siswa, Kelas, Email.
     - Kolom-kolom yang tidak dibutuhkan (No, Jenis Kelamin, Guru Pengampu, Tempat Tanggal Lahir,
       No Telp Orangtua, dll) diabaikan total dan TIDAK masuk ke database.
-    - Mengonversi data strip '-' pada kolom email menjadi string kosong.
+    - Memproses baris secara kilat via _process_student_batch.
     """
-    created_count = 0
-    updated_count = 0
-    total_rows = 0
     errors = []
-
-    # Indeks kolom fallback format Tahfidz_MIS standar jika sebagian header dimodifikasi user:
-    # [0: No, 1: Nama Siswa, 2: Jenis Kelamin, 3: NISN, 4: Kelas, 5: Guru Pengampu, 6: TTL, 7: Telp, 8: Email]
     idx_name = col_map.get('name', 1)
     idx_nisn = col_map.get('nisn', 3)
     idx_class = col_map.get('class', 4)
     idx_email = col_map.get('email', 8)
 
+    rows_data = []
     for r_idx, row in enumerate(ws.iter_rows(values_only=True), start=1):
         if r_idx <= header_row_idx or not row:
             continue
@@ -586,27 +648,20 @@ def _import_students_from_tahfidz_mis(ws, header_row_idx, col_map, default_class
         raw_class = get_val(idx_class)
         raw_email = get_val(idx_email)
 
-        # Lewati jika baris kosong total
         if not raw_nisn and not raw_name:
             continue
 
-        total_rows += 1
-        res = _save_or_update_student_user(
-            raw_nisn, raw_name, raw_class, raw_email,
-            default_classroom, academic_year, r_idx, errors
-        )
-        if res == "created":
-            created_count += 1
-        elif res == "updated":
-            updated_count += 1
+        rows_data.append({
+            'r_idx': r_idx,
+            'nisn': raw_nisn,
+            'name': raw_name,
+            'class': raw_class,
+            'email': raw_email
+        })
 
-    return {
-        "created_count": created_count,
-        "updated_count": updated_count,
-        "total_rows": total_rows,
-        "errors": errors,
-        "format_name": "Export Data Siswa Tahfidz_MIS / Risalah"
-    }
+    res = _process_student_batch(rows_data, default_classroom, academic_year, errors)
+    res['format_name'] = "Export Data Siswa Tahfidz_MIS / Risalah"
+    return res
 
 
 def _import_students_from_standard_template(ws, header_row_idx, col_map, default_classroom, academic_year):
@@ -614,19 +669,15 @@ def _import_students_from_standard_template(ws, header_row_idx, col_map, default
     FUNGSI 2: Mengambil data siswa dari template resmi E-Ujian / Ujian SDMIS (Template_Import_Siswa_E-Ujian.xlsx).
     Logika Khusus:
     - Mengambil kolom sesuai template standar: [No, NISN, Nama Siswa, Kelas, Email].
-    - Memetakan NISN, Nama Siswa, Kelas, dan Email secara langsung.
+    - Memproses baris secara kilat via _process_student_batch.
     """
-    created_count = 0
-    updated_count = 0
-    total_rows = 0
     errors = []
-
-    # Indeks kolom fallback template standar: [1: NISN, 2: Nama Siswa, 3: Kelas, 4: Email]
     idx_nisn = col_map.get('nisn', 1)
     idx_name = col_map.get('name', 2)
     idx_class = col_map.get('class', 3)
     idx_email = col_map.get('email', 4)
 
+    rows_data = []
     for r_idx, row in enumerate(ws.iter_rows(values_only=True), start=1):
         if r_idx <= header_row_idx or not row:
             continue
@@ -641,27 +692,20 @@ def _import_students_from_standard_template(ws, header_row_idx, col_map, default
         raw_class = get_val(idx_class)
         raw_email = get_val(idx_email)
 
-        # Lewati jika baris kosong total
         if not raw_nisn and not raw_name:
             continue
 
-        total_rows += 1
-        res = _save_or_update_student_user(
-            raw_nisn, raw_name, raw_class, raw_email,
-            default_classroom, academic_year, r_idx, errors
-        )
-        if res == "created":
-            created_count += 1
-        elif res == "updated":
-            updated_count += 1
+        rows_data.append({
+            'r_idx': r_idx,
+            'nisn': raw_nisn,
+            'name': raw_name,
+            'class': raw_class,
+            'email': raw_email
+        })
 
-    return {
-        "created_count": created_count,
-        "updated_count": updated_count,
-        "total_rows": total_rows,
-        "errors": errors,
-        "format_name": "Template Standar E-Ujian"
-    }
+    res = _process_student_batch(rows_data, default_classroom, academic_year, errors)
+    res['format_name'] = "Template Standar E-Ujian"
+    return res
 
 
 class StudentExcelImportView(APIView):
@@ -894,10 +938,203 @@ class TeacherExcelTemplateView(APIView):
         return response
 
 
+# ==========================================
+# HELPER & DUA FUNGSI PARSER IMPORT DATA GURU
+# ==========================================
+def _process_teacher_batch(rows_data, errors):
+    """
+    Eksekusi impor data guru massal secara kilat (High-Performance Bulk Processing):
+    1. Filter & deduplikasi NIP di memori.
+    2. Pre-fetch seluruh guru yang sudah ada via 1 query SELECT.
+    3. Multithreaded password hashing paralel untuk akun baru (semua core CPU).
+    4. Database transaction.atomic() + bulk_create & bulk_update (1 commit disk tunggal).
+    5. Menjamin sinkronisasi otomatis dengan Manajemen Pengguna (role=TEACHER, is_staff=True).
+    """
+    unique_rows = []
+    seen_nips = set()
+    for r in rows_data:
+        nip = str(r.get('nip') or '').strip()
+        if not nip or nip.lower() in ['-', 'none', 'null', 'nan', 'undefined', '']:
+            if r.get('name'):
+                errors.append(f"Baris {r['r_idx']}: NIP kosong atau '-' untuk guru '{r['name']}' (dilewati)")
+            continue
+        if nip in seen_nips:
+            errors.append(f"Baris {r['r_idx']}: NIP {nip} muncul berulang dalam berkas (hanya baris pertama yang diproses)")
+            continue
+        seen_nips.add(nip)
+        unique_rows.append(r)
+
+    if not unique_rows:
+        return {
+            "created_count": 0,
+            "updated_count": 0,
+            "total_rows": 0,
+            "errors": errors
+        }
+
+    # Pre-fetch existing teachers dalam 1 query SELECT
+    all_nips = list(seen_nips)
+    existing_teachers = {
+        u.username: u
+        for u in User.objects.filter(username__in=all_nips)
+    }
+
+    new_teachers = []
+    update_teachers = []
+
+    for r in unique_rows:
+        nip = str(r['nip']).strip()
+        name = r.get('name') or f"Guru {nip}"
+        email = _clean_student_email(r.get('email'))
+
+        if nip in existing_teachers:
+            user = existing_teachers[nip]
+            user.full_name = name
+            user.email = email
+            user.nip = nip
+            user.role = User.RoleChoices.TEACHER
+            user.is_staff = True
+            update_teachers.append(user)
+        else:
+            new_teachers.append({
+                'nip': nip,
+                'name': name,
+                'email': email,
+            })
+
+    # Multithreaded password hashing paralel untuk guru baru
+    users_to_create = []
+    if new_teachers:
+        cpu_workers = min(16, (os.cpu_count() or 4) * 2)
+        with ThreadPoolExecutor(max_workers=cpu_workers) as executor:
+            passwords = list(executor.map(make_password, [t['nip'] for t in new_teachers]))
+
+        for t, pw in zip(new_teachers, passwords):
+            users_to_create.append(
+                User(
+                    id=uuid.uuid4(),
+                    username=t['nip'],
+                    nip=t['nip'],
+                    full_name=t['name'],
+                    email=t['email'],
+                    role=User.RoleChoices.TEACHER,
+                    is_staff=True,
+                    password=pw
+                )
+            )
+
+    # Eksekusi database dalam 1 transaksi atomic tunggal (High Speed)
+    with transaction.atomic():
+        if users_to_create:
+            User.objects.bulk_create(users_to_create, batch_size=250)
+        if update_teachers:
+            User.objects.bulk_update(
+                update_teachers,
+                fields=['full_name', 'email', 'nip', 'role', 'is_staff'],
+                batch_size=250
+            )
+
+    return {
+        "created_count": len(users_to_create),
+        "updated_count": len(update_teachers),
+        "total_rows": len(unique_rows),
+        "errors": errors
+    }
+
+
+def _import_teachers_from_tahfidz_mis(ws, header_row_idx, col_map):
+    """
+    FUNGSI 1: Mengambil data guru dari berkas Export Risalah / Tahfidz_MIS.
+    Logika Khusus:
+    - Hanya mendeteksi dan mengambil kolom yang dibutuhkan: NIP, Nama Guru, Email.
+    - Kolom-kolom yang tidak dibutuhkan (No, Jenis Kelamin, Wali Kelas, Murid Ampu,
+      Tempat Tanggal Lahir, No Telp / WA, dll) diabaikan total dan TIDAK masuk ke database.
+    - Memproses baris secara kilat via _process_teacher_batch.
+    """
+    errors = []
+    # Standar format export Tahfidz_MIS: [0: No, 1: Nama Guru, 2: Jenis Kelamin, 3: NIP, 4: Wali Kelas, 5: Murid Ampu, 6: TTL, 7: Telp, 8: Email]
+    idx_name = col_map.get('name', 1)
+    idx_nip = col_map.get('nip', 3)
+    idx_email = col_map.get('email', 8)
+
+    rows_data = []
+    for r_idx, row in enumerate(ws.iter_rows(values_only=True), start=1):
+        if r_idx <= header_row_idx or not row:
+            continue
+
+        def get_val(idx):
+            if idx is not None and idx < len(row):
+                return _clean_student_cell_value(row[idx])
+            return ""
+
+        raw_nip = get_val(idx_nip)
+        raw_name = get_val(idx_name)
+        raw_email = get_val(idx_email)
+
+        if not raw_nip and not raw_name:
+            continue
+
+        rows_data.append({
+            'r_idx': r_idx,
+            'nip': raw_nip,
+            'name': raw_name,
+            'email': raw_email
+        })
+
+    res = _process_teacher_batch(rows_data, errors)
+    res['format_name'] = "Export Data Guru Tahfidz_MIS / Risalah"
+    return res
+
+
+def _import_teachers_from_standard_template(ws, header_row_idx, col_map):
+    """
+    FUNGSI 2: Mengambil data guru dari template resmi E-Ujian / Ujian SDMIS (Template_Import_Guru_E-Ujian.xlsx).
+    Logika Khusus:
+    - Mengambil kolom sesuai template standar: [No, NIP, Nama Guru, Email].
+    - Memproses baris secara kilat via _process_teacher_batch.
+    """
+    errors = []
+    # Standar template E-Ujian: [1: NIP, 2: Nama Guru, 3: Email]
+    idx_nip = col_map.get('nip', 1)
+    idx_name = col_map.get('name', 2)
+    idx_email = col_map.get('email', 3)
+
+    rows_data = []
+    for r_idx, row in enumerate(ws.iter_rows(values_only=True), start=1):
+        if r_idx <= header_row_idx or not row:
+            continue
+
+        def get_val(idx):
+            if idx is not None and idx < len(row):
+                return _clean_student_cell_value(row[idx])
+            return ""
+
+        raw_nip = get_val(idx_nip)
+        raw_name = get_val(idx_name)
+        raw_email = get_val(idx_email)
+
+        if not raw_nip and not raw_name:
+            continue
+
+        rows_data.append({
+            'r_idx': r_idx,
+            'nip': raw_nip,
+            'name': raw_name,
+            'email': raw_email
+        })
+
+    res = _process_teacher_batch(rows_data, errors)
+    res['format_name'] = "Template Standar E-Ujian"
+    return res
+
+
 class TeacherExcelImportView(APIView):
     """
     POST /api/accounts/teachers/import-excel/
-    Mengimpor data guru massal -> otomatis buat Akun Guru (role TEACHER, pw=NIP, is_staff=True)
+    Mengimpor data guru massal secara dinamis & kilat:
+    1. Mendukung Berkas Export Risalah / Tahfidz_MIS (otomatis filter kolom NIP, Nama Guru, Email saja).
+    2. Mendukung Berkas Template Standar E-Ujian (Template_Import_Guru_E-Ujian.xlsx).
+    3. Terhubung langsung dan tersinkronisasi otomatis dengan Manajemen Pengguna.
     """
     permission_classes = [IsTeacherRole]
 
@@ -912,11 +1149,7 @@ class TeacherExcelImportView(APIView):
         except Exception as e:
             return Response({"success": False, "error": f"Gagal membaca berkas Excel: {str(e)}"}, status=status.HTTP_400_BAD_REQUEST)
 
-        created_count = 0
-        updated_count = 0
-        total_rows = 0
-        errors = []
-
+        detected_format = "STANDARD"
         header_row_idx = None
         col_map = {}
 
@@ -927,84 +1160,55 @@ class TeacherExcelImportView(APIView):
             
             if any(k in h for h in row_str for k in ['nip', 'no induk']) or any(k in h for h in row_str for k in ['nama', 'guru']):
                 header_row_idx = r_idx
+                if any('murid ampu' in h or 'wali kelas' in h or 'no telp' in h for h in row_str):
+                    detected_format = "TAHFIDZ_MIS"
+                else:
+                    detected_format = "STANDARD"
+
                 for c_idx, h in enumerate(row_str):
-                    if any(k in h for k in ['nip', 'no induk', 'username']) and 'nip' not in col_map:
-                        col_map['nip'] = c_idx
-                    elif any(k in h for k in ['nama', 'name', 'guru']) and 'name' not in col_map:
+                    if ('nip' in h or h in ['no induk', 'username']) and 'jenis' not in h:
+                        if 'nip' not in col_map:
+                            col_map['nip'] = c_idx
+                    elif any(k in h for k in ['nama guru', 'nama lengkap', 'nama', 'name', 'guru']) and 'name' not in col_map:
                         col_map['name'] = c_idx
                     elif 'email' in h and 'email' not in col_map:
                         col_map['email'] = c_idx
                 break
 
         if header_row_idx is None or 'nip' not in col_map:
-            col_map = {'nip': 1, 'name': 2, 'email': 3}
-            header_row_idx = 4
+            if ws.title and ('guru' in ws.title.lower() or 'tahfidz' in ws.title.lower()):
+                detected_format = "TAHFIDZ_MIS"
+                header_row_idx = 1
+                col_map = {'name': 1, 'nip': 3, 'email': 8}
+            else:
+                detected_format = "STANDARD"
+                header_row_idx = 4
+                col_map = {'nip': 1, 'name': 2, 'email': 3}
 
-        for r_idx, row in enumerate(ws.iter_rows(values_only=True), start=1):
-            if r_idx <= header_row_idx or not row:
-                continue
+        # Eksekusi fungsi import sesuai format yang terdeteksi
+        if detected_format == "TAHFIDZ_MIS":
+            result = _import_teachers_from_tahfidz_mis(
+                ws=ws,
+                header_row_idx=header_row_idx,
+                col_map=col_map
+            )
+        else:
+            result = _import_teachers_from_standard_template(
+                ws=ws,
+                header_row_idx=header_row_idx,
+                col_map=col_map
+            )
 
-            def get_val(key):
-                idx = col_map.get(key)
-                if idx is not None and idx < len(row):
-                    val = row[idx]
-                    if val is None:
-                        return ""
-                    if isinstance(val, float) and val.is_integer():
-                        return str(int(val)).strip()
-                    return str(val).strip()
-                return ""
-
-            raw_nip = get_val('nip')
-            raw_name = get_val('name')
-            raw_email = get_val('email')
-
-            if not raw_nip and not raw_name:
-                continue
-
-            total_rows += 1
-            if not raw_nip:
-                errors.append(f"Baris {r_idx}: NIP kosong untuk '{raw_name}'")
-                continue
-
-            try:
-                user, created = User.objects.get_or_create(
-                    username=raw_nip,
-                    defaults={
-                        "full_name": raw_name or f"Guru {raw_nip}",
-                        "role": User.RoleChoices.TEACHER,
-                        "nip": raw_nip,
-                        "email": raw_email,
-                        "is_staff": True
-                    }
-                )
-
-                if created:
-                    user.set_password(raw_nip) # Default password guru = NIP
-                    user.nip = raw_nip
-                    user.is_staff = True
-                    user.save()
-                    created_count += 1
-                else:
-                    if raw_name:
-                        user.full_name = raw_name
-                    if raw_email:
-                        user.email = raw_email
-                    user.nip = raw_nip
-                    user.role = User.RoleChoices.TEACHER
-                    user.is_staff = True
-                    user.save()
-                    updated_count += 1
-            except Exception as e:
-                errors.append(f"Baris {r_idx} (NIP {raw_nip}): {str(e)}")
-
+        format_label = result.get("format_name", "Template Standar")
         return Response({
             "success": True,
-            "message": f"Impor data guru selesai! {created_count} guru baru terdaftar (akun aktif pw=NIP), {updated_count} diperbarui.",
-            "created_count": created_count,
-            "updated_count": updated_count,
-            "total_rows": total_rows,
-            "errors": errors
+            "message": f"Impor data guru berhasil ({format_label})! {result['created_count']} guru baru terdaftar (akun aktif pw=NIP), {result['updated_count']} data diperbarui.",
+            "created_count": result['created_count'],
+            "updated_count": result['updated_count'],
+            "total_rows": result['total_rows'],
+            "detected_format": detected_format,
+            "format_label": format_label,
+            "errors": result['errors']
         }, status=status.HTTP_200_OK)
 
 

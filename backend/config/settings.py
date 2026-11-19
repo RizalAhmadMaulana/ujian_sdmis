@@ -146,8 +146,17 @@ SIMPLE_JWT = {
 # ==============================================================================
 # CORS HEADERS (Untuk Koneksi Frontend ReactJS / Vite)
 # ==============================================================================
-CORS_ALLOWED_ORIGINS = [os.getenv('CORS_ORIGIN')]
-CSRF_TRUSTED_ORIGINS = [os.getenv('CSRF_ORIGIN')]
+cors_origins_raw = os.getenv('CORS_ORIGIN', '')
+CORS_ALLOWED_ORIGINS = [orig.strip() for orig in cors_origins_raw.split(',') if orig.strip()]
+
+csrf_origins_raw = os.getenv('CSRF_ORIGIN', '')
+CSRF_TRUSTED_ORIGINS = [orig.strip() for orig in csrf_origins_raw.split(',') if orig.strip()]
+
+# Saat mode pengembangan lokal (DEBUG=True), izinkan semua origin agar fleksibel
+# jika port Vite beralih otomatis (misal 5173 ke 5174) atau diakses via localhost/LAN
+if DEBUG:
+    CORS_ALLOW_ALL_ORIGINS = True
+
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 CORS_ALLOW_CREDENTIALS = True
 
