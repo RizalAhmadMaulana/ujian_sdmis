@@ -23,7 +23,12 @@ import {
   CalendarCheck,
   Layers,
   Lock,
-  Settings
+  Settings,
+  Sparkles,
+  MapPin,
+  ChevronRight,
+  BookOpen,
+  Award
 } from 'lucide-react';
 
 export default function StudentLobby() {
@@ -103,51 +108,39 @@ export default function StudentLobby() {
     });
 
     if (isValid(sTime) && isValid(eTime)) {
-      const sDate = formatDate(sTime);
-      const eDate = formatDate(eTime);
-      const sHour = formatTime(sTime);
-      const eHour = formatTime(eTime);
-
-      if (sDate === eDate) {
-        return `${sDate} (${sHour} - ${eHour} WIB)`;
-      } else {
-        return `${sDate} ${sHour} s/d ${eDate} ${eHour} WIB`;
+      const isSameDate = sTime.toDateString() === eTime.toDateString();
+      if (isSameDate) {
+        return `${formatDate(sTime)}, ${formatTime(sTime)} s/d ${formatTime(eTime)} WIB`;
       }
+      return `${formatDate(sTime)} ${formatTime(sTime)} s/d ${formatDate(eTime)} ${formatTime(eTime)} WIB`;
     }
 
     if (isValid(sTime)) {
-      return `Mulai: ${formatDate(sTime)}, ${formatTime(sTime)} WIB`;
+      return `Mulai: ${formatDate(sTime)} ${formatTime(sTime)} WIB`;
     }
 
-    return `Berakhir: ${formatDate(eTime)}, ${formatTime(eTime)} WIB`;
+    return `Selesai: ${formatDate(eTime)} ${formatTime(eTime)} WIB`;
   };
 
-  // Helper Status Sesi Real-Time (Sesi Dibuka / Belum Dibuka / Sudah Ditutup)
+  // Helper Status Sesi Ujian (Aktif / Belum Dibuka / Selesai / Terjadwal)
   const getScheduleStatus = (session) => {
     const startTimeStr = session.start_time || session.startTime;
     const endTimeStr = session.end_time || session.endTime;
-    const now = new Date();
-
-    if (!startTimeStr && !endTimeStr) {
-      return {
-        status: 'UNKNOWN',
-        label: 'Belum Terjadwal',
-      };
-    }
+    const now = currentTime.getTime();
 
     const sTime = startTimeStr ? new Date(startTimeStr) : null;
     const eTime = endTimeStr ? new Date(endTimeStr) : null;
 
-    // 1. Jika sudah melewati tanggal/jam berakhir -> Sudah Ditutup
-    if (eTime && !isNaN(eTime.getTime()) && now > eTime) {
+    // 1. Cek apakah sesi sudah melewati waktu berakhir
+    if (eTime && !isNaN(eTime.getTime()) && now > eTime.getTime()) {
       return {
-        status: 'CLOSED',
-        label: 'Sudah Ditutup',
+        status: 'EXPIRED',
+        label: 'Sesi Selesai',
       };
     }
 
-    // 2. Jika waktu/tanggal belum sampai -> Belum Dibuka
-    if (sTime && !isNaN(sTime.getTime()) && now < sTime) {
+    // 2. Cek apakah sesi belum masuk waktu mulai
+    if (sTime && !isNaN(sTime.getTime()) && now < sTime.getTime()) {
       return {
         status: 'UPCOMING',
         label: 'Belum Dibuka',
@@ -191,13 +184,13 @@ export default function StudentLobby() {
   };
 
   return (
-    <div className="min-h-screen bg-[#090D16] text-zinc-100 flex flex-col justify-between select-none">
+    <div className="min-h-screen bg-[#F4FFFC] text-zinc-800 flex flex-col justify-between select-none antialiased font-sans">
       {/* ======================================================== */}
-      {/* 1. TOP HEADER BAR */}
+      {/* 1. TOP HEADER BAR (EXECUTIVE GREEN SCREEN NAVBAR)         */}
       {/* ======================================================== */}
-      <header className="bg-[#090D16]/90 border-b border-zinc-800/80 px-4 sm:px-8 py-3 flex items-center justify-between sticky top-0 z-30 backdrop-blur-md">
+      <header className="bg-gradient-to-r from-[#102919] via-[#143820] to-[#1F4B2C] border-b border-[#1F4B2C] px-4 sm:px-8 py-3.5 flex items-center justify-between sticky top-0 z-30 shadow-md">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-white/95 p-1.5 flex items-center justify-center shadow-md shadow-black/40 ring-1 ring-white/20 shrink-0">
+          <div className="w-10 h-10 rounded-xl bg-white p-1.5 flex items-center justify-center shadow-lg ring-2 ring-[#91EAAF]/40 shrink-0">
             <img 
               src={logoSdMis} 
               alt="Logo SD Mentari Islamic School" 
@@ -205,16 +198,16 @@ export default function StudentLobby() {
             />
           </div>
           <div>
-            <div className="font-bold text-sm sm:text-base text-zinc-100 tracking-tight flex items-center gap-2">
-              <span>SD Mentari Islamic School</span>
-              <span className="text-[10px] font-semibold px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 hidden sm:inline-block">
+            <div className="font-black text-sm sm:text-base text-white tracking-tight flex items-center gap-2">
+              <span>SD MENTARI ISLAMIC SCHOOL</span>
+              <span className="text-[10px] font-mono font-black px-2 py-0.5 rounded-full bg-[#C3E956] text-[#0A1D11] shadow-xs hidden sm:inline-block">
                 NPSN: 70047473
               </span>
               <button
                 type="button"
                 onClick={() => navigate('/student/profile')}
                 title="Pengaturan Profil Akun Siswa"
-                className="p-1 sm:p-1.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-zinc-400 hover:text-zinc-200 border border-zinc-800 transition shadow-2xs group"
+                className="p-1 sm:p-1.5 rounded-lg bg-[#0A1D11]/70 hover:bg-[#0A1D11] text-[#91EAAF] hover:text-[#C3E956] border border-[#1F4B2C] transition shadow-xs group"
               >
                 <Settings className="w-3.5 h-3.5 group-hover:rotate-45 transition-transform duration-300" />
               </button>
@@ -222,23 +215,23 @@ export default function StudentLobby() {
             <div 
               onClick={() => navigate('/student/profile')}
               title="Klik untuk membuka Pengaturan Profil"
-              className="text-xs text-zinc-400 truncate max-w-[200px] sm:max-w-md cursor-pointer hover:text-zinc-200 transition"
+              className="text-xs text-[#91EAAF] truncate max-w-[200px] sm:max-w-md cursor-pointer hover:text-white transition font-medium"
             >
-              {currentUser?.fullName} • {studentClassName} (NISN: {currentUser?.username})
+              {currentUser?.fullName} • Kelas {studentClassName} (NISN: {currentUser?.username})
             </div>
           </div>
         </div>
 
         {/* Live Digital Clock & Logout Button */}
         <div className="flex items-center gap-2.5 sm:gap-3">
-          <div className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-zinc-900 border border-zinc-800 font-mono text-xs font-semibold text-zinc-300 tabular-nums">
-            <Clock className="w-3.5 h-3.5 text-zinc-400" />
+          <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#0A1D11]/80 border border-[#C3E956]/40 font-mono text-xs font-bold text-[#C3E956] tabular-nums shadow-xs">
+            <Clock className="w-3.5 h-3.5 text-[#C3E956]" />
             <span>{timeString} WIB</span>
           </div>
 
           <button
             onClick={handleLogout}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-900 hover:bg-rose-950/40 hover:text-rose-400 border border-zinc-800 text-xs font-medium text-zinc-300 transition"
+            className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-[#0A1D11]/80 hover:bg-rose-950/60 hover:text-rose-300 border border-[#1F4B2C] text-xs font-semibold text-[#F4FFFC] transition cursor-pointer"
           >
             <LogOut className="w-3.5 h-3.5" />
             <span className="hidden sm:inline">Keluar</span>
@@ -247,124 +240,131 @@ export default function StudentLobby() {
       </header>
 
       {/* ======================================================== */}
-      {/* 2. MAIN CONTENT AREA (BERANDA EXAMBROWSER) */}
+      {/* 2. MAIN CONTENT AREA (BERANDA AKTIVITAS ASESMEN SISWA)    */}
       {/* ======================================================== */}
-      <main className="flex-1 max-w-5xl w-full mx-auto p-4 sm:p-6 lg:p-8 flex flex-col justify-center space-y-6">
+      <main className="flex-1 max-w-5xl w-full mx-auto p-4 sm:p-6 lg:p-8 flex flex-col justify-center space-y-7">
         {/* Banner Ucapan & Jam Real-Time Mobile */}
-        <div className="text-center space-y-2">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-xs text-zinc-300 font-medium mb-1 shadow-2xs">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+        <div className="text-center space-y-3">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#102919] border border-[#C3E956]/30 text-xs text-[#C3E956] font-bold shadow-xs">
+            <span className="w-2 h-2 rounded-full bg-[#C3E956] animate-pulse" />
             <span>{greeting}, {currentUser?.fullName?.split(' ')[0] || 'Siswa'}!</span>
             <span className="sm:hidden font-mono">• {timeString} WIB</span>
           </div>
-          <h2 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#102919] tracking-tight">
             Pusat Aktivitas Asesmen Digital Siswa
           </h2>
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 font-semibold text-xs font-sans tracking-wide shadow-2xs">
-            <span>✨ 'Digital Mind, Islamic Heart'</span>
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#C3E956]/20 border border-[#C3E956]/40 text-[#4D7111] font-bold text-xs tracking-wide shadow-2xs">
+            <Sparkles className="w-3.5 h-3.5 text-[#4D7111]" />
+            <span>'Digital Mind, Islamic Heart' • Zero-Tolerance Lockdown</span>
           </div>
-          <p className="text-xs sm:text-sm text-zinc-400 max-w-md mx-auto leading-relaxed pt-1">
-            Pilih menu di bawah ini untuk memulai asesmen terkunci, melihat jadwal ujian kelas, atau membaca tata tertib.
+          <p className="text-xs sm:text-sm text-zinc-600 max-w-lg mx-auto leading-relaxed pt-1">
+            Pilihlah menu di bawah ini untuk memulai pengerjaan ujian terproteksi, memeriksa jadwal asesmen kelas Anda, atau membaca tata tertib integritas.
           </p>
         </div>
 
         {/* ======================================================== */}
-        {/* GRID MENU UTAMA BERGAYA EXAMBROWSER */}
+        {/* GRID MENU UTAMA BERGAYA EXAMBROWSER (3 KARTU TAKTIL)      */}
         {/* ======================================================== */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5">
-          {/* KARTU 1: E-UJIAN (MENU UTAMA) */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          {/* KARTU 1: E-UJIAN (MENU UTAMA PENGERJAAN SOAL) */}
           <div
             onClick={() => setIsOrientationModalOpen(true)}
-            className="cursor-pointer group relative bg-zinc-900/80 hover:bg-zinc-900 border border-zinc-800 hover:border-zinc-700 rounded-xl p-5 sm:p-6 transition-all duration-150 shadow-2xs hover:-translate-y-0.5 flex flex-col justify-between overflow-hidden"
+            className="cursor-pointer group relative bg-white border-2 border-[#1F4B2C] hover:border-[#102919] rounded-2xl p-6 transition-all duration-200 shadow-md hover:shadow-xl hover:-translate-y-1 flex flex-col justify-between overflow-hidden"
           >
             <div>
               <div className="flex items-center justify-between mb-4">
-                <div className="w-11 h-11 rounded-lg bg-zinc-800 border border-zinc-700/80 flex items-center justify-center text-blue-400 transition-transform">
+                <div className="w-12 h-12 rounded-xl bg-[#102919] border border-[#C3E956]/40 flex items-center justify-center text-[#C3E956] transition-transform group-hover:scale-105 shadow-xs">
                   <FileText className="w-6 h-6" />
                 </div>
-                <span className="text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded bg-blue-600 text-white shadow-2xs">
+                <span className="text-[11px] font-black uppercase tracking-wider px-3 py-1 rounded-full bg-[#C3E956] text-[#0A1D11] shadow-xs">
                   Menu Utama
                 </span>
               </div>
-              <h3 className="text-lg font-bold text-white group-hover:text-blue-300 transition">
+              <h3 className="text-xl font-black text-[#102919] group-hover:text-[#1F4B2C] transition tracking-tight">
                 E-UJIAN
               </h3>
-              <p className="text-xs text-zinc-400 mt-2 leading-relaxed">
-                Masuk ke ruang pengerjaan asesmen mandiri atau formulir Google Form dalam proteksi layar penuh terkunci (*Zero-Tolerance Lockdown*).
+              <p className="text-xs text-zinc-600 mt-2.5 leading-relaxed">
+                Masuk ke ruang pengerjaan asesmen mandiri AKM atau form eksternal dalam proteksi layar penuh terkunci (<em>Zero-Tolerance Lockdown</em>).
               </p>
             </div>
 
-            <div className="mt-6 pt-3.5 border-t border-zinc-800/80 flex items-center justify-between text-xs font-semibold text-zinc-300 group-hover:text-white">
-              <span>Buka Ruang Ujian</span>
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+            <div className="mt-6 pt-4 border-t border-[#91EAAF]/40">
+              <div className="w-full py-2.5 px-4 rounded-xl bg-[#C3E956] group-hover:bg-[#d4f76b] text-[#0A1D11] font-black text-xs transition flex items-center justify-between shadow-xs active:scale-[0.98]">
+                <span>Buka Ruang Ujian</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </div>
             </div>
           </div>
 
-          {/* KARTU 2: JADWAL UJIAN */}
+          {/* KARTU 2: JADWAL ASESMEN KELAS */}
           <div
             onClick={() => setIsScheduleModalOpen(true)}
-            className="cursor-pointer group bg-zinc-900/50 hover:bg-zinc-900/80 border border-zinc-800 hover:border-zinc-700 rounded-xl p-5 sm:p-6 transition-all duration-150 shadow-2xs hover:-translate-y-0.5 flex flex-col justify-between"
+            className="cursor-pointer group bg-white border border-[#91EAAF]/60 hover:border-[#1F4B2C] rounded-2xl p-6 transition-all duration-200 shadow-xs hover:shadow-lg hover:-translate-y-1 flex flex-col justify-between"
           >
             <div>
               <div className="flex items-center justify-between mb-4">
-                <div className="w-11 h-11 rounded-lg bg-zinc-800 border border-zinc-700/80 flex items-center justify-center text-zinc-300 transition-transform">
+                <div className="w-12 h-12 rounded-xl bg-[#E1F8ED] border border-[#91EAAF]/60 flex items-center justify-center text-[#1F4B2C] transition-transform group-hover:scale-105 shadow-2xs">
                   <Calendar className="w-6 h-6" />
                 </div>
-                <span className="text-[10px] font-medium uppercase tracking-wider px-2 py-0.5 rounded bg-zinc-800 text-zinc-400 border border-zinc-700">
+                <span className="text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-[#E1F8ED] text-[#1F4B2C] border border-[#91EAAF]/60">
                   Kelas {studentClassName}
                 </span>
               </div>
-              <h3 className="text-lg font-bold text-white group-hover:text-zinc-200 transition">
-                JADWAL UJIAN
+              <h3 className="text-xl font-black text-[#102919] group-hover:text-[#1F4B2C] transition tracking-tight">
+                JADWAL ASESMEN
               </h3>
-              <p className="text-xs text-zinc-400 mt-2 leading-relaxed">
-                Lihat daftar jadwal sesi ujian aktif hari ini, mata pelajaran, serta durasi waktu pengerjaan asesmen.
+              <p className="text-xs text-zinc-600 mt-2.5 leading-relaxed">
+                Lihat daftar jadwal sesi ujian aktif hari ini, mata pelajaran, serta durasi waktu alokasi pengerjaan asesmen resmi.
               </p>
             </div>
 
-            <div className="mt-6 pt-3.5 border-t border-zinc-800/80 flex items-center justify-between text-xs font-semibold text-zinc-400 group-hover:text-white">
-              <span>Lihat Jadwal Lengkap</span>
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+            <div className="mt-6 pt-4 border-t border-zinc-100">
+              <div className="w-full py-2.5 px-4 rounded-xl bg-white hover:bg-[#F4FFFC] text-[#1F4B2C] border border-[#91EAAF]/60 font-bold text-xs transition flex items-center justify-between shadow-2xs group-hover:border-[#1F4B2C]">
+                <span>Lihat Jadwal Lengkap</span>
+                <ArrowRight className="w-4 h-4 text-[#4D7111] group-hover:translate-x-1 transition-transform" />
+              </div>
             </div>
           </div>
 
-          {/* KARTU 3: INFORMASI TATA TERTIB */}
+          {/* KARTU 3: INFORMASI TATA TERTIB INTEGRITAS */}
           <div
             onClick={() => setIsRulesModalOpen(true)}
-            className="cursor-pointer group bg-zinc-900/50 hover:bg-zinc-900/80 border border-zinc-800 hover:border-zinc-700 rounded-xl p-5 sm:p-6 transition-all duration-150 shadow-2xs hover:-translate-y-0.5 flex flex-col justify-between"
+            className="cursor-pointer group bg-white border border-[#91EAAF]/60 hover:border-[#1F4B2C] rounded-2xl p-6 transition-all duration-200 shadow-xs hover:shadow-lg hover:-translate-y-1 flex flex-col justify-between"
           >
             <div>
               <div className="flex items-center justify-between mb-4">
-                <div className="w-11 h-11 rounded-lg bg-zinc-800 border border-zinc-700/80 flex items-center justify-center text-amber-400 transition-transform">
+                <div className="w-12 h-12 rounded-xl bg-amber-50 border border-amber-200 flex items-center justify-center text-amber-600 transition-transform group-hover:scale-105 shadow-2xs">
                   <Info className="w-6 h-6" />
                 </div>
-                <span className="text-[10px] font-medium uppercase tracking-wider px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/30">
-                  Wajib Dibaca
+                <span className="text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-amber-100 text-amber-900 border border-amber-300">
+                  Wajib Dipatuhi
                 </span>
               </div>
-              <h3 className="text-lg font-bold text-white group-hover:text-zinc-200 transition">
+              <h3 className="text-xl font-black text-[#102919] group-hover:text-[#1F4B2C] transition tracking-tight">
                 TATA TERTIB UJIAN
               </h3>
-              <p className="text-xs text-zinc-400 mt-2 leading-relaxed">
-                Ketahui protokol anti-curang, larangan membuka tab baru, perpindahan aplikasi, screenshot, dan pembekuan layar.
+              <p className="text-xs text-zinc-600 mt-2.5 leading-relaxed">
+                Ketahui protokol anti-curang, larangan membuka tab baru, perpindahan aplikasi, screenshot, dan pembekuan layar otomatis.
               </p>
             </div>
 
-            <div className="mt-6 pt-3.5 border-t border-zinc-800/80 flex items-center justify-between text-xs font-semibold text-zinc-400 group-hover:text-white">
-              <span>Baca Ketentuan & Aturan</span>
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+            <div className="mt-6 pt-4 border-t border-zinc-100">
+              <div className="w-full py-2.5 px-4 rounded-xl bg-white hover:bg-[#F4FFFC] text-[#1F4B2C] border border-[#91EAAF]/60 font-bold text-xs transition flex items-center justify-between shadow-2xs group-hover:border-[#1F4B2C]">
+                <span>Baca Aturan & Protokol</span>
+                <ArrowRight className="w-4 h-4 text-[#4D7111] group-hover:translate-x-1 transition-transform" />
+              </div>
             </div>
           </div>
         </div>
       </main>
 
       {/* Footer Info */}
-      <footer className="py-4 text-center text-zinc-500 text-xs border-t border-zinc-900">
-        {schoolSettings?.name || 'Portal Asesmen Sekolah'} • Portal Ujian Anti-Cheat Berbasis Web & ExamBrowser
+      <footer className="py-4 text-center text-zinc-500 text-xs border-t border-[#91EAAF]/30 bg-white/60">
+        <strong className="text-[#1F4B2C]">{schoolSettings?.name || 'SD Mentari Islamic School'}</strong> • Portal Asesmen Siswa Anti-Cheat Berbasis Web & ExamBrowser
       </footer>
 
       {/* ======================================================== */}
-      {/* 3. MODAL PILIH ORIENTASI LAYAR (PORTRAIT / LANDSCAPE) */}
+      {/* 3. MODAL PILIH ORIENTASI LAYAR (PORTRAIT / LANDSCAPE)     */}
       {/* ======================================================== */}
       <Modal
         isOpen={isOrientationModalOpen}
@@ -377,18 +377,18 @@ export default function StudentLobby() {
             Pilihlah mode orientasi perangkat yang paling nyaman untuk mengerjakan soal. Tampilan lembar ujian akan menyesuaikan secara presisi:
           </p>
 
-          <div className="grid grid-cols-2 gap-3.5">
+          <div className="grid grid-cols-2 gap-4">
             {/* Opsi Portrait */}
             <button
               onClick={() => handleSelectOrientation('PORTRAIT')}
-              className="p-4 sm:p-5 rounded-xl border border-zinc-200 hover:border-zinc-400 bg-zinc-50 hover:bg-zinc-100 flex flex-col items-center text-center transition hover:-translate-y-0.5 active:scale-[0.98] group shadow-2xs"
+              className="p-5 rounded-2xl border-2 border-[#91EAAF]/70 hover:border-[#1F4B2C] bg-[#F4FFFC] hover:bg-white flex flex-col items-center text-center transition hover:-translate-y-0.5 active:scale-[0.98] group shadow-xs cursor-pointer"
             >
-              <div className="w-12 h-12 rounded-lg bg-zinc-200/80 flex items-center justify-center text-zinc-800 mb-2.5 group-hover:scale-105 transition-transform">
-                <Smartphone className="w-6 h-6" />
+              <div className="w-14 h-14 rounded-xl bg-[#E1F8ED] border border-[#91EAAF]/60 flex items-center justify-center text-[#1F4B2C] mb-3 group-hover:bg-[#1F4B2C] group-hover:text-[#C3E956] transition-colors shadow-2xs">
+                <Smartphone className="w-7 h-7" />
               </div>
-              <span className="font-bold text-zinc-900 text-sm">PORTRAIT</span>
-              <span className="text-[11px] text-zinc-500 mt-0.5">Mode Tegak (Layar Smartphone)</span>
-              <span className="mt-2 text-[10px] font-semibold px-2 py-0.5 rounded bg-zinc-200 text-zinc-700">
+              <span className="font-black text-[#102919] text-sm tracking-tight">PORTRAIT</span>
+              <span className="text-[11px] text-zinc-500 mt-1">Mode Tegak (Layar Smartphone)</span>
+              <span className="mt-2.5 text-[10px] font-black px-2.5 py-0.5 rounded-full bg-[#C3E956] text-[#0A1D11] shadow-2xs">
                 Rekomendasi HP
               </span>
             </button>
@@ -396,20 +396,20 @@ export default function StudentLobby() {
             {/* Opsi Landscape */}
             <button
               onClick={() => handleSelectOrientation('LANDSCAPE')}
-              className="p-4 sm:p-5 rounded-xl border border-zinc-200 hover:border-zinc-400 bg-zinc-50 hover:bg-zinc-100 flex flex-col items-center text-center transition hover:-translate-y-0.5 active:scale-[0.98] group shadow-2xs"
+              className="p-5 rounded-2xl border-2 border-[#91EAAF]/70 hover:border-[#1F4B2C] bg-[#F4FFFC] hover:bg-white flex flex-col items-center text-center transition hover:-translate-y-0.5 active:scale-[0.98] group shadow-xs cursor-pointer"
             >
-              <div className="w-12 h-12 rounded-lg bg-zinc-200/80 flex items-center justify-center text-zinc-800 mb-2.5 group-hover:scale-105 transition-transform">
-                <Monitor className="w-6 h-6" />
+              <div className="w-14 h-14 rounded-xl bg-[#E1F8ED] border border-[#91EAAF]/60 flex items-center justify-center text-[#1F4B2C] mb-3 group-hover:bg-[#1F4B2C] group-hover:text-[#C3E956] transition-colors shadow-2xs">
+                <Monitor className="w-7 h-7" />
               </div>
-              <span className="font-bold text-zinc-900 text-sm">LANDSCAPE</span>
-              <span className="text-[11px] text-zinc-500 mt-0.5">Mode Mendatar (Tablet / PC)</span>
-              <span className="mt-2 text-[10px] font-semibold px-2 py-0.5 rounded bg-zinc-200 text-zinc-700">
-                Rekomendasi PC / Tablet
+              <span className="font-black text-[#102919] text-sm tracking-tight">LANDSCAPE</span>
+              <span className="text-[11px] text-zinc-500 mt-1">Mode Mendatar (Tablet / PC)</span>
+              <span className="mt-2.5 text-[10px] font-black px-2.5 py-0.5 rounded-full bg-[#C3E956] text-[#0A1D11] shadow-2xs">
+                Rekomendasi Laptop/Tab
               </span>
             </button>
           </div>
 
-          <div className="p-3 rounded-lg bg-amber-50 border border-amber-200 text-amber-900 text-xs flex items-start gap-2.5">
+          <div className="p-3.5 rounded-xl bg-amber-50 border border-amber-300 text-amber-900 text-xs flex items-start gap-3">
             <ShieldAlert className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
             <span className="leading-relaxed">
               <strong>Penting:</strong> Setelah Anda memilih orientasi dan mengklik mata pelajaran, sistem akan langsung meminta <strong>Mode Layar Penuh (Fullscreen)</strong>. Jangan tekan tombol keluar atau berpindah tab!
@@ -419,7 +419,7 @@ export default function StudentLobby() {
       </Modal>
 
       {/* ======================================================== */}
-      {/* 4. MODAL JADWAL UJIAN AKTIF */}
+      {/* 4. MODAL JADWAL UJIAN AKTIF                               */}
       {/* ======================================================== */}
       <Modal
         isOpen={isScheduleModalOpen}
@@ -427,15 +427,16 @@ export default function StudentLobby() {
         title="Jadwal Asesmen Aktif Kelas Anda"
         maxWidth="max-w-xl"
       >
-        <div className="space-y-3">
+        <div className="space-y-3.5">
           <p className="text-xs text-zinc-600">
             Daftar sesi ujian yang dijadwalkan untuk kelas <strong>{studentClassName}</strong>:
           </p>
 
-          <div className="space-y-2.5 max-h-84 overflow-y-auto pr-0.5">
+          <div className="space-y-3 max-h-84 overflow-y-auto pr-0.5 custom-scrollbar">
             {examSessions.length === 0 ? (
-              <div className="text-center py-8 text-zinc-400 text-xs">
-                Belum ada jadwal sesi asesmen yang aktif untuk kelas Anda saat ini.
+              <div className="text-center py-8 text-zinc-400 text-xs space-y-2">
+                <Calendar className="w-8 h-8 text-[#91EAAF] mx-auto" />
+                <p>Belum ada jadwal sesi asesmen yang aktif untuk kelas Anda saat ini.</p>
               </div>
             ) : (
               examSessions.map((session) => {
@@ -445,58 +446,35 @@ export default function StudentLobby() {
                 return (
                   <div
                     key={session.id}
-                    className="p-3 sm:p-3.5 rounded-lg border border-zinc-200/90 bg-white hover:border-zinc-300 transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-2xs"
+                    className="p-4 rounded-xl border border-[#91EAAF]/40 bg-[#F4FFFC]/50 hover:bg-[#F4FFFC] hover:border-[#1F4B2C] transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-2xs"
                   >
-                    <div className="space-y-1">
+                    <div className="space-y-1.5 min-w-0">
                       <div className="flex items-center gap-2 flex-wrap">
-                        <span className="text-[10px] font-semibold px-2 py-0.5 rounded bg-zinc-100 text-zinc-700 border border-zinc-200 uppercase tracking-wide">
-                          {session.classroom || session.classroom_name || 'Semua Kelas'}
+                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-[#E1F8ED] text-[#1F4B2C] border border-[#91EAAF]/60">
+                          {session.classroom_name || session.classroom || 'Semua Kelas'}
                         </span>
-                        <span className="text-[10px] font-medium px-2 py-0.5 rounded bg-zinc-100 text-zinc-600">
-                          {session.durationMinutes || session.duration_minutes || 60} Menit
+                        <span className="text-[10px] font-semibold px-2 py-0.5 rounded-md bg-white text-zinc-700 border border-zinc-200">
+                          ⏱️ {session.duration_minutes || session.durationMinutes || 60} Menit
                         </span>
                       </div>
-                      <h4 className="font-bold text-zinc-900 text-sm tracking-tight">
-                        {session.subjectName || session.subject_name || 'Mata Pelajaran'}
+                      <h4 className="font-bold text-zinc-900 text-sm tracking-tight truncate">
+                        {session.subject_name || session.subjectName || session.title}
                       </h4>
-                      <div className="text-xs text-zinc-500 line-clamp-1">
-                        {session.title || 'Sesi Ujian'}
+                      <div className="text-[11px] text-zinc-500 font-medium">
+                        {scheduleRange}
                       </div>
                     </div>
 
-                    <div className="sm:text-right shrink-0 flex flex-row sm:flex-col items-center sm:items-end justify-between sm:justify-center border-t sm:border-t-0 pt-2 sm:pt-0 border-zinc-100">
-                      {/* Tanggal dan Jam Mulai hingga Berakhir */}
-                      <div className="text-xs font-semibold text-zinc-700 font-mono flex items-center sm:justify-end gap-1.5 tabular-nums">
-                        <Calendar className="w-3.5 h-3.5 text-zinc-400 shrink-0" />
-                        <span>{scheduleRange}</span>
-                      </div>
-
-                      {/* Status Sesi Dinamis */}
-                      <div className="mt-1">
-                        {scheduleStatus.status === 'ACTIVE' && (
-                          <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[11px] font-medium bg-emerald-50 text-emerald-700 border border-emerald-200/80 shadow-2xs">
-                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                            <span>Sesi Dibuka</span>
-                          </span>
-                        )}
-                        {scheduleStatus.status === 'UPCOMING' && (
-                          <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[11px] font-medium bg-amber-50 text-amber-700 border border-amber-200/80 shadow-2xs">
-                            <Clock className="w-3 h-3 text-amber-600" />
-                            <span>Belum Dibuka</span>
-                          </span>
-                        )}
-                        {scheduleStatus.status === 'CLOSED' && (
-                          <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[11px] font-medium bg-rose-50 text-rose-700 border border-rose-200/80 shadow-2xs">
-                            <Lock className="w-3 h-3 text-rose-600" />
-                            <span>Sudah Ditutup</span>
-                          </span>
-                        )}
-                        {scheduleStatus.status === 'UNKNOWN' && (
-                          <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[11px] font-medium bg-zinc-100 text-zinc-600 border border-zinc-200">
-                            <span>Belum Terjadwal</span>
-                          </span>
-                        )}
-                      </div>
+                    <div className="shrink-0 self-start sm:self-center">
+                      <span className={`text-[10px] font-bold px-2.5 py-1 rounded-full border ${
+                        scheduleStatus.status === 'ACTIVE'
+                          ? 'bg-[#C3E956]/20 text-[#4D7111] border-[#C3E956]/40'
+                          : scheduleStatus.status === 'UPCOMING'
+                          ? 'bg-zinc-100 text-zinc-600 border-zinc-200'
+                          : 'bg-rose-50 text-rose-700 border-rose-200'
+                      }`}>
+                        {scheduleStatus.label}
+                      </span>
                     </div>
                   </div>
                 );
@@ -504,10 +482,10 @@ export default function StudentLobby() {
             )}
           </div>
 
-          <div className="flex justify-end pt-2">
+          <div className="pt-2 flex justify-end">
             <button
               onClick={() => setIsScheduleModalOpen(false)}
-              className="px-3.5 py-1.5 bg-white border border-zinc-200/90 hover:bg-zinc-50 text-zinc-700 rounded-lg text-xs font-semibold transition"
+              className="px-5 py-2 bg-[#1F4B2C] hover:bg-[#183D23] text-white rounded-xl text-xs font-bold transition shadow-xs cursor-pointer"
             >
               Tutup Jadwal
             </button>
@@ -516,58 +494,71 @@ export default function StudentLobby() {
       </Modal>
 
       {/* ======================================================== */}
-      {/* 5. MODAL TATA TERTIB & ZERO-TOLERANCE SECURITY */}
+      {/* 5. MODAL TATA TERTIB INTEGRITAS UJIAN                     */}
       {/* ======================================================== */}
       <Modal
         isOpen={isRulesModalOpen}
         onClose={() => setIsRulesModalOpen(false)}
-        title="Tata Tertib & Protokol Integritas Ujian"
+        title="Tata Tertib & Protokol Integritas Asesmen"
         maxWidth="max-w-lg"
       >
         <div className="space-y-4 text-xs text-zinc-700">
-          <div className="p-3 rounded-lg bg-rose-50 border border-rose-200 text-rose-900 font-medium">
-            Setiap peserta ujian diawasi secara otomatis oleh sensor sistem integritas real-time. Pelanggaran akan mencatat jam, detik, dan mengunci layar ujian Anda!
+          <div className="p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-900 font-semibold space-y-1">
+            <div className="flex items-center gap-1.5 text-xs font-bold text-rose-800">
+              <ShieldAlert className="w-4 h-4 text-rose-600" />
+              <span>Sensor Anti-Cheat Aktif Selama Ujian:</span>
+            </div>
+            <p className="text-[11px] font-normal leading-relaxed">
+              Seluruh aktivitas peramban diawasi otomatis oleh sistem. Pelanggaran akan mencatat jam, menit, detik kejadian, membekukan layar, dan disinkronkan ke E-Jurnal Guru Pengawas.
+            </p>
           </div>
 
-          <div className="space-y-2.5">
-            <div className="flex items-start gap-2.5">
-              <Ban className="w-4 h-4 text-rose-600 shrink-0 mt-0.5" />
-              <span>
-                <strong>Dilarang Membuka Tab Baru / Minimalkan Browser:</strong> Segala upaya berpindah ke tab Google, pencarian materi, atau AI akan langsung membekukan layar Anda.
-              </span>
+          <div className="space-y-2.5 leading-relaxed">
+            <div className="flex items-start gap-2.5 p-2 rounded-lg bg-zinc-50 border border-zinc-200/80">
+              <span className="w-5 h-5 rounded-full bg-rose-100 text-rose-700 flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">✕</span>
+              <div>
+                <strong className="text-zinc-900">Dilarang Membuka Tab Baru / Minimalkan Browser:</strong>
+                <p className="text-[11px] text-zinc-500 mt-0.5">Berpindah tab atau aplikasi akan langsung membekukan layar pengerjaan.</p>
+              </div>
             </div>
-            <div className="flex items-start gap-2.5">
-              <Ban className="w-4 h-4 text-rose-600 shrink-0 mt-0.5" />
-              <span>
-                <strong>Dilarang Keluar dari Mode Fullscreen:</strong> Menekan tombol ESC atau keluar layar penuh memicu status pelanggaran dan alarm di ruang pengawas.
-              </span>
+
+            <div className="flex items-start gap-2.5 p-2 rounded-lg bg-zinc-50 border border-zinc-200/80">
+              <span className="w-5 h-5 rounded-full bg-rose-100 text-rose-700 flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">✕</span>
+              <div>
+                <strong className="text-zinc-900">Dilarang Keluar dari Mode Layar Penuh (ESC):</strong>
+                <p className="text-[11px] text-zinc-500 mt-0.5">Keluar mode fullscreen memicu alarm keamanan di ruang pengawas.</p>
+              </div>
             </div>
-            <div className="flex items-start gap-2.5">
-              <Ban className="w-4 h-4 text-rose-600 shrink-0 mt-0.5" />
-              <span>
-                <strong>Dilarang Mengambil Screenshot / Rekam Layar:</strong> Tombol pintas PrintScreen, copy teks, dan klik kanan telah dinonaktifkan sistem.
-              </span>
+
+            <div className="flex items-start gap-2.5 p-2 rounded-lg bg-zinc-50 border border-zinc-200/80">
+              <span className="w-5 h-5 rounded-full bg-rose-100 text-rose-700 flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">✕</span>
+              <div>
+                <strong className="text-zinc-900">Dilarang Tangkapan Layar (Screenshot) / Rekam Layar:</strong>
+                <p className="text-[11px] text-zinc-500 mt-0.5">Fitur printscreen dan gesture rekam layar otomatis dinonaktifkan sistem.</p>
+              </div>
             </div>
-            <div className="flex items-start gap-2.5">
-              <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-              <span>
-                <strong>Prosedur Keluar:</strong> Setelah selesai mengirim jawaban, masukkan <strong>Password Keluar</strong> dari pengawas untuk menutup sesi secara resmi.
-              </span>
+
+            <div className="flex items-start gap-2.5 p-2 rounded-lg bg-[#E1F8ED] border border-[#91EAAF]/60">
+              <span className="w-5 h-5 rounded-full bg-[#1F4B2C] text-[#C3E956] flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">✓</span>
+              <div>
+                <strong className="text-[#102919]">Prosedur Selesai Ujian:</strong>
+                <p className="text-[11px] text-zinc-600 mt-0.5">Setelah seluruh jawaban terisi, klik tombol &quot;Selesai & Kirim Ujian&quot; untuk mengakhiri sesi pengerjaan.</p>
+              </div>
             </div>
           </div>
 
-          <div className="flex justify-end pt-2">
+          <div className="pt-2">
             <button
               onClick={() => setIsRulesModalOpen(false)}
-              className="px-4 py-2 bg-zinc-900 hover:bg-zinc-800 text-white rounded-lg text-xs font-semibold shadow-2xs transition"
+              className="w-full py-3 bg-[#1F4B2C] hover:bg-[#183D23] text-[#C3E956] font-bold text-xs rounded-xl transition shadow-xs cursor-pointer active:scale-[0.98]"
             >
-              Saya Mengerti & Siap Ujian
+              Saya Mengerti & Siap Mematuhi Tata Tertib
             </button>
           </div>
         </div>
       </Modal>
 
-      {/* Pop Up Cek Kelengkapan Biodata / Kata Sandi Bawaan Siswa */}
+      {/* Pop Up Lengkapi Profil Pertama Kali Login */}
       {showWelcomeModal && currentUser && (
         <WelcomeProfileModal
           user={currentUser}

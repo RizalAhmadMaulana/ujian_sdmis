@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useExamStore } from '../../store/useExamStore';
-import { getSessionsApi, startExamAttemptApi } from '../../api/examApi';
+import { getSessionsApi } from '../../api/examApi';
+import logoSdMis from '../../assets/logo sd mis.png';
 import { 
   BookOpen, 
   ExternalLink, 
@@ -10,8 +11,6 @@ import {
   ArrowLeft, 
   Lock, 
   Sparkles, 
-  Maximize2, 
-  AlertTriangle, 
   Smartphone, 
   Monitor,
   Clock,
@@ -20,7 +19,8 @@ import {
   RotateCcw,
   GraduationCap,
   LogOut,
-  Settings
+  Settings,
+  AlertTriangle
 } from 'lucide-react';
 
 export default function SubjectPortal() {
@@ -32,7 +32,6 @@ export default function SubjectPortal() {
     activeAttempt, 
     currentUser, 
     examSessions,
-    setAttemptId,
     setSessionId,
     logout
   } = useExamStore();
@@ -206,26 +205,30 @@ export default function SubjectPortal() {
   };
 
   return (
-    <div className="min-h-screen bg-[#090D16] text-zinc-100 flex flex-col justify-between select-none relative overflow-x-hidden">
+    <div className="min-h-screen bg-[#F4FFFC] text-zinc-800 flex flex-col justify-between select-none relative overflow-x-hidden antialiased font-sans">
       {/* ======================================================== */}
-      {/* 1. TOP HEADER BAR (EXAMBROWSER NAVBAR) */}
+      {/* 1. TOP HEADER BAR (EXECUTIVE GREEN SCREEN NAVBAR)         */}
       {/* ======================================================== */}
-      <header className="bg-[#090D16]/90 border-b border-zinc-800/80 px-4 sm:px-8 py-3 flex items-center justify-between sticky top-0 z-30 backdrop-blur-md shrink-0">
+      <header className="bg-gradient-to-r from-[#102919] via-[#143820] to-[#1F4B2C] border-b border-[#1F4B2C] px-4 sm:px-8 py-3.5 flex items-center justify-between sticky top-0 z-30 shadow-md">
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-lg bg-zinc-800 border border-zinc-700/80 flex items-center justify-center text-zinc-300 shrink-0">
-            <GraduationCap className="w-5 h-5" />
+          <div className="w-10 h-10 rounded-xl bg-white p-1.5 flex items-center justify-center shadow-lg ring-2 ring-[#91EAAF]/40 shrink-0">
+            <img 
+              src={logoSdMis} 
+              alt="Logo SD Mentari Islamic School" 
+              className="w-full h-full object-contain"
+            />
           </div>
           <div>
-            <div className="font-bold text-sm sm:text-base text-zinc-100 tracking-tight flex items-center gap-2">
-              <span>ExamBrowser Portal</span>
-              <span className="text-[10px] font-medium px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 hidden sm:inline-block">
-                Terkunci Aman
+            <div className="font-black text-sm sm:text-base text-white tracking-tight flex items-center gap-2">
+              <span>SD MENTARI ISLAMIC SCHOOL</span>
+              <span className="text-[10px] font-mono font-black px-2 py-0.5 rounded-full bg-[#C3E956] text-[#0A1D11] shadow-xs hidden sm:inline-block">
+                NPSN: 70047473
               </span>
               <button
                 type="button"
                 onClick={() => navigate('/student/profile')}
                 title="Pengaturan Profil Akun Siswa"
-                className="p-1 sm:p-1.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-zinc-400 hover:text-zinc-200 border border-zinc-800 transition shadow-2xs group"
+                className="p-1 sm:p-1.5 rounded-lg bg-[#0A1D11]/70 hover:bg-[#0A1D11] text-[#91EAAF] hover:text-[#C3E956] border border-[#1F4B2C] transition shadow-xs group cursor-pointer"
               >
                 <Settings className="w-3.5 h-3.5 group-hover:rotate-45 transition-transform duration-300" />
               </button>
@@ -233,23 +236,23 @@ export default function SubjectPortal() {
             <div 
               onClick={() => navigate('/student/profile')}
               title="Klik untuk membuka Pengaturan Profil"
-              className="text-xs text-zinc-400 truncate max-w-[200px] sm:max-w-md cursor-pointer hover:text-zinc-200 transition"
+              className="text-xs text-[#91EAAF] truncate max-w-[200px] sm:max-w-md cursor-pointer hover:text-white transition font-medium"
             >
-              {currentUser?.fullName} • {studentClassName} (NISN: {currentUser?.username})
+              {currentUser?.fullName} • Kelas {studentClassName} (NISN: {currentUser?.username})
             </div>
           </div>
         </div>
 
         {/* Live Digital Clock & Logout Button */}
         <div className="flex items-center gap-2.5 sm:gap-3">
-          <div className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-zinc-900 border border-zinc-800 font-mono text-xs font-semibold text-zinc-300 tabular-nums">
-            <Clock className="w-3.5 h-3.5 text-zinc-400" />
+          <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#0A1D11]/80 border border-[#C3E956]/40 font-mono text-xs font-bold text-[#C3E956] tabular-nums shadow-xs">
+            <Clock className="w-3.5 h-3.5 text-[#C3E956]" />
             <span>{timeString} WIB</span>
           </div>
 
           <button
             onClick={handleLogout}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-900 hover:bg-rose-950/40 hover:text-rose-400 border border-zinc-800 text-xs font-medium text-zinc-300 transition"
+            className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-[#0A1D11]/80 hover:bg-rose-950/60 hover:text-rose-300 border border-[#1F4B2C] text-xs font-semibold text-[#F4FFFC] transition cursor-pointer"
           >
             <LogOut className="w-3.5 h-3.5" />
             <span className="hidden sm:inline">Keluar</span>
@@ -258,25 +261,25 @@ export default function SubjectPortal() {
       </header>
 
       {/* ======================================================== */}
-      {/* 2. MAIN CONTENT AREA */}
+      {/* 2. MAIN CONTENT AREA                                     */}
       {/* ======================================================== */}
-      <main className="flex-1 max-w-2xl w-full mx-auto p-4 sm:p-6 lg:p-8 flex flex-col justify-center space-y-5 z-10">
+      <main className="flex-1 max-w-3xl w-full mx-auto p-4 sm:p-6 lg:p-8 flex flex-col justify-center space-y-5 z-10">
         {/* Navigation & Header Status Bar */}
         <div className="flex items-center justify-between">
           <button
             onClick={() => navigate('/student/lobby')}
-            className="flex items-center gap-1.5 text-xs text-zinc-400 hover:text-white transition px-3 py-1.5 rounded-lg bg-zinc-900 border border-zinc-800 shadow-2xs hover:bg-zinc-800"
+            className="flex items-center gap-2 text-xs font-bold text-[#1F4B2C] hover:text-[#102919] transition-all px-3.5 py-2 rounded-xl bg-white border-2 border-[#91EAAF]/60 shadow-xs hover:border-[#1F4B2C] active:scale-[0.98] cursor-pointer"
           >
-            <ArrowLeft className="w-3.5 h-3.5" />
+            <ArrowLeft className="w-4 h-4 text-[#1F4B2C]" />
             <span>Kembali ke Lobby</span>
           </button>
 
           <div className="flex items-center gap-2">
-            <span className="text-xs px-2.5 py-1 rounded-lg bg-zinc-900 text-zinc-300 border border-zinc-800 font-medium flex items-center gap-1.5 shadow-2xs">
+            <span className="text-xs px-3 py-1.5 rounded-xl bg-white text-[#1F4B2C] border-2 border-[#91EAAF]/60 font-bold flex items-center gap-1.5 shadow-xs">
               {activeAttempt.screenOrientation === 'LANDSCAPE' ? (
-                <Monitor className="w-3.5 h-3.5 text-zinc-400" />
+                <Monitor className="w-4 h-4 text-[#4D7111]" />
               ) : (
-                <Smartphone className="w-3.5 h-3.5 text-zinc-400" />
+                <Smartphone className="w-4 h-4 text-[#4D7111]" />
               )}
               <span>Orientasi: {activeAttempt.screenOrientation}</span>
             </span>
@@ -285,45 +288,50 @@ export default function SubjectPortal() {
 
         {/* Big Title Header */}
         <div className="text-center space-y-2">
-          <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-300 text-xs font-medium mb-1 shadow-2xs">
-            <Lock className="w-3.5 h-3.5 text-zinc-400" /> Ruang Ujian Terproteksi — Kelas {studentClassName}
+          <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#102919] border border-[#C3E956]/30 text-[#C3E956] text-xs font-bold shadow-xs">
+            <Lock className="w-3.5 h-3.5 text-[#C3E956]" />
+            <span>Ruang Ujian Terproteksi — Kelas {studentClassName}</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
-            Selamat Datang di Portal Ujian — Pilih Mata Pelajaran
+          <h1 className="text-2xl sm:text-3xl font-black text-[#102919] tracking-tight">
+            Portal Asesmen — Pilih Mata Pelajaran
           </h1>
-          <p className="text-xs sm:text-sm text-zinc-400 max-w-lg mx-auto leading-relaxed">
-            Klik tombol mata pelajaran di bawah ini untuk memulai pengerjaan. Layar Anda akan langsung dikunci dalam mode <strong className="text-white">Fullscreen Otomatis</strong>.
+          <p className="text-xs sm:text-sm text-zinc-600 max-w-lg mx-auto leading-relaxed">
+            Klik mata pelajaran di bawah ini untuk memulai pengerjaan. Layar perangkat Anda akan langsung dikunci otomatis dalam mode <strong className="text-[#102919] font-bold">Layar Penuh (Fullscreen)</strong>.
           </p>
         </div>
 
         {/* Warning Callout Box */}
-        <div className="p-3.5 rounded-xl bg-amber-950/30 border border-amber-800/60 text-amber-200 text-xs flex items-start gap-3 shadow-2xs">
-          <AlertTriangle className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
-          <div className="space-y-0.5 leading-relaxed">
-            <div className="font-bold text-white text-xs">
+        <div className="p-4 rounded-2xl bg-amber-50 border-2 border-amber-300 text-amber-950 text-xs flex items-start gap-3.5 shadow-xs">
+          <div className="p-2 rounded-xl bg-amber-500 text-white shrink-0 mt-0.5 shadow-xs">
+            <AlertTriangle className="w-4 h-4" />
+          </div>
+          <div className="space-y-1 leading-relaxed">
+            <div className="font-black text-amber-950 text-xs sm:text-sm">
               Peringatan Keamanan Asesmen:
             </div>
-            <p className="text-amber-200/90 text-[11px]">
-              Begitu tombol mata pelajaran ditekan, jangan tekan tombol ESC, tombol Home, atau berpindah ke aplikasi lain. Layar akan langsung dibekukan dan kejadian tersebut akan tercatat dalam <strong>E-Jurnal Guru</strong>.
+            <p className="text-amber-900 text-xs">
+              Setelah tombol mata pelajaran diklik, dilarang menekan tombol ESC, berpindah tab, meminimalkan aplikasi, atau menyentuh tombol navigasi. Segala aktivitas keluar layar akan membekukan lembar ujian dan tercatat otomatis pada <strong>E-Jurnal Guru Pengawas</strong>.
             </p>
           </div>
         </div>
 
         {/* Real-time Schedule Alert / Notification Banner */}
         {portalAlert && (
-          <div className="p-3.5 rounded-xl bg-rose-950/80 border border-rose-800/80 text-rose-200 text-xs flex items-start gap-3 shadow-2xs">
-            <AlertCircle className="w-4 h-4 text-rose-400 shrink-0 mt-0.5" />
-            <div className="space-y-0.5">
-              <div className="font-bold text-white text-xs">Pemberitahuan Akses Jadwal Ujian:</div>
-              <p className="text-rose-200 text-[11px] leading-relaxed">{portalAlert}</p>
+          <div className="p-4 rounded-2xl bg-rose-50 border-2 border-rose-300 text-rose-950 text-xs flex items-start gap-3.5 shadow-xs animate-shake">
+            <div className="p-2 rounded-xl bg-rose-600 text-white shrink-0 mt-0.5 shadow-xs">
+              <AlertCircle className="w-4 h-4" />
+            </div>
+            <div className="space-y-1">
+              <div className="font-black text-rose-950 text-xs sm:text-sm">Pemberitahuan Akses Jadwal Ujian:</div>
+              <p className="text-rose-900 text-xs leading-relaxed">{portalAlert}</p>
             </div>
           </div>
         )}
 
         {/* ======================================================== */}
-        {/* LIST TOMBOL MATA PELAJARAN (EXAMBROWSER BIG BUTTONS) */}
+        {/* LIST TOMBOL MATA PELAJARAN (TACTILE GREEN SCREEN CARDS)  */}
         {/* ======================================================== */}
-        <div className="space-y-3">
+        <div className="space-y-3.5">
           {examPackages.map((pkg) => {
             const isSelected = launchingPackageId === pkg.id;
             const isNative = pkg.examType === 'NATIVE_QUESTIONS';
@@ -364,189 +372,157 @@ export default function SubjectPortal() {
             const schedule = getScheduleStatus(matchingSession);
 
             return (
-              <button
+              <div
                 key={pkg.id}
-                type="button"
-                disabled={isLaunching}
                 onClick={() => handleStartExam(pkg, schedule, matchingSession)}
-                className={`w-full group relative text-left p-4 sm:p-5 rounded-xl border transition-all duration-150 shadow-2xs flex items-center justify-between overflow-hidden hover:-translate-y-0.5 active:scale-[0.99] ${
-                  isSelected
-                    ? 'border-blue-500 bg-zinc-900 ring-2 ring-blue-500/20'
-                    : !schedule.canStart
-                    ? schedule.status === 'CLOSED'
-                      ? 'border-zinc-800/60 bg-zinc-900/40 opacity-75 cursor-not-allowed'
-                      : 'border-zinc-800/60 bg-zinc-900/50 opacity-80 cursor-not-allowed'
-                    : 'border-zinc-800 hover:border-zinc-700 bg-zinc-900/80 hover:bg-zinc-900 cursor-pointer'
+                className={`w-full group relative text-left p-4 sm:p-5 rounded-2xl border-2 transition-all duration-150 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4 overflow-hidden ${
+                  !schedule.canStart
+                    ? schedule.status === 'COMPLETED'
+                      ? 'border-emerald-300 bg-emerald-50/60 cursor-pointer hover:border-emerald-400'
+                      : schedule.status === 'CLOSED'
+                      ? 'border-zinc-200 bg-zinc-100/70 opacity-75 cursor-not-allowed'
+                      : 'border-amber-200 bg-amber-50/50 opacity-80 cursor-not-allowed'
+                    : 'border-[#91EAAF]/70 hover:border-[#1F4B2C] bg-white hover:shadow-md cursor-pointer hover:-translate-y-0.5 active:scale-[0.99]'
                 }`}
               >
-                <div className="flex items-center gap-3.5 sm:gap-4">
+                <div className="flex items-start sm:items-center gap-3.5 sm:gap-4 flex-1 min-w-0">
                   {/* Icon Box */}
                   <div
-                    className={`w-11 h-11 rounded-lg flex items-center justify-center shrink-0 border transition-transform group-hover:scale-105 ${
+                    className={`w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 border transition-transform group-hover:scale-105 shadow-xs ${
                       !schedule.canStart
                         ? schedule.status === 'COMPLETED'
-                          ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30'
+                          ? 'bg-emerald-600 text-white border-emerald-700'
                           : schedule.status === 'CLOSED'
-                          ? 'bg-rose-500/10 text-rose-400 border-rose-500/20'
-                          : 'bg-amber-500/10 text-amber-400 border-amber-500/20'
+                          ? 'bg-zinc-200 text-zinc-500 border-zinc-300'
+                          : 'bg-amber-100 text-amber-700 border-amber-300'
                         : schedule.status === 'REMEDIAL'
-                        ? 'bg-amber-500/15 text-amber-400 border-amber-500/30'
-                        : isNative
-                        ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20'
-                        : 'bg-blue-500/10 text-blue-400 border-blue-500/20'
+                        ? 'bg-amber-500 text-white border-amber-600'
+                        : 'bg-gradient-to-br from-[#102919] to-[#1F4B2C] text-[#C3E956] border-[#1F4B2C]'
                     }`}
                   >
                     {schedule.status === 'COMPLETED' ? (
-                      <CheckCircle className="w-5 h-5 text-emerald-400" />
+                      <CheckCircle className="w-6 h-6 text-white" />
                     ) : schedule.status === 'REMEDIAL' ? (
-                      <RotateCcw className="w-5 h-5 text-amber-400" />
+                      <RotateCcw className="w-6 h-6 text-white" />
                     ) : !schedule.canStart ? (
                       <Lock className="w-5 h-5" />
                     ) : isNative ? (
-                      <BookOpen className="w-5 h-5" />
+                      <BookOpen className="w-6 h-6 text-[#C3E956]" />
                     ) : (
-                      <ExternalLink className="w-5 h-5" />
+                      <ExternalLink className="w-6 h-6 text-[#C3E956]" />
                     )}
                   </div>
 
                   {/* Title & Badge */}
-                  <div>
+                  <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-2 mb-1 flex-wrap">
-                      <span className={`text-sm sm:text-base font-bold uppercase tracking-tight transition ${
+                      <span className={`text-sm sm:text-base font-black uppercase tracking-tight transition ${
                         schedule.status === 'COMPLETED'
-                          ? 'text-emerald-300'
+                          ? 'text-emerald-900'
                           : schedule.status === 'REMEDIAL'
-                          ? 'text-amber-300'
+                          ? 'text-amber-900'
                           : !schedule.canStart 
-                          ? 'text-zinc-300' 
-                          : 'text-white group-hover:text-blue-300'
+                          ? 'text-zinc-600' 
+                          : 'text-[#102919] group-hover:text-[#1F4B2C]'
                       }`}>
                         {pkg.subjectName}
                       </span>
                       
                       {/* Type Badge */}
-                      <span
-                        className="text-[10px] font-medium px-2 py-0.5 rounded bg-zinc-800 text-zinc-300 border border-zinc-700"
-                      >
+                      <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-[#E1F8ED] text-[#1F4B2C] border border-[#91EAAF]">
                         {isNative ? 'Soal Mandiri' : 'Google Form'}
                       </span>
 
                       {/* Schedule Status Badge */}
                       {schedule.status === 'COMPLETED' && (
-                        <span className="text-[10px] font-semibold px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 flex items-center gap-1">
-                          <CheckCircle className="w-3 h-3 text-emerald-400" />
+                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-emerald-100 text-emerald-800 border border-emerald-300 flex items-center gap-1">
+                          <CheckCircle className="w-3 h-3 text-emerald-600" />
                           <span>Sudah Dikerjakan</span>
                         </span>
                       )}
                       {schedule.status === 'REMEDIAL' && (
-                        <span className="text-[10px] font-semibold px-2 py-0.5 rounded bg-amber-500/15 text-amber-300 border border-amber-500/30 flex items-center gap-1 animate-pulse">
-                          <RotateCcw className="w-3 h-3 text-amber-400" />
+                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-amber-100 text-amber-800 border border-amber-300 flex items-center gap-1 animate-pulse">
+                          <RotateCcw className="w-3 h-3 text-amber-600" />
                           <span>Remidi Terbuka</span>
                         </span>
                       )}
                       {schedule.status === 'CLOSED' && (
-                        <span className="text-[10px] font-medium px-2 py-0.5 rounded bg-rose-500/10 text-rose-400 border border-rose-500/20 flex items-center gap-1">
-                          <AlertCircle className="w-3 h-3 text-rose-400" />
+                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-rose-100 text-rose-800 border border-rose-300 flex items-center gap-1">
+                          <AlertCircle className="w-3 h-3 text-rose-600" />
                           <span>Telah Ditutup</span>
                         </span>
                       )}
                       {schedule.status === 'UPCOMING' && (
-                        <span className="text-[10px] font-medium px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/20 flex items-center gap-1">
-                          <Clock className="w-3 h-3 text-amber-400" />
+                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-amber-100 text-amber-800 border border-amber-300 flex items-center gap-1">
+                          <Clock className="w-3 h-3 text-amber-600" />
                           <span>Belum Dibuka</span>
                         </span>
                       )}
                       {schedule.status === 'ACTIVE' && (
-                        <span className="text-[10px] font-medium px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center gap-1">
-                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                        <span className="text-[10px] font-black px-2 py-0.5 rounded-md bg-[#C3E956] text-[#0A1D11] border border-[#4D7111]/30 flex items-center gap-1 shadow-2xs">
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#0A1D11] animate-ping" />
                           <span>Sedang Berjalan</span>
                         </span>
                       )}
                     </div>
 
-                    <p className="text-xs text-zinc-400 font-normal line-clamp-1">
+                    <p className="text-xs text-zinc-600 font-medium line-clamp-1">
                       {pkg.title}
                     </p>
 
                     {/* Schedule Time Information */}
-                    <div className={`text-[11px] flex items-center gap-1.5 mt-1 font-mono font-medium tabular-nums ${
+                    <div className={`text-[11px] flex items-center gap-1.5 mt-1 font-mono font-bold tabular-nums ${
                       schedule.status === 'COMPLETED'
-                        ? 'text-emerald-400/90'
+                        ? 'text-emerald-700'
                         : schedule.status === 'REMEDIAL'
-                        ? 'text-amber-400/90'
+                        ? 'text-amber-800'
                         : schedule.status === 'CLOSED'
-                        ? 'text-rose-400/90'
+                        ? 'text-rose-700'
                         : schedule.status === 'UPCOMING'
-                        ? 'text-amber-400/90'
-                        : 'text-zinc-400'
+                        ? 'text-amber-700'
+                        : 'text-[#1F4B2C]'
                     }`}>
-                      <Clock className="w-3 h-3 shrink-0" />
+                      <Clock className="w-3.5 h-3.5 shrink-0" />
                       <span>{schedule.timeText}</span>
                     </div>
                   </div>
                 </div>
 
                 {/* Action Button & Status Indicator */}
-                <div className="flex items-center gap-2 text-xs font-semibold shrink-0 pl-2">
-                  <span className={`hidden sm:inline-block font-mono tracking-wider ${
-                    isSelected 
-                      ? 'text-blue-400' 
-                      : schedule.status === 'COMPLETED'
-                      ? 'text-emerald-400 font-bold'
-                      : schedule.status === 'REMEDIAL'
-                      ? 'text-amber-400 font-bold'
-                      : !schedule.canStart 
-                      ? schedule.status === 'CLOSED'
-                        ? 'text-rose-400'
-                        : 'text-amber-400'
-                      : 'text-zinc-400 group-hover:text-white transition-colors'
-                  }`}>
-                    {isSelected 
-                      ? 'MEMBUKA...' 
-                      : !schedule.canStart 
-                      ? schedule.btnText 
-                      : schedule.btnText || 'MULAI UJIAN'}
-                  </span>
-
-                  <div className={`w-8 h-8 rounded-lg border flex items-center justify-center transition ${
-                    isSelected
-                      ? 'bg-blue-600 border-blue-500 text-white'
-                      : schedule.status === 'COMPLETED'
-                      ? 'bg-emerald-950/40 border-emerald-500/30 text-emerald-400'
-                      : schedule.status === 'REMEDIAL'
-                      ? 'bg-amber-950/40 border-amber-500/30 text-amber-400'
-                      : !schedule.canStart
-                      ? schedule.status === 'CLOSED'
-                        ? 'bg-zinc-800 border-zinc-700/80 text-rose-400'
-                        : 'bg-zinc-800 border-zinc-700/80 text-amber-400'
-                      : 'bg-zinc-800 group-hover:bg-zinc-700 border-zinc-700 text-zinc-300 group-hover:text-white'
-                  }`}>
-                    {isSelected ? (
-                      <div className="w-3.5 h-3.5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                    ) : schedule.status === 'COMPLETED' ? (
-                      <CheckCircle className="w-3.5 h-3.5 text-emerald-400" />
-                    ) : schedule.status === 'REMEDIAL' ? (
-                      <RotateCcw className="w-3.5 h-3.5 text-amber-400" />
-                    ) : !schedule.canStart ? (
-                      <Lock className="w-3.5 h-3.5" />
-                    ) : (
-                      <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-                    )}
-                  </div>
+                <div className="flex items-center gap-2.5 shrink-0 sm:self-center">
+                  {schedule.canStart ? (
+                    <button
+                      type="button"
+                      disabled={isLaunching}
+                      className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-[#C3E956] hover:bg-[#d4f76b] text-[#0A1D11] font-black text-xs uppercase tracking-wider shadow-md border border-[#4D7111]/20 transition flex items-center justify-center gap-1.5 cursor-pointer active:scale-95"
+                    >
+                      <span>{schedule.btnText || 'MULAI UJIAN'}</span>
+                      <ArrowRight className="w-4 h-4 text-[#0A1D11] group-hover:translate-x-0.5 transition-transform" />
+                    </button>
+                  ) : schedule.status === 'COMPLETED' ? (
+                    <div className="px-3 py-1.5 rounded-xl bg-[#E1F8ED] border border-[#91EAAF] text-[#1F4B2C] text-xs font-bold flex items-center gap-1.5">
+                      <CheckCircle className="w-4 h-4 text-[#1F4B2C]" />
+                      <span>Selesai Dikerjakan</span>
+                    </div>
+                  ) : (
+                    <div className="px-3 py-1.5 rounded-xl bg-zinc-200 border border-zinc-300 text-zinc-600 text-xs font-bold flex items-center gap-1.5">
+                      <Lock className="w-3.5 h-3.5 text-zinc-500" />
+                      <span>{schedule.btnText}</span>
+                    </div>
+                  )}
                 </div>
-              </button>
+              </div>
             );
           })}
         </div>
-
       </main>
 
       {/* ======================================================== */}
-      {/* 3. FOOTER */}
+      {/* 3. FOOTER                                                */}
       {/* ======================================================== */}
-      <footer className="border-t border-zinc-800/80 bg-[#090D16]/60 px-4 py-3 text-center text-xs text-zinc-500 backdrop-blur-sm z-10 flex items-center justify-center gap-1.5 shrink-0">
-        <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-        <span>Sesi Asesmen Diawasi oleh Pengawas Ruang Ujian & Sistem Anti-Cheat</span>
+      <footer className="border-t border-[#91EAAF]/50 bg-white/90 px-4 py-3 text-center text-xs text-[#1F4B2C] font-semibold backdrop-blur-sm z-10 flex items-center justify-center gap-2 shadow-xs shrink-0">
+        <ShieldCheck className="w-4 h-4 text-[#1F4B2C]" />
+        <span>Sesi Asesmen Diawasi oleh Pengawas Ruang Ujian & Sistem Anti-Cheat SD Mentari Islamic School</span>
       </footer>
     </div>
   );

@@ -242,6 +242,66 @@ Sesuai arahan dan evaluasi menyeluruh dari client, seluruh tampilan portal guru 
 
 ---
 
+### 🎯 8. Total Redesign & Overhaul Portal Siswa / Role Student (Green Screen Palette & Executive Anti-Slop UI)
+Sesuai arahan client dan taste-skill (`design-taste-frontend`), seluruh tampilan frontend pada **Role Siswa (Student Portal)** dirombak total dari tema lama (biru tua kehitam-hitaman gelap gulita) menjadi tema baru yang profesional, bersih, elegan, dan beridentitas tinggi dengan **Green Screen Palette (Vasil Enev: `#F4FFFC`, `#91EAAF`, `#C3E956`, `#4D7111`, `#1F4B2C`, `#102919`)**:
+
+1. **Beranda Utama Siswa (`StudentLobby.jsx` - `/student/lobby`):**
+   - **Kanvas Bersih Mint Cream (`#F4FFFC`):** Menghilangkan dominasi layar hitam pekat yang membuat siswa cepat lelah.
+   - **Header Eksekutif Dark Forest (`#102919` ke `#1F4B2C`):** Menampilkan logo resmi perisai sekolah `logo sd mis.png`, "SD MENTARI ISLAMIC SCHOOL", NPSN: 70047473, Polanharjo Klaten, jam digital WIB live, dan info chip akun siswa (Nama, Kelas, NISN) serta tombol akses profil dan logout.
+   - **Hero Greeting & Tagline:** Salam hangat personal siswa, judul *"Pusat Aktivitas Asesmen Digital Siswa"*, serta highlight pill tagline resmi *'Digital Mind, Islamic Heart'*.
+   - **3 Kartu Aksi Taktil (Tactile Action Cards):**
+     - *E-UJIAN (Kartu Utama):* Highlight border-2 `#91EAAF`, lencana *Menu Utama* lime `#C3E956`, deskripsi asesmen terkunci, dan tombol *Buka Ruang Ujian* dengan animasi panah.
+     - *JADWAL UJIAN:* Kartu daftar sesi asesmen kelas, membuka modal jadwal aktif terstruktur.
+     - *TATA TERTIB UJIAN:* Kartu protokol integritas anti-curang dengan badge *Wajib Dibaca*.
+   - **Modal Responsif Green Screen:** Modal *Tata Tertib*, Modal *Jadwal Asesmen*, dan Modal *Pilih Orientasi Layar (Portrait/Landscape)* didesain ulang dengan kartu putih tebal, border `#91EAAF`, dan tombol aksi chartreuse `#C3E956`.
+
+2. **Portal Pilihan Mata Pelajaran (`SubjectPortal.jsx` - `/student/subjects`):**
+   - Latar belakang `#F4FFFC` dengan header dark forest dan tombol kembali taktil.
+   - Kotak informasi instruksi siswa dengan panduan jelas sebelum memulai ujian.
+   - **Kartu Mata Pelajaran Taktil (Tactile Subject Cards):**
+     - Setiap kartu ujian menampilkan badge mapel, nama paket ujian, kode sesi, durasi waktu (menit), dan tanggal pelaksanaan.
+     - Status pintar: *Selesai Dikerjakan* (badge hijau mint), *Sesi Belum Dimulai* (badge abu-abu), atau *Sesi Terbuka* (badge pulsing emerald).
+     - Tombol *Mulai Ujian* menggunakan warna signature chartreuse `#C3E956` dengan font tebal hitam `#0A1D11` yang sangat kontras dan nyaman diklik.
+
+3. **Gerbang Masuk PIN Pengawas (`GatekeeperPin.jsx` - `/student/gatekeeper`):**
+   - Form otentikasi terpusat di tengah layar dengan kanvas `#F4FFFC`.
+   - Menampilkan logo perisai sekolah, badge NPSN: 70047473, dan strip verifikasi identitas siswa (`#E1F8ED`).
+   - Kartu ringkasan mata pelajaran & informasi sesi ujian aktif yang akan ditempuh.
+   - Input PIN Token Masuk berukuran besar dengan font mono di tengah dan focus ring `#91EAAF`.
+   - Tombol utama *Masuk ke Ruang Ujian* beraksen `#C3E956` dengan teks gelap `#0A1D11` font-black.
+
+4. **Pengaturan Profil & Keamanan Siswa (`StudentProfileSettings.jsx` - `/student/profile`):**
+   - Banner profil siswa dengan gradasi dark forest, avatar inisial besar beraksen `#C3E956`, dan badge status *Siswa Terverifikasi*.
+   - Tiga kartu manajemen data:
+     - *Biodata Peserta Didik:* NISN, Username, Nama Lengkap, dan Kelas/Rombel.
+     - *Keamanan & Kata Sandi:* Input sandi baru dan konfirmasi sandi dilengkapi tombol intip (eye toggle show/hide).
+     - *Integritas Asesmen Digital:* Ringkasan komitmen kepatuhan sensor anti-curang sekolah.
+   - Tombol simpan perubahan profil lebar chartreuse `#C3E956` dengan teks gelap `#0A1D11` font-bold.
+
+5. **Lembar Kerja Ujian Siswa (`ExamWorkspace.jsx` - `/student/exam-workspace`):**
+   - **Header Bar Navigasi:** Berlatar gradasi dark forest `#102919` ke `#1F4B2C`, logo resmi sekolah, badge *LIVE REC*, jam countdown sisa waktu beraksen chartreuse `#C3E956`, serta tombol aksi *Batal Ujian* dan *Selesai Ujian*.
+   - **Lembar Soal (Panel Kiri):**
+     - Pill nomor soal besar berlatar `#102919` dengan teks `#C3E956`.
+     - Bobot poin soal, tombol ragu-ragu (Doubt) taktil, dan badge tipe soal (Pilihan Ganda, Esai, dsb).
+     - Pertanyaan soal dengan tipografi tajam dan nyaman dibaca, didukung rumus matematika KaTeX via `MathText` dan preview gambar soal terbingkai rapi.
+     - Komponen pilihan jawaban (PG, PG Kompleks, Isian Singkat, Benar/Salah Matrix, Menjodohkan, dan Esai Textarea) berdesain taktil dengan border `#91EAAF` dan focus state yang jelas.
+     - Navigasi bawah: Tombol *← Soal Sebelumnya*, *Soal Berikutnya →*, dan tombol *Selesai & Kirim Ujian* `#C3E956`.
+   - **Kisi Navigasi Nomor Soal (Panel Kanan):**
+     - Grid kotak nomor soal responsif dengan indikator warna Green Screen yang jelas:
+       - *Sedang Dibuka:* `#102919` dengan ring `#C3E956` font-black skala membesar.
+       - *Sudah Terjawab:* `#1F4B2C` dengan teks `#C3E956` font-bold.
+       - *Ragu-ragu:* `bg-amber-400` teks amber tua font-bold.
+       - *Belum Terjawab:* `#F4FFFC` border `#91EAAF`/60 hover `#1F4B2C`.
+     - Legenda keterangan warna yang bersih dan rapi.
+   - **Tiga Modal Interaktif Terstandarisasi:**
+     - *Modal Batal & Keluar Ujian:* Overlay `#0A1D11`/85 backdrop-blur-md, peringatan konsekuensi pembatalan yang jelas.
+     - *Modal Konfirmasi Selesai Ujian:* Ringkasan pengerjaan (Sudah Terjawab, Ragu-ragu, Belum Diisi) dengan deteksi cerdas jika masih ada soal terlewat.
+     - *Modal Kartu Skor Hasil Ujian (Post-Exam):* 
+       - **Kondisi 1 (Esai / Memerlukan Koreksi Guru):** Nilai `0` disembunyikan sepenuhnya! Menampilkan badge *"Menunggu Hasil Koreksi Guru (Belum Dikoreksi)"* dan ucapan selamat bahwa lembar jawaban tersimpan aman.
+       - **Kondisi 2 (Pilihan Ganda Murni):** Menampilkan perolehan skor nilai font-mono besar hijau pine `#1F4B2C`, total poin maksimal, dan badge persentase capaian `#C3E956`.
+
+---
+
 ## 📋 Riwayat Aktivitas & Perubahan File
 
 | Tanggal | Komponen / File | Aksi | Rincian Perubahan |
@@ -253,7 +313,12 @@ Sesuai arahan dan evaluasi menyeluruh dari client, seluruh tampilan portal guru 
 | 2026-11-20 | `frontend/src/pages/teacher/LiveProctoring.jsx` | Overhaul & Bugfix | Penguatan kartu siswa real-time: border-2 solid, top status banner melintang (Terkunci: rose animate-pulse, Selesai: forest/lime, Fokus: emerald), kotak sensor berlatar `#F4FFFC`, live pulsing dot latensi, badge pelanggaran beranimasi, dan tombol aksi taktil. Membersihkan sisa tag button duplikat di baris 848 yang memicu error vite-babel. |
 | 2026-11-20 | `frontend/src/pages/teacher/StudentResults.jsx` | Bugfix & UI | Perbaikan tuntas modal fullscreen blur bug menggunakan `createPortal(..., document.body)` dengan `z-[9999] bg-[#0A1D11]/85 backdrop-blur-md` & body scroll lock. Menghilangkan celah putih header/sidebar. Rombak tampilan modal rincian lembar jawaban siswa dan remidi. |
 | 2026-11-20 | `frontend/src/pages/teacher/ProfileSettings.jsx` | Overhaul UI | Desain ulang profil guru yang lebih profesional & berwarna: hero profile banner dengan avatar besar beraksen `#C3E956`, badge verified pengawas, 3 kartu terstruktur (Data Diri, Keamanan Sandi, Kepatuhan Asesmen), dan tombol simpan beraksen lime `#C3E956`. |
-| 2026-11-20 | `session.md` | Update | Dokumentasi lengkap seluruh pembaruan rebranding Green Screen dan panduan deployment. |
+| 2026-11-20 | `frontend/src/pages/student/StudentLobby.jsx` | Overhaul UI | Rombak total beranda siswa dengan tema Green Screen `#F4FFFC`: header dark forest terintegrasi logo sekolah `logo sd mis.png` & NPSN 70047473, personal greeting siswa, 3 tactile action cards (E-Ujian, Jadwal, Tata Tertib), dan modal orientasi layar (Portrait/Landscape) taktil. |
+| 2026-11-20 | `frontend/src/pages/student/SubjectPortal.jsx` | Overhaul UI | Rombak total portal mapel siswa: kanvas `#F4FFFC`, header dark forest, tactile subject cards dengan border `#91EAAF`, badge mapel & status sesi cerdas, serta tombol *Mulai Ujian* chartreuse `#C3E956`. |
+| 2026-11-20 | `frontend/src/pages/student/GatekeeperPin.jsx` | Overhaul UI | Rombak total gerbang PIN: tampilan form terpusat berlatar `#F4FFFC`, header perisai sekolah, strip identitas siswa `#E1F8ED`, kartu info mapel, input PIN besar font-mono, dan tombol submit `#C3E956`. |
+| 2026-11-20 | `frontend/src/pages/student/StudentProfileSettings.jsx` | Overhaul UI | Desain baru profil siswa: hero banner dark forest, avatar beraksen lime `#C3E956`, 3 kartu manajemen (Biodata, Ganti Sandi + toggle intip, Integritas Asesmen), dan tombol simpan `#C3E956`. |
+| 2026-11-20 | `frontend/src/pages/student/ExamWorkspace.jsx` | Overhaul UI | Rombak total lembar kerja ujian siswa: kanvas `#F4FFFC`, header bar dark forest `#102919` dengan timer `#C3E956`, panel kiri lembar soal dengan 6 tipe soal taktil & KaTeX support, panel kanan kisi navigasi nomor 5 kolom berstatus Green Screen, modal batal, modal selesai, dan modal skor hasil ujian (menjaga 2 kondisi: sembunyikan nilai 0 untuk esai & tampilkan nilai langsung untuk PG murni). |
+| 2026-11-20 | `session.md` | Update | Dokumentasi lengkap seluruh pembaruan rebranding Green Screen untuk role guru & role siswa serta panduan deployment. |
 
 ---
 
@@ -265,8 +330,8 @@ Jalankan di terminal PowerShell komputer Anda:
 ```powershell
 cd C:\xampp\htdocs\mis_dev\ujian_sdmis
 git status
-git add frontend/tailwind.config.js frontend/src/pages/auth/LoginPage.jsx frontend/src/layouts/TeacherLayout.jsx frontend/src/pages/teacher/DashboardTeacher.jsx frontend/src/pages/teacher/ClassroomManagement.jsx frontend/src/pages/teacher/StudentManagement.jsx frontend/src/pages/teacher/TeacherManagement.jsx frontend/src/pages/teacher/UserManagement.jsx frontend/src/pages/teacher/ExamPackageList.jsx frontend/src/pages/teacher/ExamSessionSetup.jsx frontend/src/pages/teacher/LiveProctoring.jsx frontend/src/pages/teacher/EssayGrading.jsx frontend/src/pages/teacher/StudentResults.jsx frontend/src/pages/teacher/ViolationHistory.jsx frontend/src/pages/teacher/EJournalReport.jsx frontend/src/pages/teacher/SchoolSettings.jsx frontend/src/pages/teacher/ProfileSettings.jsx session.md
-git commit -m "feat(rebranding): complete overhaul with Green Screen palette for login and all teacher portal pages"
+git add frontend/tailwind.config.js frontend/src/pages/auth/LoginPage.jsx frontend/src/layouts/TeacherLayout.jsx frontend/src/pages/teacher/DashboardTeacher.jsx frontend/src/pages/teacher/ClassroomManagement.jsx frontend/src/pages/teacher/StudentManagement.jsx frontend/src/pages/teacher/TeacherManagement.jsx frontend/src/pages/teacher/UserManagement.jsx frontend/src/pages/teacher/ExamPackageList.jsx frontend/src/pages/teacher/ExamSessionSetup.jsx frontend/src/pages/teacher/LiveProctoring.jsx frontend/src/pages/teacher/EssayGrading.jsx frontend/src/pages/teacher/StudentResults.jsx frontend/src/pages/teacher/ViolationHistory.jsx frontend/src/pages/teacher/EJournalReport.jsx frontend/src/pages/teacher/SchoolSettings.jsx frontend/src/pages/teacher/ProfileSettings.jsx frontend/src/pages/student/StudentLobby.jsx frontend/src/pages/student/SubjectPortal.jsx frontend/src/pages/student/GatekeeperPin.jsx frontend/src/pages/student/StudentProfileSettings.jsx frontend/src/pages/student/ExamWorkspace.jsx session.md
+git commit -m "feat(rebranding): complete overhaul with Green Screen palette for login, teacher, and student portals"
 git push origin main
 ```
 
@@ -286,7 +351,7 @@ git pull origin main
 cd frontend
 npm run build
 
-# 4. Masuk ke backend dan restart PM2 backend ujian
+# 4. Masuk ke backend dan restart PM2 backend ujian (jika diperlukan)
 cd ../backend
 pm2 restart ujian-sdmis-backend
 ```
