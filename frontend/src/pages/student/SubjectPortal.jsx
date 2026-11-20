@@ -205,13 +205,13 @@ export default function SubjectPortal() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F4FFFC] text-zinc-800 flex flex-col justify-between select-none relative overflow-x-hidden antialiased font-sans">
+    <div className="min-h-screen bg-gradient-to-b from-[#EBF7CD] via-[#E2F4B8] to-[#D9F0A5] text-[#102919] flex flex-col justify-between select-none relative overflow-x-hidden antialiased font-sans">
       {/* ======================================================== */}
       {/* 1. TOP HEADER BAR (EXECUTIVE GREEN SCREEN NAVBAR)         */}
       {/* ======================================================== */}
-      <header className="bg-gradient-to-r from-[#102919] via-[#143820] to-[#1F4B2C] border-b border-[#1F4B2C] px-4 sm:px-8 py-3.5 flex items-center justify-between sticky top-0 z-30 shadow-md">
+      <header className="bg-gradient-to-r from-[#102919] via-[#143820] to-[#1F4B2C] border-b-2 border-[#C3E956]/30 px-4 sm:px-8 py-3.5 flex items-center justify-between sticky top-0 z-30 shadow-md">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-white p-1.5 flex items-center justify-center shadow-lg ring-2 ring-[#91EAAF]/40 shrink-0">
+          <div className="w-10 h-10 rounded-xl bg-[#EFF9CE] p-1.5 flex items-center justify-center shadow-lg ring-2 ring-[#C3E956]/60 shrink-0">
             <img 
               src={logoSdMis} 
               alt="Logo SD Mentari Islamic School" 
@@ -236,7 +236,7 @@ export default function SubjectPortal() {
             <div 
               onClick={() => navigate('/student/profile')}
               title="Klik untuk membuka Pengaturan Profil"
-              className="text-xs text-[#91EAAF] truncate max-w-[200px] sm:max-w-md cursor-pointer hover:text-white transition font-medium"
+              className="text-xs text-[#91EAAF] truncate max-w-[200px] sm:max-w-md cursor-pointer hover:text-[#C3E956] transition font-medium"
             >
               {currentUser?.fullName} • Kelas {studentClassName} (NISN: {currentUser?.username})
             </div>
@@ -268,14 +268,14 @@ export default function SubjectPortal() {
         <div className="flex items-center justify-between">
           <button
             onClick={() => navigate('/student/lobby')}
-            className="flex items-center gap-2 text-xs font-bold text-[#1F4B2C] hover:text-[#102919] transition-all px-3.5 py-2 rounded-xl bg-white border-2 border-[#91EAAF]/60 shadow-xs hover:border-[#1F4B2C] active:scale-[0.98] cursor-pointer"
+            className="flex items-center gap-2 text-xs font-black text-[#102919] hover:text-[#0A1D11] transition-all px-4 py-2.5 rounded-xl bg-[#EFF9CE] border-2 border-[#8BC829] shadow-xs hover:border-[#102919] hover:bg-[#E2F4B4] active:scale-[0.98] cursor-pointer"
           >
-            <ArrowLeft className="w-4 h-4 text-[#1F4B2C]" />
+            <ArrowLeft className="w-4 h-4 text-[#102919]" />
             <span>Kembali ke Lobby</span>
           </button>
 
           <div className="flex items-center gap-2">
-            <span className="text-xs px-3 py-1.5 rounded-xl bg-white text-[#1F4B2C] border-2 border-[#91EAAF]/60 font-bold flex items-center gap-1.5 shadow-xs">
+            <span className="text-xs px-3.5 py-2 rounded-xl bg-[#EFF9CE] text-[#102919] border-2 border-[#8BC829] font-black flex items-center gap-1.5 shadow-xs">
               {activeAttempt.screenOrientation === 'LANDSCAPE' ? (
                 <Monitor className="w-4 h-4 text-[#4D7111]" />
               ) : (
@@ -288,28 +288,28 @@ export default function SubjectPortal() {
 
         {/* Big Title Header */}
         <div className="text-center space-y-2">
-          <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#102919] border border-[#C3E956]/30 text-[#C3E956] text-xs font-bold shadow-xs">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#102919] border border-[#C3E956]/40 text-[#C3E956] text-xs font-black shadow-md">
             <Lock className="w-3.5 h-3.5 text-[#C3E956]" />
             <span>Ruang Ujian Terproteksi — Kelas {studentClassName}</span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-black text-[#102919] tracking-tight">
             Portal Asesmen — Pilih Mata Pelajaran
           </h1>
-          <p className="text-xs sm:text-sm text-zinc-600 max-w-lg mx-auto leading-relaxed">
-            Klik mata pelajaran di bawah ini untuk memulai pengerjaan. Layar perangkat Anda akan langsung dikunci otomatis dalam mode <strong className="text-[#102919] font-bold">Layar Penuh (Fullscreen)</strong>.
+          <p className="text-xs sm:text-sm text-[#1F4B2C] font-semibold max-w-lg mx-auto leading-relaxed">
+            Klik mata pelajaran di bawah ini untuk memulai pengerjaan. Layar perangkat Anda akan langsung dikunci otomatis dalam mode <strong className="text-[#102919] font-black">Layar Penuh (Fullscreen)</strong>.
           </p>
         </div>
 
         {/* Warning Callout Box */}
-        <div className="p-4 rounded-2xl bg-amber-50 border-2 border-amber-300 text-amber-950 text-xs flex items-start gap-3.5 shadow-xs">
-          <div className="p-2 rounded-xl bg-amber-500 text-white shrink-0 mt-0.5 shadow-xs">
+        <div className="p-4 rounded-2xl bg-[#E2F4B4] border-2 border-[#8BC829] text-[#102919] text-xs flex items-start gap-3.5 shadow-xs">
+          <div className="p-2 rounded-xl bg-amber-400 text-amber-950 shrink-0 mt-0.5 shadow-xs font-bold">
             <AlertTriangle className="w-4 h-4" />
           </div>
           <div className="space-y-1 leading-relaxed">
-            <div className="font-black text-amber-950 text-xs sm:text-sm">
+            <div className="font-black text-[#102919] text-xs sm:text-sm">
               Peringatan Keamanan Asesmen:
             </div>
-            <p className="text-amber-900 text-xs">
+            <p className="text-[#1F4B2C] font-medium text-xs">
               Setelah tombol mata pelajaran diklik, dilarang menekan tombol ESC, berpindah tab, meminimalkan aplikasi, atau menyentuh tombol navigasi. Segala aktivitas keluar layar akan membekukan lembar ujian dan tercatat otomatis pada <strong>E-Jurnal Guru Pengawas</strong>.
             </p>
           </div>
@@ -317,13 +317,13 @@ export default function SubjectPortal() {
 
         {/* Real-time Schedule Alert / Notification Banner */}
         {portalAlert && (
-          <div className="p-4 rounded-2xl bg-rose-50 border-2 border-rose-300 text-rose-950 text-xs flex items-start gap-3.5 shadow-xs animate-shake">
+          <div className="p-4 rounded-2xl bg-[#E2F4B4] border-2 border-rose-300 text-rose-950 text-xs flex items-start gap-3.5 shadow-xs animate-shake">
             <div className="p-2 rounded-xl bg-rose-600 text-white shrink-0 mt-0.5 shadow-xs">
               <AlertCircle className="w-4 h-4" />
             </div>
             <div className="space-y-1">
               <div className="font-black text-rose-950 text-xs sm:text-sm">Pemberitahuan Akses Jadwal Ujian:</div>
-              <p className="text-rose-900 text-xs leading-relaxed">{portalAlert}</p>
+              <p className="text-rose-900 text-xs leading-relaxed font-semibold">{portalAlert}</p>
             </div>
           </div>
         )}
@@ -375,37 +375,37 @@ export default function SubjectPortal() {
               <div
                 key={pkg.id}
                 onClick={() => handleStartExam(pkg, schedule, matchingSession)}
-                className={`w-full group relative text-left p-4 sm:p-5 rounded-2xl border-2 transition-all duration-150 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4 overflow-hidden ${
+                className={`w-full group relative text-left p-4 sm:p-5 rounded-3xl border-2 transition-all duration-150 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4 overflow-hidden ${
                   !schedule.canStart
                     ? schedule.status === 'COMPLETED'
-                      ? 'border-emerald-300 bg-emerald-50/60 cursor-pointer hover:border-emerald-400'
+                      ? 'border-[#8BC829] bg-[#E2F4B4] cursor-pointer hover:border-[#102919]'
                       : schedule.status === 'CLOSED'
-                      ? 'border-zinc-200 bg-zinc-100/70 opacity-75 cursor-not-allowed'
-                      : 'border-amber-200 bg-amber-50/50 opacity-80 cursor-not-allowed'
-                    : 'border-[#91EAAF]/70 hover:border-[#1F4B2C] bg-white hover:shadow-md cursor-pointer hover:-translate-y-0.5 active:scale-[0.99]'
+                      ? 'border-[#8BC829]/40 bg-[#E2F4B4]/60 opacity-75 cursor-not-allowed'
+                      : 'border-amber-300 bg-[#E2F4B4]/70 opacity-80 cursor-not-allowed'
+                    : 'border-[#8BC829] hover:border-[#102919] bg-[#EFF9CE] hover:bg-[#F2FBD7] hover:shadow-lg cursor-pointer hover:-translate-y-0.5 active:scale-[0.99]'
                 }`}
               >
                 <div className="flex items-start sm:items-center gap-3.5 sm:gap-4 flex-1 min-w-0">
                   {/* Icon Box */}
                   <div
-                    className={`w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 border transition-transform group-hover:scale-105 shadow-xs ${
+                    className={`w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 border-2 transition-transform group-hover:scale-105 shadow-xs ${
                       !schedule.canStart
                         ? schedule.status === 'COMPLETED'
-                          ? 'bg-emerald-600 text-white border-emerald-700'
+                          ? 'bg-[#102919] text-[#C3E956] border-[#C3E956]'
                           : schedule.status === 'CLOSED'
-                          ? 'bg-zinc-200 text-zinc-500 border-zinc-300'
-                          : 'bg-amber-100 text-amber-700 border-amber-300'
+                          ? 'bg-[#D5EE9E] text-zinc-600 border-[#8BC829]'
+                          : 'bg-amber-300 text-amber-950 border-amber-400'
                         : schedule.status === 'REMEDIAL'
-                        ? 'bg-amber-500 text-white border-amber-600'
-                        : 'bg-gradient-to-br from-[#102919] to-[#1F4B2C] text-[#C3E956] border-[#1F4B2C]'
+                        ? 'bg-amber-400 text-amber-950 border-amber-500'
+                        : 'bg-gradient-to-br from-[#102919] to-[#1F4B2C] text-[#C3E956] border-[#C3E956]/50'
                     }`}
                   >
                     {schedule.status === 'COMPLETED' ? (
-                      <CheckCircle className="w-6 h-6 text-white" />
+                      <CheckCircle className="w-6 h-6 text-[#C3E956]" />
                     ) : schedule.status === 'REMEDIAL' ? (
                       <RotateCcw className="w-6 h-6 text-white" />
                     ) : !schedule.canStart ? (
-                      <Lock className="w-5 h-5" />
+                      <Lock className="w-5 h-5 text-zinc-600" />
                     ) : isNative ? (
                       <BookOpen className="w-6 h-6 text-[#C3E956]" />
                     ) : (
@@ -418,9 +418,9 @@ export default function SubjectPortal() {
                     <div className="flex items-center gap-2 mb-1 flex-wrap">
                       <span className={`text-sm sm:text-base font-black uppercase tracking-tight transition ${
                         schedule.status === 'COMPLETED'
-                          ? 'text-emerald-900'
+                          ? 'text-[#102919]'
                           : schedule.status === 'REMEDIAL'
-                          ? 'text-amber-900'
+                          ? 'text-amber-950'
                           : !schedule.canStart 
                           ? 'text-zinc-600' 
                           : 'text-[#102919] group-hover:text-[#1F4B2C]'
@@ -429,58 +429,58 @@ export default function SubjectPortal() {
                       </span>
                       
                       {/* Type Badge */}
-                      <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-[#E1F8ED] text-[#1F4B2C] border border-[#91EAAF]">
+                      <span className="text-[10px] font-black px-2.5 py-0.5 rounded-md bg-[#E2F4B4] text-[#1F4B2C] border border-[#8BC829]">
                         {isNative ? 'Soal Mandiri' : 'Google Form'}
                       </span>
 
                       {/* Schedule Status Badge */}
                       {schedule.status === 'COMPLETED' && (
-                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-emerald-100 text-emerald-800 border border-emerald-300 flex items-center gap-1">
-                          <CheckCircle className="w-3 h-3 text-emerald-600" />
+                        <span className="text-[10px] font-black px-2.5 py-0.5 rounded-md bg-[#C3E956] text-[#0A1D11] border border-[#4D7111]/30 flex items-center gap-1 shadow-2xs">
+                          <CheckCircle className="w-3.5 h-3.5 text-[#0A1D11]" />
                           <span>Sudah Dikerjakan</span>
                         </span>
                       )}
                       {schedule.status === 'REMEDIAL' && (
-                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-amber-100 text-amber-800 border border-amber-300 flex items-center gap-1 animate-pulse">
-                          <RotateCcw className="w-3 h-3 text-amber-600" />
+                        <span className="text-[10px] font-black px-2.5 py-0.5 rounded-md bg-amber-300 text-amber-950 border border-amber-500 flex items-center gap-1 animate-pulse">
+                          <RotateCcw className="w-3 h-3 text-amber-950" />
                           <span>Remidi Terbuka</span>
                         </span>
                       )}
                       {schedule.status === 'CLOSED' && (
-                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-rose-100 text-rose-800 border border-rose-300 flex items-center gap-1">
-                          <AlertCircle className="w-3 h-3 text-rose-600" />
+                        <span className="text-[10px] font-black px-2.5 py-0.5 rounded-md bg-rose-200 text-rose-900 border border-rose-300 flex items-center gap-1">
+                          <AlertCircle className="w-3 h-3 text-rose-700" />
                           <span>Telah Ditutup</span>
                         </span>
                       )}
                       {schedule.status === 'UPCOMING' && (
-                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-amber-100 text-amber-800 border border-amber-300 flex items-center gap-1">
-                          <Clock className="w-3 h-3 text-amber-600" />
+                        <span className="text-[10px] font-black px-2.5 py-0.5 rounded-md bg-amber-200 text-amber-900 border border-amber-400 flex items-center gap-1">
+                          <Clock className="w-3 h-3 text-amber-700" />
                           <span>Belum Dibuka</span>
                         </span>
                       )}
                       {schedule.status === 'ACTIVE' && (
-                        <span className="text-[10px] font-black px-2 py-0.5 rounded-md bg-[#C3E956] text-[#0A1D11] border border-[#4D7111]/30 flex items-center gap-1 shadow-2xs">
+                        <span className="text-[10px] font-black px-2.5 py-0.5 rounded-md bg-[#C3E956] text-[#0A1D11] border border-[#4D7111]/30 flex items-center gap-1 shadow-2xs">
                           <span className="w-1.5 h-1.5 rounded-full bg-[#0A1D11] animate-ping" />
                           <span>Sedang Berjalan</span>
                         </span>
                       )}
                     </div>
 
-                    <p className="text-xs text-zinc-600 font-medium line-clamp-1">
+                    <p className="text-xs text-[#1F4B2C] font-semibold line-clamp-1">
                       {pkg.title}
                     </p>
 
                     {/* Schedule Time Information */}
                     <div className={`text-[11px] flex items-center gap-1.5 mt-1 font-mono font-bold tabular-nums ${
                       schedule.status === 'COMPLETED'
-                        ? 'text-emerald-700'
+                        ? 'text-[#1F4B2C]'
                         : schedule.status === 'REMEDIAL'
-                        ? 'text-amber-800'
+                        ? 'text-amber-900'
                         : schedule.status === 'CLOSED'
-                        ? 'text-rose-700'
+                        ? 'text-rose-800'
                         : schedule.status === 'UPCOMING'
-                        ? 'text-amber-700'
-                        : 'text-[#1F4B2C]'
+                        ? 'text-amber-800'
+                        : 'text-[#102919]'
                     }`}>
                       <Clock className="w-3.5 h-3.5 shrink-0" />
                       <span>{schedule.timeText}</span>
@@ -494,19 +494,19 @@ export default function SubjectPortal() {
                     <button
                       type="button"
                       disabled={isLaunching}
-                      className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-[#C3E956] hover:bg-[#d4f76b] text-[#0A1D11] font-black text-xs uppercase tracking-wider shadow-md border border-[#4D7111]/20 transition flex items-center justify-center gap-1.5 cursor-pointer active:scale-95"
+                      className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-[#C3E956] hover:bg-[#b8e337] text-[#0A1D11] font-black text-xs uppercase tracking-wider shadow-md border-2 border-[#4D7111]/30 transition flex items-center justify-center gap-1.5 cursor-pointer active:scale-95"
                     >
                       <span>{schedule.btnText || 'MULAI UJIAN'}</span>
                       <ArrowRight className="w-4 h-4 text-[#0A1D11] group-hover:translate-x-0.5 transition-transform" />
                     </button>
                   ) : schedule.status === 'COMPLETED' ? (
-                    <div className="px-3 py-1.5 rounded-xl bg-[#E1F8ED] border border-[#91EAAF] text-[#1F4B2C] text-xs font-bold flex items-center gap-1.5">
-                      <CheckCircle className="w-4 h-4 text-[#1F4B2C]" />
+                    <div className="px-4 py-2 rounded-xl bg-[#EFF9CE] border-2 border-[#8BC829] text-[#102919] text-xs font-black flex items-center gap-1.5">
+                      <CheckCircle className="w-4 h-4 text-[#4D7111]" />
                       <span>Selesai Dikerjakan</span>
                     </div>
                   ) : (
-                    <div className="px-3 py-1.5 rounded-xl bg-zinc-200 border border-zinc-300 text-zinc-600 text-xs font-bold flex items-center gap-1.5">
-                      <Lock className="w-3.5 h-3.5 text-zinc-500" />
+                    <div className="px-4 py-2 rounded-xl bg-[#D5EE9E] border-2 border-[#8BC829] text-zinc-700 text-xs font-black flex items-center gap-1.5">
+                      <Lock className="w-3.5 h-3.5 text-zinc-600" />
                       <span>{schedule.btnText}</span>
                     </div>
                   )}
@@ -520,8 +520,8 @@ export default function SubjectPortal() {
       {/* ======================================================== */}
       {/* 3. FOOTER                                                */}
       {/* ======================================================== */}
-      <footer className="border-t border-[#91EAAF]/50 bg-white/90 px-4 py-3 text-center text-xs text-[#1F4B2C] font-semibold backdrop-blur-sm z-10 flex items-center justify-center gap-2 shadow-xs shrink-0">
-        <ShieldCheck className="w-4 h-4 text-[#1F4B2C]" />
+      <footer className="border-t-2 border-[#8BC829]/50 bg-[#E2F4B4]/90 px-4 py-3 text-center text-xs text-[#1F4B2C] font-black backdrop-blur-sm z-10 flex items-center justify-center gap-2 shadow-xs shrink-0">
+        <ShieldCheck className="w-4 h-4 text-[#102919]" />
         <span>Sesi Asesmen Diawasi oleh Pengawas Ruang Ujian & Sistem Anti-Cheat SD Mentari Islamic School</span>
       </footer>
     </div>

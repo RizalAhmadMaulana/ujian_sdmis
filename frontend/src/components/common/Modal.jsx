@@ -36,24 +36,24 @@ export default function Modal({
   if (!isOpen || !mounted) return null;
 
   return createPortal(
-    <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-fade-in">
+    <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-[#0A1D11]/80 backdrop-blur-md animate-fade-in">
       <div 
-        className={`bg-white rounded-xl shadow-xl border border-zinc-200/90 w-full ${maxWidth} overflow-hidden transform transition-all my-auto max-h-[92vh] flex flex-col`}
+        className={`bg-[#EFF9CE] rounded-3xl shadow-2xl border-2 border-[#8BC829] w-full ${maxWidth} overflow-hidden transform transition-all my-auto max-h-[92vh] flex flex-col`}
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex items-center justify-between px-5 py-3.5 border-b border-zinc-100 shrink-0 bg-white">
-          <h3 className="text-sm sm:text-base font-bold text-zinc-900 tracking-tight">{title}</h3>
+        <div className="flex items-center justify-between px-6 py-4 border-b-2 border-[#C3E956]/40 shrink-0 bg-gradient-to-r from-[#102919] to-[#1F4B2C] text-white">
+          <h3 className="text-sm sm:text-base font-black tracking-tight text-[#C3E956]">{title}</h3>
           {showCloseButton && (
             <button
               onClick={onClose}
-              className="p-1 rounded-md text-zinc-400 hover:text-zinc-700 hover:bg-zinc-100 transition"
+              className="p-1.5 rounded-xl text-zinc-300 hover:text-[#C3E956] hover:bg-white/10 transition cursor-pointer"
               title="Tutup Modal"
             >
               <X className="w-4 h-4" />
             </button>
           )}
         </div>
-        <div className="p-5 overflow-y-auto flex-1">{children}</div>
+        <div className="p-6 overflow-y-auto flex-1 text-[#102919]">{children}</div>
       </div>
     </div>,
     document.body

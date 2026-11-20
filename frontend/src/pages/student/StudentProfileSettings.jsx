@@ -234,13 +234,13 @@ export default function StudentProfileSettings() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F4FFFC] text-zinc-800 flex flex-col justify-between select-none relative antialiased font-sans">
+    <div className="min-h-screen bg-gradient-to-b from-[#EBF7CD] via-[#E2F4B8] to-[#D9F0A5] text-[#102919] flex flex-col justify-between select-none relative antialiased font-sans">
       {/* ======================================================== */}
       {/* 1. TOP HEADER BAR (EXECUTIVE GREEN SCREEN NAVBAR)         */}
       {/* ======================================================== */}
-      <header className="bg-gradient-to-r from-[#102919] via-[#143820] to-[#1F4B2C] border-b border-[#1F4B2C] px-4 sm:px-8 py-3.5 flex items-center justify-between sticky top-0 z-30 shadow-md shrink-0">
+      <header className="bg-gradient-to-r from-[#102919] via-[#143820] to-[#1F4B2C] border-b-2 border-[#C3E956]/30 px-4 sm:px-8 py-3.5 flex items-center justify-between sticky top-0 z-30 shadow-md shrink-0">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-white p-1.5 flex items-center justify-center shadow-lg ring-2 ring-[#91EAAF]/40 shrink-0">
+          <div className="w-10 h-10 rounded-xl bg-[#EFF9CE] p-1.5 flex items-center justify-center shadow-lg ring-2 ring-[#C3E956]/60 shrink-0">
             <img 
               src={logoSdMis} 
               alt="Logo SD Mentari Islamic School" 
@@ -285,22 +285,22 @@ export default function StudentProfileSettings() {
         <div className="flex items-center justify-between">
           <button
             onClick={() => navigate('/student/lobby')}
-            className="flex items-center gap-2 text-xs font-bold text-[#1F4B2C] hover:text-[#102919] transition-all px-3.5 py-2 rounded-xl bg-white border-2 border-[#91EAAF]/60 shadow-xs hover:border-[#1F4B2C] active:scale-[0.98] cursor-pointer"
+            className="flex items-center gap-2 text-xs font-black text-[#102919] hover:text-[#0A1D11] transition-all px-4 py-2.5 rounded-xl bg-[#EFF9CE] border-2 border-[#8BC829] shadow-xs hover:border-[#102919] hover:bg-[#E2F4B4] active:scale-[0.98] cursor-pointer"
           >
-            <ArrowLeft className="w-4 h-4 text-[#1F4B2C]" />
+            <ArrowLeft className="w-4 h-4 text-[#102919]" />
             <span>Kembali ke Beranda Asesmen</span>
           </button>
 
           {/* Security Badge Status */}
           <div className="flex items-center gap-2">
             {profileMeta.needs_profile_completion ? (
-              <div className="flex items-center gap-1.5 px-3 py-1 rounded-xl bg-amber-100 border border-amber-300 text-amber-900 text-xs font-bold shadow-xs">
-                <ShieldAlert className="w-4 h-4 text-amber-700" />
+              <div className="flex items-center gap-1.5 px-3 py-1 rounded-xl bg-amber-300 border border-amber-500 text-amber-950 text-xs font-black shadow-xs">
+                <ShieldAlert className="w-4 h-4 text-amber-900" />
                 <span>Perlu Dilengkapi</span>
               </div>
             ) : (
-              <div className="flex items-center gap-1.5 px-3 py-1 rounded-xl bg-[#E1F8ED] border border-[#91EAAF] text-[#1F4B2C] text-xs font-bold shadow-xs">
-                <BadgeCheck className="w-4 h-4 text-[#1F4B2C]" />
+              <div className="flex items-center gap-1.5 px-3 py-1 rounded-xl bg-[#C3E956] border border-[#4D7111]/30 text-[#0A1D11] text-xs font-black shadow-xs">
+                <BadgeCheck className="w-4 h-4 text-[#0A1D11]" />
                 <span>Profil Aman</span>
               </div>
             )}
@@ -309,7 +309,7 @@ export default function StudentProfileSettings() {
               onClick={loadProfile}
               disabled={isLoading}
               title="Muat ulang data profil"
-              className="p-2 rounded-xl border-2 border-[#91EAAF]/60 bg-white text-[#1F4B2C] hover:bg-[#E1F8ED] transition-all shadow-xs cursor-pointer"
+              className="p-2 rounded-xl border-2 border-[#8BC829] bg-[#EFF9CE] text-[#102919] hover:bg-[#E2F4B4] transition-all shadow-xs cursor-pointer"
             >
               <RefreshCw className={`w-4 h-4 ${isLoading ? 'animate-spin' : ''}`} />
             </button>
@@ -317,7 +317,7 @@ export default function StudentProfileSettings() {
         </div>
 
         {/* Profile Hero Header Card */}
-        <div className="bg-gradient-to-br from-[#102919] via-[#143820] to-[#1F4B2C] rounded-3xl p-6 text-white shadow-lg border-2 border-[#1F4B2C] flex flex-col sm:flex-row sm:items-center justify-between gap-5">
+        <div className="bg-gradient-to-br from-[#102919] via-[#143820] to-[#1F4B2C] rounded-3xl p-6 text-white shadow-xl border-2 border-[#C3E956]/40 flex flex-col sm:flex-row sm:items-center justify-between gap-5">
           <div className="flex items-center gap-4">
             <div className="w-16 h-16 rounded-2xl bg-[#C3E956] text-[#0A1D11] font-black text-2xl flex items-center justify-center shadow-md ring-4 ring-white/20 shrink-0">
               {getInitials(formData.full_name || currentUser?.fullName)}
@@ -327,7 +327,7 @@ export default function StudentProfileSettings() {
                 <h1 className="text-xl sm:text-2xl font-black text-white tracking-tight">
                   {formData.full_name || currentUser?.fullName || 'Akun Siswa'}
                 </h1>
-                <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-[#C3E956] text-[#0A1D11] shadow-xs">
+                <span className="text-[10px] font-black px-2.5 py-0.5 rounded-full bg-[#C3E956] text-[#0A1D11] shadow-xs">
                   Siswa Aktif
                 </span>
               </div>
@@ -344,14 +344,14 @@ export default function StudentProfileSettings() {
 
         {/* Alert Notifikasi */}
         {successMessage && (
-          <div className="flex items-center gap-3 p-4 rounded-2xl bg-emerald-50 border-2 border-emerald-300 text-emerald-950 text-xs font-bold shadow-xs animate-fadeIn">
-            <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" />
+          <div className="flex items-center gap-3 p-4 rounded-2xl bg-[#E2F4B4] border-2 border-[#8BC829] text-[#102919] text-xs font-black shadow-xs animate-fadeIn">
+            <CheckCircle2 className="w-5 h-5 text-[#4D7111] shrink-0" />
             <span>{successMessage}</span>
           </div>
         )}
 
         {errorMessage && (
-          <div className="flex items-center gap-3 p-4 rounded-2xl bg-rose-50 border-2 border-rose-300 text-rose-950 text-xs font-bold shadow-xs animate-shake">
+          <div className="flex items-center gap-3 p-4 rounded-2xl bg-[#E2F4B4] border-2 border-rose-300 text-rose-950 text-xs font-black shadow-xs animate-shake">
             <AlertCircle className="w-5 h-5 text-rose-600 shrink-0" />
             <span>{errorMessage}</span>
           </div>
@@ -359,12 +359,12 @@ export default function StudentProfileSettings() {
 
         {/* Warning Box jika kata sandi masih bawaan atau email belum diatur */}
         {profileMeta.needs_profile_completion && (
-          <div className="p-4 rounded-2xl bg-amber-50 border-2 border-amber-300 text-amber-950 space-y-2 shadow-xs">
-            <div className="flex items-center gap-2 font-black text-xs text-amber-950">
+          <div className="p-4 rounded-2xl bg-[#E2F4B4] border-2 border-amber-300 text-[#102919] space-y-2 shadow-xs">
+            <div className="flex items-center gap-2 font-black text-xs text-[#102919]">
               <ShieldAlert className="w-4 h-4 text-amber-700" />
               <span>Pemberitahuan Keamanan Akun Siswa:</span>
             </div>
-            <div className="text-xs text-amber-900 leading-relaxed space-y-1">
+            <div className="text-xs text-[#1F4B2C] font-semibold leading-relaxed space-y-1">
               {profileMeta.is_password_default && (
                 <p>• Akun Anda masih menggunakan kata sandi bawaan (NISN). Mohon ganti kata sandi di bawah ini agar akun Anda aman dari akses orang lain.</p>
               )}
@@ -377,18 +377,18 @@ export default function StudentProfileSettings() {
 
         <form onSubmit={handleSave} className="space-y-6">
           {/* Card 1: Informasi Biodata Peserta */}
-          <div className="bg-white rounded-3xl border-2 border-[#91EAAF]/60 p-6 space-y-5 shadow-sm">
-            <div className="flex items-center justify-between pb-4 border-b border-[#91EAAF]/40">
+          <div className="bg-[#EFF9CE] rounded-3xl border-2 border-[#8BC829] p-6 space-y-5 shadow-sm">
+            <div className="flex items-center justify-between pb-4 border-b-2 border-[#8BC829]/40">
               <div className="flex items-center gap-3">
                 <div className="p-2 rounded-xl bg-gradient-to-br from-[#102919] to-[#1F4B2C] text-[#C3E956] shadow-xs">
                   <UserCheck className="w-5 h-5" />
                 </div>
                 <div>
                   <h2 className="text-sm sm:text-base font-black text-[#102919]">Biodata Peserta Asesmen</h2>
-                  <p className="text-xs text-zinc-500 font-medium">Terhubung langsung dengan Manajemen Siswa & E-Jurnal Sekolah.</p>
+                  <p className="text-xs text-[#1F4B2C] font-semibold">Terhubung langsung dengan Manajemen Siswa & E-Jurnal Sekolah.</p>
                 </div>
               </div>
-              <span className="px-3 py-1 rounded-full bg-[#E1F8ED] text-[#1F4B2C] text-xs font-black border border-[#91EAAF]">
+              <span className="px-3 py-1 rounded-full bg-[#E2F4B4] text-[#1F4B2C] text-xs font-black border border-[#8BC829]">
                 Kelas: {studentClassName}
               </span>
             </div>
@@ -406,9 +406,9 @@ export default function StudentProfileSettings() {
                   onChange={handleChange}
                   placeholder="Contoh: Muhammad Rayhan"
                   required
-                  className="w-full px-4 py-2.5 rounded-xl bg-[#F4FFFC] border-2 border-[#91EAAF]/70 text-[#102919] text-xs sm:text-sm font-semibold focus:border-[#1F4B2C] focus:outline-none transition shadow-inner"
+                  className="w-full px-4 py-2.5 rounded-xl bg-[#F9FDEE] border-2 border-[#8BC829] text-[#102919] text-xs sm:text-sm font-semibold focus:border-[#102919] focus:outline-none transition shadow-inner"
                 />
-                <p className="text-[11px] text-zinc-500 mt-1 font-medium">Nama ini dicantumkan pada Berita Acara dan Rekap Nilai E-Jurnal.</p>
+                <p className="text-[11px] text-[#1F4B2C] mt-1 font-semibold">Nama ini dicantumkan pada Berita Acara dan Rekap Nilai E-Jurnal.</p>
               </div>
 
               {/* NISN / Username */}
@@ -423,9 +423,9 @@ export default function StudentProfileSettings() {
                   onChange={handleChange}
                   placeholder="Contoh: 0081234567"
                   required
-                  className="w-full px-4 py-2.5 rounded-xl bg-[#F4FFFC] border-2 border-[#91EAAF]/70 text-[#102919] text-xs sm:text-sm font-mono font-bold focus:border-[#1F4B2C] focus:outline-none transition shadow-inner"
+                  className="w-full px-4 py-2.5 rounded-xl bg-[#F9FDEE] border-2 border-[#8BC829] text-[#102919] text-xs sm:text-sm font-mono font-bold focus:border-[#102919] focus:outline-none transition shadow-inner"
                 />
-                <p className="text-[11px] text-zinc-500 mt-1 font-medium">Digunakan untuk login ke Portal Ujian.</p>
+                <p className="text-[11px] text-[#1F4B2C] mt-1 font-semibold">Digunakan untuk login ke Portal Ujian.</p>
               </div>
 
               {/* Email */}
@@ -440,25 +440,25 @@ export default function StudentProfileSettings() {
                     value={formData.email}
                     onChange={handleChange}
                     placeholder="Contoh: siswa@mentarischool.sch.id"
-                    className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-[#F4FFFC] border-2 border-[#91EAAF]/70 text-[#102919] text-xs sm:text-sm font-semibold focus:border-[#1F4B2C] focus:outline-none transition shadow-inner"
+                    className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-[#F9FDEE] border-2 border-[#8BC829] text-[#102919] text-xs sm:text-sm font-semibold focus:border-[#102919] focus:outline-none transition shadow-inner"
                   />
                   <Mail className="w-4 h-4 text-[#4D7111] absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
                 </div>
-                <p className="text-[11px] text-zinc-500 mt-1 font-medium">Digunakan untuk pemulihan akun jika lupa kata sandi.</p>
+                <p className="text-[11px] text-[#1F4B2C] mt-1 font-semibold">Digunakan untuk pemulihan akun jika lupa kata sandi.</p>
               </div>
             </div>
           </div>
 
           {/* Card 2: Keamanan & Ganti Kata Sandi */}
-          <div className="bg-white rounded-3xl border-2 border-[#91EAAF]/60 p-6 space-y-5 shadow-sm">
-            <div className="flex items-center justify-between pb-4 border-b border-[#91EAAF]/40">
+          <div className="bg-[#EFF9CE] rounded-3xl border-2 border-[#8BC829] p-6 space-y-5 shadow-sm">
+            <div className="flex items-center justify-between pb-4 border-b-2 border-[#8BC829]/40">
               <div className="flex items-center gap-3">
                 <div className="p-2 rounded-xl bg-gradient-to-br from-[#102919] to-[#1F4B2C] text-[#C3E956] shadow-xs">
                   <Lock className="w-5 h-5" />
                 </div>
                 <div>
                   <h2 className="text-sm sm:text-base font-black text-[#102919]">Ganti Kata Sandi Akun Siswa (Opsional)</h2>
-                  <p className="text-xs text-zinc-500 font-medium">Kosongkan bagian ini jika Anda tidak ingin mengubah kata sandi.</p>
+                  <p className="text-xs text-[#1F4B2C] font-semibold">Kosongkan bagian ini jika Anda tidak ingin mengubah kata sandi.</p>
                 </div>
               </div>
             </div>
@@ -476,7 +476,7 @@ export default function StudentProfileSettings() {
                     value={formData.current_password}
                     onChange={handleChange}
                     placeholder="Kata sandi saat ini"
-                    className="w-full pr-10 pl-3.5 py-2.5 rounded-xl bg-[#F4FFFC] border-2 border-[#91EAAF]/70 text-[#102919] text-xs sm:text-sm font-semibold focus:border-[#1F4B2C] focus:outline-none transition shadow-inner"
+                    className="w-full pr-10 pl-3.5 py-2.5 rounded-xl bg-[#F9FDEE] border-2 border-[#8BC829] text-[#102919] text-xs sm:text-sm font-semibold focus:border-[#102919] focus:outline-none transition shadow-inner"
                   />
                   <button
                     type="button"
@@ -486,7 +486,7 @@ export default function StudentProfileSettings() {
                     {showCurrentPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                   </button>
                 </div>
-                <p className="text-[11px] text-zinc-500 mt-1 font-medium">Sandi saat ini (default: NISN).</p>
+                <p className="text-[11px] text-[#1F4B2C] mt-1 font-semibold">Sandi saat ini (default: NISN).</p>
               </div>
 
               {/* Kata Sandi Baru */}
@@ -501,7 +501,7 @@ export default function StudentProfileSettings() {
                     value={formData.password}
                     onChange={handleChange}
                     placeholder="Minimal 6 karakter"
-                    className="w-full pr-10 pl-3.5 py-2.5 rounded-xl bg-[#F4FFFC] border-2 border-[#91EAAF]/70 text-[#102919] text-xs sm:text-sm font-semibold focus:border-[#1F4B2C] focus:outline-none transition shadow-inner"
+                    className="w-full pr-10 pl-3.5 py-2.5 rounded-xl bg-[#F9FDEE] border-2 border-[#8BC829] text-[#102919] text-xs sm:text-sm font-semibold focus:border-[#102919] focus:outline-none transition shadow-inner"
                   />
                   <button
                     type="button"
@@ -511,7 +511,7 @@ export default function StudentProfileSettings() {
                     {showNewPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                   </button>
                 </div>
-                <p className="text-[11px] text-zinc-500 mt-1 font-medium">Gunakan sandi yang aman dan mudah diingat.</p>
+                <p className="text-[11px] text-[#1F4B2C] mt-1 font-semibold">Gunakan sandi yang aman dan mudah diingat.</p>
               </div>
 
               {/* Konfirmasi Kata Sandi Baru */}
@@ -526,7 +526,7 @@ export default function StudentProfileSettings() {
                     value={formData.confirm_password}
                     onChange={handleChange}
                     placeholder="Ulangi kata sandi baru"
-                    className="w-full pr-10 pl-3.5 py-2.5 rounded-xl bg-[#F4FFFC] border-2 border-[#91EAAF]/70 text-[#102919] text-xs sm:text-sm font-semibold focus:border-[#1F4B2C] focus:outline-none transition shadow-inner"
+                    className="w-full pr-10 pl-3.5 py-2.5 rounded-xl bg-[#F9FDEE] border-2 border-[#8BC829] text-[#102919] text-xs sm:text-sm font-semibold focus:border-[#102919] focus:outline-none transition shadow-inner"
                   />
                   <button
                     type="button"
@@ -536,21 +536,21 @@ export default function StudentProfileSettings() {
                     {showConfirmPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                   </button>
                 </div>
-                <p className="text-[11px] text-zinc-500 mt-1 font-medium">Harus sama dengan sandi baru.</p>
+                <p className="text-[11px] text-[#1F4B2C] mt-1 font-semibold">Harus sama dengan sandi baru.</p>
               </div>
             </div>
           </div>
 
           {/* Action Buttons */}
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-2">
-            <div className="flex items-center gap-2 text-xs text-zinc-600 font-medium">
-              <Info className="w-4 h-4 text-[#1F4B2C] shrink-0" />
+            <div className="flex items-center gap-2 text-xs text-[#1F4B2C] font-semibold">
+              <Info className="w-4 h-4 text-[#102919] shrink-0" />
               <span>Perubahan data otomatis disinkronkan ke server sekolah.</span>
             </div>
             <button
               type="submit"
               disabled={isSaving}
-              className="w-full sm:w-auto px-7 py-3 rounded-2xl bg-[#C3E956] hover:bg-[#d4f76b] active:scale-[0.98] text-[#0A1D11] font-black text-xs sm:text-sm tracking-wide shadow-md border border-[#4D7111]/20 transition-all flex items-center justify-center gap-2 disabled:opacity-50 cursor-pointer"
+              className="w-full sm:w-auto px-7 py-3 rounded-2xl bg-[#C3E956] hover:bg-[#b8e337] active:scale-[0.98] text-[#0A1D11] font-black text-xs sm:text-sm tracking-wide shadow-md border-2 border-[#4D7111]/30 transition-all flex items-center justify-center gap-2 disabled:opacity-50 cursor-pointer"
             >
               {isSaving ? (
                 <>
@@ -569,7 +569,7 @@ export default function StudentProfileSettings() {
       </main>
 
       {/* Footer */}
-      <footer className="text-center py-4 border-t border-[#91EAAF]/50 bg-white/90 text-[#1F4B2C] text-xs font-semibold shrink-0">
+      <footer className="text-center py-4 border-t-2 border-[#8BC829]/50 bg-[#E2F4B4]/90 text-[#1F4B2C] text-xs font-black shrink-0">
         Portal Asesmen Digital Siswa • SD Mentari Islamic School • 'Digital Mind, Islamic Heart'
       </footer>
     </div>

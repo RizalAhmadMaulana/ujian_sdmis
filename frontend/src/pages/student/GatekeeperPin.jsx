@@ -336,13 +336,13 @@ export default function GatekeeperPin() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F4FFFC] text-zinc-800 flex flex-col justify-between overflow-y-auto select-none relative antialiased font-sans">
+    <div className="min-h-screen bg-gradient-to-b from-[#EBF7CD] via-[#E2F4B8] to-[#D9F0A5] text-[#102919] flex flex-col justify-between overflow-y-auto select-none relative antialiased font-sans">
       {/* ======================================================== */}
       {/* 1. TOP HEADER BAR (EXECUTIVE GREEN SCREEN NAVBAR)         */}
       {/* ======================================================== */}
-      <header className="bg-gradient-to-r from-[#102919] via-[#143820] to-[#1F4B2C] border-b border-[#1F4B2C] px-4 sm:px-8 py-3.5 flex items-center justify-between sticky top-0 z-30 shadow-md shrink-0">
+      <header className="bg-gradient-to-r from-[#102919] via-[#143820] to-[#1F4B2C] border-b-2 border-[#C3E956]/30 px-4 sm:px-8 py-3.5 flex items-center justify-between sticky top-0 z-30 shadow-md shrink-0">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-white p-1.5 flex items-center justify-center shadow-lg ring-2 ring-[#91EAAF]/40 shrink-0">
+          <div className="w-10 h-10 rounded-xl bg-[#EFF9CE] p-1.5 flex items-center justify-center shadow-lg ring-2 ring-[#C3E956]/60 shrink-0">
             <img 
               src={logoSdMis} 
               alt="Logo SD Mentari Islamic School" 
@@ -367,7 +367,7 @@ export default function GatekeeperPin() {
             <div 
               onClick={() => navigate('/student/profile')}
               title="Klik untuk membuka Pengaturan Profil"
-              className="text-xs text-[#91EAAF] truncate max-w-[200px] sm:max-w-md cursor-pointer hover:text-white transition font-medium"
+              className="text-xs text-[#91EAAF] truncate max-w-[200px] sm:max-w-md cursor-pointer hover:text-[#C3E956] transition font-medium"
             >
               {currentUser?.fullName} • Kelas {studentClassName} (NISN: {currentUser?.username})
             </div>
@@ -418,7 +418,7 @@ export default function GatekeeperPin() {
       <main className="flex-1 flex flex-col justify-center items-center px-4 py-6 sm:py-10 relative z-10">
         {/* Header Identitas Sekolah & ExamBrowser Branding */}
         <div className="max-w-md w-full text-center mb-4 z-10 space-y-2">
-          <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-white p-2 shadow-md ring-2 ring-[#91EAAF]/40 mx-auto mb-1">
+          <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-[#EFF9CE] p-2 shadow-md ring-2 ring-[#8BC829] mx-auto mb-1 border border-[#8BC829]">
             <img 
               src={logoSdMis} 
               alt="Logo SD Mentari Islamic School" 
@@ -431,18 +431,18 @@ export default function GatekeeperPin() {
           <h1 className="text-xl sm:text-2xl font-black text-[#102919] tracking-tight">
             PORTAL E-UJIAN ANTI-CHEAT
           </h1>
-          <div className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[#C3E956]/20 border border-[#C3E956]/40 text-[#4D7111] font-bold text-xs">
-            <Sparkles className="w-3.5 h-3.5" />
+          <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#102919] text-[#C3E956] font-black text-xs shadow-sm border border-[#C3E956]/30">
+            <Sparkles className="w-3.5 h-3.5 text-[#C3E956]" />
             <span>'Digital Mind, Islamic Heart' • NPSN: 70047473</span>
           </div>
         </div>
 
         {/* Main Card Form */}
-        <div className="max-w-md w-full bg-white border-2 border-[#91EAAF]/70 rounded-3xl p-5 sm:p-7 shadow-lg z-10 space-y-4">
+        <div className="max-w-md w-full bg-[#EFF9CE] border-2 border-[#8BC829] rounded-3xl p-5 sm:p-7 shadow-xl z-10 space-y-4">
           {/* 1. Identitas Peserta Siswa */}
-          <div className="flex items-center justify-between p-3 rounded-2xl bg-[#E1F8ED] border border-[#91EAAF]/60">
+          <div className="flex items-center justify-between p-3.5 rounded-2xl bg-[#E2F4B4] border-2 border-[#8BC829]">
             <div className="flex items-center gap-3 min-w-0">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#102919] to-[#1F4B2C] text-[#C3E956] flex items-center justify-center font-bold text-xs shrink-0 shadow-xs">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#102919] to-[#1F4B2C] text-[#C3E956] flex items-center justify-center font-bold text-xs shrink-0 shadow-xs border border-[#C3E956]/30">
                 <GraduationCap className="w-5 h-5" />
               </div>
               <div className="min-w-0">
@@ -454,19 +454,19 @@ export default function GatekeeperPin() {
                 </div>
               </div>
             </div>
-            <span className="text-[10px] font-black px-2.5 py-1 rounded-full bg-[#C3E956] text-[#0A1D11] border border-[#4D7111]/30 shrink-0 ml-2 shadow-2xs">
+            <span className="text-[10px] font-black px-3 py-1 rounded-full bg-[#C3E956] text-[#0A1D11] border border-[#4D7111]/30 shrink-0 ml-2 shadow-2xs">
               Terverifikasi
             </span>
           </div>
 
           {/* 2. Kartu Informasi Mata Pelajaran Terpilih */}
-          <div className="p-3.5 sm:p-4 rounded-2xl bg-[#F4FFFC] border-2 border-[#91EAAF]/60 space-y-2">
+          <div className="p-4 rounded-2xl bg-[#E2F4B4] border-2 border-[#8BC829] space-y-2.5">
             <div className="flex items-center justify-between">
               <span className="text-[10px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-[#102919] text-[#C3E956]">
                 Mata Pelajaran Terpilih
               </span>
-              <span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-white text-[#1F4B2C] border border-[#91EAAF] flex items-center gap-1 font-mono">
-                <Clock className="w-3.5 h-3.5 text-[#4D7111]" />
+              <span className="text-xs font-black px-2.5 py-0.5 rounded-full bg-[#C3E956] text-[#0A1D11] border border-[#4D7111]/30 flex items-center gap-1 font-mono">
+                <Clock className="w-3.5 h-3.5 text-[#0A1D11]" />
                 {targetSession?.durationMinutes || targetSession?.duration_minutes || selectedPackage?.durationMinutes || 60} Menit
               </span>
             </div>
@@ -476,7 +476,7 @@ export default function GatekeeperPin() {
                 <h2 className="text-base sm:text-lg font-black text-[#102919] tracking-tight uppercase truncate">
                   {selectedPackage?.subjectName || targetSession?.subjectName || 'Mata Pelajaran'}
                 </h2>
-                <p className="text-xs text-zinc-600 font-medium truncate">
+                <p className="text-xs text-[#1F4B2C] font-semibold truncate">
                   {selectedPackage?.title || targetSession?.title || 'Paket Ujian'}
                 </p>
               </div>
@@ -488,47 +488,47 @@ export default function GatekeeperPin() {
           </div>
 
           {/* 3. Status Sistem: Layar Akan Dipasangi Pin */}
-          <div className="p-3 rounded-2xl bg-amber-50 border border-amber-300 text-xs text-amber-950 flex items-center gap-2.5">
+          <div className="p-3 rounded-2xl bg-[#E2F4B4] border-2 border-amber-300 text-xs text-[#102919] flex items-center gap-2.5">
             <Pin className="w-4 h-4 text-amber-700 shrink-0" />
-            <span className="leading-tight">
-              Layar perangkat akan <strong className="font-black text-amber-950">dikunci otomatis (Fullscreen)</strong> saat Anda mengklik Mulai Ujian.
+            <span className="leading-tight font-medium">
+              Layar perangkat akan <strong className="font-black text-[#102919]">dikunci otomatis (Fullscreen)</strong> saat Anda mengklik Mulai Ujian.
             </span>
           </div>
 
           {/* Error Alert Box */}
           {errorMsg && (
-            <div className="p-3 rounded-2xl bg-rose-50 border-2 border-rose-300 text-xs text-rose-950 flex items-start gap-2.5 animate-shake">
+            <div className="p-3.5 rounded-2xl bg-[#E2F4B4] border-2 border-rose-300 text-xs text-rose-950 flex items-start gap-2.5 animate-shake">
               <AlertCircle className="w-4 h-4 text-rose-600 shrink-0 mt-0.5" />
-              <span className="leading-tight font-bold">{errorMsg}</span>
+              <span className="leading-tight font-black">{errorMsg}</span>
             </div>
           )}
 
           {/* 4. Input Form Pin / Password Masuk ATAU State Sudah Dikerjakan */}
           {isAlreadySubmitted ? (
-            <div className="p-5 rounded-2xl bg-emerald-50 border-2 border-emerald-300 text-center space-y-3">
-              <div className="w-12 h-12 rounded-2xl bg-emerald-600 text-white flex items-center justify-center mx-auto shadow-sm">
-                <CheckCircle2 className="w-6 h-6" />
+            <div className="p-5 rounded-2xl bg-[#E2F4B4] border-2 border-[#8BC829] text-center space-y-3">
+              <div className="w-12 h-12 rounded-2xl bg-[#102919] text-[#C3E956] border-2 border-[#C3E956] flex items-center justify-center mx-auto shadow-md">
+                <CheckCircle2 className="w-6 h-6 text-[#C3E956]" />
               </div>
               <div className="space-y-1">
-                <h3 className="text-base font-black text-emerald-950">Ujian Telah Selesai Dikerjakan</h3>
-                <p className="text-xs text-zinc-700 leading-relaxed">
+                <h3 className="text-base font-black text-[#102919]">Ujian Telah Selesai Dikerjakan</h3>
+                <p className="text-xs text-[#1F4B2C] font-semibold leading-relaxed">
                   Anda sudah menyelesaikan ujian ini dan lembar jawaban Anda telah tersimpan secara resmi di portal guru pengawas.
                   {targetSession?.my_attempt?.total_score !== null && targetSession?.my_attempt?.total_score !== undefined && (
-                    <span className="block mt-2 text-emerald-700 font-mono font-black text-base">
+                    <span className="block mt-2 text-[#102919] font-mono font-black text-base">
                       Nilai Asesmen: {targetSession.my_attempt.total_score}
                     </span>
                   )}
                 </p>
-                <p className="text-[11px] text-zinc-500 pt-1">
+                <p className="text-[11px] text-[#4D7111] pt-1 font-medium">
                   Pengerjaan ulang hanya dapat dilakukan jika Guru Pengawas membuka akses remidi melalui menu Rekap Nilai Siswa.
                 </p>
               </div>
               <button
                 type="button"
                 onClick={() => navigate('/student/subjects')}
-                className="w-full py-3 px-4 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl text-xs transition flex items-center justify-center gap-2 cursor-pointer shadow-xs active:scale-95"
+                className="w-full py-3 px-4 bg-[#C3E956] hover:bg-[#b8e337] text-[#0A1D11] font-black rounded-xl text-xs transition flex items-center justify-center gap-2 cursor-pointer shadow-md border-2 border-[#4D7111]/30 active:scale-95"
               >
-                <ArrowLeft className="w-4 h-4" />
+                <ArrowLeft className="w-4 h-4 text-[#0A1D11]" />
                 <span>Kembali ke Portal Mapel</span>
               </button>
             </div>
@@ -539,7 +539,7 @@ export default function GatekeeperPin() {
                   <label className="text-xs font-black text-[#102919] uppercase tracking-wider flex items-center gap-1.5">
                     <KeyRound className="w-4 h-4 text-[#1F4B2C]" /> Password Masuk Ujian
                   </label>
-                  <span className="text-[11px] text-zinc-500 font-medium">Dari Guru Pengawas</span>
+                  <span className="text-[11px] text-[#1F4B2C] font-bold">Dari Guru Pengawas</span>
                 </div>
                 <div className="relative">
                   <input
@@ -562,10 +562,10 @@ export default function GatekeeperPin() {
                       }
                     }}
                     placeholder="CONTOH: MSK-2JM4"
-                    className="w-full text-center text-lg sm:text-xl font-mono font-black tracking-widest py-3 px-4 bg-[#F4FFFC] border-2 border-[#91EAAF] rounded-2xl text-[#102919] placeholder-zinc-400 focus:outline-none focus:border-[#1F4B2C] uppercase transition shadow-inner"
+                    className="w-full text-center text-lg sm:text-xl font-mono font-black tracking-widest py-3 px-4 bg-[#F9FDEE] border-2 border-[#8BC829] rounded-2xl text-[#102919] placeholder-zinc-400 focus:outline-none focus:border-[#102919] uppercase transition shadow-inner"
                   />
                 </div>
-                <div className="flex items-center justify-between text-[11px] text-zinc-500 mt-1.5 px-1 font-mono">
+                <div className="flex items-center justify-between text-[11px] text-[#1F4B2C] mt-1.5 px-1 font-mono font-semibold">
                   <span>Huruf Besar / Angka</span>
                   <span className="text-[#4D7111] font-bold">Minta token ke guru pengawas</span>
                 </div>
@@ -576,7 +576,7 @@ export default function GatekeeperPin() {
                 type="button"
                 onClick={handleVerifyAndStart}
                 disabled={isChecking || showPinnedToast}
-                className="w-full py-3.5 px-5 bg-[#C3E956] hover:bg-[#d4f76b] text-[#0A1D11] font-black rounded-2xl text-xs sm:text-sm shadow-md border border-[#4D7111]/20 transition flex items-center justify-center gap-2 disabled:opacity-50 active:scale-[0.98] cursor-pointer"
+                className="w-full py-3.5 px-5 bg-[#C3E956] hover:bg-[#b8e337] text-[#0A1D11] font-black rounded-2xl text-xs sm:text-sm shadow-md border-2 border-[#4D7111]/30 transition flex items-center justify-center gap-2 disabled:opacity-50 active:scale-[0.98] cursor-pointer"
               >
                 {isChecking ? (
                   <div className="w-5 h-5 border-2 border-[#0A1D11]/30 border-t-[#0A1D11] rounded-full animate-spin" />
@@ -591,11 +591,11 @@ export default function GatekeeperPin() {
           )}
 
           {/* Footer Card: Tombol Kembali & Status Keamanan */}
-          <div className="pt-3 border-t border-[#91EAAF]/50 flex items-center justify-between text-xs">
+          <div className="pt-3 border-t-2 border-[#8BC829]/50 flex items-center justify-between text-xs">
             <button
               type="button"
               onClick={() => navigate('/student/subjects')}
-              className="text-[#1F4B2C] hover:text-[#102919] flex items-center gap-1.5 transition font-bold cursor-pointer"
+              className="text-[#102919] hover:text-[#0A1D11] flex items-center gap-1.5 transition font-black cursor-pointer"
             >
               <ArrowLeft className="w-4 h-4" /> Kembali
             </button>
@@ -609,8 +609,8 @@ export default function GatekeeperPin() {
       {/* ======================================================== */}
       {/* 3. FOOTER                                                */}
       {/* ======================================================== */}
-      <footer className="border-t border-[#91EAAF]/50 bg-white/90 px-4 py-3 text-center text-xs text-[#1F4B2C] font-semibold backdrop-blur-sm z-10 shrink-0 flex items-center justify-center gap-2 shadow-xs">
-        <ShieldCheck className="w-4 h-4 text-[#1F4B2C]" />
+      <footer className="border-t-2 border-[#8BC829]/50 bg-[#E2F4B4]/90 px-4 py-3 text-center text-xs text-[#1F4B2C] font-black backdrop-blur-sm z-10 shrink-0 flex items-center justify-center gap-2 shadow-xs">
+        <ShieldCheck className="w-4 h-4 text-[#102919]" />
         <span>Sesi Asesmen Diawasi oleh Pengawas Ruang Ujian & Sistem Anti-Cheat SD Mentari Islamic School</span>
       </footer>
     </div>

@@ -302,6 +302,42 @@ Sesuai arahan client dan taste-skill (`design-taste-frontend`), seluruh tampilan
 
 ---
 
+### 🎯 9. Pembaruan Total Palet "Hijau Muda Kekuning-kuningan" (Zero-White Theme) pada Seluruh Menu Role Siswa
+- **Latar Belakang & Evaluasi Desain:**  
+  Sebelumnya, role siswa masih menggunakan warna dasar keputihan (`bg-white` dan `#F4FFFC`). Sesuai arahan client dan panduan color palette *Green Screen*, seluruh halaman role siswa dan modal-modalnya dirombak total tanpa warna putih sama sekali (**Zero-White Theme**). Tampilan baru kini menggunakan warna dasar **Hijau Muda Kekuning-kuningan (Chartreuse / Lime-Yellow Green System: `#EFF9CE`, `#E2F4B4`, `#EBF7CD`, `#C3E956`, `#8BC829`)** yang hangat, ramah anak SD, berwibawa, dan sangat profesional.
+- **Rincian Perubahan Per Komponen & Halaman:**
+  1. **Komponen Modal Global (`Modal.jsx`):**
+     - Mengganti latar modal putih menjadi surface lembut `#EFF9CE` dengan border-2 solid `#8BC829`.
+     - Header berlatar gradasi dark forest `#102919` ke `#1F4B2C` dengan judul font-black `#C3E956`.
+     - Teks body `#102919` dengan kontras tinggi.
+  2. **Modal Profil Siswa (`WelcomeProfileModal.jsx`):**
+     - Container `#EFF9CE` border-2 `#8BC829`, kartu status `#E2F4B4`, input identitas `#F9FDEE`, dan tombol aksi lime `#C3E956`.
+  3. **Beranda / Lobby Siswa (`StudentLobby.jsx` - `/student/lobby`):**
+     - Kanvas halaman beralih ke gradasi hijau lembut: `from-[#EBF7CD] via-[#E2F4B8] to-[#D9F0A5]`.
+     - 3 Tactile Cards (E-Ujian, Jadwal Asesmen, Tata Tertib): Latar kartu `#EFF9CE` dengan border-2 solid `#8BC829`, badge aksen `#C3E956`, icon wrapper `#E2F4B4`, dan tombol aksi `#C3E956` berteks `#0A1D11` font-black.
+     - 3 Modal Inline (Orientasi Layar HP/PC, Jadwal Sesi Aktif, dan Tata Tertib Integritas): Latar dialog berganti ke `#EFF9CE` border `#8BC829`, item card `#E2F4B4`, tombol tutup `#E2F4B4` border `#8BC829`, dan tombol primer `#C3E956`.
+  4. **Portal Pemilihan Mata Pelajaran (`SubjectPortal.jsx` - `/student/subjects`):**
+     - Kanvas gradasi `#EBF7CD` ke `#D9F0A5`.
+     - Kartu mata pelajaran menggunakan latar `#EFF9CE` dengan border-2 tebal `#8BC829`, sub-container sesi `#E2F4B4`, badge status dinamis, dan tombol *Mulai Ujian* `#C3E956` font-black.
+  5. **Gerbang Masuk PIN Ujian (`GatekeeperPin.jsx` - `/student/gatekeeper`):**
+     - Kanvas gradasi `#EBF7CD` ke `#D9F0A5`.
+     - Kartu otentikasi utama `#EFF9CE` border-2 `#8BC829`, strip data peserta `#E2F4B4`, input PIN font-mono berlatar `#F9FDEE` border-2 `#8BC829`, dan tombol konfirmasi `#C3E956`.
+  6. **Pengaturan Profil Siswa (`StudentProfileSettings.jsx` - `/student/profile`):**
+     - Kanvas gradasi `#EBF7CD` ke `#D9F0A5`.
+     - Dua kartu profil (Data Diri dan Ganti Kata Sandi) berlatar `#EFF9CE` dengan border-2 `#8BC829`.
+     - Kotak input `#F9FDEE` dengan border-2 `#8BC829`, teks gelap `#102919`, dan tombol simpan `#C3E956`.
+  7. **Lembar Kerja Asesmen Mandiri (`ExamWorkspace.jsx` - `/student/exam-workspace`):**
+     - Kanvas pengerjaan: `bg-gradient-to-b from-[#EBF7CD] via-[#E2F4B8] to-[#D9F0A5]`.
+     - Overlay 1-Ketuk Fullscreen: Card `#EFF9CE` border-2 `#8BC829`, tombol `#C3E956`.
+     - Panel Kiri (Lembar Soal): Latar kartu `#EFF9CE` dengan border-2 `#8BC829`.
+     - Ragam pilihan jawaban (PG, PG Kompleks, Isian Singkat, Benar/Salah, Menjodohkan, Esai): State normal `#E2F4B4` border `#8BC829` teks `#102919`, state terpilih `#C3E956` border-2 `#102919` teks `#0A1D11` font-black. Input & textarea menggunakan `#F9FDEE` border-2 `#8BC829`.
+     - Panel Kanan (Kisi Navigasi Nomor): Card `#EFF9CE` border-2 `#8BC829`, tombol kisi nomor (Sudah Terjawab: `#C3E956` teks `#0A1D11`, Belum Terjawab: `#E2F4B4` teks `#102919`, Sedang Dibuka: `#102919` teks `#C3E956`, Ragu-ragu: amber).
+     - Modal Batal Ujian: Surface `#EFF9CE` border-2 rose-300, kotak konsekuensi `#E2F4B4`.
+     - Modal Selesai Ujian: Surface `#EFF9CE` border-2 `#8BC829`, kotak statistik `#E2F4B4`, pill ringkasan `#EFF9CE` dan amber/rose, tombol aksi `#C3E956`.
+     - Modal Kartu Skor Hasil Ujian Siswa (Post-Exam): Surface `#EFF9CE` border-2 `#8BC829`, kotak skor `#E2F4B4`, strip identitas `#E2F4B4`, mempertahankan secara ketat **Kondisi 1** (skor 0 esai disembunyikan) dan **Kondisi 2** (skor angka PG murni ditampilkan).
+
+---
+
 ## 📋 Riwayat Aktivitas & Perubahan File
 
 | Tanggal | Komponen / File | Aksi | Rincian Perubahan |
@@ -313,12 +349,14 @@ Sesuai arahan client dan taste-skill (`design-taste-frontend`), seluruh tampilan
 | 2026-11-20 | `frontend/src/pages/teacher/LiveProctoring.jsx` | Overhaul & Bugfix | Penguatan kartu siswa real-time: border-2 solid, top status banner melintang (Terkunci: rose animate-pulse, Selesai: forest/lime, Fokus: emerald), kotak sensor berlatar `#F4FFFC`, live pulsing dot latensi, badge pelanggaran beranimasi, dan tombol aksi taktil. Membersihkan sisa tag button duplikat di baris 848 yang memicu error vite-babel. |
 | 2026-11-20 | `frontend/src/pages/teacher/StudentResults.jsx` | Bugfix & UI | Perbaikan tuntas modal fullscreen blur bug menggunakan `createPortal(..., document.body)` dengan `z-[9999] bg-[#0A1D11]/85 backdrop-blur-md` & body scroll lock. Menghilangkan celah putih header/sidebar. Rombak tampilan modal rincian lembar jawaban siswa dan remidi. |
 | 2026-11-20 | `frontend/src/pages/teacher/ProfileSettings.jsx` | Overhaul UI | Desain ulang profil guru yang lebih profesional & berwarna: hero profile banner dengan avatar besar beraksen `#C3E956`, badge verified pengawas, 3 kartu terstruktur (Data Diri, Keamanan Sandi, Kepatuhan Asesmen), dan tombol simpan beraksen lime `#C3E956`. |
-| 2026-11-20 | `frontend/src/pages/student/StudentLobby.jsx` | Overhaul UI | Rombak total beranda siswa dengan tema Green Screen `#F4FFFC`: header dark forest terintegrasi logo sekolah `logo sd mis.png` & NPSN 70047473, personal greeting siswa, 3 tactile action cards (E-Ujian, Jadwal, Tata Tertib), dan modal orientasi layar (Portrait/Landscape) taktil. |
-| 2026-11-20 | `frontend/src/pages/student/SubjectPortal.jsx` | Overhaul UI | Rombak total portal mapel siswa: kanvas `#F4FFFC`, header dark forest, tactile subject cards dengan border `#91EAAF`, badge mapel & status sesi cerdas, serta tombol *Mulai Ujian* chartreuse `#C3E956`. |
-| 2026-11-20 | `frontend/src/pages/student/GatekeeperPin.jsx` | Overhaul UI | Rombak total gerbang PIN: tampilan form terpusat berlatar `#F4FFFC`, header perisai sekolah, strip identitas siswa `#E1F8ED`, kartu info mapel, input PIN besar font-mono, dan tombol submit `#C3E956`. |
-| 2026-11-20 | `frontend/src/pages/student/StudentProfileSettings.jsx` | Overhaul UI | Desain baru profil siswa: hero banner dark forest, avatar beraksen lime `#C3E956`, 3 kartu manajemen (Biodata, Ganti Sandi + toggle intip, Integritas Asesmen), dan tombol simpan `#C3E956`. |
-| 2026-11-20 | `frontend/src/pages/student/ExamWorkspace.jsx` | Overhaul UI | Rombak total lembar kerja ujian siswa: kanvas `#F4FFFC`, header bar dark forest `#102919` dengan timer `#C3E956`, panel kiri lembar soal dengan 6 tipe soal taktil & KaTeX support, panel kanan kisi navigasi nomor 5 kolom berstatus Green Screen, modal batal, modal selesai, dan modal skor hasil ujian (menjaga 2 kondisi: sembunyikan nilai 0 untuk esai & tampilkan nilai langsung untuk PG murni). |
-| 2026-11-20 | `session.md` | Update | Dokumentasi lengkap seluruh pembaruan rebranding Green Screen untuk role guru & role siswa serta panduan deployment. |
+| 2026-11-20 | `frontend/src/components/common/Modal.jsx` | Zero-White Redesign | Mengganti background putih modal menjadi hijau muda kekuningan `#EFF9CE` border-2 `#8BC829` dengan header dark forest `#102919` ke `#1F4B2C` dan judul `#C3E956`. |
+| 2026-11-20 | `frontend/src/components/modals/WelcomeProfileModal.jsx` | Zero-White Redesign | Mengganti background putih modal profil menjadi `#EFF9CE` border-2 `#8BC829`, card dalam `#E2F4B4`, input `#F9FDEE`, dan tombol lime `#C3E956`. |
+| 2026-11-20 | `frontend/src/pages/student/StudentLobby.jsx` | Zero-White Redesign | Rombak total beranda siswa: kanvas gradasi `#EBF7CD` ke `#D9F0A5`, 3 action cards `#EFF9CE` border-2 `#8BC829`, tombol `#C3E956`, serta 3 modal inline (Orientasi, Jadwal, Tata Tertib) bertema zero-white lime-yellow. |
+| 2026-11-20 | `frontend/src/pages/student/SubjectPortal.jsx` | Zero-White Redesign | Rombak total portal mapel siswa: kanvas gradasi `#EBF7CD` ke `#D9F0A5`, kartu mapel `#EFF9CE` border-2 `#8BC829`, sub-kotak `#E2F4B4`, dan tombol *Mulai Ujian* `#C3E956`. |
+| 2026-11-20 | `frontend/src/pages/student/GatekeeperPin.jsx` | Zero-White Redesign | Rombak total gerbang PIN siswa: kanvas gradasi `#EBF7CD` ke `#D9F0A5`, kartu form `#EFF9CE` border-2 `#8BC829`, kotak siswa `#E2F4B4`, input PIN `#F9FDEE`, dan tombol submit `#C3E956`. |
+| 2026-11-20 | `frontend/src/pages/student/StudentProfileSettings.jsx` | Zero-White Redesign | Desain ulang profil siswa: kanvas gradasi `#EBF7CD` ke `#D9F0A5`, kartu `#EFF9CE` border-2 `#8BC829`, kotak input `#F9FDEE`, dan tombol simpan `#C3E956`. |
+| 2026-11-20 | `frontend/src/pages/student/ExamWorkspace.jsx` | Zero-White Redesign | Rombak total lembar kerja ujian: kanvas gradasi `#EBF7CD` ke `#D9F0A5`, panel kiri soal `#EFF9CE` border-2 `#8BC829`, pilihan jawaban `#E2F4B4` dan `#C3E956`, panel kanan kisi nomor `#EFF9CE` border-2 `#8BC829`, modal batal & selesai `#EFF9CE`, modal skor hasil ujian `#EFF9CE` dengan proteksi 2 kondisi (sembunyikan nilai 0 esai & tampilkan nilai langsung untuk PG murni). |
+| 2026-11-20 | `session.md` | Update | Dokumentasi lengkap seluruh pembaruan rebranding Zero-White Theme (Hijau Muda Kekuning-kuningan) untuk role siswa serta panduan deployment. |
 
 ---
 
@@ -330,8 +368,8 @@ Jalankan di terminal PowerShell komputer Anda:
 ```powershell
 cd C:\xampp\htdocs\mis_dev\ujian_sdmis
 git status
-git add frontend/tailwind.config.js frontend/src/pages/auth/LoginPage.jsx frontend/src/layouts/TeacherLayout.jsx frontend/src/pages/teacher/DashboardTeacher.jsx frontend/src/pages/teacher/ClassroomManagement.jsx frontend/src/pages/teacher/StudentManagement.jsx frontend/src/pages/teacher/TeacherManagement.jsx frontend/src/pages/teacher/UserManagement.jsx frontend/src/pages/teacher/ExamPackageList.jsx frontend/src/pages/teacher/ExamSessionSetup.jsx frontend/src/pages/teacher/LiveProctoring.jsx frontend/src/pages/teacher/EssayGrading.jsx frontend/src/pages/teacher/StudentResults.jsx frontend/src/pages/teacher/ViolationHistory.jsx frontend/src/pages/teacher/EJournalReport.jsx frontend/src/pages/teacher/SchoolSettings.jsx frontend/src/pages/teacher/ProfileSettings.jsx frontend/src/pages/student/StudentLobby.jsx frontend/src/pages/student/SubjectPortal.jsx frontend/src/pages/student/GatekeeperPin.jsx frontend/src/pages/student/StudentProfileSettings.jsx frontend/src/pages/student/ExamWorkspace.jsx session.md
-git commit -m "feat(rebranding): complete overhaul with Green Screen palette for login, teacher, and student portals"
+git add frontend/tailwind.config.js frontend/src/components/common/Modal.jsx frontend/src/components/modals/WelcomeProfileModal.jsx frontend/src/pages/auth/LoginPage.jsx frontend/src/layouts/TeacherLayout.jsx frontend/src/pages/teacher/DashboardTeacher.jsx frontend/src/pages/teacher/ClassroomManagement.jsx frontend/src/pages/teacher/StudentManagement.jsx frontend/src/pages/teacher/TeacherManagement.jsx frontend/src/pages/teacher/UserManagement.jsx frontend/src/pages/teacher/ExamPackageList.jsx frontend/src/pages/teacher/ExamSessionSetup.jsx frontend/src/pages/teacher/LiveProctoring.jsx frontend/src/pages/teacher/EssayGrading.jsx frontend/src/pages/teacher/StudentResults.jsx frontend/src/pages/teacher/ViolationHistory.jsx frontend/src/pages/teacher/EJournalReport.jsx frontend/src/pages/teacher/SchoolSettings.jsx frontend/src/pages/teacher/ProfileSettings.jsx frontend/src/pages/student/StudentLobby.jsx frontend/src/pages/student/SubjectPortal.jsx frontend/src/pages/student/GatekeeperPin.jsx frontend/src/pages/student/StudentProfileSettings.jsx frontend/src/pages/student/ExamWorkspace.jsx session.md
+git commit -m "feat(student-rebranding): complete zero-white overhaul with vibrant lime-yellow palette (#EFF9CE, #E2F4B4, #C3E956, #8BC829) across all student pages"
 git push origin main
 ```
 

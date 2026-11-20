@@ -670,7 +670,7 @@ export default function ExamWorkspace() {
 
   return (
     <div 
-      className={`min-h-screen bg-[#F4FFFC] text-zinc-800 flex flex-col relative select-none overflow-hidden selection:bg-[#C3E956] selection:text-[#0A1D11] exam-secure-workspace antialiased font-sans ${
+      className={`min-h-screen bg-gradient-to-b from-[#EBF7CD] via-[#E2F4B8] to-[#D9F0A5] text-[#102919] flex flex-col relative select-none overflow-hidden selection:bg-[#C3E956] selection:text-[#0A1D11] exam-secure-workspace antialiased font-sans ${
         isLandscape ? 'orientation-landscape' : 'orientation-portrait'
       }`}
       onTouchStart={(e) => {
@@ -735,7 +735,7 @@ export default function ExamWorkspace() {
         <div className="fixed top-16 left-1/2 -translate-x-1/2 z-50 animate-bounce">
           <div className="px-5 py-3 rounded-2xl bg-[#102919] border-2 border-[#C3E956] text-white flex items-center gap-3 shadow-2xl backdrop-blur-md">
             <CheckCircle className="w-5 h-5 text-[#C3E956] shrink-0" />
-            <span className="text-xs sm:text-sm font-black text-[#F4FFFC]">{unlockSuccessToast}</span>
+            <span className="text-xs sm:text-sm font-black text-[#EFF9CE]">{unlockSuccessToast}</span>
           </div>
         </div>
       )}
@@ -772,7 +772,7 @@ export default function ExamWorkspace() {
       >
         {/* Status Monitoring & Judul */}
         <div className="flex items-center gap-2 shrink-0 min-w-0">
-          <div className="w-8 h-8 rounded-xl bg-white p-1 flex items-center justify-center shadow-md ring-2 ring-[#91EAAF]/40 shrink-0">
+          <div className="w-8 h-8 rounded-xl bg-[#EFF9CE] border border-[#8BC829]/50 p-1 flex items-center justify-center shadow-md ring-2 ring-[#C3E956]/40 shrink-0">
             <img 
               src={logoSdMis} 
               alt="Logo SD Mentari Islamic School" 
@@ -1062,16 +1062,16 @@ export default function ExamWorkspace() {
             justifyContent: 'center'
           }}
         >
-          <div className="max-w-sm w-full p-6 sm:p-8 rounded-3xl bg-white border-2 border-[#91EAAF] shadow-2xl flex flex-col items-center space-y-4 m-auto">
-            <div className="w-16 h-16 rounded-2xl bg-[#E1F8ED] border-2 border-[#91EAAF] flex items-center justify-center text-[#1F4B2C] animate-pulse shadow-sm">
-              <Maximize2 className="w-8 h-8 text-[#1F4B2C]" />
+          <div className="max-w-sm w-full p-6 sm:p-8 rounded-3xl bg-[#EFF9CE] border-2 border-[#8BC829] shadow-2xl flex flex-col items-center space-y-4 m-auto">
+            <div className="w-16 h-16 rounded-2xl bg-[#E2F4B4] border-2 border-[#8BC829] flex items-center justify-center text-[#102919] animate-pulse shadow-sm">
+              <Maximize2 className="w-8 h-8 text-[#102919]" />
             </div>
 
             <div className="space-y-1.5">
               <h3 className="text-lg font-black text-[#102919] tracking-tight">
                 Mode Layar Penuh Ujian
               </h3>
-              <p className="text-zinc-600 text-xs leading-relaxed font-medium">
+              <p className="text-[#1F4B2C] text-xs leading-relaxed font-semibold">
                 Sistem mewajibkan mode layar penuh (Fullscreen) untuk mencegah kecurangan. Ketuk tombol di bawah untuk mengaktifkan layar penuh secara otomatis.
               </p>
             </div>
@@ -1109,7 +1109,7 @@ export default function ExamWorkspace() {
           /* MODE IFRAME SECURE: GOOGLE FORM / MS TEAMS */
           /* ========================================== */
           <div 
-            className="flex-1 w-full h-full relative bg-white select-none flex flex-col"
+            className="flex-1 w-full h-full relative bg-[#EFF9CE] select-none flex flex-col"
             style={{
               WebkitUserSelect: 'none',
               userSelect: 'none',
@@ -1164,16 +1164,16 @@ export default function ExamWorkspace() {
           /* ========================================== */
           <div className="flex-1 max-w-6xl w-full mx-auto p-3 sm:p-6 flex flex-col md:flex-row gap-5 overflow-y-auto z-10 select-none">
             {/* Panel Kiri: Lembar Soal Aktif */}
-            <div className="flex-1 bg-white border-2 border-[#91EAAF]/60 rounded-3xl p-5 sm:p-7 flex flex-col justify-between space-y-6 shadow-sm">
+            <div className="flex-1 bg-[#EFF9CE] border-2 border-[#8BC829] rounded-3xl p-5 sm:p-7 flex flex-col justify-between space-y-6 shadow-md">
               {currentQuestion ? (
                 <div className="space-y-5">
                   {/* Nomor Soal & Badge */}
-                  <div className="flex items-center justify-between border-b-2 border-[#91EAAF]/40 pb-4 flex-wrap gap-2">
+                  <div className="flex items-center justify-between border-b-2 border-[#8BC829]/40 pb-4 flex-wrap gap-2">
                     <div className="flex items-center gap-2.5">
                       <span className="text-xs font-black font-mono px-3.5 py-1.5 rounded-xl bg-[#102919] text-[#C3E956] shadow-xs">
                         Soal Nomor {currentQuestionIndex + 1}
                       </span>
-                      <span className="text-xs font-bold text-[#1F4B2C] bg-[#E1F8ED] border border-[#91EAAF] px-3 py-1.5 rounded-xl">
+                      <span className="text-xs font-black text-[#102919] bg-[#E2F4B4] border border-[#8BC829] px-3 py-1.5 rounded-xl">
                         Bobot: {currentQuestion.points} Poin
                       </span>
                     </div>
@@ -1186,14 +1186,14 @@ export default function ExamWorkspace() {
                         className={`px-3 py-1.5 rounded-xl text-xs font-black transition flex items-center gap-1.5 cursor-pointer shadow-xs active:scale-95 ${
                           doubtQuestions[currentQuestion.id]
                             ? 'bg-amber-400 text-[#0A1D11] border-2 border-amber-500'
-                            : 'bg-white text-zinc-600 hover:text-amber-800 border-2 border-[#91EAAF]/60 hover:border-amber-400 font-bold'
+                            : 'bg-[#E2F4B4] text-[#102919] hover:bg-[#D5EE9E] border-2 border-[#8BC829]'
                         }`}
                       >
                         <HelpCircle className="w-4 h-4" />
                         <span>Ragu-ragu</span>
                       </button>
 
-                      <span className="text-xs font-bold px-3 py-1.5 rounded-xl bg-[#E1F8ED] text-[#1F4B2C] border border-[#91EAAF]">
+                      <span className="text-xs font-black px-3 py-1.5 rounded-xl bg-[#E2F4B4] text-[#102919] border border-[#8BC829]">
                         {({
                           MULTIPLE_CHOICE: 'Pilihan Ganda',
                           MULTIPLE_CHOICE_COMPLEX: 'Pilihan Ganda Kompleks',
@@ -1207,17 +1207,17 @@ export default function ExamWorkspace() {
                   </div>
 
                   {/* Teks Pertanyaan Soal (Dukungan Tipografi Rumus Matematika KaTeX) */}
-                  <div className="text-sm sm:text-base text-zinc-900 font-bold leading-relaxed select-none">
+                  <div className="text-sm sm:text-base text-[#102919] font-black leading-relaxed select-none">
                     <MathText text={currentQuestion.questionText || currentQuestion.question_text || ''} />
                   </div>
 
                   {/* Gambar Pertanyaan Soal (Jika Ada) */}
                   {(currentQuestion.imageUrl || currentQuestion.image_url) && (
-                    <div className="my-3 rounded-2xl overflow-hidden border-2 border-[#91EAAF]/60 max-w-xl bg-white p-2 shadow-sm">
+                    <div className="my-3 rounded-2xl overflow-hidden border-2 border-[#8BC829] max-w-xl bg-[#E2F4B4] p-2 shadow-sm">
                       <img
                         src={resolveImageUrl(currentQuestion.imageUrl || currentQuestion.image_url)}
                         alt="Gambar Pertanyaan Soal"
-                        className="w-full max-h-80 object-contain rounded-xl bg-white mx-auto"
+                        className="w-full max-h-80 object-contain rounded-xl bg-[#E2F4B4] mx-auto"
                         onError={handleImageErrorFallback}
                       />
                     </div>
@@ -1242,27 +1242,27 @@ export default function ExamWorkspace() {
                             onClick={() => setStudentAnswer(currentQuestion.id, optLabel)}
                             className={`w-full p-4 rounded-2xl border-2 text-left text-xs sm:text-sm font-semibold transition flex flex-col sm:flex-row sm:items-center gap-3.5 cursor-pointer active:scale-[0.99] ${
                               isSelected
-                                ? 'bg-[#E1F8ED] border-2 border-[#1F4B2C] text-[#102919] shadow-xs ring-2 ring-[#C3E956]/50 font-bold'
-                                : 'bg-[#F4FFFC] border-2 border-[#91EAAF]/60 text-zinc-800 hover:bg-white hover:border-[#1F4B2C]'
+                                ? 'bg-[#C3E956] border-2 border-[#102919] text-[#0A1D11] shadow-md ring-2 ring-[#102919]/40 font-black'
+                                : 'bg-[#E2F4B4] border-2 border-[#8BC829] text-[#102919] hover:bg-[#D5EE9E] hover:border-[#102919]'
                             }`}
                           >
                             <div className="flex items-center gap-3.5 flex-1 min-w-0">
                               <div className={`w-8 h-8 rounded-xl flex items-center justify-center text-xs shrink-0 transition ${
-                                isSelected ? 'bg-[#102919] text-[#C3E956] font-black shadow-xs' : 'bg-white border-2 border-[#91EAAF] text-[#1F4B2C] font-black'
+                                isSelected ? 'bg-[#102919] text-[#C3E956] font-black shadow-xs' : 'bg-[#EFF9CE] border-2 border-[#8BC829] text-[#102919] font-black'
                               }`}>
                                 {optLabel}
                               </div>
-                              <div className="leading-relaxed flex-1">
+                              <div className="leading-relaxed flex-1 font-bold">
                                 <MathText text={optText} />
                               </div>
                             </div>
 
                             {optImg && (
-                              <div className="sm:ml-auto rounded-xl overflow-hidden border border-zinc-300 max-h-32 bg-white p-1 shrink-0 shadow-xs">
+                              <div className="sm:ml-auto rounded-xl overflow-hidden border-2 border-[#8BC829] max-h-32 bg-[#EFF9CE] p-1 shrink-0 shadow-xs">
                                 <img
                                   src={resolveImageUrl(optImg)}
                                   alt={`Gambar Opsi ${optLabel}`}
-                                  className="h-24 sm:h-28 object-contain rounded bg-white"
+                                  className="h-24 sm:h-28 object-contain rounded bg-[#EFF9CE]"
                                   onError={handleImageErrorFallback}
                                 />
                               </div>
@@ -1276,7 +1276,7 @@ export default function ExamWorkspace() {
                   {/* 2. PILIHAN GANDA KOMPLEKS (Multi-Centang Checkbox) */}
                   {(currentQuestion.questionType === 'MULTIPLE_CHOICE_COMPLEX' || currentQuestion.question_type === 'MULTIPLE_CHOICE_COMPLEX') && (
                     <div className="space-y-3 pt-1">
-                      <div className="text-xs text-[#1F4B2C] font-bold flex items-center gap-2 pb-0.5">
+                      <div className="text-xs text-[#102919] font-black flex items-center gap-2 pb-0.5">
                         <CheckSquare className="w-4 h-4 text-[#1F4B2C]" />
                         <span>Pilihlah satu atau lebih jawaban yang menurut Anda benar:</span>
                       </div>
@@ -1305,27 +1305,27 @@ export default function ExamWorkspace() {
                             onClick={handleToggle}
                             className={`w-full p-4 rounded-2xl border-2 text-left text-xs sm:text-sm font-semibold transition flex flex-col sm:flex-row sm:items-center gap-3.5 cursor-pointer active:scale-[0.99] ${
                               isChecked
-                                ? 'bg-[#E1F8ED] border-2 border-[#1F4B2C] text-[#102919] shadow-xs ring-2 ring-[#C3E956]/50 font-bold'
-                                : 'bg-[#F4FFFC] border-2 border-[#91EAAF]/60 text-zinc-800 hover:bg-white hover:border-[#1F4B2C]'
+                                ? 'bg-[#C3E956] border-2 border-[#102919] text-[#0A1D11] shadow-md ring-2 ring-[#102919]/40 font-black'
+                                : 'bg-[#E2F4B4] border-2 border-[#8BC829] text-[#102919] hover:bg-[#D5EE9E] hover:border-[#102919]'
                             }`}
                           >
                             <div className="flex items-center gap-3.5 flex-1 min-w-0">
                               <div className={`w-8 h-8 rounded-xl flex items-center justify-center text-xs shrink-0 transition ${
-                                isChecked ? 'bg-[#102919] text-[#C3E956] font-black shadow-xs' : 'bg-white border-2 border-[#91EAAF] text-[#1F4B2C] font-black'
+                                isChecked ? 'bg-[#102919] text-[#C3E956] font-black shadow-xs' : 'bg-[#EFF9CE] border-2 border-[#8BC829] text-[#102919] font-black'
                               }`}>
                                 {isChecked ? <Check className="w-4 h-4 stroke-[3]" /> : optLabel}
                               </div>
-                              <div className="leading-relaxed flex-1">
+                              <div className="leading-relaxed flex-1 font-bold">
                                 <MathText text={optText} />
                               </div>
                             </div>
 
                             {optImg && (
-                              <div className="sm:ml-auto rounded-xl overflow-hidden border border-zinc-300 max-h-32 bg-white p-1 shrink-0 shadow-xs">
+                              <div className="sm:ml-auto rounded-xl overflow-hidden border-2 border-[#8BC829] max-h-32 bg-[#EFF9CE] p-1 shrink-0 shadow-xs">
                                 <img
                                   src={resolveImageUrl(optImg)}
                                   alt={`Gambar Opsi ${optLabel}`}
-                                  className="h-24 sm:h-28 object-contain rounded bg-white"
+                                  className="h-24 sm:h-28 object-contain rounded bg-[#EFF9CE]"
                                   onError={handleImageErrorFallback}
                                 />
                               </div>
@@ -1348,9 +1348,9 @@ export default function ExamWorkspace() {
                         value={activeAttempt.studentAnswers[currentQuestion.id] || ''}
                         onChange={(e) => setStudentAnswer(currentQuestion.id, e.target.value)}
                         placeholder="Ketik jawaban singkat di sini..."
-                        className="w-full p-4 bg-[#F4FFFC] border-2 border-[#91EAAF] rounded-2xl text-sm font-bold text-[#102919] placeholder-zinc-400 focus:outline-none focus:border-[#1F4B2C] font-mono shadow-inner"
+                        className="w-full p-4 bg-[#F9FDEE] border-2 border-[#8BC829] rounded-2xl text-sm font-black text-[#102919] placeholder-zinc-400 focus:outline-none focus:border-[#102919] font-mono shadow-inner"
                       />
-                      <p className="text-[11px] text-zinc-500 italic font-medium">
+                      <p className="text-[11px] text-[#1F4B2C] italic font-semibold">
                         Tip: Jawaban tidak membedakan huruf besar dan huruf kecil (case-insensitive).
                       </p>
                     </div>
@@ -1374,12 +1374,12 @@ export default function ExamWorkspace() {
                           };
 
                           return (
-                            <div key={rIdx} className="p-3.5 rounded-2xl bg-[#F4FFFC] border-2 border-[#91EAAF]/60 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                            <div key={rIdx} className="p-3.5 rounded-2xl bg-[#E2F4B4] border-2 border-[#8BC829] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                               <div className="flex items-start gap-3 flex-1">
                                 <span className="w-6 h-6 rounded-lg bg-[#102919] text-[#C3E956] font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">
                                   {rIdx + 1}
                                 </span>
-                                <div className="text-xs sm:text-sm text-zinc-900 font-semibold leading-relaxed">
+                                <div className="text-xs sm:text-sm text-[#102919] font-bold leading-relaxed">
                                   <MathText text={row.statement || ''} />
                                 </div>
                               </div>
@@ -1388,10 +1388,10 @@ export default function ExamWorkspace() {
                                 <button
                                   type="button"
                                   onClick={() => handleSetChoice(true)}
-                                  className={`px-4 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 cursor-pointer shadow-xs active:scale-95 ${
+                                  className={`px-4 py-1.5 rounded-xl text-xs font-black transition flex items-center gap-1.5 cursor-pointer shadow-xs active:scale-95 ${
                                     rowAns === true
-                                      ? 'bg-[#102919] text-[#C3E956] border-2 border-[#1F4B2C]'
-                                      : 'bg-white text-zinc-700 hover:text-[#102919] border-2 border-[#91EAAF]/60'
+                                      ? 'bg-[#102919] text-[#C3E956] border-2 border-[#102919]'
+                                      : 'bg-[#EFF9CE] text-[#102919] hover:bg-[#D5EE9E] border-2 border-[#8BC829]'
                                   }`}
                                 >
                                   {rowAns === true && <Check className="w-3.5 h-3.5 stroke-[3]" />} Benar
@@ -1399,10 +1399,10 @@ export default function ExamWorkspace() {
                                 <button
                                   type="button"
                                   onClick={() => handleSetChoice(false)}
-                                  className={`px-4 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 cursor-pointer shadow-xs active:scale-95 ${
+                                  className={`px-4 py-1.5 rounded-xl text-xs font-black transition flex items-center gap-1.5 cursor-pointer shadow-xs active:scale-95 ${
                                     rowAns === false
                                       ? 'bg-rose-600 text-white border-2 border-rose-700'
-                                      : 'bg-white text-zinc-700 hover:text-rose-600 border-2 border-[#91EAAF]/60'
+                                      : 'bg-[#EFF9CE] text-[#102919] hover:text-rose-700 border-2 border-[#8BC829]'
                                   }`}
                                 >
                                   {rowAns === false && <Check className="w-3.5 h-3.5 stroke-[3]" />} Salah
@@ -1439,12 +1439,12 @@ export default function ExamWorkspace() {
                               };
 
                               return (
-                                <div key={pIdx} className="p-3.5 rounded-2xl bg-[#F4FFFC] border-2 border-[#91EAAF]/60 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                                <div key={pIdx} className="p-3.5 rounded-2xl bg-[#E2F4B4] border-2 border-[#8BC829] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                                   <div className="flex items-start gap-3 flex-1">
                                     <span className="w-6 h-6 rounded-lg bg-[#102919] text-[#C3E956] font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">
                                       {pIdx + 1}
                                     </span>
-                                    <div className="text-xs sm:text-sm text-zinc-900 font-semibold leading-relaxed">
+                                    <div className="text-xs sm:text-sm text-[#102919] font-bold leading-relaxed">
                                       <MathText text={leftKey} />
                                     </div>
                                   </div>
@@ -1453,7 +1453,7 @@ export default function ExamWorkspace() {
                                     <select
                                       value={selectedVal}
                                       onChange={(e) => handleChangePair(e.target.value)}
-                                      className="w-full px-3.5 py-2 bg-white border-2 border-[#91EAAF] rounded-xl text-xs font-bold text-[#102919] focus:outline-none focus:border-[#1F4B2C]"
+                                      className="w-full px-3.5 py-2 bg-[#EFF9CE] border-2 border-[#8BC829] rounded-xl text-xs font-black text-[#102919] focus:outline-none focus:border-[#102919]"
                                     >
                                       <option value="">-- Pilih Pasangan --</option>
                                       {rightChoices.map((choice, cIdx) => (
@@ -1483,7 +1483,7 @@ export default function ExamWorkspace() {
                         value={activeAttempt.studentAnswers[currentQuestion.id] || ''}
                         onChange={(e) => setStudentAnswer(currentQuestion.id, e.target.value)}
                         placeholder="Ketik jawaban esai secara lengkap dan terstruktur di sini..."
-                        className="w-full p-4 bg-[#F4FFFC] border-2 border-[#91EAAF] rounded-2xl text-xs sm:text-sm font-medium text-zinc-900 placeholder-zinc-400 focus:outline-none focus:border-[#1F4B2C] shadow-inner"
+                        className="w-full p-4 bg-[#F9FDEE] border-2 border-[#8BC829] rounded-2xl text-xs sm:text-sm font-semibold text-[#102919] placeholder-zinc-400 focus:outline-none focus:border-[#102919] shadow-inner"
                       />
                     </div>
                   )}
@@ -1491,11 +1491,11 @@ export default function ExamWorkspace() {
               ) : null}
 
               {/* Navigasi Bawah: Sebelumnya & Berikutnya */}
-              <div className="flex items-center justify-between pt-4 border-t-2 border-[#91EAAF]/40">
+              <div className="flex items-center justify-between pt-4 border-t-2 border-[#8BC829]/40">
                 <button
                   disabled={currentQuestionIndex === 0}
                   onClick={() => setCurrentQuestionIndex((prev) => prev - 1)}
-                  className="px-5 py-2.5 rounded-xl bg-white hover:bg-[#E1F8ED] text-[#1F4B2C] border-2 border-[#91EAAF]/60 text-xs font-bold disabled:opacity-40 transition active:scale-95 cursor-pointer shadow-xs"
+                  className="px-5 py-2.5 rounded-xl bg-[#E2F4B4] hover:bg-[#D5EE9E] text-[#102919] border-2 border-[#8BC829] text-xs font-black disabled:opacity-40 transition active:scale-95 cursor-pointer shadow-xs"
                 >
                   ← Soal Sebelumnya
                 </button>
@@ -1503,7 +1503,7 @@ export default function ExamWorkspace() {
                 {currentQuestionIndex === questions.length - 1 ? (
                   <button
                     onClick={() => setShowExitConfirmModal(true)}
-                    className="px-6 py-2.5 rounded-xl bg-[#C3E956] hover:bg-[#d4f76b] text-[#0A1D11] text-xs font-black shadow-md border border-[#4D7111]/30 transition flex items-center gap-1.5 active:scale-95 cursor-pointer"
+                    className="px-6 py-2.5 rounded-xl bg-[#C3E956] hover:bg-[#b8e337] text-[#0A1D11] text-xs font-black shadow-md border-2 border-[#4D7111]/30 transition flex items-center gap-1.5 active:scale-95 cursor-pointer"
                   >
                     <Check className="w-4 h-4 text-[#0A1D11]" /> Selesai & Kirim Ujian
                   </button>
@@ -1519,15 +1519,15 @@ export default function ExamWorkspace() {
             </div>
 
             {/* Panel Kanan: Kisi Nomor Navigasi Soal */}
-            <div className="w-full md:w-64 bg-white border-2 border-[#91EAAF]/60 rounded-3xl p-5 h-fit space-y-4 shadow-sm">
-              <div className="flex items-center justify-between border-b-2 border-[#91EAAF]/40 pb-3">
+            <div className="w-full md:w-64 bg-[#EFF9CE] border-2 border-[#8BC829] rounded-3xl p-5 h-fit space-y-4 shadow-md">
+              <div className="flex items-center justify-between border-b-2 border-[#8BC829]/40 pb-3">
                 <h3 className="text-xs font-black uppercase text-[#102919] tracking-wider">
                   Nomor Soal
                 </h3>
                 {(() => {
                   const answeredCount = questions.filter((q) => isQuestionAnswered(activeAttempt.studentAnswers[q.id])).length;
                   return (
-                    <span className="text-xs font-bold text-[#1F4B2C] bg-[#E1F8ED] border border-[#91EAAF] px-2.5 py-0.5 rounded-full font-mono">
+                    <span className="text-xs font-black text-[#102919] bg-[#E2F4B4] border border-[#8BC829] px-2.5 py-0.5 rounded-full font-mono">
                       {answeredCount}/{questions.length} Terjawab
                     </span>
                   );
@@ -1552,8 +1552,8 @@ export default function ExamWorkspace() {
                           : isDoubt
                           ? 'bg-amber-400 text-amber-950 font-black border-2 border-amber-500 shadow-xs'
                           : isAnswered
-                          ? 'bg-[#1F4B2C] text-[#C3E956] font-bold shadow-xs'
-                          : 'bg-[#F4FFFC] text-zinc-600 hover:text-[#102919] hover:bg-[#E1F8ED] border-2 border-[#91EAAF]/60 font-bold'
+                          ? 'bg-[#C3E956] text-[#0A1D11] border-2 border-[#4D7111]/30 font-black shadow-xs'
+                          : 'bg-[#E2F4B4] text-[#102919] hover:text-[#0A1D11] hover:bg-[#D5EE9E] border-2 border-[#8BC829] font-black'
                       }`}
                     >
                       {i + 1}
@@ -1563,22 +1563,22 @@ export default function ExamWorkspace() {
               </div>
 
               {/* Keterangan Warna */}
-              <div className="pt-3 border-t-2 border-[#91EAAF]/40 text-[11px] space-y-1.5 text-zinc-600 font-semibold">
+              <div className="pt-3 border-t-2 border-[#8BC829]/40 text-[11px] space-y-1.5 text-[#1F4B2C] font-black">
                 <div className="flex items-center gap-2">
-                  <span className="w-3 h-3 rounded-md bg-[#1F4B2C] border border-[#102919] inline-block shrink-0 shadow-2xs" />
+                  <span className="w-3.5 h-3.5 rounded-md bg-[#C3E956] border border-[#4D7111]/30 inline-block shrink-0 shadow-2xs" />
                   <span className="text-[#102919]">Sudah Terjawab</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="w-3 h-3 rounded-md bg-amber-400 border border-amber-500 inline-block shrink-0 shadow-2xs" />
+                  <span className="w-3.5 h-3.5 rounded-md bg-amber-400 border border-amber-500 inline-block shrink-0 shadow-2xs" />
                   <span className="text-zinc-700">Ragu-ragu</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="w-3 h-3 rounded-md bg-[#F4FFFC] border-2 border-[#91EAAF] inline-block shrink-0" />
-                  <span className="text-zinc-600">Belum Terjawab</span>
+                  <span className="w-3.5 h-3.5 rounded-md bg-[#E2F4B4] border-2 border-[#8BC829] inline-block shrink-0" />
+                  <span className="text-[#1F4B2C]">Belum Terjawab</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="w-3 h-3 rounded-md bg-[#102919] ring-2 ring-[#C3E956] inline-block shrink-0" />
-                  <span className="text-[#102919] font-bold">Sedang Dibuka</span>
+                  <span className="w-3.5 h-3.5 rounded-md bg-[#102919] ring-2 ring-[#C3E956] inline-block shrink-0" />
+                  <span className="text-[#102919] font-black">Sedang Dibuka</span>
                 </div>
               </div>
             </div>
@@ -1591,46 +1591,46 @@ export default function ExamWorkspace() {
       {/* ======================================================== */}
       {showCancelConfirmModal && (
         <div className="fixed inset-0 z-50 bg-[#0A1D11]/85 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto animate-fade-in select-none">
-          <div className="bg-white border-2 border-rose-200 rounded-3xl max-w-md w-full p-6 shadow-2xl relative space-y-5 max-h-[94dvh] overflow-y-auto my-auto">
+          <div className="bg-[#EFF9CE] border-2 border-rose-300 rounded-3xl max-w-md w-full p-6 shadow-2xl relative space-y-5 max-h-[94dvh] overflow-y-auto my-auto text-[#102919]">
             {/* Header Modal */}
             <div className="flex items-start gap-4">
-              <div className="w-12 h-12 rounded-2xl bg-rose-50 border-2 border-rose-200 flex items-center justify-center text-rose-600 shrink-0">
+              <div className="w-12 h-12 rounded-2xl bg-rose-100 border-2 border-rose-300 flex items-center justify-center text-rose-700 shrink-0">
                 <AlertCircle className="w-6 h-6" />
               </div>
               <div className="flex-1">
-                <h3 className="text-lg font-black text-zinc-900 tracking-tight">
+                <h3 className="text-lg font-black text-[#102919] tracking-tight">
                   Batalkan Pengerjaan Ujian?
                 </h3>
-                <p className="text-xs text-zinc-600 mt-1 leading-relaxed">
+                <p className="text-xs text-[#102919]/80 mt-1 leading-relaxed">
                   Apakah Anda yakin ingin membatalkan dan keluar tanpa menyelesaikan ujian ini?
                 </p>
               </div>
             </div>
 
             {/* Kotak Informasi & Peringatan Konsekuensi */}
-            <div className="bg-rose-50/50 border-2 border-rose-100 rounded-2xl p-4 space-y-2.5 text-xs text-zinc-700">
-              <div className="font-black text-rose-700 uppercase tracking-wider text-[11px] flex items-center gap-1.5">
-                <ShieldAlert className="w-4 h-4 text-rose-600" />
+            <div className="bg-[#E2F4B4] border-2 border-rose-300/80 rounded-2xl p-4 space-y-2.5 text-xs text-[#102919]">
+              <div className="font-black text-rose-800 uppercase tracking-wider text-[11px] flex items-center gap-1.5">
+                <ShieldAlert className="w-4 h-4 text-rose-700" />
                 <span>Konsekuensi Pembatalan:</span>
               </div>
-              <ul className="space-y-1.5 text-zinc-700 text-xs leading-relaxed">
+              <ul className="space-y-1.5 text-[#102919] text-xs leading-relaxed">
                 <li className="flex items-start gap-2">
                   <span className="text-rose-600 font-bold">•</span>
                   <span>Anda akan keluar dari ujian tanpa mengirimkan lembar jawaban.</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-rose-600 font-bold">•</span>
-                  <span>Nilai ujian Anda <strong className="text-rose-800">TIDAK AKAN DIREKAP / DIHITUNG</strong> di sistem.</span>
+                  <span>Nilai ujian Anda <strong className="text-rose-900 font-black">TIDAK AKAN DIREKAP / DIHITUNG</strong> di sistem.</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-[#1F4B2C] font-bold">•</span>
-                  <span>Seluruh log pelanggaran Anda pada sesi ini <strong className="text-[#1F4B2C]">AKAN DIHAPUS BERSIH</strong> dan tidak masuk ke rekap pelanggaran maupun E-Jurnal Guru.</span>
+                  <span>Seluruh log pelanggaran Anda pada sesi ini <strong className="text-[#1F4B2C] font-black">AKAN DIHAPUS BERSIH</strong> dan tidak masuk ke rekap pelanggaran maupun E-Jurnal Guru.</span>
                 </li>
               </ul>
             </div>
 
             {/* Peringatan Konfirmasi */}
-            <div className="text-xs text-zinc-600 bg-[#F4FFFC] border border-[#91EAAF]/60 p-3.5 rounded-xl leading-relaxed">
+            <div className="text-xs text-[#102919] bg-[#E2F4B4] border-2 border-[#8BC829] p-3.5 rounded-xl leading-relaxed font-medium">
               Jika Anda ingin melanjutkan pengerjaan di lain waktu, Anda dapat masuk kembali menggunakan Token Masuk baru dari guru pengawas.
             </div>
 
@@ -1640,7 +1640,7 @@ export default function ExamWorkspace() {
                 type="button"
                 disabled={isCancellingExam}
                 onClick={() => setShowCancelConfirmModal(false)}
-                className="px-5 py-2.5 rounded-xl bg-zinc-100 hover:bg-zinc-200 text-zinc-700 text-xs font-bold transition active:scale-95 disabled:opacity-50 cursor-pointer"
+                className="px-5 py-2.5 rounded-xl bg-[#E2F4B4] hover:bg-[#d4f09d] text-[#102919] text-xs font-black border-2 border-[#8BC829] transition active:scale-95 disabled:opacity-50 cursor-pointer"
               >
                 Lanjutkan Ujian
               </button>
@@ -1672,17 +1672,17 @@ export default function ExamWorkspace() {
       {/* ======================================================== */}
       {showExitConfirmModal && (
         <div className="fixed inset-0 z-50 bg-[#0A1D11]/85 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto animate-fade-in select-none">
-          <div className="bg-white border-2 border-[#91EAAF] rounded-3xl max-w-lg w-full p-6 shadow-2xl relative space-y-5 max-h-[94dvh] overflow-y-auto my-auto">
+          <div className="bg-[#EFF9CE] border-2 border-[#8BC829] rounded-3xl max-w-lg w-full p-6 shadow-2xl relative space-y-5 max-h-[94dvh] overflow-y-auto my-auto text-[#102919]">
             {/* Header Modal */}
             <div className="flex items-start gap-4">
-              <div className="w-12 h-12 rounded-2xl bg-amber-50 border-2 border-amber-200 flex items-center justify-center text-amber-600 shrink-0">
+              <div className="w-12 h-12 rounded-2xl bg-amber-100 border-2 border-amber-300 flex items-center justify-center text-amber-800 shrink-0">
                 <AlertTriangle className="w-6 h-6" />
               </div>
               <div className="flex-1">
                 <h3 className="text-lg font-black text-[#102919] tracking-tight">
                   Konfirmasi Selesai Ujian
                 </h3>
-                <p className="text-xs text-zinc-600 mt-1 leading-relaxed">
+                <p className="text-xs text-[#102919]/80 mt-1 leading-relaxed">
                   Pastikan seluruh jawaban Anda sudah terisi dengan benar sebelum mengirim lembar ujian.
                 </p>
               </div>
@@ -1690,7 +1690,7 @@ export default function ExamWorkspace() {
 
             {/* Ringkasan Pengerjaan untuk Soal Mandiri */}
             {selectedPackage?.examType === 'NATIVE_QUESTIONS' ? (
-              <div className="bg-[#F4FFFC] border-2 border-[#91EAAF]/60 rounded-2xl p-4 space-y-3">
+              <div className="bg-[#E2F4B4] border-2 border-[#8BC829] rounded-2xl p-4 space-y-3">
                 <div className="text-[11px] font-black uppercase tracking-wider text-[#102919]">
                   Status Lembar Jawaban:
                 </div>
@@ -1701,30 +1701,30 @@ export default function ExamWorkspace() {
 
                   return (
                     <div className="grid grid-cols-3 gap-2.5 text-center">
-                      <div className="bg-[#E1F8ED] border-2 border-[#91EAAF] rounded-xl p-3">
-                        <div className="text-xl sm:text-2xl font-black font-mono text-[#1F4B2C]">
+                      <div className="bg-[#EFF9CE] border-2 border-[#8BC829] rounded-xl p-3">
+                        <div className="text-xl sm:text-2xl font-black font-mono text-[#102919]">
                           {answeredCount}
                         </div>
-                        <div className="text-[10px] text-[#4D7111] font-bold mt-0.5">Sudah Terjawab</div>
+                        <div className="text-[10px] text-[#1F4B2C] font-black mt-0.5">Sudah Terjawab</div>
                       </div>
-                      <div className="bg-amber-50 border-2 border-amber-200 rounded-xl p-3">
-                        <div className="text-xl sm:text-2xl font-black font-mono text-amber-700">
+                      <div className="bg-amber-100 border-2 border-amber-300 rounded-xl p-3">
+                        <div className="text-xl sm:text-2xl font-black font-mono text-amber-900">
                           {doubtCount}
                         </div>
-                        <div className="text-[10px] text-amber-800 font-bold mt-0.5">Ragu-ragu</div>
+                        <div className="text-[10px] text-amber-900 font-black mt-0.5">Ragu-ragu</div>
                       </div>
                       <div className={`rounded-xl p-3 border-2 ${
                         unansweredCount > 0 
-                          ? 'bg-rose-50 border-rose-200' 
-                          : 'bg-white border-zinc-200'
+                          ? 'bg-rose-100 border-rose-300' 
+                          : 'bg-[#EFF9CE] border-[#8BC829]'
                       }`}>
                         <div className={`text-xl sm:text-2xl font-black font-mono ${
-                          unansweredCount > 0 ? 'text-rose-600' : 'text-zinc-400'
+                          unansweredCount > 0 ? 'text-rose-900' : 'text-[#102919]'
                         }`}>
                           {unansweredCount}
                         </div>
-                        <div className={`text-[10px] font-bold mt-0.5 ${
-                          unansweredCount > 0 ? 'text-rose-700' : 'text-zinc-500'
+                        <div className={`text-[10px] font-black mt-0.5 ${
+                          unansweredCount > 0 ? 'text-rose-900' : 'text-[#1F4B2C]'
                         }`}>
                           Belum Diisi
                         </div>
@@ -1737,22 +1737,22 @@ export default function ExamWorkspace() {
                   const unanswered = questions.filter((q) => !isQuestionAnswered(activeAttempt.studentAnswers?.[q.id])).length;
                   if (unanswered > 0) {
                     return (
-                      <div className="text-xs text-amber-800 bg-amber-50 border border-amber-200 px-3 py-2 rounded-xl flex items-center gap-2 font-medium">
-                        <AlertTriangle className="w-4 h-4 shrink-0 text-amber-600" />
+                      <div className="text-xs text-amber-950 bg-amber-100 border-2 border-amber-300 px-3 py-2 rounded-xl flex items-center gap-2 font-bold">
+                        <AlertTriangle className="w-4 h-4 shrink-0 text-amber-700" />
                         <span>Masih ada <strong>{unanswered} soal</strong> yang belum dijawab!</span>
                       </div>
                     );
                   }
                   return (
-                    <div className="text-xs text-[#1F4B2C] bg-[#E1F8ED] border border-[#91EAAF] px-3 py-2 rounded-xl flex items-center gap-2 font-bold">
-                      <CheckCircle className="w-4 h-4 shrink-0 text-[#1F4B2C]" />
+                    <div className="text-xs text-[#0A1D11] bg-[#C3E956] border-2 border-[#4D7111]/30 px-3 py-2 rounded-xl flex items-center gap-2 font-black">
+                      <CheckCircle className="w-4 h-4 shrink-0 text-[#0A1D11]" />
                       <span>Hebat! Seluruh butir soal telah berhasil Anda jawab.</span>
                     </div>
                   );
                 })()}
               </div>
             ) : (
-              <div className="bg-[#F4FFFC] border-2 border-[#91EAAF]/60 rounded-2xl p-4 text-xs text-zinc-700 space-y-1.5 leading-relaxed">
+              <div className="bg-[#E2F4B4] border-2 border-[#8BC829] rounded-2xl p-4 text-xs text-[#102919] space-y-1.5 leading-relaxed">
                 <div className="font-bold text-[#102919] flex items-center gap-1.5">
                   <CheckSquare className="w-4 h-4 text-[#1F4B2C]" />
                   <span>Ujian Berbasis Formulir Online</span>
@@ -1764,7 +1764,7 @@ export default function ExamWorkspace() {
             )}
 
             {/* Peringatan Konfirmasi Akhir */}
-            <div className="text-xs text-zinc-600 bg-zinc-50 border border-zinc-200 p-3.5 rounded-xl leading-relaxed">
+            <div className="text-xs text-[#102919] bg-[#E2F4B4] border-2 border-[#8BC829] p-3.5 rounded-xl leading-relaxed font-medium">
               Setelah dikonfirmasi, mode layar penuh otomatis dilepaskan, sesi pengerjaan ditutup, dan seluruh hasil asesmen langsung disimpan di portal pengawas guru.
             </div>
 
@@ -1774,7 +1774,7 @@ export default function ExamWorkspace() {
                 type="button"
                 disabled={isSubmittingExam}
                 onClick={() => setShowExitConfirmModal(false)}
-                className="px-5 py-2.5 rounded-xl bg-zinc-100 hover:bg-zinc-200 text-zinc-700 text-xs font-bold transition active:scale-95 disabled:opacity-50 cursor-pointer"
+                className="px-5 py-2.5 rounded-xl bg-[#E2F4B4] hover:bg-[#d4f09d] text-[#102919] text-xs font-black border-2 border-[#8BC829] transition active:scale-95 disabled:opacity-50 cursor-pointer"
               >
                 Lanjut Mengerjakan
               </button>
@@ -1782,7 +1782,7 @@ export default function ExamWorkspace() {
                 type="button"
                 disabled={isSubmittingExam}
                 onClick={handleFinishAndExitExam}
-                className="px-6 py-2.5 rounded-xl bg-[#C3E956] hover:bg-[#d4f76b] text-[#0A1D11] text-xs font-black shadow-md border border-[#4D7111]/30 transition active:scale-95 flex items-center gap-2 disabled:opacity-50 cursor-pointer"
+                className="px-6 py-2.5 rounded-xl bg-[#C3E956] hover:bg-[#b8e337] text-[#0A1D11] text-xs font-black shadow-md border-2 border-[#4D7111]/30 transition active:scale-95 flex items-center gap-2 disabled:opacity-50 cursor-pointer"
               >
                 {isSubmittingExam ? (
                   <>
@@ -1808,40 +1808,40 @@ export default function ExamWorkspace() {
       {/* ======================================================== */}
       {showScoreResultModal && studentFinalScoreData && (
         <div className="fixed inset-0 z-50 bg-[#0A1D11]/90 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto animate-fade-in select-none">
-          <div className="bg-white border-2 border-[#91EAAF] rounded-3xl max-w-sm sm:max-w-md w-full p-5 sm:p-6 shadow-2xl relative space-y-4 text-zinc-800 max-h-[94dvh] overflow-y-auto my-auto flex flex-col">
+          <div className="bg-[#EFF9CE] border-2 border-[#8BC829] rounded-3xl max-w-sm sm:max-w-md w-full p-5 sm:p-6 shadow-2xl relative space-y-4 text-[#102919] max-h-[94dvh] overflow-y-auto my-auto flex flex-col">
             {/* Header / Celebration Icon */}
             <div className="text-center space-y-1.5">
-              <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-[#E1F8ED] border-2 border-[#91EAAF] text-[#1F4B2C] shadow-sm">
-                <Trophy className="w-6 h-6 text-[#1F4B2C] animate-pulse" />
+              <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-[#E2F4B4] border-2 border-[#8BC829] text-[#102919] shadow-sm">
+                <Trophy className="w-6 h-6 text-[#102919] animate-pulse" />
               </div>
               <h2 className="text-lg sm:text-xl font-black tracking-tight text-[#102919]">
                 Ujian Berhasil Diselesaikan!
               </h2>
-              <p className="text-xs text-zinc-600 max-w-xs mx-auto leading-relaxed">
+              <p className="text-xs text-[#102919]/80 max-w-xs mx-auto leading-relaxed font-medium">
                 Seluruh jawaban telah berhasil disimpan dan disinkronkan ke server portal guru pengawas.
               </p>
             </div>
 
             {/* Kartu Status / Skor Hasil Asesmen */}
-            <div className="bg-[#F4FFFC] border-2 border-[#91EAAF]/60 rounded-2xl p-4 sm:p-5 text-center relative overflow-hidden">
-              <div className="absolute top-0 right-0 transform translate-x-2 -translate-y-2 opacity-10 pointer-events-none">
-                <Award className="w-24 h-24 text-[#1F4B2C]" />
+            <div className="bg-[#E2F4B4] border-2 border-[#8BC829] rounded-2xl p-4 sm:p-5 text-center relative overflow-hidden">
+              <div className="absolute top-0 right-0 transform translate-x-2 -translate-y-2 opacity-15 pointer-events-none">
+                <Award className="w-24 h-24 text-[#8BC829]" />
               </div>
 
               {/* KONDISI 1: JIKA SOAL SELAIN PILIHAN GANDA (ESAI / FORM / MEMERLUKAN KOREKSI MANUAL GURU) */}
               {studentFinalScoreData.requiresTeacherGrading ? (
                 <div className="py-2 space-y-3">
-                  <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-50 text-amber-900 border-2 border-amber-300 text-xs font-black shadow-xs">
-                    <Clock className="w-4 h-4 text-amber-600 animate-pulse" />
+                  <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-100 text-amber-950 border-2 border-amber-400 text-xs font-black shadow-xs">
+                    <Clock className="w-4 h-4 text-amber-700 animate-pulse" />
                     <span>Menunggu Hasil Koreksi Guru (Belum Dikoreksi)</span>
                   </div>
 
-                  <div className="text-xs sm:text-sm text-zinc-700 font-medium leading-relaxed max-w-sm mx-auto">
+                  <div className="text-xs sm:text-sm text-[#102919] font-medium leading-relaxed max-w-sm mx-auto">
                     Selamat, Anda telah berhasil menyelesaikan ujian! Seluruh lembar jawaban Anda telah tersimpan dan nilai akhir akan diumumkan setelah hasil koreksi selesai dinilai oleh guru pengawas.
                   </div>
 
-                  <div className="inline-flex items-center gap-2 text-xs text-[#1F4B2C] bg-[#E1F8ED] px-3.5 py-1.5 rounded-xl border border-[#91EAAF] font-bold">
-                    <Sparkles className="w-4 h-4 text-[#4D7111]" />
+                  <div className="inline-flex items-center gap-2 text-xs text-[#0A1D11] bg-[#C3E956] px-3.5 py-1.5 rounded-xl border border-[#4D7111]/30 font-black">
+                    <Sparkles className="w-4 h-4 text-[#0A1D11]" />
                     <span>
                       {studentFinalScoreData.isForm 
                         ? 'Tautan Formulir Asesmen Berhasil Terkirim' 
@@ -1852,16 +1852,16 @@ export default function ExamWorkspace() {
               ) : (
                 /* KONDISI 2: JIKA SOAL PILIHAN GANDA (100% AUTO-GRADED) -> TAMPILKAN NILAI LANGSUNG */
                 <div className="py-1 space-y-1">
-                  <div className="text-xs font-bold uppercase tracking-wider text-[#4D7111]">
+                  <div className="text-xs font-black uppercase tracking-wider text-[#1F4B2C]">
                     Perolehan Nilai Asesmen
                   </div>
 
-                  <div className="text-4xl sm:text-5xl font-black font-mono tracking-tight text-[#1F4B2C]">
+                  <div className="text-4xl sm:text-5xl font-black font-mono tracking-tight text-[#102919]">
                     {studentFinalScoreData.score}
                   </div>
-                  <div className="text-xs text-zinc-600 flex items-center justify-center gap-2 flex-wrap pt-1">
+                  <div className="text-xs text-[#102919]/80 flex items-center justify-center gap-2 flex-wrap pt-1 font-medium">
                     <span>
-                      dari total <span className="font-bold text-[#102919]">{studentFinalScoreData.maxPoints}</span> Poin Maksimal
+                      dari total <span className="font-black text-[#102919]">{studentFinalScoreData.maxPoints}</span> Poin Maksimal
                     </span>
                     {studentFinalScoreData.maxPoints > 0 && (
                       <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-black bg-[#C3E956] text-[#0A1D11] border border-[#4D7111]/30">
@@ -1874,32 +1874,32 @@ export default function ExamWorkspace() {
             </div>
 
             {/* Rincian Identitas Peserta & Asesmen (Grid 2 Kolom Kompak) */}
-            <div className="bg-zinc-50 border border-zinc-200 rounded-2xl p-3.5 text-xs">
+            <div className="bg-[#E2F4B4] border-2 border-[#8BC829] rounded-2xl p-3.5 text-xs">
               <div className="grid grid-cols-2 gap-x-3 gap-y-2">
                 <div>
-                  <span className="text-zinc-500 text-[11px] block">Nama Siswa:</span>
-                  <span className="font-bold text-[#102919] truncate block">{studentFinalScoreData.studentName}</span>
+                  <span className="text-[#102919]/70 text-[11px] block font-medium">Nama Siswa:</span>
+                  <span className="font-black text-[#102919] truncate block">{studentFinalScoreData.studentName}</span>
                 </div>
                 <div>
-                  <span className="text-zinc-500 text-[11px] block">NISN:</span>
-                  <span className="font-mono font-bold text-zinc-800 block">{studentFinalScoreData.nisn}</span>
+                  <span className="text-[#102919]/70 text-[11px] block font-medium">NISN:</span>
+                  <span className="font-mono font-bold text-[#102919] block">{studentFinalScoreData.nisn}</span>
                 </div>
                 <div>
-                  <span className="text-zinc-500 text-[11px] block">Kelas / Mapel:</span>
-                  <span className="font-medium text-zinc-800 truncate block">{studentFinalScoreData.classroom} • {studentFinalScoreData.subjectName}</span>
+                  <span className="text-[#102919]/70 text-[11px] block font-medium">Kelas / Mapel:</span>
+                  <span className="font-medium text-[#102919] truncate block">{studentFinalScoreData.classroom} • {studentFinalScoreData.subjectName}</span>
                 </div>
                 <div>
-                  <span className="text-zinc-500 text-[11px] block">Waktu Pengiriman:</span>
+                  <span className="text-[#102919]/70 text-[11px] block font-medium">Waktu Pengiriman:</span>
                   <span className="font-mono text-[#1F4B2C] font-bold block">{studentFinalScoreData.finishedAt}</span>
                 </div>
               </div>
             </div>
 
             {/* Peringatan Kerahasiaan Kunci Jawaban Ringkas */}
-            <div className="bg-[#F4FFFC] border border-[#91EAAF]/60 p-2.5 sm:p-3 rounded-xl flex items-center gap-2.5 text-xs text-zinc-600 leading-tight">
-              <Lock className="w-4 h-4 text-[#1F4B2C] shrink-0" />
+            <div className="bg-[#E2F4B4] border-2 border-[#8BC829] p-2.5 sm:p-3 rounded-xl flex items-center gap-2.5 text-xs text-[#102919] leading-tight font-medium">
+              <Lock className="w-4 h-4 text-[#102919] shrink-0" />
               <span>
-                <strong className="text-[#102919]">Kerahasiaan Jawaban:</strong> Rincian kunci jawaban dirahasiakan demi integritas asesmen sekolah.
+                <strong className="text-[#102919] font-black">Kerahasiaan Jawaban:</strong> Rincian kunci jawaban dirahasiakan demi integritas asesmen sekolah.
               </span>
             </div>
 
@@ -1908,7 +1908,7 @@ export default function ExamWorkspace() {
               <button
                 type="button"
                 onClick={handleAcknowledgeScoreAndExit}
-                className="w-full py-3.5 px-5 rounded-2xl bg-[#C3E956] hover:bg-[#d4f76b] text-[#0A1D11] font-black text-sm shadow-md border border-[#4D7111]/30 transition active:scale-95 flex items-center justify-center gap-2 cursor-pointer"
+                className="w-full py-3.5 px-5 rounded-2xl bg-[#C3E956] hover:bg-[#b8e337] text-[#0A1D11] font-black text-sm shadow-md border-2 border-[#4D7111]/30 transition active:scale-95 flex items-center justify-center gap-2 cursor-pointer"
               >
                 <span>{activeAttempt.isSimulation ? 'Kembali ke Dashboard Guru' : 'Selesai & Kembali ke Lobby'}</span>
                 <ChevronRight className="w-4 h-4 text-[#0A1D11]" />
