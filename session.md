@@ -161,37 +161,77 @@ Tampilan menu Koreksi Esai dirombak total sesuai kebutuhan guru pengawas asesmen
 
 ---
 
+---
+
+### 🎯 7. Rebranding Total Style Frontend (Green Screen Palette & Taste-Skill Frontend)
+- **Latar Belakang & Arahan Klien:**  
+  Klien menginginkan perubahan total nuansa desain dari sebelumnya biru tua kehitam-hitaman menjadi palet warna **Green Screen** bernuansa hijau ke kuning-kuningan (karya Vasil Enev) yang melambangkan kesegaran, modernitas, dan identitas keislaman SD Mentari Islamic School:
+  - `#F4FFFC` : Mint cream (background bersih, cerah, fresh canvas)
+  - `#91EAAF` : Soft mint spring green (border lembut, badge soft, ring focus)
+  - `#C3E956` : Vivid lime-yellow / chartreuse (aksen utama, badge status sukses, highlight)
+  - `#4D7111` : Deep lime olive / moss green (teks dengan keterbacaan tinggi di atas badge lime)
+  - `#1F4B2C` : Deep forest green / dark emerald pine (primary brand, tombol utama, teks judul)
+  - `#102919` / `#0E2416` / `#143820` : Deep forest dark tones (sidebar guru, dark hero banners, modal header)
+  - `#E1F8ED` : Tint mint lembut (avatar box, container icon, highlight row)
+- **Penerapan Rules Design-Taste-Frontend (Anti AI-Slop):**
+  - **Typography & Kontras:** Teks selalu berkontras tinggi (tidak pernah memakai teks lime tipis di atas putih). Aksen lime `#C3E956` digunakan dengan teks gelap `#0A1D11` atau di atas surface gelap `#102919`/`#1F4B2C`.
+  - **Aset Asli Sekolah:** Menggunakan logo resmi `logo sd mis.png` dan foto gedung `loc-mis.jpeg` dengan identitas resmi (NPSN 70047473, Polanharjo, Klaten) serta tagline signature `'Digital Mind, Islamic Heart'`.
+  - **Konsistensi Komponen Seluruh Halaman Guru:**
+    1. **`tailwind.config.js`:** Ditambahkan custom palette `brand` dan `primary` berbasis Green Screen.
+    2. **`LoginPage.jsx`:** Split-screen responsif dengan foto gedung, logo sekolah, identitas Klaten, dan form login dengan tombol lime `#C3E956`.
+    3. **`TeacherLayout.jsx`:** Sidebar dan mobile header bertema deep forest dark (`#0E2416` & border `#1F4B2C]/80`), active link pill dengan warna `#1F4B2C` dan teks `#C3E956`, serta kanvas utama `bg-[#F4FFFC]`.
+    4. **`DashboardTeacher.jsx`:** Hero banner `from-[#102919] via-[#143820] to-[#1F4B2C]` dengan tombol aksi lime, 4 stat cards bernuansa mint-lime-forest, dan feed pelanggaran yang serasi.
+    5. **`ClassroomManagement.jsx`:** Header tabel `bg-[#F4FFFC] text-[#1F4B2C]`, tombol tambah kelas `#1F4B2C text-[#C3E956]`, modal kelas & modal list siswa bertema forest green.
+    6. **`StudentManagement.jsx`:** Search bar, filter kelas, tombol import/template excel, avatar siswa `#E1F8ED text-[#1F4B2C]`, badge NISN & kelas, paginasi aktif `#1F4B2C text-[#C3E956]`.
+    7. **`TeacherManagement.jsx`:** Tombol tambah guru, tabel guru, modal form NIP & mapel, avatar inisial, dan aksi edit/hapus bernuansa hijau-lime.
+    8. **`UserManagement.jsx`:** Filter peran, tombol tambah/import/template, badge role (`TEACHER` emerald-mint, `STUDENT` lime-olive), modal reset sandi & import.
+    9. **`ExamPackageList.jsx`:** Kartu paket soal top-accent `#1F4B2C`, badge AKM vs Google Form, kotak info soal, tombol aksi preview/edit/delete.
+    10. **`ExamSessionSetup.jsx`:** Tombol buka sesi ujian baru `#1F4B2C text-[#C3E956]`, banner Zero-Tolerance lockdown, duo token tiles (Token Masuk Siswa & PIN Pengawas).
+    11. **`LiveProctoring.jsx`:** Tombol buka kunci seluruh siswa `#1F4B2C text-[#C3E956]`, siaran pengumuman, tab filter status fokus/terkunci, duo token tiles rotasi 10 menit.
+    12. **`EssayGrading.jsx`:** Top cascading filter bar (Paket, Kelas, Sesi), 4 stat cards, tabel list siswa dengan score pill `#102919 text-[#C3E956]`, tombol koreksi, dan modal lembar koreksi (React Portal full screen) berlatar `#102919` gradient.
+    13. **`StudentResults.jsx`:** 4 KPI cards (Total, Selesai, Rata-Rata, Rentang Nilai), tombol download Excel `#1F4B2C text-[#C3E956]`, tabel nilai dengan badge status pengerjaan, modal analisis lembar jawaban per butir soal, dan modal buka remidi.
+    14. **`ViolationHistory.jsx`:** Header dengan tombol "Lihat di E-Jurnal" `#1F4B2C text-[#C3E956]`, 4 metrik pelanggaran, tabel catatan sensor Zero-Tolerance, modal konfirmasi hapus satuan & massal.
+    15. **`EJournalReport.jsx`:** Tombol ekspor rekap Excel & unduh berita acara PDF `#1F4B2C text-[#C3E956]`, lembar dokumen berita acara formal A4 dengan kop surat MIS, tabel presensi & skor, log sensor, dan form catatan pengawas.
+    16. **`SchoolSettings.jsx`:** Form identitas sekolah lengkap dengan live preview kop surat dan pengesahan kepala sekolah/pengawas bergradasi deep forest.
+    17. **`ProfileSettings.jsx`:** Form biodata diri guru, badge keamanan akun, form ubah kata sandi dengan toggle intip sandi, dan tombol simpan `#1F4B2C text-[#C3E956]`.
+
+---
+
 ## 📋 Riwayat Aktivitas & Perubahan File
 
 | Tanggal | Komponen / File | Aksi | Rincian Perubahan |
 |---|---|---|---|
-| 2026-11-20 | `frontend/src/pages/teacher/ExamPackageList.jsx` | Update UI | Menghapus field Kelas Peserta pada modal tambah/edit paket soal karena kelas sudah diatur pada sesi ujian. |
-| 2026-11-20 | `frontend/src/pages/student/ExamWorkspace.jsx` | Update UI | Modal penyelesaian ujian menampilkan 'Belum Dikoreksi' (tanpa skor 0) untuk ujian esai/non-pilgan, dan nilai langsung untuk pilgan. |
-| 2026-11-20 | `backend/apps/exams/views.py` | Fix & Feature | Resolusi bug jawaban esai kosong via dual format dict/list, integrasi kalkulasi total skor esai, dan flag kelengkapan koreksi esai di rekap nilai. |
-| 2026-11-20 | `backend/apps/exams/excel_results_generator.py` | Feature | Penyesuaian output ekspor Excel agar menampilkan 'Belum Dinilai' untuk siswa yang esainya belum dinilai. |
-| 2026-11-20 | `frontend/src/api/examApi.js` | Update | Penambahan parameter `classroomId` pada `getEssaySubmissionsApi`. |
-| 2026-11-20 | `frontend/src/pages/teacher/EssayGrading.jsx` | Rombak Total UI | Rombak total menu Koreksi Esai: 3 filter berjenjang di atas, tabel list siswa di bawah, dan modal lembar koreksi interaktif dengan navigasi siswa. |
-| 2026-11-20 | `frontend/src/pages/teacher/StudentResults.jsx` | Update UI | Menampilkan semua tipe ujian pada filter dan menampilkan badge 'Belum Dinilai' pada kolom Nilai Akhir siswa. |
-| 2026-11-20 | `frontend/src/pages/teacher/EssayGrading.jsx` | Fix UI Modal | Implementasi React createPortal (root document.body), z-[9999], bg-black/80, backdrop-blur-md (true full screen tanpa celah header), dan body scroll lock. |
-| 2026-11-20 | `frontend/src/pages/auth/LoginPage.jsx` | Redesain Total UI | Redesain halaman login depan dengan branding resmi SD Mentari Islamic School, logo resmi, foto gedung loc-mis, NPSN 70047473, alamat Klaten, dan tagline 'Digital Mind, Islamic Heart'. |
-| 2026-11-20 | `frontend/src/pages/student/StudentLobby.jsx` | Update UI | Menampilkan logo resmi SDMIS dan tagline 'Digital Mind, Islamic Heart' pada header dan banner siswa. |
-| 2026-11-20 | `frontend/src/pages/student/GatekeeperPin.jsx` | Update UI | Menampilkan logo resmi SDMIS dan branding identitas sekolah pada header dan form PIN masuk ujian. |
-| 2026-11-20 | `frontend/src/layouts/TeacherLayout.jsx` | Update UI | Memasang logo resmi SDMIS pada sidebar guru dan mobile navbar. |
-| 2026-11-20 | `frontend/src/store/useExamStore.js` & `SchoolSettings.jsx` | Sync Config | Menyelaraskan master identitas default sekolah ke SD Mentari Islamic School, NPSN 70047473, dan alamat Klaten. |
-| 2026-11-20 | `session.md` | Update | Dokumentasi lengkap seluruh pembaruan dan panduan deployment. |
+| 2026-11-20 | `frontend/tailwind.config.js` | Config | Menambahkan konfigurasi extended colors `brand` dan palette `primary` sesuai Green Screen (Vasil Enev: `#F4FFFC`, `#91EAAF`, `#C3E956`, `#4D7111`, `#1F4B2C`, `#102919`). |
+| 2026-11-20 | `frontend/src/pages/auth/LoginPage.jsx` | Rebranding UI | Redesain total halaman login depan responsif split-screen dengan foto gedung `loc-mis.jpeg`, logo `logo sd mis.png`, NPSN 70047473, alamat Klaten, tagline 'Digital Mind, Islamic Heart', dan tombol login lime `#C3E956`. |
+| 2026-11-20 | `frontend/src/layouts/TeacherLayout.jsx` | Rebranding UI | Rebranding sidebar navigation dan mobile header ke deep forest `#0E2416`, active link pill `#1F4B2C` text `#C3E956`, dan background canvas layout `#F4FFFC`. |
+| 2026-11-20 | `frontend/src/pages/teacher/DashboardTeacher.jsx` | Rebranding UI | Rebranding hero welcome banner dark forest, 4 stat cards, sesi ujian aktif, dan sensor feed dengan Green Screen styling. |
+| 2026-11-20 | `frontend/src/pages/teacher/ClassroomManagement.jsx` | Rebranding UI | Rebranding tombol aksi, header tabel `#F4FFFC`, badge tahun ajaran, dan modal form kelas ke palet hijau-lime. |
+| 2026-11-20 | `frontend/src/pages/teacher/StudentManagement.jsx` | Rebranding UI | Rebranding tombol tambah siswa, import/template Excel, avatar siswa `#E1F8ED text-[#1F4B2C]`, search bar, dan paginasi aktif. |
+| 2026-11-20 | `frontend/src/pages/teacher/TeacherManagement.jsx` | Rebranding UI | Rebranding tabel guru, avatar initials, modal form tambah/edit guru, dan tombol aksi ke Green Screen palette. |
+| 2026-11-20 | `frontend/src/pages/teacher/UserManagement.jsx` | Rebranding UI | Rebranding tabel manajemen pengguna, badge role per peran, modal form reset password, dan modal import akun. |
+| 2026-11-20 | `frontend/src/pages/teacher/ExamPackageList.jsx` | Rebranding UI | Rebranding kartu bank soal paket ujian, badge AKM/Google Form, dan modal buat paket (tanpa field kelas). |
+| 2026-11-20 | `frontend/src/pages/teacher/ExamSessionSetup.jsx` | Rebranding UI | Rebranding banner Zero-Tolerance lockdown, tombol buka sesi ujian `#1F4B2C text-[#C3E956]`, dan duo token cards. |
+| 2026-11-20 | `frontend/src/pages/teacher/LiveProctoring.jsx` | Rebranding UI | Rebranding tombol buka kunci massal, tombol siaran, tab filter pengerjaan, dan duo token tiles pengawas. |
+| 2026-11-20 | `frontend/src/pages/teacher/EssayGrading.jsx` | Rebranding UI | Rebranding filter berjenjang, stat cards, tabel siswa, score badges `#102919 text-[#C3E956]`, dan modal lembar koreksi (createPortal full screen). |
+| 2026-11-20 | `frontend/src/pages/teacher/StudentResults.jsx` | Rebranding UI | Rebranding 4 KPI statistik nilai, tombol download Excel `#1F4B2C text-[#C3E956]`, tabel rekap nilai, modal rincian lembar jawaban, dan modal remidi. |
+| 2026-11-20 | `frontend/src/pages/teacher/ViolationHistory.jsx` | Rebranding UI | Rebranding toolbar riwayat audit pelanggaran, 4 kartu metrik insiden, tabel log sensor, dan modal hapus catatan. |
+| 2026-11-20 | `frontend/src/pages/teacher/EJournalReport.jsx` | Rebranding UI | Rebranding tombol ekspor Excel/PDF `#1F4B2C text-[#C3E956]`, lembar dokumen berita acara resmi MIS, tabel presensi & skor, serta form catatan pengawas. |
+| 2026-11-20 | `frontend/src/pages/teacher/SchoolSettings.jsx` | Rebranding UI | Rebranding form identitas sekolah, tombol simpan `#1F4B2C text-[#C3E956]`, dan live preview kop dokumen bergradasi dark forest. |
+| 2026-11-20 | `frontend/src/pages/teacher/ProfileSettings.jsx` | Rebranding UI | Rebranding banner profil akun guru, badge keamanan akun, form data diri & sandi, dan tombol simpan `#1F4B2C text-[#C3E956]`. |
+| 2026-11-20 | `session.md` | Update | Dokumentasi lengkap seluruh pembaruan rebranding Green Screen dan panduan deployment. |
 
 ---
 
 ## 🚀 Panduan Eksekusi & Deployment
 
 ### A. Push Perubahan dari Komputer Lokal:
-Jalankan di PowerShell komputer Anda:
+Jalankan di terminal PowerShell komputer Anda:
 
 ```powershell
 cd C:\xampp\htdocs\mis_dev\ujian_sdmis
 git status
-git add frontend/src/pages/auth/LoginPage.jsx frontend/src/pages/student/StudentLobby.jsx frontend/src/pages/student/GatekeeperPin.jsx frontend/src/layouts/TeacherLayout.jsx frontend/src/pages/teacher/SchoolSettings.jsx frontend/src/store/useExamStore.js frontend/src/pages/teacher/EssayGrading.jsx session.md
-git commit -m "feat(branding): overhaul landing login page with SD Mentari Islamic School identity, logo, photo, and tagline"
+git add frontend/tailwind.config.js frontend/src/pages/auth/LoginPage.jsx frontend/src/layouts/TeacherLayout.jsx frontend/src/pages/teacher/DashboardTeacher.jsx frontend/src/pages/teacher/ClassroomManagement.jsx frontend/src/pages/teacher/StudentManagement.jsx frontend/src/pages/teacher/TeacherManagement.jsx frontend/src/pages/teacher/UserManagement.jsx frontend/src/pages/teacher/ExamPackageList.jsx frontend/src/pages/teacher/ExamSessionSetup.jsx frontend/src/pages/teacher/LiveProctoring.jsx frontend/src/pages/teacher/EssayGrading.jsx frontend/src/pages/teacher/StudentResults.jsx frontend/src/pages/teacher/ViolationHistory.jsx frontend/src/pages/teacher/EJournalReport.jsx frontend/src/pages/teacher/SchoolSettings.jsx frontend/src/pages/teacher/ProfileSettings.jsx session.md
+git commit -m "feat(rebranding): complete overhaul with Green Screen palette for login and all teacher portal pages"
 git push origin main
 ```
 
@@ -207,7 +247,7 @@ cd ~/htdocs/ujian_sdmis
 # 2. Tarik update terbaru dari repository GitHub
 git pull origin main
 
-# 3. Build ulang frontend (karena ada perubahan di ExamPackageList, ExamWorkspace, EssayGrading, StudentResults)
+# 3. Build ulang bundle frontend Vite
 cd frontend
 npm run build
 

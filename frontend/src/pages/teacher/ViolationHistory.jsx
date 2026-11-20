@@ -300,7 +300,7 @@ export default function ViolationHistory() {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-rose-600 animate-pulse" />
+            <span className="w-2.5 h-2.5 rounded-full bg-rose-600 animate-pulse" />
             <h1 className="text-xl sm:text-2xl font-bold text-zinc-900 tracking-tight">
               Riwayat Pelanggaran Integritas Ujian
             </h1>
@@ -314,28 +314,28 @@ export default function ViolationHistory() {
         <div className="flex items-center gap-2 flex-wrap">
           <button
             onClick={() => navigate('/teacher/ejournal')}
-            className="px-3 py-1.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-white text-xs font-semibold transition flex items-center gap-1.5 shadow-xs hover:-translate-y-0.5 active:scale-[0.98]"
+            className="px-3.5 py-2 rounded-lg bg-[#1F4B2C] hover:bg-[#183D23] text-white text-xs font-semibold transition flex items-center gap-1.5 shadow-xs active:scale-[0.98] cursor-pointer"
             title="Buka Lembar E-Jurnal Berita Acara untuk Verifikasi & Cetak"
           >
-            <FileSpreadsheet className="w-3.5 h-3.5" />
+            <FileSpreadsheet className="w-3.5 h-3.5 text-[#C3E956]" />
             <span>Lihat di E-Jurnal</span>
           </button>
 
           <button
             onClick={fetchViolations}
             disabled={isLoading}
-            className="p-1.5 rounded-lg bg-white border border-zinc-200 hover:bg-zinc-50 text-zinc-600 transition shadow-2xs hover:-translate-y-0.5 active:scale-[0.98]"
+            className="p-2 rounded-lg bg-white border border-[#91EAAF]/60 hover:bg-[#F4FFFC] text-[#1F4B2C] transition shadow-xs active:scale-[0.98] cursor-pointer"
             title="Muat Ulang Riwayat"
           >
-            <RefreshCw className={`w-3.5 h-3.5 ${isLoading ? 'animate-spin text-zinc-900' : ''}`} />
+            <RefreshCw className={`w-3.5 h-3.5 ${isLoading ? 'animate-spin text-[#1F4B2C]' : 'text-[#4D7111]'}`} />
           </button>
         </div>
       </div>
 
       {/* Toast Notifikasi Sukses */}
       {toastMessage && (
-        <div className="p-3.5 bg-emerald-50 border border-emerald-200 text-emerald-900 rounded-lg text-xs font-medium flex items-center gap-2 shadow-2xs animate-fadeIn">
-          <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+        <div className="p-3.5 bg-[#C3E956]/20 border border-[#C3E956]/40 text-[#4D7111] rounded-lg text-xs font-semibold flex items-center gap-2 shadow-xs animate-fadeIn">
+          <CheckCircle2 className="w-4 h-4 text-[#4D7111] shrink-0" />
           <span>{toastMessage}</span>
         </div>
       )}
@@ -343,10 +343,10 @@ export default function ViolationHistory() {
       {/* ======================================================== */}
       {/* 2. KARTU FILTER PERSIS E-JURNAL (PAKET, KELAS, & SESI)   */}
       {/* ======================================================== */}
-      <div className="bg-white rounded-xl p-5 border border-zinc-200/90 shadow-2xs space-y-3.5">
-        <div className="flex items-center justify-between border-b border-zinc-100 pb-3">
-          <div className="flex items-center gap-2 text-xs font-semibold text-zinc-800 uppercase tracking-wider">
-            <Filter className="w-3.5 h-3.5 text-zinc-500" />
+      <div className="bg-white rounded-xl p-5 border border-[#91EAAF]/40 shadow-xs space-y-3.5">
+        <div className="flex items-center justify-between border-b border-[#91EAAF]/30 pb-3">
+          <div className="flex items-center gap-2 text-xs font-semibold text-[#1F4B2C] uppercase tracking-wider">
+            <Filter className="w-3.5 h-3.5 text-[#4D7111]" />
             <span>Pilih Paket Soal, Rombel Kelas, & Sesi Ujian</span>
           </div>
           <span className="text-[11px] font-mono font-medium text-zinc-500">
@@ -357,13 +357,13 @@ export default function ViolationHistory() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5">
           {/* 1. Filter Paket Soal */}
           <div>
-            <label className="block text-[11px] font-semibold uppercase tracking-wider text-zinc-500 mb-1">
+            <label className="block text-[11px] font-semibold uppercase tracking-wider text-zinc-700 mb-1">
               Filter Paket Soal:
             </label>
             <select
               value={selectedPackageFilter}
               onChange={(e) => setSelectedPackageFilter(e.target.value)}
-              className="w-full text-xs font-medium rounded-lg border border-zinc-200 focus:outline-none focus:border-zinc-400 py-2 px-2.5 bg-white text-zinc-900"
+              className="w-full text-xs font-medium rounded-lg border border-[#91EAAF]/60 focus:outline-none focus:ring-2 focus:ring-[#91EAAF]/40 focus:border-[#1F4B2C] py-2 px-2.5 bg-[#F4FFFC]/50 text-zinc-900"
             >
               <option value="ALL">Semua Paket Soal</option>
               {allPackages.map((pkg) => (
@@ -376,13 +376,13 @@ export default function ViolationHistory() {
 
           {/* 2. Filter Kelas / Rombel */}
           <div>
-            <label className="block text-[11px] font-semibold uppercase tracking-wider text-zinc-500 mb-1">
+            <label className="block text-[11px] font-semibold uppercase tracking-wider text-zinc-700 mb-1">
               Filter Kelas / Rombel:
             </label>
             <select
               value={selectedClassFilter}
               onChange={(e) => setSelectedClassFilter(e.target.value)}
-              className="w-full text-xs font-medium rounded-lg border border-zinc-200 focus:outline-none focus:border-zinc-400 py-2 px-2.5 bg-white text-zinc-900"
+              className="w-full text-xs font-medium rounded-lg border border-[#91EAAF]/60 focus:outline-none focus:ring-2 focus:ring-[#91EAAF]/40 focus:border-[#1F4B2C] py-2 px-2.5 bg-[#F4FFFC]/50 text-zinc-900"
             >
               <option value="ALL">-- Seluruh Kelas ({allClassrooms.length}) --</option>
               {allClassrooms.map((cls) => (
@@ -395,14 +395,14 @@ export default function ViolationHistory() {
 
           {/* 3. Pilih Sesi Ujian Terbuka */}
           <div>
-            <label className="block text-[11px] font-semibold uppercase tracking-wider text-zinc-500 mb-1">
+            <label className="block text-[11px] font-semibold uppercase tracking-wider text-zinc-700 mb-1">
               Pilih Sesi Ujian Terbuka:
             </label>
             <select
               value={selectedSessionId}
               onChange={(e) => setSelectedSessionId(e.target.value)}
               disabled={filteredSessions.length === 0}
-              className="w-full text-xs font-medium rounded-lg border border-zinc-200 focus:outline-none focus:border-zinc-400 py-2 px-2.5 bg-white text-zinc-900 disabled:opacity-50"
+              className="w-full text-xs font-medium rounded-lg border border-[#91EAAF]/60 focus:outline-none focus:ring-2 focus:ring-[#91EAAF]/40 focus:border-[#1F4B2C] py-2 px-2.5 bg-[#F4FFFC]/50 text-zinc-900 disabled:opacity-50"
             >
               {filteredSessions.length === 0 ? (
                 <option value="">Tidak ada sesi yang cocok</option>
@@ -422,7 +422,7 @@ export default function ViolationHistory() {
       {/* 3. 4 KARTU METRIK STATISTIK PELANGGARAN                   */}
       {/* ======================================================== */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-        <div className="bg-white p-4 rounded-xl border border-zinc-200/90 shadow-2xs">
+        <div className="bg-white p-4 rounded-xl border border-[#91EAAF]/40 shadow-xs">
           <div className="text-[11px] font-semibold uppercase tracking-wider text-zinc-500">
             Total Pelanggaran
           </div>
@@ -431,25 +431,25 @@ export default function ViolationHistory() {
           </div>
         </div>
 
-        <div className="bg-white p-4 rounded-xl border border-zinc-200/90 shadow-2xs">
+        <div className="bg-white p-4 rounded-xl border border-[#91EAAF]/40 shadow-xs">
           <div className="text-[11px] font-semibold uppercase tracking-wider text-zinc-500">
             Siswa Terdeteksi
           </div>
-          <div className="text-xl sm:text-2xl font-bold font-mono text-zinc-900 mt-1">
+          <div className="text-xl sm:text-2xl font-bold font-mono text-[#1F4B2C] mt-1">
             {uniqueStudents} <span className="text-xs font-normal text-zinc-500 font-sans">orang</span>
           </div>
         </div>
 
-        <div className="bg-white p-4 rounded-xl border border-zinc-200/90 shadow-2xs">
+        <div className="bg-white p-4 rounded-xl border border-[#91EAAF]/40 shadow-xs">
           <div className="text-[11px] font-semibold uppercase tracking-wider text-zinc-500">
             Sudah Dibuka Kunci
           </div>
-          <div className="text-xl sm:text-2xl font-bold font-mono text-emerald-600 mt-1">
+          <div className="text-xl sm:text-2xl font-bold font-mono text-[#1F4B2C] mt-1">
             {unlockedCount} <span className="text-xs font-normal text-zinc-500 font-sans">kali</span>
           </div>
         </div>
 
-        <div className="bg-white p-4 rounded-xl border border-zinc-200/90 shadow-2xs">
+        <div className="bg-white p-4 rounded-xl border border-amber-200/80 shadow-xs">
           <div className="text-[11px] font-semibold uppercase tracking-wider text-zinc-500">
             Status Masih Terkunci
           </div>
@@ -462,17 +462,17 @@ export default function ViolationHistory() {
       {/* ======================================================== */}
       {/* 4. TABEL RIWAYAT PELANGGARAN PERSIS CATATAN INTEGRITAS   */}
       {/* ======================================================== */}
-      <div className="bg-white rounded-xl border border-zinc-200/90 shadow-2xs overflow-hidden space-y-4 p-5">
+      <div className="bg-white rounded-xl border border-[#91EAAF]/40 shadow-xs overflow-hidden space-y-4 p-5">
         {/* Toolbar Tabel: Search & Tombol Hapus Massal */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div className="relative w-full sm:w-72">
-            <Search className="w-4 h-4 text-zinc-400 absolute left-3 top-2.5" />
+            <Search className="w-4 h-4 text-[#1F4B2C]/50 absolute left-3 top-2.5" />
             <input
               type="text"
               placeholder="Cari siswa, NISN, atau keterangan..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-9 pr-3 py-1.5 text-xs rounded-lg border border-zinc-200 focus:outline-none focus:border-zinc-400 bg-white"
+              className="w-full pl-9 pr-3 py-1.5 text-xs rounded-lg border border-[#91EAAF]/60 focus:outline-none focus:ring-2 focus:ring-[#91EAAF]/40 focus:border-[#1F4B2C] bg-white text-zinc-800"
             />
           </div>
 
@@ -480,7 +480,7 @@ export default function ViolationHistory() {
             {selectedIds.length > 0 ? (
               <button
                 onClick={() => setIsBulkDeleteModalOpen(true)}
-                className="px-3 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-500 text-white text-xs font-semibold transition flex items-center gap-1.5 shadow-2xs active:scale-[0.98]"
+                className="px-3 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-500 text-white text-xs font-semibold transition flex items-center gap-1.5 shadow-xs active:scale-[0.98] cursor-pointer"
               >
                 <Trash2 className="w-3.5 h-3.5" />
                 <span>Hapus Terpilih ({selectedIds.length})</span>
@@ -488,7 +488,7 @@ export default function ViolationHistory() {
             ) : violations.length > 0 ? (
               <button
                 onClick={() => setIsBulkDeleteModalOpen(true)}
-                className="px-3 py-1.5 rounded-lg bg-white border border-rose-200 hover:bg-rose-50 text-rose-700 text-xs font-semibold transition flex items-center gap-1.5 active:scale-[0.98]"
+                className="px-3 py-1.5 rounded-lg bg-white border border-rose-200 hover:bg-rose-50 text-rose-700 text-xs font-semibold transition flex items-center gap-1.5 active:scale-[0.98] cursor-pointer"
                 title="Hapus seluruh log pelanggaran pada sesi aktif ini sekaligus"
               >
                 <Trash2 className="w-3.5 h-3.5 text-rose-500" />
@@ -499,16 +499,16 @@ export default function ViolationHistory() {
         </div>
 
         {/* Kontainer Tabel */}
-        <div className="overflow-x-auto rounded-lg border border-rose-200">
+        <div className="overflow-x-auto rounded-lg border border-[#91EAAF]/40">
           <table className="w-full text-xs text-left">
-            <thead className="bg-rose-50 text-rose-900 font-semibold uppercase text-[10px] tracking-wider border-b border-rose-200">
+            <thead className="bg-[#F4FFFC] text-[#1F4B2C] font-semibold uppercase text-[10px] tracking-wider border-b border-[#91EAAF]/40">
               <tr>
                 <th className="py-2.5 px-3 text-center w-8">
                   <input
                     type="checkbox"
                     checked={filteredViolations.length > 0 && selectedIds.length === filteredViolations.length}
                     onChange={handleToggleSelectAll}
-                    className="rounded border-zinc-300 text-rose-600 focus:ring-rose-500 cursor-pointer"
+                    className="rounded border-zinc-300 text-[#1F4B2C] focus:ring-[#91EAAF] cursor-pointer"
                   />
                 </th>
                 <th className="py-2.5 px-3 text-center w-10">No</th>
@@ -523,7 +523,7 @@ export default function ViolationHistory() {
                 <th className="py-2.5 px-3 text-center w-16">Aksi</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-rose-100 bg-rose-50/20">
+            <tbody className="divide-y divide-zinc-100 bg-white">
               {isLoading ? (
                 <tr>
                   <td colSpan="11" className="py-10 text-center text-zinc-500 text-xs">

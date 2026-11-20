@@ -127,18 +127,18 @@ export default function TeacherLayout() {
   ];
 
   return (
-    <div className="min-h-screen bg-slate-100 flex flex-col md:flex-row">
+    <div className="min-h-screen bg-[#F4FFFC] flex flex-col md:flex-row text-zinc-800">
       {/* ======================================================== */}
       {/* MOBILE HEADER BAR */}
       {/* ======================================================== */}
-      <div className="md:hidden bg-[#090D16] text-zinc-100 flex items-center justify-between px-4 py-3 border-b border-zinc-800 sticky top-0 z-40">
+      <div className="md:hidden bg-[#0E2416] text-[#F4FFFC] flex items-center justify-between px-4 py-3 border-b border-[#1F4B2C]/80 sticky top-0 z-40 shadow-sm">
         <div className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-lg bg-white/95 p-1 flex items-center justify-center shadow-xs shrink-0">
+          <div className="w-8 h-8 rounded-lg bg-white p-1 flex items-center justify-center shadow-xs ring-1 ring-[#91EAAF]/40 shrink-0">
             <img src={logoSdMis} alt="Logo SDMIS" className="w-full h-full object-contain" />
           </div>
           <div>
-            <div className="font-bold text-xs tracking-tight text-zinc-100">SD MENTARI ISLAMIC SCHOOL</div>
-            <div className="text-[10px] font-mono text-emerald-400 uppercase tracking-wider">Guru Pengawas</div>
+            <div className="font-bold text-xs tracking-tight text-white">SD MENTARI ISLAMIC SCHOOL</div>
+            <div className="text-[10px] font-mono text-[#C3E956] uppercase tracking-wider font-semibold">Guru Pengawas</div>
           </div>
         </div>
 
@@ -156,13 +156,13 @@ export default function TeacherLayout() {
             type="button"
             onClick={() => navigate('/teacher/profile')}
             title="Pengaturan Profil Akun"
-            className="p-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-zinc-200"
+            className="p-1.5 rounded-lg bg-[#143820] border border-[#1F4B2C] text-[#91EAAF] hover:text-[#C3E956] transition"
           >
             <Settings className="w-4 h-4" />
           </button>
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="p-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-zinc-200"
+            className="p-1.5 rounded-lg bg-[#143820] border border-[#1F4B2C] text-[#91EAAF] hover:text-[#C3E956] transition"
           >
             {isMobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
           </button>
@@ -173,24 +173,24 @@ export default function TeacherLayout() {
       {/* SIDEBAR NAVIGATION (Desktop & Mobile Drawer) */}
       {/* ======================================================== */}
       <aside
-        className={`fixed inset-y-0 left-0 z-50 w-60 bg-[#090D16] text-zinc-300 flex flex-col border-r border-zinc-800/80 transform transition-transform duration-200 ease-in-out md:static md:translate-x-0 ${
+        className={`fixed inset-y-0 left-0 z-50 w-60 bg-[#0E2416] text-[#F4FFFC]/80 flex flex-col border-r border-[#1F4B2C]/80 shadow-xl transform transition-transform duration-200 ease-in-out md:static md:translate-x-0 ${
           isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
         {/* Brand / Logo */}
-        <div className="p-4 border-b border-zinc-800/80 flex items-center justify-between">
+        <div className="p-4 border-b border-[#1F4B2C]/80 flex items-center justify-between bg-[#0A1D11]/60">
           <div className="flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-lg bg-white/95 p-1 flex items-center justify-center shadow-xs shrink-0">
+            <div className="w-9 h-9 rounded-xl bg-white p-1.5 flex items-center justify-center shadow-md ring-1 ring-[#91EAAF]/40 shrink-0">
               <img src={logoSdMis} alt="Logo SDMIS" className="w-full h-full object-contain" />
             </div>
             <div className="min-w-0">
-              <div className="font-bold text-zinc-100 text-xs tracking-tight truncate max-w-[130px]">SD MENTARI</div>
-              <div className="text-[10px] font-mono text-emerald-400 uppercase tracking-wider">Portal Pengawas</div>
+              <div className="font-bold text-white text-xs tracking-tight truncate max-w-[130px]">SD MENTARI</div>
+              <div className="text-[10px] font-mono text-[#C3E956] uppercase tracking-wider font-semibold">Portal Pengawas</div>
             </div>
           </div>
           <button
             onClick={() => setIsMobileMenuOpen(false)}
-            className="md:hidden text-zinc-400 hover:text-zinc-200 p-1"
+            className="md:hidden text-[#91EAAF] hover:text-[#C3E956] p-1"
           >
             <X className="w-4 h-4" />
           </button>
@@ -198,7 +198,7 @@ export default function TeacherLayout() {
 
         {/* Navigation Items */}
         <nav className="flex-1 p-2.5 space-y-1 overflow-y-auto">
-          <div className="px-2.5 py-1 text-[10px] font-mono font-medium uppercase tracking-wider text-zinc-500">
+          <div className="px-2.5 py-1 text-[10px] font-mono font-semibold uppercase tracking-wider text-[#91EAAF]/60">
             Menu Utama
           </div>
           {navItems.map((item) => {
@@ -211,20 +211,20 @@ export default function TeacherLayout() {
                 className={({ isActive }) =>
                   `flex items-center justify-between px-2.5 py-2 rounded-lg text-xs font-medium transition-all duration-150 ${
                     isActive
-                      ? 'bg-zinc-800/90 text-white font-semibold border border-zinc-700/60 shadow-xs'
-                      : 'hover:bg-zinc-900 hover:text-zinc-200 text-zinc-400'
+                      ? 'bg-[#1F4B2C] text-[#C3E956] font-bold border border-[#C3E956]/40 shadow-xs'
+                      : 'hover:bg-[#143820] hover:text-[#C3E956] text-[#F4FFFC]/75'
                   }`
                 }
               >
                 <div className="flex items-center gap-2.5 min-w-0">
-                  <Icon className="w-4 h-4 shrink-0 text-zinc-400" />
+                  <Icon className="w-4 h-4 shrink-0 transition-colors" />
                   <span className="truncate">{item.label}</span>
                 </div>
                 {item.badge && (
                   <span className={`text-[10px] font-semibold px-1.5 py-0.2 rounded border ${
                     item.isAlert
-                      ? 'bg-rose-500/10 text-rose-300 border-rose-500/30 animate-pulse'
-                      : 'bg-zinc-800 text-zinc-300 border-zinc-700'
+                      ? 'bg-rose-500/20 text-rose-300 border-rose-500/40 animate-pulse'
+                      : 'bg-[#143820] text-[#C3E956] border-[#C3E956]/30'
                   }`}>
                     {item.badge}
                   </span>
@@ -235,24 +235,24 @@ export default function TeacherLayout() {
         </nav>
 
         {/* User Profile Card */}
-        <div className="p-2.5 border-t border-zinc-800/80 bg-zinc-950/40">
-          <div className="flex items-center justify-between p-2 rounded-lg bg-zinc-900/60 border border-zinc-800">
+        <div className="p-2.5 border-t border-[#1F4B2C]/80 bg-[#0A1D11]/90">
+          <div className="flex items-center justify-between p-2 rounded-lg bg-[#143820]/70 border border-[#1F4B2C]">
             <div 
               onClick={() => {
                 setIsMobileMenuOpen(false);
                 navigate('/teacher/profile');
               }}
-              className="flex items-center gap-2 overflow-hidden cursor-pointer hover:opacity-85 transition"
+              className="flex items-center gap-2 overflow-hidden cursor-pointer hover:opacity-90 transition"
               title="Buka Pengaturan Profil"
             >
-              <div className="w-7 h-7 rounded-md bg-zinc-800 border border-zinc-700 flex items-center justify-center text-zinc-300 font-semibold text-xs shrink-0">
+              <div className="w-7 h-7 rounded-md bg-[#1F4B2C] border border-[#C3E956]/40 flex items-center justify-center text-[#C3E956] font-bold text-xs shrink-0">
                 {currentUser?.fullName?.charAt(0) || currentUser?.username?.charAt(0) || 'G'}
               </div>
               <div className="overflow-hidden min-w-0">
-                <div className="text-xs font-semibold text-zinc-100 truncate">
+                <div className="text-xs font-semibold text-white truncate">
                   {currentUser?.fullName || currentUser?.full_name || currentUser?.username || 'Guru Pengawas'}
                 </div>
-                <div className="text-[10px] font-mono text-zinc-400 truncate">
+                <div className="text-[10px] font-mono text-[#91EAAF]/80 truncate">
                   {currentUser?.nip || currentUser?.username || '-'}
                 </div>
               </div>
@@ -265,14 +265,14 @@ export default function TeacherLayout() {
                   navigate('/teacher/profile');
                 }}
                 title="Pengaturan Profil Akun"
-                className="p-1 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800 rounded transition"
+                className="p-1 text-[#91EAAF] hover:text-[#C3E956] hover:bg-[#1F4B2C] rounded transition"
               >
                 <Settings className="w-3.5 h-3.5" />
               </button>
               <button
                 onClick={handleLogout}
                 title="Keluar dari Akun"
-                className="p-1 text-zinc-400 hover:text-rose-400 hover:bg-zinc-800 rounded transition"
+                className="p-1 text-[#91EAAF] hover:text-rose-400 hover:bg-[#1F4B2C] rounded transition"
               >
                 <LogOut className="w-3.5 h-3.5" />
               </button>
@@ -292,16 +292,16 @@ export default function TeacherLayout() {
       {/* ======================================================== */}
       {/* MAIN CONTENT AREA WITH DESKTOP TOP BAR */}
       {/* ======================================================== */}
-      <div className="flex-1 flex flex-col min-h-0 overflow-y-auto bg-zinc-50">
+      <div className="flex-1 flex flex-col min-h-0 overflow-y-auto bg-[#F4FFFC]">
         {/* Desktop Header */}
-        <header className="hidden md:flex bg-white border-b border-zinc-200/80 px-6 py-3 items-center justify-between sticky top-0 z-30">
-          <div className="flex items-center gap-2">
-            <span className="text-xs font-medium px-2 py-0.5 rounded bg-zinc-100 text-zinc-700 border border-zinc-200/80">
+        <header className="hidden md:flex bg-white/95 backdrop-blur-md border-b border-[#91EAAF]/35 px-6 py-3 items-center justify-between sticky top-0 z-30 shadow-2xs">
+          <div className="flex items-center gap-2.5">
+            <span className="text-xs font-semibold px-2.5 py-1 rounded-md bg-[#F4FFFC] text-[#1F4B2C] border border-[#91EAAF]/50">
               {schoolSettings?.name || 'SD MENTARI ISLAMIC SCHOOL'}
             </span>
-            <span className="text-zinc-300">•</span>
-            <span className="text-xs text-emerald-700 font-medium flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+            <span className="text-[#91EAAF]">•</span>
+            <span className="text-xs text-[#4D7111] font-semibold flex items-center gap-1.5 bg-[#C3E956]/15 px-2.5 py-0.5 rounded-full border border-[#C3E956]/40">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#C3E956] animate-pulse" />
               Zero-Tolerance Lockdown Aktif
             </span>
           </div>
@@ -317,12 +317,12 @@ export default function TeacherLayout() {
               </button>
             )}
 
-            <div className="flex items-center gap-2.5 pl-3 border-l border-zinc-200">
+            <div className="flex items-center gap-2.5 pl-3 border-l border-[#91EAAF]/40">
               <button
                 type="button"
                 onClick={() => navigate('/teacher/profile')}
                 title="Pengaturan Profil & Akun"
-                className="p-1.5 text-zinc-500 hover:text-zinc-800 hover:bg-zinc-100 rounded-md border border-zinc-200 transition group"
+                className="p-1.5 text-zinc-600 hover:text-[#1F4B2C] hover:bg-[#F4FFFC] rounded-md border border-zinc-200 hover:border-[#91EAAF]/60 transition group"
               >
                 <Settings className="w-3.5 h-3.5 group-hover:rotate-45 transition-transform duration-200" />
               </button>
@@ -332,16 +332,16 @@ export default function TeacherLayout() {
                 className="text-right cursor-pointer hover:opacity-85 transition"
                 title="Buka Pengaturan Profil Akun"
               >
-                <div className="text-xs font-semibold text-zinc-800 leading-tight">
+                <div className="text-xs font-bold text-[#1F4B2C] leading-tight">
                   {currentUser?.fullName || currentUser?.full_name || currentUser?.username || 'Guru Pengawas'}
                 </div>
-                <div className="text-[10px] text-zinc-400 font-mono">Guru Pengawas Ujian</div>
+                <div className="text-[10px] text-zinc-500 font-mono font-medium">Guru Pengawas Ujian</div>
               </div>
 
               <button
                 onClick={handleLogout}
                 title="Keluar"
-                className="p-1.5 text-zinc-400 hover:text-rose-600 hover:bg-zinc-100 rounded-md transition"
+                className="p-1.5 text-zinc-400 hover:text-rose-600 hover:bg-rose-50 rounded-md transition"
               >
                 <LogOut className="w-3.5 h-3.5" />
               </button>
@@ -351,6 +351,9 @@ export default function TeacherLayout() {
 
         {/* Content Outlet */}
         <main className="flex-1">
+          <Outlet />
+        </main>
+      </div>
           <Outlet />
         </main>
       </div>

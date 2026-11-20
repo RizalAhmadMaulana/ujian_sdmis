@@ -829,12 +829,12 @@ export default function ExamPackageList() {
       {/* ======================================================== */}
       {/* 1. HEADER HALAMAN BANK SOAL & AKSI (CLEAN & TASTEFUL)    */}
       {/* ======================================================== */}
-      <div className="bg-white rounded-xl p-5 sm:p-6 border border-zinc-200/90 shadow-2xs space-y-4">
+      <div className="bg-white rounded-2xl p-5 sm:p-6 border border-[#91EAAF]/40 shadow-2xs space-y-4">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
           <div>
-            <div className="flex items-center gap-2 mb-1">
-              <span className="p-1.5 rounded-lg bg-zinc-100 text-zinc-800 border border-zinc-200/80">
-                <FolderKanban className="w-4 h-4" />
+            <div className="flex items-center gap-2.5 mb-1.5">
+              <span className="p-2 rounded-xl bg-[#F4FFFC] text-[#1F4B2C] border border-[#91EAAF]/60 shadow-2xs">
+                <FolderKanban className="w-5 h-5 text-[#1F4B2C]" />
               </span>
               <h1 className="text-xl sm:text-2xl font-bold text-zinc-900 tracking-tight">
                 Bank Soal & Paket Ujian
@@ -851,10 +851,10 @@ export default function ExamPackageList() {
             <button
               type="button"
               onClick={handleDownloadExcelTemplate}
-              className="inline-flex items-center justify-center gap-1.5 px-3.5 py-2 bg-white hover:bg-zinc-50 text-zinc-700 border border-zinc-200 rounded-lg text-xs font-medium hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-150 shadow-2xs"
+              className="inline-flex items-center justify-center gap-1.5 px-3.5 py-2 bg-white hover:bg-[#F4FFFC] text-[#1F4B2C] border border-[#91EAAF]/60 rounded-xl text-xs font-bold hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-150 shadow-2xs"
               title="Unduh format template Excel resmi untuk impor soal"
             >
-              <Download className="w-3.5 h-3.5 text-zinc-500" />
+              <Download className="w-3.5 h-3.5 text-[#4D7111]" />
               <span className="hidden sm:inline">Template Excel</span>
               <span className="sm:hidden">Unduh Template</span>
             </button>
@@ -863,35 +863,35 @@ export default function ExamPackageList() {
             <button
               type="button"
               onClick={() => handleOpenImportModal(null)}
-              className="inline-flex items-center justify-center gap-1.5 px-3.5 py-2 bg-white hover:bg-zinc-50 text-zinc-700 border border-zinc-200 rounded-lg text-xs font-medium hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-150 shadow-2xs"
+              className="inline-flex items-center justify-center gap-1.5 px-3.5 py-2 bg-white hover:bg-[#F4FFFC] text-[#1F4B2C] border border-[#91EAAF]/60 rounded-xl text-xs font-bold hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-150 shadow-2xs"
               title="Import butir soal dari berkas Word (.docx) atau Excel (.xlsx)"
             >
-              <UploadCloud className="w-3.5 h-3.5 text-blue-600" />
+              <UploadCloud className="w-3.5 h-3.5 text-[#1F4B2C]" />
               <span>Import Soal (.docx / .xlsx)</span>
             </button>
 
             {/* Tombol Utama Tambah Paket Baru */}
             <button
               onClick={handleOpenAdd}
-              className="inline-flex items-center justify-center gap-1.5 px-4 py-2 bg-zinc-900 hover:bg-zinc-800 text-white rounded-lg text-xs font-semibold hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-150 shadow-xs"
+              className="inline-flex items-center justify-center gap-1.5 px-4 py-2 bg-[#1F4B2C] hover:bg-[#183D23] text-white rounded-xl text-xs font-bold hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-150 shadow-xs"
             >
-              <Plus className="w-3.5 h-3.5 stroke-[2.5]" />
+              <Plus className="w-3.5 h-3.5 text-[#C3E956] stroke-[2.5]" />
               <span>Tambah Paket Baru</span>
             </button>
           </div>
         </div>
 
         {/* Filter Bar & Search Box */}
-        <div className="pt-3 border-t border-zinc-100 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+        <div className="pt-3 border-t border-[#91EAAF]/25 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
           {/* Tab Filter Tipe Paket */}
-          <div className="inline-flex items-center gap-1 p-1 bg-zinc-100 rounded-lg border border-zinc-200/60 overflow-x-auto">
+          <div className="inline-flex items-center gap-1 p-1 bg-[#F4FFFC] rounded-xl border border-[#91EAAF]/40 overflow-x-auto">
             <button
               type="button"
               onClick={() => setTypeFilter('ALL')}
-              className={`px-3 py-1.5 rounded-md text-xs font-medium transition shrink-0 ${
+              className={`px-3 py-1.5 rounded-lg text-xs transition shrink-0 ${
                 typeFilter === 'ALL'
-                  ? 'bg-white text-zinc-900 shadow-2xs font-semibold'
-                  : 'text-zinc-600 hover:text-zinc-900'
+                  ? 'bg-[#1F4B2C] text-[#C3E956] shadow-2xs font-bold'
+                  : 'text-zinc-600 hover:text-[#1F4B2C] font-medium'
               }`}
             >
               Semua Paket ({examPackages.length})
@@ -899,25 +899,25 @@ export default function ExamPackageList() {
             <button
               type="button"
               onClick={() => setTypeFilter('NATIVE_QUESTIONS')}
-              className={`px-3 py-1.5 rounded-md text-xs font-medium transition shrink-0 flex items-center gap-1.5 ${
+              className={`px-3 py-1.5 rounded-lg text-xs transition shrink-0 flex items-center gap-1.5 ${
                 typeFilter === 'NATIVE_QUESTIONS'
-                  ? 'bg-white text-emerald-800 shadow-2xs font-semibold'
-                  : 'text-zinc-600 hover:text-zinc-900'
+                  ? 'bg-[#1F4B2C] text-[#C3E956] shadow-2xs font-bold'
+                  : 'text-zinc-600 hover:text-[#1F4B2C] font-medium'
               }`}
             >
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-600" />
+              <span className="w-1.5 h-1.5 rounded-full bg-[#C3E956]" />
               Soal Mandiri (AKM)
             </button>
             <button
               type="button"
               onClick={() => setTypeFilter('EXTERNAL_LINK')}
-              className={`px-3 py-1.5 rounded-md text-xs font-medium transition shrink-0 flex items-center gap-1.5 ${
+              className={`px-3 py-1.5 rounded-lg text-xs transition shrink-0 flex items-center gap-1.5 ${
                 typeFilter === 'EXTERNAL_LINK'
-                  ? 'bg-white text-blue-800 shadow-2xs font-semibold'
-                  : 'text-zinc-600 hover:text-zinc-900'
+                  ? 'bg-[#1F4B2C] text-[#C3E956] shadow-2xs font-bold'
+                  : 'text-zinc-600 hover:text-[#1F4B2C] font-medium'
               }`}
             >
-              <span className="w-1.5 h-1.5 rounded-full bg-blue-600" />
+              <span className="w-1.5 h-1.5 rounded-full bg-[#91EAAF]" />
               Google Form / Teams
             </button>
           </div>
@@ -930,7 +930,7 @@ export default function ExamPackageList() {
               placeholder="Cari judul atau mapel..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-9 pr-3 py-2 bg-zinc-50 hover:bg-white border border-zinc-200 focus:border-zinc-400 focus:bg-white rounded-lg text-xs font-medium focus:outline-none transition"
+              className="w-full pl-9 pr-3 py-2 bg-zinc-50 hover:bg-white border border-zinc-200 focus:border-[#1F4B2C] focus:ring-1 focus:ring-[#1F4B2C] focus:bg-white rounded-lg text-xs font-medium focus:outline-none transition"
             />
             {searchQuery && (
               <button
@@ -991,69 +991,65 @@ export default function ExamPackageList() {
             return (
               <div
                 key={pkg.id}
-                className={`bg-white rounded-2xl p-5 sm:p-6 border-2 transition-all duration-200 flex flex-col justify-between space-y-4 group relative shadow-xs hover:shadow-md hover:-translate-y-0.5 ${
-                  pkgExamType === 'NATIVE_QUESTIONS'
-                    ? 'border-slate-300 hover:border-emerald-500 border-t-4 border-t-emerald-600'
-                    : 'border-slate-300 hover:border-blue-500 border-t-4 border-t-blue-600'
-                }`}
+                className="bg-white rounded-2xl p-5 sm:p-6 border border-[#91EAAF]/40 hover:border-[#1F4B2C] border-t-4 border-t-[#1F4B2C] transition-all duration-200 flex flex-col justify-between space-y-4 group relative shadow-2xs hover:shadow-md hover:-translate-y-0.5"
               >
                 <div>
                   {/* Top Badges */}
                   <div className="flex items-center justify-between gap-2 mb-3">
                     <span
-                      className={`text-xs font-bold px-2.5 py-1 rounded-lg border-2 flex items-center gap-1.5 shadow-2xs ${
+                      className={`text-xs font-bold px-2.5 py-1 rounded-lg border flex items-center gap-1.5 shadow-2xs ${
                         pkgExamType === 'NATIVE_QUESTIONS'
-                          ? 'bg-emerald-50 text-emerald-800 border-emerald-300'
-                          : 'bg-blue-50 text-blue-800 border-blue-300'
+                          ? 'bg-[#E1F8ED] text-[#1F4B2C] border-[#91EAAF]/60'
+                          : 'bg-[#C3E956]/20 text-[#4D7111] border-[#C3E956]/40'
                       }`}
                     >
                       {pkgExamType === 'NATIVE_QUESTIONS' ? (
                         <>
-                          <BookOpen className="w-3.5 h-3.5 text-emerald-700 stroke-[2.5]" />
+                          <BookOpen className="w-3.5 h-3.5 text-[#1F4B2C] stroke-[2.5]" />
                           <span>Soal Mandiri (AKM)</span>
                         </>
                       ) : (
                         <>
-                          <ExternalLink className="w-3.5 h-3.5 text-blue-700 stroke-[2.5]" />
+                          <ExternalLink className="w-3.5 h-3.5 text-[#4D7111] stroke-[2.5]" />
                           <span>Google Form</span>
                         </>
                       )}
                     </span>
                     {pkgClass && (
-                      <span className="text-xs font-mono font-bold px-2.5 py-1 rounded-lg bg-slate-100 text-slate-800 border-2 border-slate-300 uppercase shadow-2xs">
+                      <span className="text-xs font-mono font-bold px-2.5 py-1 rounded-lg bg-[#F4FFFC] text-[#1F4B2C] border border-[#91EAAF]/50 uppercase shadow-2xs">
                         {pkgClass}
                       </span>
                     )}
                   </div>
 
                   {/* Judul & Mapel */}
-                  <h3 className="font-bold text-slate-900 text-base sm:text-lg leading-snug mb-1.5 group-hover:text-emerald-700 transition-colors">
+                  <h3 className="font-bold text-zinc-900 text-base sm:text-lg leading-snug mb-1.5 group-hover:text-[#1F4B2C] transition-colors">
                     {pkgTitle}
                   </h3>
-                  <div className="text-xs text-slate-500 font-semibold mb-3.5">
-                    Mata Pelajaran: <span className="text-slate-900 font-bold">{pkgSubject}</span>
+                  <div className="text-xs text-zinc-500 font-semibold mb-3.5">
+                    Mata Pelajaran: <span className="text-zinc-900 font-bold">{pkgSubject}</span>
                   </div>
 
                   {/* Informasi Konten Soal */}
                   {pkgExamType === 'NATIVE_QUESTIONS' ? (
-                    <div className="p-3.5 rounded-xl bg-slate-50/90 border-2 border-slate-200 text-xs text-slate-700 space-y-2 mb-2 shadow-2xs">
+                    <div className="p-3.5 rounded-xl bg-[#F4FFFC] border border-[#91EAAF]/40 text-xs text-zinc-700 space-y-2 mb-2 shadow-2xs">
                       <div className="flex items-center justify-between">
-                        <span className="text-slate-600 font-bold uppercase tracking-wider text-[11px]">Jumlah Butir Soal:</span>
-                        <span className="text-slate-900 font-mono font-black tabular-nums bg-white border-2 border-slate-300 px-2.5 py-0.5 rounded-lg text-xs shadow-2xs">
+                        <span className="text-[#1F4B2C] font-bold uppercase tracking-wider text-[11px]">Jumlah Butir Soal:</span>
+                        <span className="text-[#1F4B2C] font-mono font-black tabular-nums bg-white border border-[#91EAAF]/60 px-2.5 py-0.5 rounded-lg text-xs shadow-2xs">
                           {questionCount} Soal
                         </span>
                       </div>
-                      <div className="text-[11px] text-slate-600 font-medium leading-relaxed">
+                      <div className="text-[11px] text-zinc-600 font-medium leading-relaxed">
                         Mendukung Pilgan Kompleks, Isian Singkat, Benar/Salah, Menjodohkan & Rumus KaTeX.
                       </div>
                     </div>
                   ) : (
-                    <div className="p-3.5 rounded-xl bg-blue-50/60 border-2 border-blue-200 text-xs text-blue-950 space-y-2 mb-2 shadow-2xs">
-                      <div className="font-bold flex items-center gap-1.5 text-blue-950 text-xs uppercase tracking-wider">
-                        <ExternalLink className="w-3.5 h-3.5 text-blue-700 stroke-[2.5]" />
+                    <div className="p-3.5 rounded-xl bg-[#F4FFFC] border border-[#91EAAF]/40 text-xs text-zinc-800 space-y-2 mb-2 shadow-2xs">
+                      <div className="font-bold flex items-center gap-1.5 text-[#1F4B2C] text-xs uppercase tracking-wider">
+                        <ExternalLink className="w-3.5 h-3.5 text-[#4D7111] stroke-[2.5]" />
                         <span>Link Terproteksi (Secure Iframe):</span>
                       </div>
-                      <div className="font-mono text-xs font-semibold text-blue-950 truncate bg-white p-2.5 rounded-lg border-2 border-blue-300 shadow-2xs">
+                      <div className="font-mono text-xs font-semibold text-zinc-900 truncate bg-white p-2.5 rounded-lg border border-[#91EAAF]/50 shadow-2xs">
                         {pkgUrl || '-'}
                       </div>
                     </div>
@@ -1061,8 +1057,8 @@ export default function ExamPackageList() {
                 </div>
 
                 {/* Footer Kartu & Tombol Aksi */}
-                <div className="pt-3.5 border-t-2 border-slate-100 flex items-center justify-between gap-2 flex-wrap">
-                  <span className="text-xs text-slate-500 font-mono font-medium">
+                <div className="pt-3.5 border-t border-[#91EAAF]/25 flex items-center justify-between gap-2 flex-wrap">
+                  <span className="text-xs text-zinc-500 font-mono font-medium">
                     {formattedDate}
                   </span>
 
@@ -1071,18 +1067,18 @@ export default function ExamPackageList() {
                       <>
                         <button
                           onClick={() => handleOpenNativePreview(pkg)}
-                          className="px-2.5 py-1.5 text-xs font-bold text-slate-700 bg-white hover:bg-slate-50 border-2 border-slate-300 hover:border-slate-400 rounded-lg transition flex items-center gap-1 shadow-2xs active:scale-[0.98] cursor-pointer"
+                          className="px-2.5 py-1.5 text-xs font-bold text-[#1F4B2C] bg-[#F4FFFC] hover:bg-[#E1F8ED] border border-[#91EAAF]/60 rounded-lg transition flex items-center gap-1 shadow-2xs active:scale-[0.98] cursor-pointer"
                           title="Pratinjau Tampilan Soal Siswa"
                         >
-                          <Eye className="w-3.5 h-3.5 text-blue-600" />
+                          <Eye className="w-3.5 h-3.5 text-[#1F4B2C]" />
                           <span>Preview</span>
                         </button>
                         <button
                           onClick={() => handleOpenImportModal(pkg.id)}
-                          className="px-2.5 py-1.5 text-xs font-bold text-slate-700 bg-white hover:bg-slate-50 border-2 border-slate-300 hover:border-slate-400 rounded-lg transition flex items-center gap-1 shadow-2xs active:scale-[0.98] cursor-pointer"
+                          className="px-2.5 py-1.5 text-xs font-bold text-[#1F4B2C] bg-[#F4FFFC] hover:bg-[#E1F8ED] border border-[#91EAAF]/60 rounded-lg transition flex items-center gap-1 shadow-2xs active:scale-[0.98] cursor-pointer"
                           title="Import butir soal tambahan ke paket ini"
                         >
-                          <UploadCloud className="w-3.5 h-3.5 text-blue-600" />
+                          <UploadCloud className="w-3.5 h-3.5 text-[#4D7111]" />
                           <span>+ Import</span>
                         </button>
                       </>
@@ -1090,25 +1086,25 @@ export default function ExamPackageList() {
                     {pkgExamType === 'EXTERNAL_LINK' && (
                       <button
                         onClick={() => handleOpenPreview(pkgUrl)}
-                        className="px-2.5 py-1.5 text-xs font-bold text-slate-700 bg-white hover:bg-slate-50 border-2 border-slate-300 hover:border-slate-400 rounded-lg transition flex items-center gap-1 shadow-2xs active:scale-[0.98] cursor-pointer"
+                        className="px-2.5 py-1.5 text-xs font-bold text-[#1F4B2C] bg-[#F4FFFC] hover:bg-[#E1F8ED] border border-[#91EAAF]/60 rounded-lg transition flex items-center gap-1 shadow-2xs active:scale-[0.98] cursor-pointer"
                       >
-                        <Eye className="w-3.5 h-3.5 text-blue-600" />
+                        <Eye className="w-3.5 h-3.5 text-[#1F4B2C]" />
                         <span>Preview</span>
                       </button>
                     )}
 
                     <button
                       onClick={() => handleOpenEdit(pkg)}
-                      className="px-2.5 py-1.5 text-xs font-bold text-slate-700 bg-white hover:bg-slate-50 border-2 border-slate-300 hover:border-slate-400 rounded-lg transition flex items-center gap-1 shadow-2xs active:scale-[0.98] cursor-pointer"
+                      className="px-2.5 py-1.5 text-xs font-bold text-[#1F4B2C] bg-[#F4FFFC] hover:bg-[#E1F8ED] border border-[#91EAAF]/60 rounded-lg transition flex items-center gap-1 shadow-2xs active:scale-[0.98] cursor-pointer"
                       title="Edit Data Paket Soal"
                     >
-                      <Edit3 className="w-3.5 h-3.5 text-slate-600" />
+                      <Edit3 className="w-3.5 h-3.5 text-[#1F4B2C]" />
                       <span>Edit</span>
                     </button>
 
                     <button
                       onClick={() => handleDeletePackage(pkg.id, pkgTitle)}
-                      className="p-1.5 text-slate-400 hover:text-rose-600 hover:bg-rose-50 border-2 border-transparent hover:border-rose-200 rounded-lg transition active:scale-[0.98] cursor-pointer"
+                      className="p-1.5 text-zinc-400 hover:text-rose-600 hover:bg-rose-50 border border-transparent hover:border-rose-200 rounded-lg transition active:scale-[0.98] cursor-pointer"
                       title="Hapus Paket Soal"
                     >
                       <Trash2 className="w-3.5 h-3.5" />

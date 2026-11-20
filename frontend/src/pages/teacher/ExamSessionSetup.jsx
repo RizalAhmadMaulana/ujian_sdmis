@@ -432,37 +432,37 @@ export default function ExamSessionSetup() {
         </div>
         <button
           onClick={handleOpenAddSession}
-          className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-4 py-2 bg-zinc-900 hover:bg-zinc-800 text-white rounded-lg text-xs font-semibold hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-150 shadow-xs shrink-0"
+          className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-2 bg-[#1F4B2C] hover:bg-[#183D23] text-white rounded-xl text-xs font-bold hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-150 shadow-xs shrink-0"
         >
-          <Plus className="w-3.5 h-3.5 stroke-[2.5]" />
+          <Plus className="w-3.5 h-3.5 text-[#C3E956] stroke-[2.5]" />
           <span>Buka Sesi Ujian Baru</span>
         </button>
       </div>
 
-      {/* Mandatory Security Information Panel - Architectural Zinc/Dark */}
-      <div className="rounded-xl bg-[#090D16] border border-zinc-800 text-zinc-100 p-4 relative overflow-hidden shadow-xs">
+      {/* Mandatory Security Information Panel - SDMIS Forest Brand */}
+      <div className="rounded-2xl bg-gradient-to-r from-[#102919] via-[#143820] to-[#1F4B2C] border border-[#1F4B2C] text-white p-4 sm:p-5 relative overflow-hidden shadow-md">
         <div className="flex items-center justify-between gap-3">
           <div className="flex items-center gap-3 min-w-0">
-            <div className="w-8 h-8 rounded-lg bg-zinc-800/90 border border-zinc-700/60 flex items-center justify-center text-emerald-400 shrink-0">
-              <ShieldCheck className="w-4 h-4" />
+            <div className="w-9 h-9 rounded-xl bg-[#0A1D11] border border-[#C3E956]/40 flex items-center justify-center text-[#C3E956] shrink-0">
+              <ShieldCheck className="w-5 h-5" />
             </div>
             <div className="min-w-0">
               <div className="flex items-center gap-2 flex-wrap">
-                <span className="font-semibold text-white text-xs sm:text-sm tracking-tight">
+                <span className="font-bold text-white text-xs sm:text-sm tracking-tight">
                   Zero-Tolerance Lockdown
                 </span>
-                <span className="text-[10px] font-mono font-medium px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 uppercase">
+                <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-[#C3E956]/20 text-[#C3E956] border border-[#C3E956]/40 uppercase">
                   Mandatory ON
                 </span>
               </div>
-              <p className="text-[11px] text-zinc-400 hidden sm:block mt-0.5 leading-relaxed max-w-3xl">
+              <p className="text-[11px] text-[#91EAAF] hidden sm:block mt-0.5 leading-relaxed max-w-3xl">
                 Penguncian layar penuh (Mandatory Fullscreen), deteksi pindah tab & aplikasi (Window Blur Guard), serta pemblokiran copy-paste aktif otomatis pada setiap sesi.
               </p>
             </div>
           </div>
           <div className="shrink-0">
-            <span className="text-[11px] font-medium px-2 py-0.5 rounded bg-zinc-800 border border-zinc-700 text-zinc-300 flex items-center gap-1.5">
-              <Check className="w-3 h-3 text-emerald-400" />
+            <span className="text-[11px] font-bold px-2.5 py-1 rounded-lg bg-[#0A1D11]/80 border border-[#C3E956]/40 text-[#C3E956] flex items-center gap-1.5 shadow-2xs">
+              <Check className="w-3.5 h-3.5 text-[#C3E956]" />
               <span className="hidden xs:inline">Terproteksi</span>
             </span>
           </div>
@@ -472,9 +472,9 @@ export default function ExamSessionSetup() {
       {/* Grid Kartu Sesi Ujian Aktif */}
       <div className="space-y-4">
         {examSessions.length === 0 && (
-          <div className="bg-white rounded-xl p-8 sm:p-12 text-center border border-dashed border-zinc-300">
-            <CalendarClock className="w-10 h-10 text-zinc-300 mx-auto mb-2.5" />
-            <h4 className="font-semibold text-zinc-800 text-base">Belum Ada Sesi Ujian Aktif</h4>
+          <div className="bg-white rounded-2xl p-8 sm:p-12 text-center border border-dashed border-[#91EAAF]/50">
+            <CalendarClock className="w-10 h-10 text-[#91EAAF] mx-auto mb-2.5" />
+            <h4 className="font-bold text-zinc-900 text-base">Belum Ada Sesi Ujian Aktif</h4>
             <p className="text-xs text-zinc-500 mt-1 max-w-sm mx-auto leading-relaxed">
               Klik tombol "Buka Sesi Ujian Baru" di atas untuk membuka ruang ujian bagi siswa.
             </p>
@@ -518,60 +518,56 @@ export default function ExamSessionSetup() {
           return (
             <div
               key={session.id}
-              className="bg-white rounded-2xl p-5 sm:p-6 border-2 border-slate-300 hover:border-slate-400 shadow-sm hover:shadow-md transition-all duration-200 space-y-4 border-t-4 border-t-slate-800"
+              className="bg-white rounded-2xl p-5 sm:p-6 border border-[#91EAAF]/40 hover:border-[#1F4B2C] shadow-2xs hover:shadow-md transition-all duration-200 space-y-4 border-t-4 border-t-[#1F4B2C]"
             >
               {/* Baris 1: Header Kartu (Kelas, Tipe Soal, Status Jadwal, & Tombol Aksi) */}
-              <div className="flex items-center justify-between gap-2 border-b-2 border-slate-100 pb-3">
+              <div className="flex items-center justify-between gap-2 border-b border-[#91EAAF]/25 pb-3">
                 <div className="flex items-center gap-1.5 flex-wrap">
-                  <span className={`text-xs font-mono px-2.5 py-1 rounded-lg font-bold uppercase border-2 shadow-2xs ${
-                    (session.allow_all_classes || session.allowAllClasses || session.classroom === 'Semua Kelas' || session.classroom_name === 'Semua Kelas')
-                      ? 'bg-purple-900 text-purple-100 border-purple-800'
-                      : 'bg-slate-900 text-white border-slate-950'
-                  }`} title={session.classroom || session.classroom_name || 'Semua Kelas'}>
+                  <span className="text-xs font-mono px-2.5 py-1 rounded-lg font-bold uppercase shadow-2xs bg-[#1F4B2C] text-[#C3E956] border border-[#C3E956]/40" title={session.classroom || session.classroom_name || 'Semua Kelas'}>
                     {session.classroom || session.classroom_name || (session.allow_all_classes ? 'Semua Kelas' : 'Semua Kelas')}
                   </span>
                   {isGForm ? (
-                    <span className="text-xs font-bold px-2.5 py-1 rounded-lg bg-blue-50 text-blue-800 border-2 border-blue-300 flex items-center gap-1.5 shadow-2xs">
-                      <ExternalLink className="w-3.5 h-3.5 text-blue-700 stroke-[2.5]" /> Google Form
+                    <span className="text-xs font-bold px-2.5 py-1 rounded-lg bg-[#C3E956]/20 text-[#4D7111] border border-[#C3E956]/40 flex items-center gap-1.5 shadow-2xs">
+                      <ExternalLink className="w-3.5 h-3.5 text-[#4D7111] stroke-[2.5]" /> Google Form
                     </span>
                   ) : (
-                    <span className="text-xs font-bold px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-800 border-2 border-emerald-300 flex items-center gap-1.5 shadow-2xs">
-                      <BookOpen className="w-3.5 h-3.5 text-emerald-700 stroke-[2.5]" /> Soal Mandiri
+                    <span className="text-xs font-bold px-2.5 py-1 rounded-lg bg-[#E1F8ED] text-[#1F4B2C] border border-[#91EAAF]/60 flex items-center gap-1.5 shadow-2xs">
+                      <BookOpen className="w-3.5 h-3.5 text-[#1F4B2C] stroke-[2.5]" /> Soal Mandiri
                     </span>
                   )}
-                  <span className="text-xs font-bold px-2.5 py-1 rounded-lg bg-slate-100 text-slate-800 border-2 border-slate-300 flex items-center gap-1 shadow-2xs">
-                    <Clock className="w-3.5 h-3.5 text-slate-600" />
+                  <span className="text-xs font-bold px-2.5 py-1 rounded-lg bg-[#F4FFFC] text-zinc-700 border border-[#91EAAF]/40 flex items-center gap-1 shadow-2xs">
+                    <Clock className="w-3.5 h-3.5 text-[#1F4B2C]" />
                     {session.durationMinutes || session.duration_minutes || 60} Menit
                   </span>
 
                   {/* Status Sinkronisasi Jadwal */}
                   {scheduleStatus === 'ACTIVE' && (
-                    <span className="text-xs font-bold px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-800 border-2 border-emerald-300 flex items-center gap-1.5 shadow-2xs">
-                      <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse" />
+                    <span className="text-xs font-bold px-2.5 py-1 rounded-lg bg-[#C3E956]/20 text-[#4D7111] border border-[#C3E956]/40 flex items-center gap-1.5 shadow-2xs">
+                      <span className="w-2 h-2 rounded-full bg-[#C3E956] animate-pulse" />
                       Sedang Berjalan
                     </span>
                   )}
                   {scheduleStatus === 'UPCOMING' && (
-                    <span className="text-xs font-bold px-2.5 py-1 rounded-lg bg-amber-50 text-amber-800 border-2 border-amber-300 flex items-center gap-1.5 shadow-2xs">
+                    <span className="text-xs font-bold px-2.5 py-1 rounded-lg bg-amber-50 text-amber-800 border border-amber-300 flex items-center gap-1.5 shadow-2xs">
                       <Clock className="w-3.5 h-3.5 text-amber-600" />
                       Belum Dimulai
                     </span>
                   )}
                   {scheduleStatus === 'EXPIRED' && (
-                    <span className="text-xs font-bold px-2.5 py-1 rounded-lg bg-slate-100 text-slate-600 border-2 border-slate-300 flex items-center gap-1.5 shadow-2xs">
-                      <Lock className="w-3.5 h-3.5 text-slate-500" />
+                    <span className="text-xs font-bold px-2.5 py-1 rounded-lg bg-zinc-100 text-zinc-600 border border-zinc-300 flex items-center gap-1.5 shadow-2xs">
+                      <Lock className="w-3.5 h-3.5 text-zinc-500" />
                       Telah Berakhir
                     </span>
                   )}
 
                   {(session.shuffleQuestions || session.shuffle_questions) && (
-                    <span className="text-xs font-bold px-2.5 py-1 rounded-lg bg-slate-100 text-slate-700 border-2 border-slate-300 flex items-center gap-1 shadow-2xs">
-                      <Shuffle className="w-3.5 h-3.5 text-slate-600" /> Acak Soal
+                    <span className="text-xs font-semibold px-2.5 py-1 rounded-lg bg-zinc-100 text-zinc-700 border border-zinc-200 flex items-center gap-1 shadow-2xs">
+                      <Shuffle className="w-3.5 h-3.5 text-zinc-500" /> Acak Soal
                     </span>
                   )}
                   {(session.shuffleOptions || session.shuffle_options) && (
-                    <span className="text-xs font-bold px-2.5 py-1 rounded-lg bg-slate-100 text-slate-700 border-2 border-slate-300 flex items-center gap-1 shadow-2xs">
-                      <Shuffle className="w-3.5 h-3.5 text-slate-600" /> Acak Opsi
+                    <span className="text-xs font-semibold px-2.5 py-1 rounded-lg bg-zinc-100 text-zinc-700 border border-zinc-200 flex items-center gap-1 shadow-2xs">
+                      <Shuffle className="w-3.5 h-3.5 text-zinc-500" /> Acak Opsi
                     </span>
                   )}
                 </div>
@@ -580,15 +576,15 @@ export default function ExamSessionSetup() {
                 <div className="flex items-center gap-1.5 shrink-0">
                   <button
                     onClick={() => handleOpenEditSession(session)}
-                    className="px-3 py-1.5 bg-white hover:bg-slate-50 border-2 border-slate-300 hover:border-slate-400 text-slate-700 rounded-lg text-xs font-bold transition flex items-center gap-1.5 shadow-2xs active:scale-[0.98] cursor-pointer"
+                    className="px-3 py-1.5 bg-[#F4FFFC] hover:bg-[#E1F8ED] border border-[#91EAAF]/60 text-[#1F4B2C] rounded-lg text-xs font-bold transition flex items-center gap-1.5 shadow-2xs active:scale-[0.98] cursor-pointer"
                     title="Edit Sesi Ujian"
                   >
-                    <Edit3 className="w-3.5 h-3.5 text-slate-600" />
+                    <Edit3 className="w-3.5 h-3.5 text-[#1F4B2C]" />
                     <span className="hidden sm:inline">Edit</span>
                   </button>
                   <button
                     onClick={() => handleDeleteSession(session.id, session.title)}
-                    className="p-1.5 text-slate-400 hover:text-rose-600 hover:bg-rose-50 border-2 border-transparent hover:border-rose-200 rounded-lg transition active:scale-[0.98] cursor-pointer"
+                    className="p-1.5 text-zinc-400 hover:text-rose-600 hover:bg-rose-50 border border-transparent hover:border-rose-200 rounded-lg transition active:scale-[0.98] cursor-pointer"
                     title="Hapus Sesi Ujian"
                   >
                     <Trash2 className="w-3.5 h-3.5" />
@@ -599,15 +595,15 @@ export default function ExamSessionSetup() {
 
               {/* Baris 2: Judul Sesi, Mapel, & Jadwal */}
               <div className="space-y-1.5">
-                <h3 className="font-bold text-slate-900 text-lg sm:text-xl tracking-tight leading-snug">
+                <h3 className="font-bold text-zinc-900 text-lg sm:text-xl tracking-tight leading-snug">
                   {session.title}
                 </h3>
-                <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-slate-600 font-semibold">
+                <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-zinc-600 font-semibold">
                   <div>
-                    Mata Pelajaran: <span className="text-slate-900 font-bold">{session.subjectName || session.subject_name || '-'}</span>
+                    Mata Pelajaran: <span className="text-[#1F4B2C] font-bold">{session.subjectName || session.subject_name || '-'}</span>
                   </div>
-                  <div className="flex items-center gap-1.5 text-slate-700 font-mono">
-                    <CalendarClock className="w-4 h-4 text-slate-500 shrink-0" />
+                  <div className="flex items-center gap-1.5 text-zinc-700 font-mono">
+                    <CalendarClock className="w-4 h-4 text-[#1F4B2C] shrink-0" />
                     <span>{scheduleDisplay}</span>
                   </div>
                 </div>
@@ -616,16 +612,16 @@ export default function ExamSessionSetup() {
               {/* Baris 3: Status Regenerasi 10 Menit & DUO TOKEN TILES */}
               <div className="space-y-2.5 pt-1">
                 {/* Banner Status Regenerasi 10 Menit */}
-                <div className="flex items-center justify-between text-xs px-3.5 py-2 rounded-xl bg-slate-50 border-2 border-slate-200 text-slate-700 shadow-2xs">
+                <div className="flex items-center justify-between text-xs px-3.5 py-2 rounded-xl bg-[#F4FFFC] border border-[#91EAAF]/40 text-zinc-700 shadow-2xs">
                   <span className="flex items-center gap-2 font-medium">
-                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse shrink-0" />
-                    <span className="text-slate-900 font-bold">Regenerasi Otomatis 10 Menit Aktif</span>
-                    <span className="hidden md:inline text-slate-500">• Token & PIN otomatis berganti demi keamanan ujian</span>
+                    <span className="w-2.5 h-2.5 rounded-full bg-[#C3E956] animate-pulse shrink-0" />
+                    <span className="text-[#1F4B2C] font-bold">Regenerasi Otomatis 10 Menit Aktif</span>
+                    <span className="hidden md:inline text-zinc-500">• Token & PIN otomatis berganti demi keamanan ujian</span>
                   </span>
-                  <span className="font-mono text-slate-600 flex items-center gap-1.5 shrink-0">
-                    <Clock className="w-3.5 h-3.5 text-slate-500" />
+                  <span className="font-mono text-zinc-600 flex items-center gap-1.5 shrink-0">
+                    <Clock className="w-3.5 h-3.5 text-[#1F4B2C]" />
                     <span className="hidden xs:inline font-semibold">Berganti:</span>
-                    <strong className="text-slate-900 bg-white border border-slate-300 px-2 py-0.5 rounded-md font-bold text-xs tabular-nums shadow-2xs">
+                    <strong className="text-[#1F4B2C] bg-white border border-[#91EAAF]/60 px-2 py-0.5 rounded-md font-bold text-xs tabular-nums shadow-2xs">
                       {countdownStr}
                     </strong>
                   </span>
@@ -636,33 +632,33 @@ export default function ExamSessionSetup() {
                   <button
                     type="button"
                     onClick={() => handleCopyToken(entryVal, 'entry', session.id)}
-                    className={`p-4 rounded-xl border-2 text-center transition-all duration-150 group relative cursor-pointer active:scale-[0.98] select-none hover:-translate-y-0.5 shadow-xs ${
+                    className={`p-4 rounded-xl border text-center transition-all duration-150 group relative cursor-pointer active:scale-[0.98] select-none hover:-translate-y-0.5 shadow-xs ${
                       copiedKey === `${session.id}-entry`
-                        ? 'bg-emerald-50 border-emerald-500 ring-2 ring-emerald-300'
-                        : 'bg-white hover:bg-slate-50/80 border-slate-300 hover:border-slate-400'
+                        ? 'bg-[#E1F8ED] border-[#1F4B2C] ring-2 ring-[#C3E956]'
+                        : 'bg-white hover:bg-[#F4FFFC] border-[#91EAAF]/50 hover:border-[#1F4B2C]'
                     }`}
                     title="Klik untuk menyalin Token Masuk ke keyboard"
                   >
-                    <div className="flex items-center justify-between text-xs font-bold text-slate-500 mb-1">
+                    <div className="flex items-center justify-between text-xs font-bold text-zinc-600 mb-1">
                       <span className="flex items-center gap-1.5 uppercase tracking-wider truncate">
-                        <KeyRound className="w-3.5 h-3.5 text-slate-600 shrink-0" />
+                        <KeyRound className="w-3.5 h-3.5 text-[#1F4B2C] shrink-0" />
                         Token Masuk Siswa
                       </span>
-                      <span className="font-mono text-[11px] text-emerald-800 bg-emerald-100/90 border border-emerald-300 px-2 py-0.5 rounded-md flex items-center gap-1 font-bold shrink-0 shadow-2xs" title="Token berganti setiap 10 menit">
-                        <RotateCcw className="w-3 h-3 animate-spin" style={{ animationDuration: '6s' }} />
+                      <span className="font-mono text-[11px] text-[#1F4B2C] bg-[#E1F8ED] border border-[#91EAAF]/60 px-2 py-0.5 rounded-md flex items-center gap-1 font-bold shrink-0 shadow-2xs" title="Token berganti setiap 10 menit">
+                        <RotateCcw className="w-3 h-3 animate-spin text-[#1F4B2C]" style={{ animationDuration: '6s' }} />
                         <span>{countdownStr}</span>
                       </span>
                     </div>
-                    <div className="font-mono font-black text-xl sm:text-2xl text-slate-900 tracking-widest truncate py-1.5">
+                    <div className="font-mono font-black text-xl sm:text-2xl text-[#1F4B2C] tracking-widest truncate py-1.5">
                       {entryVal}
                     </div>
                     <div className="text-xs font-semibold mt-1">
                       {copiedKey === `${session.id}-entry` ? (
-                        <span className="text-emerald-700 flex items-center justify-center gap-1 animate-pulse">
+                        <span className="text-[#1F4B2C] font-bold flex items-center justify-center gap-1 animate-pulse">
                           <Check className="w-3.5 h-3.5 stroke-[2.5]" /> Tersalin!
                         </span>
                       ) : (
-                        <span className="text-slate-500 group-hover:text-slate-800 flex items-center justify-center gap-1">
+                        <span className="text-zinc-500 group-hover:text-[#1F4B2C] flex items-center justify-center gap-1">
                           <Copy className="w-3 h-3" /> Salin Token • Berganti tiap 10 mnt
                         </span>
                       )}
@@ -673,33 +669,33 @@ export default function ExamSessionSetup() {
                   <button
                     type="button"
                     onClick={() => handleCopyToken(pinVal, 'supervisor', session.id)}
-                    className={`p-4 rounded-xl border-2 text-center transition-all duration-150 group relative cursor-pointer active:scale-[0.98] select-none hover:-translate-y-0.5 shadow-xs ${
+                    className={`p-4 rounded-xl border text-center transition-all duration-150 group relative cursor-pointer active:scale-[0.98] select-none hover:-translate-y-0.5 shadow-xs ${
                       copiedKey === `${session.id}-supervisor`
-                        ? 'bg-emerald-50 border-emerald-500 ring-2 ring-emerald-300'
-                        : 'bg-amber-50/50 hover:bg-amber-100/60 border-amber-300 hover:border-amber-400'
+                        ? 'bg-[#E1F8ED] border-[#1F4B2C] ring-2 ring-[#C3E956]'
+                        : 'bg-[#F4FFFC] hover:bg-[#E1F8ED]/60 border-[#C3E956]/60 hover:border-[#4D7111]'
                     }`}
                     title="Klik untuk menyalin PIN Pengawas ke keyboard"
                   >
-                    <div className="flex items-center justify-between text-xs font-bold text-amber-800 mb-1">
+                    <div className="flex items-center justify-between text-xs font-bold text-[#4D7111] mb-1">
                       <span className="flex items-center gap-1.5 uppercase tracking-wider truncate">
-                        <ShieldCheck className="w-3.5 h-3.5 text-amber-700 shrink-0" />
+                        <ShieldCheck className="w-3.5 h-3.5 text-[#4D7111] shrink-0" />
                         PIN Buka Kunci Pengawas
                       </span>
-                      <span className="font-mono text-[11px] text-amber-900 bg-amber-200/90 border border-amber-300 px-2 py-0.5 rounded-md flex items-center gap-1 font-bold shrink-0 shadow-2xs" title="PIN berganti setiap 10 menit">
-                        <RotateCcw className="w-3 h-3 animate-spin" style={{ animationDuration: '6s' }} />
+                      <span className="font-mono text-[11px] text-[#4D7111] bg-[#C3E956]/30 border border-[#C3E956]/50 px-2 py-0.5 rounded-md flex items-center gap-1 font-bold shrink-0 shadow-2xs" title="PIN berganti setiap 10 menit">
+                        <RotateCcw className="w-3 h-3 animate-spin text-[#4D7111]" style={{ animationDuration: '6s' }} />
                         <span>{countdownStr}</span>
                       </span>
                     </div>
-                    <div className="font-mono font-black text-xl sm:text-2xl text-amber-950 tracking-widest truncate py-1.5">
+                    <div className="font-mono font-black text-xl sm:text-2xl text-[#1F4B2C] tracking-widest truncate py-1.5">
                       {pinVal}
                     </div>
                     <div className="text-xs font-semibold mt-1">
                       {copiedKey === `${session.id}-supervisor` ? (
-                        <span className="text-emerald-700 flex items-center justify-center gap-1 animate-pulse">
+                        <span className="text-[#1F4B2C] font-bold flex items-center justify-center gap-1 animate-pulse">
                           <Check className="w-3.5 h-3.5 stroke-[2.5]" /> Tersalin!
                         </span>
                       ) : (
-                        <span className="text-amber-800 group-hover:text-amber-950 flex items-center justify-center gap-1">
+                        <span className="text-[#4D7111] group-hover:text-[#1F4B2C] flex items-center justify-center gap-1">
                           <Copy className="w-3 h-3" /> Salin PIN • Berganti tiap 10 mnt
                         </span>
                       )}

@@ -197,9 +197,9 @@ export default function ProfileSettings() {
   return (
     <div className="p-4 sm:p-6 lg:p-8 space-y-6 max-w-4xl mx-auto">
       {/* Header Banner */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-5 sm:p-6 rounded-xl border border-zinc-200/90 shadow-2xs">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-5 sm:p-6 rounded-xl border border-[#91EAAF]/40 shadow-xs">
         <div className="flex items-center gap-3.5">
-          <div className="w-10 h-10 rounded-lg bg-zinc-100 border border-zinc-200/90 text-zinc-800 flex items-center justify-center shadow-2xs shrink-0">
+          <div className="w-10 h-10 rounded-lg bg-[#1F4B2C] border border-[#C3E956]/30 text-[#C3E956] flex items-center justify-center shadow-xs shrink-0">
             <UserCheck className="w-5 h-5" />
           </div>
           <div>
@@ -215,13 +215,13 @@ export default function ProfileSettings() {
         {/* Security Badge Status */}
         <div className="flex items-center gap-2">
           {profileMeta.needs_profile_completion ? (
-            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-amber-50 border border-amber-200 text-amber-800 text-xs font-medium">
+            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-amber-50 border border-amber-200 text-amber-800 text-xs font-semibold">
               <ShieldAlert className="w-3.5 h-3.5 text-amber-600" />
               <span>Perlu Dilengkapi</span>
             </div>
           ) : (
-            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-medium">
-              <BadgeCheck className="w-3.5 h-3.5 text-emerald-600" />
+            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-[#C3E956]/20 border border-[#C3E956]/40 text-[#4D7111] text-xs font-semibold">
+              <BadgeCheck className="w-3.5 h-3.5 text-[#4D7111]" />
               <span>Profil Lengkap & Aman</span>
             </div>
           )}
@@ -230,31 +230,31 @@ export default function ProfileSettings() {
             onClick={loadProfile}
             disabled={isLoading}
             title="Muat ulang data"
-            className="p-1.5 rounded-lg border border-zinc-200/90 text-zinc-600 hover:text-zinc-900 hover:bg-zinc-50 transition shadow-2xs"
+            className="p-2 rounded-lg border border-[#91EAAF]/60 text-[#1F4B2C] hover:bg-[#F4FFFC] transition shadow-xs active:scale-[0.98] cursor-pointer"
           >
-            <RefreshCw className={`w-3.5 h-3.5 ${isLoading ? 'animate-spin' : ''}`} />
+            <RefreshCw className={`w-3.5 h-3.5 ${isLoading ? 'animate-spin text-[#1F4B2C]' : 'text-[#4D7111]'}`} />
           </button>
         </div>
       </div>
 
       {/* Alert Notifikasi */}
       {successMessage && (
-        <div className="flex items-center gap-2.5 p-3.5 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs sm:text-sm shadow-2xs">
-          <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-          <span className="font-medium">{successMessage}</span>
+        <div className="flex items-center gap-2.5 p-3.5 rounded-lg bg-[#C3E956]/20 border border-[#C3E956]/40 text-[#4D7111] text-xs sm:text-sm shadow-xs animate-fadeIn font-semibold">
+          <CheckCircle2 className="w-4 h-4 text-[#4D7111] shrink-0" />
+          <span>{successMessage}</span>
         </div>
       )}
 
       {errorMessage && (
-        <div className="flex items-center gap-2.5 p-3.5 rounded-lg bg-rose-50 border border-rose-200 text-rose-800 text-xs sm:text-sm shadow-2xs">
+        <div className="flex items-center gap-2.5 p-3.5 rounded-lg bg-rose-50 border border-rose-200 text-rose-800 text-xs sm:text-sm shadow-xs animate-fadeIn font-semibold">
           <AlertCircle className="w-4 h-4 text-rose-600 shrink-0" />
-          <span className="font-medium">{errorMessage}</span>
+          <span>{errorMessage}</span>
         </div>
       )}
 
       {/* Warning Box jika kata sandi masih bawaan atau data belum lengkap */}
       {profileMeta.needs_profile_completion && (
-        <div className="p-3.5 rounded-lg bg-amber-50/80 border border-amber-200 text-amber-900 space-y-1 shadow-2xs">
+        <div className="p-3.5 rounded-lg bg-amber-50/80 border border-amber-200 text-amber-900 space-y-1 shadow-xs">
           <div className="flex items-center gap-2 font-semibold text-xs sm:text-sm text-amber-950">
             <ShieldAlert className="w-4 h-4 text-amber-600" />
             <span>Pemberitahuan Peningkatan Keamanan Akun:</span>
@@ -268,10 +268,10 @@ export default function ProfileSettings() {
 
       <form onSubmit={handleSave} className="space-y-6">
         {/* Card 1: Biodata Diri & Akun */}
-        <div className="bg-white rounded-xl border border-zinc-200/90 shadow-2xs overflow-hidden p-5 sm:p-6 space-y-4">
-          <div className="flex items-center justify-between pb-3.5 border-b border-zinc-100">
+        <div className="bg-white rounded-xl border border-[#91EAAF]/40 shadow-xs overflow-hidden p-5 sm:p-6 space-y-4">
+          <div className="flex items-center justify-between pb-3.5 border-b border-[#91EAAF]/30">
             <div className="flex items-center gap-2.5">
-              <div className="p-1.5 rounded-md bg-zinc-100 text-zinc-700">
+              <div className="p-1.5 rounded-md bg-[#E1F8ED] border border-[#91EAAF]/60 text-[#1F4B2C]">
                 <UserCheck className="w-4 h-4" />
               </div>
               <div>
@@ -279,7 +279,7 @@ export default function ProfileSettings() {
                 <p className="text-xs text-zinc-500">Data ini terhubung langsung dengan Manajemen Pengguna dan Data Guru.</p>
               </div>
             </div>
-            <span className="px-2 py-0.5 rounded text-[11px] font-medium bg-zinc-100 text-zinc-700 border border-zinc-200">
+            <span className="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#C3E956]/20 text-[#4D7111] border border-[#C3E956]/40">
               Role: Guru Pengawas
             </span>
           </div>
@@ -297,7 +297,7 @@ export default function ProfileSettings() {
                 onChange={handleChange}
                 placeholder="Contoh: Supeni, S.Pd"
                 required
-                className="w-full px-3 py-2 bg-zinc-50 rounded-lg border border-zinc-200/90 text-xs sm:text-sm font-medium text-zinc-900 focus:bg-white focus:ring-1 focus:ring-zinc-900 focus:border-zinc-900 outline-none transition"
+                className="w-full px-3 py-2 bg-[#F4FFFC]/50 rounded-lg border border-[#91EAAF]/60 text-xs sm:text-sm font-medium text-zinc-900 focus:bg-white focus:ring-2 focus:ring-[#91EAAF]/40 focus:border-[#1F4B2C] outline-none transition"
               />
               <p className="text-[11px] text-zinc-400 mt-1">Nama ini akan dicantumkan pada Tanda Tangan E-Jurnal Berita Acara Asesmen.</p>
             </div>
@@ -314,7 +314,7 @@ export default function ProfileSettings() {
                 onChange={handleChange}
                 placeholder="Contoh: 198005122005012001"
                 required
-                className="w-full px-3 py-2 bg-zinc-50 rounded-lg border border-zinc-200/90 text-xs sm:text-sm font-mono font-medium text-zinc-900 focus:bg-white focus:ring-1 focus:ring-zinc-900 focus:border-zinc-900 outline-none transition"
+                className="w-full px-3 py-2 bg-[#F4FFFC]/50 rounded-lg border border-[#91EAAF]/60 text-xs sm:text-sm font-mono font-medium text-zinc-900 focus:bg-white focus:ring-2 focus:ring-[#91EAAF]/40 focus:border-[#1F4B2C] outline-none transition"
               />
               <p className="text-[11px] text-zinc-400 mt-1">Digunakan untuk kredensial login portal guru.</p>
             </div>
@@ -331,9 +331,9 @@ export default function ProfileSettings() {
                   value={formData.email}
                   onChange={handleChange}
                   placeholder="Contoh: guru@sekolah.sch.id"
-                  className="w-full pl-9 pr-3 py-2 bg-zinc-50 rounded-lg border border-zinc-200/90 text-xs sm:text-sm font-medium text-zinc-900 focus:bg-white focus:ring-1 focus:ring-zinc-900 focus:border-zinc-900 outline-none transition"
+                  className="w-full pl-9 pr-3 py-2 bg-[#F4FFFC]/50 rounded-lg border border-[#91EAAF]/60 text-xs sm:text-sm font-medium text-zinc-900 focus:bg-white focus:ring-2 focus:ring-[#91EAAF]/40 focus:border-[#1F4B2C] outline-none transition"
                 />
-                <Mail className="w-3.5 h-3.5 text-zinc-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+                <Mail className="w-3.5 h-3.5 text-[#1F4B2C]/50 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
               </div>
               <p className="text-[11px] text-zinc-400 mt-1">Digunakan untuk verifikasi dan kontak sekolah.</p>
             </div>
@@ -341,10 +341,10 @@ export default function ProfileSettings() {
         </div>
 
         {/* Card 2: Keamanan & Ganti Kata Sandi */}
-        <div className="bg-white rounded-xl border border-zinc-200/90 shadow-2xs overflow-hidden p-5 sm:p-6 space-y-4">
-          <div className="flex items-center justify-between pb-3.5 border-b border-zinc-100">
+        <div className="bg-white rounded-xl border border-[#91EAAF]/40 shadow-xs overflow-hidden p-5 sm:p-6 space-y-4">
+          <div className="flex items-center justify-between pb-3.5 border-b border-[#91EAAF]/30">
             <div className="flex items-center gap-2.5">
-              <div className="p-1.5 rounded-md bg-zinc-100 text-zinc-700">
+              <div className="p-1.5 rounded-md bg-[#E1F8ED] border border-[#91EAAF]/60 text-[#1F4B2C]">
                 <Lock className="w-4 h-4" />
               </div>
               <div>
@@ -367,7 +367,7 @@ export default function ProfileSettings() {
                   value={formData.current_password}
                   onChange={handleChange}
                   placeholder="Kata sandi saat ini"
-                  className="w-full pr-9 pl-3 py-2 bg-zinc-50 rounded-lg border border-zinc-200/90 text-xs sm:text-sm text-zinc-900 focus:bg-white focus:ring-1 focus:ring-zinc-900 focus:border-zinc-900 outline-none transition"
+                  className="w-full pr-9 pl-3 py-2 bg-[#F4FFFC]/50 rounded-lg border border-[#91EAAF]/60 text-xs sm:text-sm text-zinc-900 focus:bg-white focus:ring-2 focus:ring-[#91EAAF]/40 focus:border-[#1F4B2C] outline-none transition"
                 />
                 <button
                   type="button"
@@ -392,7 +392,7 @@ export default function ProfileSettings() {
                   value={formData.password}
                   onChange={handleChange}
                   placeholder="Minimal 6 karakter"
-                  className="w-full pr-9 pl-3 py-2 bg-zinc-50 rounded-lg border border-zinc-200/90 text-xs sm:text-sm text-zinc-900 focus:bg-white focus:ring-1 focus:ring-zinc-900 focus:border-zinc-900 outline-none transition"
+                  className="w-full pr-9 pl-3 py-2 bg-[#F4FFFC]/50 rounded-lg border border-[#91EAAF]/60 text-xs sm:text-sm text-zinc-900 focus:bg-white focus:ring-2 focus:ring-[#91EAAF]/40 focus:border-[#1F4B2C] outline-none transition"
                 />
                 <button
                   type="button"
@@ -417,7 +417,7 @@ export default function ProfileSettings() {
                   value={formData.confirm_password}
                   onChange={handleChange}
                   placeholder="Ulangi kata sandi baru"
-                  className="w-full pr-9 pl-3 py-2 bg-zinc-50 rounded-lg border border-zinc-200/90 text-xs sm:text-sm text-zinc-900 focus:bg-white focus:ring-1 focus:ring-zinc-900 focus:border-zinc-900 outline-none transition"
+                  className="w-full pr-9 pl-3 py-2 bg-[#F4FFFC]/50 rounded-lg border border-[#91EAAF]/60 text-xs sm:text-sm text-zinc-900 focus:bg-white focus:ring-2 focus:ring-[#91EAAF]/40 focus:border-[#1F4B2C] outline-none transition"
                 />
                 <button
                   type="button"
@@ -435,22 +435,22 @@ export default function ProfileSettings() {
         {/* Action Button */}
         <div className="flex items-center justify-between pt-2">
           <div className="flex items-center gap-2 text-xs text-zinc-500">
-            <Info className="w-3.5 h-3.5 text-zinc-500" />
+            <Info className="w-3.5 h-3.5 text-[#1F4B2C]" />
             <span>Perubahan otomatis tersinkronisasi ke database pengguna portal.</span>
           </div>
           <button
             type="submit"
             disabled={isSaving}
-            className="px-4 py-2 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-white font-semibold text-xs sm:text-sm shadow-2xs hover:-translate-y-0.5 active:scale-[0.98] transition-all flex items-center gap-2 disabled:opacity-50"
+            className="px-4 py-2 rounded-lg bg-[#1F4B2C] hover:bg-[#183D23] text-white font-semibold text-xs sm:text-sm shadow-xs active:scale-[0.98] transition-all flex items-center gap-2 disabled:opacity-50 cursor-pointer"
           >
             {isSaving ? (
               <>
-                <RefreshCw className="w-4 h-4 animate-spin" />
+                <RefreshCw className="w-4 h-4 animate-spin text-[#C3E956]" />
                 <span>Menyimpan...</span>
               </>
             ) : (
               <>
-                <Save className="w-4 h-4" />
+                <Save className="w-4 h-4 text-[#C3E956]" />
                 <span>Simpan Perubahan</span>
               </>
             )}

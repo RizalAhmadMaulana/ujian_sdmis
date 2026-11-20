@@ -282,8 +282,8 @@ export default function StudentManagement() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-lg bg-zinc-100 border border-zinc-200/90 text-zinc-800 flex items-center justify-center shadow-2xs">
-              <Users className="w-5 h-5" />
+            <div className="w-10 h-10 rounded-xl bg-[#F4FFFC] border border-[#91EAAF]/60 text-[#1F4B2C] flex items-center justify-center shadow-2xs">
+              <Users className="w-5 h-5 text-[#1F4B2C]" />
             </div>
             <h1 className="text-xl sm:text-2xl font-bold text-zinc-900 tracking-tight">
               Data Siswa Peserta
@@ -298,9 +298,9 @@ export default function StudentManagement() {
         <div className="flex items-center gap-2 flex-wrap self-start sm:self-auto">
           <button
             onClick={handleOpenAdd}
-            className="px-3.5 py-2 bg-zinc-900 hover:bg-zinc-800 text-white rounded-lg text-xs font-semibold shadow-2xs hover:-translate-y-0.5 active:scale-[0.98] transition-all flex items-center gap-2"
+            className="px-4 py-2 bg-[#1F4B2C] hover:bg-[#183D23] text-white rounded-xl text-xs font-bold shadow-xs hover:-translate-y-0.5 active:scale-[0.98] transition-all flex items-center gap-2"
           >
-            <Plus className="w-4 h-4" />
+            <Plus className="w-4 h-4 text-[#C3E956]" />
             <span>Tambah Siswa</span>
           </button>
 
@@ -311,25 +311,25 @@ export default function StudentManagement() {
               setImportResult(null);
               setIsImportModalOpen(true);
             }}
-            className="px-3.5 py-2 bg-white hover:bg-zinc-50 text-zinc-700 border border-zinc-200/90 rounded-lg text-xs font-semibold shadow-2xs hover:-translate-y-0.5 active:scale-[0.98] transition-all flex items-center gap-2"
+            className="px-4 py-2 bg-white hover:bg-[#F4FFFC] text-[#1F4B2C] border border-[#91EAAF]/60 rounded-xl text-xs font-bold shadow-2xs hover:-translate-y-0.5 active:scale-[0.98] transition-all flex items-center gap-2"
           >
-            <FileSpreadsheet className="w-4 h-4 text-emerald-600" />
+            <FileSpreadsheet className="w-4 h-4 text-[#4D7111]" />
             <span>Import Excel</span>
           </button>
 
           <button
             onClick={handleDownloadTemplate}
             disabled={isDownloadingTemplate}
-            className="px-3.5 py-2 bg-white hover:bg-zinc-50 text-zinc-700 border border-zinc-200/90 rounded-lg text-xs font-semibold shadow-2xs hover:-translate-y-0.5 active:scale-[0.98] transition-all flex items-center gap-2 disabled:opacity-50"
+            className="px-4 py-2 bg-white hover:bg-[#F4FFFC] text-[#1F4B2C] border border-[#91EAAF]/60 rounded-xl text-xs font-bold shadow-2xs hover:-translate-y-0.5 active:scale-[0.98] transition-all flex items-center gap-2 disabled:opacity-50"
           >
-            <Download className="w-4 h-4 text-zinc-500" />
+            <Download className="w-4 h-4 text-[#4D7111]" />
             <span>{isDownloadingTemplate ? 'Mengunduh...' : 'Template Excel'}</span>
           </button>
         </div>
       </div>
 
       {/* Bar Pencarian, Show Entries, Filter Kelas, & Refresh */}
-      <div className="bg-white rounded-xl p-3 sm:p-4 border border-zinc-200/90 shadow-2xs flex flex-col lg:flex-row lg:items-center justify-between gap-3">
+      <div className="bg-white rounded-xl p-3 sm:p-4 border border-[#91EAAF]/40 shadow-2xs flex flex-col lg:flex-row lg:items-center justify-between gap-3">
         {/* Sisi Kiri: Show Entries & Filter Kelas */}
         <div className="flex items-center gap-3 flex-wrap">
           {/* Show Entries */}
@@ -338,7 +338,7 @@ export default function StudentManagement() {
             <select
               value={entriesPerPage}
               onChange={(e) => setEntriesPerPage(Number(e.target.value))}
-              className="px-2.5 py-1.5 bg-zinc-50 border border-zinc-200/90 rounded-lg text-xs font-medium text-zinc-800 focus:bg-white focus:ring-1 focus:ring-zinc-900 focus:border-zinc-900 outline-none cursor-pointer"
+              className="px-2.5 py-1.5 bg-[#F4FFFC] border border-[#91EAAF]/50 rounded-lg text-xs font-semibold text-[#1F4B2C] focus:bg-white focus:ring-1 focus:ring-[#1F4B2C] focus:border-[#1F4B2C] outline-none cursor-pointer"
             >
               <option value={10}>10</option>
               <option value={25}>25</option>
@@ -347,16 +347,16 @@ export default function StudentManagement() {
             <span>entries</span>
           </div>
 
-          <span className="text-zinc-300 hidden sm:inline">|</span>
+          <span className="text-[#91EAAF] hidden sm:inline">|</span>
 
           {/* Filter Kelas */}
           <div className="flex items-center gap-2 text-xs text-zinc-600 font-medium">
-            <Filter className="w-3.5 h-3.5 text-zinc-400" />
+            <Filter className="w-3.5 h-3.5 text-[#4D7111]" />
             <span>Kelas:</span>
             <select
               value={filterKelas}
               onChange={(e) => setFilterKelas(e.target.value)}
-              className="px-2.5 py-1.5 bg-zinc-50 border border-zinc-200/90 rounded-lg text-xs font-medium text-zinc-800 focus:bg-white focus:ring-1 focus:ring-zinc-900 focus:border-zinc-900 outline-none cursor-pointer"
+              className="px-2.5 py-1.5 bg-[#F4FFFC] border border-[#91EAAF]/50 rounded-lg text-xs font-semibold text-[#1F4B2C] focus:bg-white focus:ring-1 focus:ring-[#1F4B2C] focus:border-[#1F4B2C] outline-none cursor-pointer"
             >
               <option value="Semua">Semua Kelas</option>
               {classrooms.map((cls) => (
@@ -377,7 +377,7 @@ export default function StudentManagement() {
               placeholder="Cari Nama atau NISN..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-9 py-2 bg-zinc-50 border border-zinc-200/90 rounded-lg text-xs text-zinc-900 focus:bg-white focus:ring-1 focus:ring-zinc-900 focus:border-zinc-900 outline-none transition"
+              className="w-full pl-10 pr-9 py-2 bg-zinc-50 border border-zinc-200 rounded-lg text-xs text-zinc-900 focus:bg-white focus:ring-1 focus:ring-[#1F4B2C] focus:border-[#1F4B2C] outline-none transition"
             />
             {searchTerm && (
               <button
@@ -391,25 +391,25 @@ export default function StudentManagement() {
 
           <div className="flex items-center gap-2 shrink-0">
             <span className="text-xs text-zinc-500 font-medium hidden md:inline">
-              Total: <strong className="text-zinc-900 font-semibold">{students.length}</strong> Siswa
+              Total: <strong className="text-[#1F4B2C] font-bold font-mono">{students.length}</strong> Siswa
             </span>
             <button
               onClick={fetchStudents}
               disabled={isLoading}
-              className="p-2 rounded-lg bg-zinc-50 border border-zinc-200/90 hover:bg-zinc-100 text-zinc-600 transition"
+              className="p-2 rounded-lg bg-white border border-[#91EAAF]/50 hover:bg-[#F4FFFC] text-[#1F4B2C] transition shadow-2xs hover:-translate-y-0.5 active:scale-[0.98]"
               title="Muat Ulang"
             >
-              <RefreshCw className={`w-4 h-4 ${isLoading ? 'animate-spin text-zinc-900' : ''}`} />
+              <RefreshCw className={`w-4 h-4 ${isLoading ? 'animate-spin text-[#1F4B2C]' : ''}`} />
             </button>
           </div>
         </div>
       </div>
 
       {/* Tabel Data Siswa */}
-      <div className="bg-white rounded-xl border border-zinc-200/90 shadow-2xs overflow-hidden">
+      <div className="bg-white rounded-xl border border-[#91EAAF]/40 shadow-2xs overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs text-zinc-700">
-            <thead className="bg-zinc-50/80 border-b border-zinc-200/90 text-zinc-500 font-medium uppercase tracking-wider text-[11px]">
+            <thead className="bg-[#F4FFFC] border-b border-[#91EAAF]/40 text-[#1F4B2C] font-semibold uppercase tracking-wider text-[11px]">
               <tr>
                 <th className="py-3 px-4 w-14 text-center">NO</th>
                 <th className="py-3 px-4">Nama Lengkap Siswa</th>
@@ -428,29 +428,29 @@ export default function StudentManagement() {
                 </tr>
               ) : (
                 currentItems.map((student, index) => (
-                  <tr key={student.id} className="hover:bg-zinc-50/80 transition">
+                  <tr key={student.id} className="hover:bg-[#F4FFFC]/50 transition">
                     <td className="py-3 px-4 text-center font-mono text-zinc-500 tabular-nums">
                       {indexOfFirstItem + index + 1}
                     </td>
                     <td className="py-3 px-4 font-semibold text-zinc-900 text-xs sm:text-sm">
                       <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 rounded-lg bg-zinc-100 border border-zinc-200/90 text-zinc-700 font-bold text-xs flex items-center justify-center shrink-0">
+                        <div className="w-8 h-8 rounded-lg bg-[#E1F8ED] border border-[#91EAAF]/60 text-[#1F4B2C] font-bold text-xs flex items-center justify-center shrink-0">
                           {getInitials(student.full_name)}
                         </div>
                         <div>
-                          <div className="text-zinc-900 font-medium">{student.full_name}</div>
+                          <div className="text-zinc-900 font-bold">{student.full_name}</div>
                           <div className="text-[11px] text-zinc-400 font-normal">Peserta Ujian Asesmen</div>
                         </div>
                       </div>
                     </td>
                     <td className="py-3 px-4">
-                      <span className="font-mono px-2 py-0.5 rounded bg-zinc-100 border border-zinc-200 text-zinc-700 font-medium text-[11px] tabular-nums">
+                      <span className="font-mono px-2 py-0.5 rounded-md bg-[#F4FFFC] border border-[#91EAAF]/60 text-[#1F4B2C] font-bold text-[11px] tabular-nums">
                         {student.nisn || student.username}
                       </span>
                     </td>
                     <td className="py-3 px-4 text-center">
-                      <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-zinc-100 text-zinc-700 font-medium text-xs border border-zinc-200/90">
-                        <School className="w-3.5 h-3.5 text-zinc-500" />
+                      <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-[#E1F8ED] text-[#1F4B2C] font-bold text-xs border border-[#91EAAF]/50">
+                        <School className="w-3.5 h-3.5 text-[#1F4B2C]" />
                         <span>{student.classroom?.name || student.classroom_name || '-'}</span>
                       </span>
                     </td>
@@ -461,10 +461,10 @@ export default function StudentManagement() {
                       <div className="flex items-center justify-center gap-1.5">
                         <button
                           onClick={() => handleOpenEdit(student)}
-                          className="px-2.5 py-1 rounded-md bg-white border border-zinc-200 hover:border-zinc-300 hover:bg-zinc-50 text-zinc-700 font-medium text-xs flex items-center gap-1.5 shadow-2xs transition-all active:scale-[0.98]"
+                          className="px-2.5 py-1 rounded-md bg-[#F4FFFC] border border-[#91EAAF]/50 hover:bg-[#E1F8ED] text-[#1F4B2C] font-bold text-xs flex items-center gap-1.5 shadow-2xs transition-all active:scale-[0.98]"
                           title="Edit Siswa"
                         >
-                          <Edit3 className="w-3.5 h-3.5 text-zinc-500" />
+                          <Edit3 className="w-3.5 h-3.5 text-[#1F4B2C]" />
                           <span>Edit</span>
                         </button>
                         <button
@@ -485,18 +485,18 @@ export default function StudentManagement() {
         </div>
 
         {/* Card Footer: Info Entri & Paginasi */}
-        <div className="p-3 sm:p-4 bg-zinc-50/50 border-t border-zinc-200/90 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-zinc-500 font-medium">
+        <div className="p-3 sm:p-4 bg-[#F4FFFC]/50 border-t border-[#91EAAF]/30 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-zinc-500 font-medium">
           <div>
-            Menampilkan <strong className="text-zinc-800">{students.length > 0 ? indexOfFirstItem + 1 : 0}</strong> sampai{' '}
-            <strong className="text-zinc-800">{Math.min(indexOfLastItem, students.length)}</strong> dari{' '}
-            <strong className="text-zinc-800">{students.length}</strong> siswa
+            Menampilkan <strong className="text-[#1F4B2C] font-bold">{students.length > 0 ? indexOfFirstItem + 1 : 0}</strong> sampai{' '}
+            <strong className="text-[#1F4B2C] font-bold">{Math.min(indexOfLastItem, students.length)}</strong> dari{' '}
+            <strong className="text-[#1F4B2C] font-bold">{students.length}</strong> siswa
           </div>
 
           <div className="flex items-center gap-1">
             <button
               onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
               disabled={currentPage === 1}
-              className="px-2.5 py-1.5 rounded-lg border border-zinc-200/90 bg-white hover:bg-zinc-50 text-zinc-700 font-medium text-xs disabled:opacity-40 transition"
+              className="px-3 py-1.5 rounded-lg border border-[#91EAAF]/50 bg-white hover:bg-[#F4FFFC] text-[#1F4B2C] font-semibold text-xs disabled:opacity-40 transition"
             >
               Prev
             </button>
@@ -505,10 +505,10 @@ export default function StudentManagement() {
               <button
                 key={page}
                 onClick={() => setCurrentPage(page)}
-                className={`w-7 h-7 rounded-lg font-medium text-xs transition flex items-center justify-center ${
+                className={`w-7 h-7 rounded-lg font-bold text-xs transition flex items-center justify-center ${
                   currentPage === page
-                    ? 'bg-zinc-900 text-white shadow-xs'
-                    : 'bg-white border border-zinc-200/90 text-zinc-700 hover:bg-zinc-50'
+                    ? 'bg-[#1F4B2C] text-[#C3E956] shadow-xs border border-[#1F4B2C]'
+                    : 'bg-white border border-[#91EAAF]/50 text-zinc-700 hover:bg-[#F4FFFC]'
                 }`}
               >
                 {page}
@@ -518,7 +518,7 @@ export default function StudentManagement() {
             <button
               onClick={() => setCurrentPage((p) => Math.min(p + 1, totalPages))}
               disabled={currentPage === totalPages || totalPages === 0}
-              className="px-2.5 py-1.5 rounded-lg border border-zinc-200/90 bg-white hover:bg-zinc-50 text-zinc-700 font-medium text-xs disabled:opacity-40 transition"
+              className="px-3 py-1.5 rounded-lg border border-[#91EAAF]/50 bg-white hover:bg-[#F4FFFC] text-[#1F4B2C] font-semibold text-xs disabled:opacity-40 transition"
             >
               Next
             </button>
@@ -552,7 +552,7 @@ export default function StudentManagement() {
               placeholder="Contoh: Rizal Ahmad Maulana"
               value={formData.full_name}
               onChange={(e) => setFormData({ ...formData, full_name: e.target.value })}
-              className="w-full px-3 py-2 bg-zinc-50 border border-zinc-200/90 rounded-lg text-xs sm:text-sm font-medium text-zinc-900 focus:bg-white focus:ring-1 focus:ring-zinc-900 focus:border-zinc-900 outline-none transition"
+              className="w-full px-3 py-2 bg-zinc-50 border border-zinc-200/90 rounded-lg text-xs sm:text-sm font-medium text-zinc-900 focus:bg-white focus:ring-1 focus:ring-[#1F4B2C] focus:border-[#1F4B2C] outline-none transition"
               required
             />
           </div>
@@ -566,7 +566,7 @@ export default function StudentManagement() {
               placeholder="Contoh: 0081234567 atau siswa"
               value={formData.nisn}
               onChange={(e) => setFormData({ ...formData, nisn: e.target.value })}
-              className="w-full px-3 py-2 bg-zinc-50 border border-zinc-200/90 rounded-lg text-xs sm:text-sm font-mono font-medium text-zinc-900 focus:bg-white focus:ring-1 focus:ring-zinc-900 focus:border-zinc-900 outline-none transition"
+              className="w-full px-3 py-2 bg-zinc-50 border border-zinc-200/90 rounded-lg text-xs sm:text-sm font-mono font-medium text-zinc-900 focus:bg-white focus:ring-1 focus:ring-[#1F4B2C] focus:border-[#1F4B2C] outline-none transition"
               required
             />
             <p className="text-[11px] text-zinc-500 mt-1">
@@ -581,7 +581,7 @@ export default function StudentManagement() {
             <select
               value={formData.classroom_id}
               onChange={(e) => setFormData({ ...formData, classroom_id: e.target.value })}
-              className="w-full px-3 py-2 bg-zinc-50 border border-zinc-200/90 rounded-lg text-xs sm:text-sm font-medium text-zinc-900 focus:bg-white focus:ring-1 focus:ring-zinc-900 focus:border-zinc-900 outline-none transition"
+              className="w-full px-3 py-2 bg-zinc-50 border border-zinc-200/90 rounded-lg text-xs sm:text-sm font-medium text-zinc-900 focus:bg-white focus:ring-1 focus:ring-[#1F4B2C] focus:border-[#1F4B2C] outline-none transition"
               required
             >
               <option value="">-- Pilih Kelas --</option>
@@ -602,7 +602,7 @@ export default function StudentManagement() {
               placeholder="Contoh: siswa@sekolah.sch.id"
               value={formData.email}
               onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-              className="w-full px-3 py-2 bg-zinc-50 border border-zinc-200/90 rounded-lg text-xs sm:text-sm font-medium text-zinc-900 focus:bg-white focus:ring-1 focus:ring-zinc-900 focus:border-zinc-900 outline-none transition"
+              className="w-full px-3 py-2 bg-zinc-50 border border-zinc-200/90 rounded-lg text-xs sm:text-sm font-medium text-zinc-900 focus:bg-white focus:ring-1 focus:ring-[#1F4B2C] focus:border-[#1F4B2C] outline-none transition"
             />
           </div>
 
@@ -617,9 +617,9 @@ export default function StudentManagement() {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="px-4 py-2 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-white text-xs sm:text-sm font-semibold transition shadow-2xs flex items-center gap-2 disabled:opacity-50"
+              className="px-4 py-2 rounded-lg bg-[#1F4B2C] hover:bg-[#183D23] text-white text-xs sm:text-sm font-bold transition shadow-xs flex items-center gap-2 disabled:opacity-50"
             >
-              {isSubmitting && <RefreshCw className="w-4 h-4 animate-spin" />}
+              {isSubmitting && <RefreshCw className="w-4 h-4 animate-spin text-[#C3E956]" />}
               <span>{isEditing ? 'Simpan Perubahan' : 'Tambah Siswa'}</span>
             </button>
           </div>
@@ -708,15 +708,15 @@ export default function StudentManagement() {
             </div>
           )}
 
-          <div className="border border-dashed border-zinc-300 rounded-lg p-4 bg-zinc-50 text-center hover:bg-zinc-100/60 transition">
+          <div className="border border-dashed border-[#91EAAF] rounded-xl p-4 bg-[#F4FFFC] text-center hover:bg-[#E1F8ED]/60 transition">
             <input
               ref={fileInputRef}
               type="file"
               accept=".xlsx,.xls"
               onChange={(e) => setImportFile(e.target.files[0] || null)}
-              className="text-xs text-zinc-700 file:mr-3 file:py-1.5 file:px-3 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-zinc-900 file:text-white hover:file:bg-zinc-800 cursor-pointer w-full"
+              className="text-xs text-zinc-700 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-[#1F4B2C] file:text-white hover:file:bg-[#183D23] cursor-pointer w-full"
             />
-            <p className="text-[11px] text-zinc-400 mt-2">
+            <p className="text-[11px] text-zinc-500 mt-2">
               Pilih file spreadsheet .xlsx atau .xls dari komputer Anda (Rekap GForm / SPSS).
             </p>
           </div>
@@ -725,20 +725,20 @@ export default function StudentManagement() {
             <button
               type="button"
               onClick={handleDownloadTemplate}
-              className="text-xs font-semibold text-zinc-700 hover:text-zinc-900 flex items-center gap-1.5"
+              className="text-xs font-bold text-[#1F4B2C] hover:text-[#4D7111] flex items-center gap-1.5"
             >
-              <Download className="w-3.5 h-3.5 text-zinc-500" /> Unduh Format Template
+              <Download className="w-3.5 h-3.5 text-[#4D7111]" /> Unduh Format Template
             </button>
 
             <button
               type="button"
               onClick={handleImportSubmit}
               disabled={isImporting || !importFile}
-              className="px-4 py-2 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-white text-xs sm:text-sm font-semibold shadow-2xs transition flex items-center gap-2 disabled:opacity-50"
+              className="px-4 py-2 rounded-xl bg-[#1F4B2C] hover:bg-[#183D23] text-white text-xs sm:text-sm font-bold shadow-xs transition flex items-center gap-2 disabled:opacity-50"
             >
               {isImporting ? (
                 <>
-                  <RefreshCw className="w-4 h-4 animate-spin" />
+                  <RefreshCw className="w-4 h-4 animate-spin text-[#C3E956]" />
                   <span>Memproses...</span>
                 </>
               ) : (

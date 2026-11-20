@@ -363,7 +363,7 @@ export default function StudentResults() {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2.5">
-            <div className="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-600 shadow-2xs">
+            <div className="w-10 h-10 rounded-xl bg-[#1F4B2C] border border-[#C3E956]/30 flex items-center justify-center text-[#C3E956] shadow-xs">
               <Award className="w-5 h-5" />
             </div>
             <div>
@@ -383,10 +383,10 @@ export default function StudentResults() {
             type="button"
             onClick={() => fetchSessionResults(selectedSessionId)}
             disabled={isLoadingResults || !selectedSessionId}
-            className="p-2.5 bg-white hover:bg-zinc-50 text-zinc-700 border border-zinc-200 rounded-lg text-xs font-medium transition disabled:opacity-50 shadow-2xs active:scale-[0.98] cursor-pointer"
+            className="p-2.5 bg-white hover:bg-[#F4FFFC] text-[#1F4B2C] border border-[#91EAAF]/60 rounded-lg text-xs font-medium transition disabled:opacity-50 shadow-xs active:scale-[0.98] cursor-pointer"
             title="Segarkan Rekap Nilai"
           >
-            <RefreshCw className={`w-4 h-4 ${isLoadingResults ? 'animate-spin text-emerald-600' : 'text-zinc-600'}`} />
+            <RefreshCw className={`w-4 h-4 ${isLoadingResults ? 'animate-spin text-[#1F4B2C]' : 'text-[#4D7111]'}`} />
           </button>
         </div>
       </div>
@@ -394,10 +394,10 @@ export default function StudentResults() {
       {/* ======================================================== */}
       {/* 2. FILTER MULTI-LEVEL (PAKET SOAL, KELAS, & SESI UJIAN)  */}
       {/* ======================================================== */}
-      <div className="bg-white rounded-xl p-5 border border-zinc-200/90 shadow-2xs space-y-4">
-        <div className="flex items-center justify-between border-b border-zinc-100 pb-3">
-          <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-zinc-700">
-            <Filter className="w-3.5 h-3.5 text-zinc-500" />
+      <div className="bg-white rounded-xl p-5 border border-[#91EAAF]/40 shadow-xs space-y-4">
+        <div className="flex items-center justify-between border-b border-[#91EAAF]/30 pb-3">
+          <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#1F4B2C]">
+            <Filter className="w-3.5 h-3.5 text-[#4D7111]" />
             <span>Pilih Paket Soal, Rombel Kelas, & Sesi Ujian</span>
           </div>
           <span className="text-[11px] text-zinc-400 font-mono">
@@ -414,7 +414,7 @@ export default function StudentResults() {
             <select
               value={selectedPackageId}
               onChange={(e) => setSelectedPackageId(e.target.value)}
-              className="w-full text-xs bg-zinc-50 hover:bg-white focus:bg-white border border-zinc-300 rounded-lg p-2.5 text-zinc-800 focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition font-medium cursor-pointer"
+              className="w-full text-xs bg-[#F4FFFC]/50 hover:bg-white focus:bg-white border border-[#91EAAF]/60 rounded-lg p-2.5 text-zinc-800 focus:ring-2 focus:ring-[#91EAAF]/40 focus:border-[#1F4B2C] outline-none transition font-medium cursor-pointer"
             >
               <option value="ALL">-- Seluruh Paket Soal Mandiri ({packages.length}) --</option>
               {packages.map((pkg) => (
@@ -433,7 +433,7 @@ export default function StudentResults() {
             <select
               value={selectedClassId}
               onChange={(e) => setSelectedClassId(e.target.value)}
-              className="w-full text-xs bg-zinc-50 hover:bg-white focus:bg-white border border-zinc-300 rounded-lg p-2.5 text-zinc-800 focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition font-medium cursor-pointer"
+              className="w-full text-xs bg-[#F4FFFC]/50 hover:bg-white focus:bg-white border border-[#91EAAF]/60 rounded-lg p-2.5 text-zinc-800 focus:ring-2 focus:ring-[#91EAAF]/40 focus:border-[#1F4B2C] outline-none transition font-medium cursor-pointer"
             >
               <option value="ALL">-- Seluruh Kelas ({classrooms.length}) --</option>
               {classrooms.map((cls) => (
@@ -453,7 +453,7 @@ export default function StudentResults() {
               value={selectedSessionId}
               onChange={(e) => setSelectedSessionId(e.target.value)}
               disabled={filteredSessions.length === 0}
-              className="w-full text-xs bg-emerald-50/50 hover:bg-emerald-50 focus:bg-white border border-emerald-300/80 rounded-lg p-2.5 text-emerald-950 font-semibold focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition cursor-pointer disabled:opacity-50"
+              className="w-full text-xs bg-[#F4FFFC] hover:bg-white focus:bg-white border border-[#91EAAF]/80 rounded-lg p-2.5 text-[#1F4B2C] font-semibold focus:ring-2 focus:ring-[#91EAAF]/40 focus:border-[#1F4B2C] outline-none transition cursor-pointer disabled:opacity-50"
             >
               {filteredSessions.length === 0 ? (
                 <option value="">Tidak ada sesi yang cocok</option>
@@ -470,17 +470,17 @@ export default function StudentResults() {
 
         {/* Ringkasan Info Sesi Terpilih */}
         {currentSessionObj && (
-          <div className="bg-zinc-50 border border-zinc-200/80 rounded-lg p-3 text-xs flex flex-wrap items-center justify-between gap-2">
+          <div className="bg-[#F4FFFC]/50 border border-[#91EAAF]/40 rounded-lg p-3 text-xs flex flex-wrap items-center justify-between gap-2">
             <div className="flex flex-wrap items-center gap-3 text-zinc-700">
-              <span className="font-bold text-zinc-900">{currentSessionObj.title}</span>
+              <span className="font-bold text-[#1F4B2C]">{currentSessionObj.title}</span>
               <span className="text-zinc-300">•</span>
-              <span>Mapel: <strong>{currentSessionObj.subject_name || currentSessionObj.subjectName || '-'}</strong></span>
+              <span>Mapel: <strong className="text-zinc-900">{currentSessionObj.subject_name || currentSessionObj.subjectName || '-'}</strong></span>
               <span className="text-zinc-300">•</span>
-              <span>Kelas: <strong>{currentSessionObj.classroom_display || currentSessionObj.classroom_name || 'Semua Kelas'}</strong></span>
+              <span>Kelas: <strong className="text-zinc-900">{currentSessionObj.classroom_display || currentSessionObj.classroom_name || 'Semua Kelas'}</strong></span>
               <span className="text-zinc-300">•</span>
-              <span>Durasi: <strong>{currentSessionObj.duration_minutes || currentSessionObj.durationMinutes} Menit</strong></span>
+              <span>Durasi: <strong className="text-zinc-900">{currentSessionObj.duration_minutes || currentSessionObj.durationMinutes} Menit</strong></span>
             </div>
-            <div className="text-[11px] font-mono text-zinc-500">
+            <div className="text-[11px] font-mono text-zinc-400">
               ID Sesi: {currentSessionObj.id?.slice(0, 8)}...
             </div>
           </div>
@@ -493,10 +493,10 @@ export default function StudentResults() {
       {sessionResults && (
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
           {/* Card 1: Total Peserta */}
-          <div className="bg-white rounded-xl p-4 sm:p-5 border border-zinc-200/90 shadow-2xs">
+          <div className="bg-white rounded-xl p-4 sm:p-5 border border-[#91EAAF]/40 shadow-xs">
             <div className="flex items-center justify-between">
               <span className="text-xs font-semibold text-zinc-500 uppercase tracking-wider">Total Peserta</span>
-              <div className="w-8 h-8 rounded-lg bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600">
+              <div className="w-8 h-8 rounded-lg bg-[#E1F8ED] border border-[#91EAAF]/60 flex items-center justify-center text-[#1F4B2C]">
                 <Users className="w-4 h-4" />
               </div>
             </div>
@@ -512,15 +512,15 @@ export default function StudentResults() {
           </div>
 
           {/* Card 2: Sudah Selesai / Terkirim */}
-          <div className="bg-white rounded-xl p-4 sm:p-5 border border-zinc-200/90 shadow-2xs">
+          <div className="bg-white rounded-xl p-4 sm:p-5 border border-[#91EAAF]/40 shadow-xs">
             <div className="flex items-center justify-between">
               <span className="text-xs font-semibold text-zinc-500 uppercase tracking-wider">Selesai / Terkirim</span>
-              <div className="w-8 h-8 rounded-lg bg-emerald-50 border border-emerald-100 flex items-center justify-center text-emerald-600">
+              <div className="w-8 h-8 rounded-lg bg-[#C3E956]/20 border border-[#C3E956]/40 flex items-center justify-center text-[#4D7111]">
                 <CheckCircle2 className="w-4 h-4" />
               </div>
             </div>
             <div className="mt-2 flex items-baseline gap-2">
-              <span className="text-2xl sm:text-3xl font-extrabold font-mono text-emerald-600">
+              <span className="text-2xl sm:text-3xl font-extrabold font-mono text-[#1F4B2C]">
                 {classStats.submittedCount}
               </span>
               <span className="text-xs text-zinc-500 font-medium">
@@ -533,15 +533,15 @@ export default function StudentResults() {
           </div>
 
           {/* Card 3: Rata-Rata Nilai */}
-          <div className="bg-white rounded-xl p-4 sm:p-5 border border-zinc-200/90 shadow-2xs">
+          <div className="bg-white rounded-xl p-4 sm:p-5 border border-[#91EAAF]/40 shadow-xs">
             <div className="flex items-center justify-between">
               <span className="text-xs font-semibold text-zinc-500 uppercase tracking-wider">Rata-Rata Kelas</span>
-              <div className="w-8 h-8 rounded-lg bg-amber-50 border border-amber-100 flex items-center justify-center text-amber-600">
+              <div className="w-8 h-8 rounded-lg bg-[#E1F8ED] border border-[#91EAAF]/60 flex items-center justify-center text-[#1F4B2C]">
                 <TrendingUp className="w-4 h-4" />
               </div>
             </div>
             <div className="mt-2 flex items-baseline gap-2">
-              <span className="text-2xl sm:text-3xl font-extrabold font-mono text-amber-600">
+              <span className="text-2xl sm:text-3xl font-extrabold font-mono text-[#1F4B2C]">
                 {classStats.average}
               </span>
               <span className="text-xs text-zinc-500 font-medium">/ 100</span>
@@ -550,18 +550,18 @@ export default function StudentResults() {
           </div>
 
           {/* Card 4: Tertinggi & Terendah */}
-          <div className="bg-white rounded-xl p-4 sm:p-5 border border-zinc-200/90 shadow-2xs">
+          <div className="bg-white rounded-xl p-4 sm:p-5 border border-[#91EAAF]/40 shadow-xs">
             <div className="flex items-center justify-between">
               <span className="text-xs font-semibold text-zinc-500 uppercase tracking-wider">Tertinggi / Terendah</span>
-              <div className="w-8 h-8 rounded-lg bg-violet-50 border border-violet-100 flex items-center justify-center text-violet-600">
+              <div className="w-8 h-8 rounded-lg bg-[#E1F8ED] border border-[#91EAAF]/60 flex items-center justify-center text-[#1F4B2C]">
                 <Award className="w-4 h-4" />
               </div>
             </div>
             <div className="mt-2 flex items-baseline gap-2 font-mono">
-              <span className="text-xl sm:text-2xl font-black text-emerald-600">
+              <span className="text-xl sm:text-2xl font-black text-[#1F4B2C]">
                 {classStats.highest}
               </span>
-              <span className="text-zinc-400 font-light">/</span>
+              <span className="text-zinc-300 font-light">/</span>
               <span className="text-xl sm:text-2xl font-black text-rose-500">
                 {classStats.lowest}
               </span>
@@ -574,18 +574,18 @@ export default function StudentResults() {
       {/* ======================================================== */}
       {/* 4. TABEL REKAPITULASI NILAI & ACTION LIHAT LEMBAR JAWABAN */}
       {/* ======================================================== */}
-      <div className="bg-white rounded-xl border border-zinc-200/90 shadow-2xs overflow-hidden">
+      <div className="bg-white rounded-xl border border-[#91EAAF]/40 shadow-xs overflow-hidden">
         {/* Toolbar Pencarian & Filter Tab */}
-        <div className="p-4 border-b border-zinc-100 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 bg-zinc-50/50">
+        <div className="p-4 border-b border-[#91EAAF]/30 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 bg-[#F4FFFC]/50">
           {/* Status Tabs */}
-          <div className="flex items-center gap-1 bg-zinc-200/70 p-1 rounded-lg overflow-x-auto">
+          <div className="flex items-center gap-1 bg-[#E1F8ED]/80 p-1 rounded-lg border border-[#91EAAF]/40 overflow-x-auto">
             <button
               type="button"
               onClick={() => setStatusTab('SUBMITTED')}
               className={`px-3 py-1.5 rounded-md text-xs font-medium transition whitespace-nowrap ${
                 statusTab === 'SUBMITTED'
-                  ? 'bg-white text-zinc-900 shadow-2xs font-semibold'
-                  : 'text-zinc-600 hover:text-zinc-900'
+                  ? 'bg-[#1F4B2C] text-[#C3E956] shadow-xs font-semibold'
+                  : 'text-[#1F4B2C]/80 hover:text-[#1F4B2C]'
               }`}
             >
               Selesai ({classStats.submittedCount})
@@ -595,8 +595,8 @@ export default function StudentResults() {
               onClick={() => setStatusTab('IN_PROGRESS')}
               className={`px-3 py-1.5 rounded-md text-xs font-medium transition whitespace-nowrap ${
                 statusTab === 'IN_PROGRESS'
-                  ? 'bg-white text-zinc-900 shadow-2xs font-semibold'
-                  : 'text-zinc-600 hover:text-zinc-900'
+                  ? 'bg-[#1F4B2C] text-[#C3E956] shadow-xs font-semibold'
+                  : 'text-[#1F4B2C]/80 hover:text-[#1F4B2C]'
               }`}
             >
               Sedang Mengerjakan ({classStats.inProgressCount})
@@ -606,8 +606,8 @@ export default function StudentResults() {
               onClick={() => setStatusTab('ALL')}
               className={`px-3 py-1.5 rounded-md text-xs font-medium transition whitespace-nowrap ${
                 statusTab === 'ALL'
-                  ? 'bg-white text-zinc-900 shadow-2xs font-semibold'
-                  : 'text-zinc-600 hover:text-zinc-900'
+                  ? 'bg-[#1F4B2C] text-[#C3E956] shadow-xs font-semibold'
+                  : 'text-[#1F4B2C]/80 hover:text-[#1F4B2C]'
               }`}
             >
               Semua Peserta ({classStats.total})
@@ -617,13 +617,13 @@ export default function StudentResults() {
           <div className="flex items-center gap-2">
             {/* Search Box */}
             <div className="relative w-full sm:w-64">
-              <Search className="w-3.5 h-3.5 text-zinc-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+              <Search className="w-3.5 h-3.5 text-[#1F4B2C]/50 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
               <input
                 type="text"
                 placeholder="Cari nama siswa atau NISN..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full text-xs pl-8 pr-3 py-1.5 bg-white border border-zinc-300 rounded-lg text-zinc-800 placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition"
+                className="w-full text-xs pl-8 pr-3 py-1.5 bg-white border border-[#91EAAF]/60 rounded-lg text-zinc-800 placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-[#91EAAF]/40 focus:border-[#1F4B2C] transition"
               />
             </div>
 
@@ -632,10 +632,10 @@ export default function StudentResults() {
               type="button"
               onClick={handleDownloadExcel}
               disabled={isExportingExcel || !selectedSessionId}
-              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 disabled:bg-emerald-300 text-white text-xs font-semibold transition shadow-2xs active:scale-[0.98] shrink-0 cursor-pointer disabled:cursor-not-allowed"
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-[#1F4B2C] hover:bg-[#183D23] disabled:bg-zinc-300 text-white text-xs font-semibold transition shadow-xs active:scale-[0.98] shrink-0 cursor-pointer disabled:cursor-not-allowed"
               title="Unduh seluruh rekapitulasi nilai dan rincian jawaban siswa ke format Excel (.xlsx)"
             >
-              <FileSpreadsheet className={`w-3.5 h-3.5 ${isExportingExcel ? 'animate-bounce' : ''}`} />
+              <FileSpreadsheet className={`w-3.5 h-3.5 text-[#C3E956] ${isExportingExcel ? 'animate-bounce' : ''}`} />
               <span className="hidden sm:inline">{isExportingExcel ? 'Menyiapkan...' : 'Download Excel'}</span>
               <span className="sm:hidden">Excel</span>
             </button>
@@ -663,7 +663,7 @@ export default function StudentResults() {
         <div className="overflow-x-auto">
           {isLoadingResults ? (
             <div className="py-16 text-center space-y-3">
-              <RefreshCw className="w-8 h-8 text-emerald-600 animate-spin mx-auto" />
+              <RefreshCw className="w-8 h-8 text-[#1F4B2C] animate-spin mx-auto" />
               <div className="text-xs text-zinc-500 font-medium">Memuat rekap nilai siswa...</div>
             </div>
           ) : resultsError ? (
@@ -684,20 +684,20 @@ export default function StudentResults() {
               <button
                 type="button"
                 onClick={() => fetchSessionResults(selectedSessionId)}
-                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-white border border-zinc-300 text-zinc-700 hover:bg-zinc-50 text-xs font-semibold shadow-2xs transition cursor-pointer"
+                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-white border border-[#91EAAF]/60 text-[#1F4B2C] hover:bg-[#F4FFFC] text-xs font-semibold shadow-xs transition cursor-pointer"
               >
-                <RefreshCw className="w-3.5 h-3.5 text-zinc-500" />
+                <RefreshCw className="w-3.5 h-3.5 text-[#1F4B2C]" />
                 <span>Segarkan Data</span>
               </button>
             </div>
           ) : !selectedSessionId ? (
             <div className="py-16 text-center space-y-2 text-zinc-400">
-              <Filter className="w-8 h-8 mx-auto text-zinc-300" />
+              <Filter className="w-8 h-8 mx-auto text-[#91EAAF]" />
               <div className="text-xs font-medium">Silakan pilih sesi ujian pada filter di atas untuk melihat nilai.</div>
             </div>
           ) : filteredStudents.length === 0 ? (
             <div className="py-14 text-center space-y-3 px-4">
-              <div className="w-12 h-12 rounded-xl bg-zinc-100 border border-zinc-200 text-zinc-400 flex items-center justify-center mx-auto">
+              <div className="w-12 h-12 rounded-xl bg-[#E1F8ED] border border-[#91EAAF]/60 text-[#1F4B2C] flex items-center justify-center mx-auto">
                 <Users className="w-6 h-6" />
               </div>
               <div className="space-y-1">
@@ -713,7 +713,7 @@ export default function StudentResults() {
             </div>
           ) : (
             <table className="w-full text-left text-xs">
-              <thead className="bg-zinc-50 border-b border-zinc-200 text-zinc-600 font-semibold uppercase tracking-wider text-[10px]">
+              <thead className="bg-[#F4FFFC] border-b border-[#91EAAF]/40 text-[#1F4B2C] font-semibold uppercase tracking-wider text-[10px]">
                 <tr>
                   <th className="py-3 px-3 text-center w-12">No</th>
                   <th className="py-3 px-3">NISN</th>
@@ -730,7 +730,7 @@ export default function StudentResults() {
               </thead>
               <tbody className="divide-y divide-zinc-100">
                 {filteredStudents.map((st, idx) => (
-                  <tr key={st.student_id || idx} className="hover:bg-zinc-50/80 transition">
+                  <tr key={st.student_id || idx} className="hover:bg-[#F4FFFC]/50 transition">
                     <td className="py-3 px-3 text-center font-mono text-zinc-400">
                       {idx + 1}
                     </td>
@@ -739,7 +739,7 @@ export default function StudentResults() {
                     </td>
                     <td className="py-3 px-4">
                       <div className="flex items-center gap-2.5">
-                        <div className="w-7 h-7 rounded-full bg-zinc-100 border border-zinc-200 text-zinc-700 flex items-center justify-center font-bold text-[11px] shrink-0">
+                        <div className="w-7 h-7 rounded-full bg-[#E1F8ED] border border-[#91EAAF]/60 text-[#1F4B2C] flex items-center justify-center font-bold text-[11px] shrink-0">
                           {st.student_name ? st.student_name.charAt(0).toUpperCase() : 'S'}
                         </div>
                         <div className="font-semibold text-zinc-900">
@@ -773,7 +773,7 @@ export default function StudentResults() {
                     </td>
                     <td className="py-3 px-3 text-center">
                       <span className="inline-flex items-center gap-1 font-mono font-semibold text-zinc-700">
-                        <span className="text-emerald-600 font-bold">{st.correct_count ?? 0}</span>
+                        <span className="text-[#1F4B2C] font-bold">{st.correct_count ?? 0}</span>
                         <span className="text-zinc-400">/</span>
                         <span>{st.total_questions ?? sessionResults.total_questions ?? 0}</span>
                       </span>
@@ -785,8 +785,8 @@ export default function StudentResults() {
                           <span>{st.violation_count} Pelanggaran</span>
                         </span>
                       ) : (
-                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-50 text-emerald-600 border border-emerald-200">
-                          <ShieldCheck className="w-3 h-3" />
+                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-[#C3E956]/20 text-[#4D7111] border border-[#C3E956]/40">
+                          <ShieldCheck className="w-3 h-3 text-[#4D7111]" />
                           <span>0 Bersih</span>
                         </span>
                       )}
@@ -798,8 +798,8 @@ export default function StudentResults() {
                           <span>Remidi Terbuka</span>
                         </span>
                       ) : (st.status === 'SUBMITTED' || Boolean(st.finished_at)) ? (
-                        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
-                          <CheckCircle className="w-3 h-3 text-emerald-500" />
+                        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-[#C3E956]/20 text-[#4D7111] border border-[#C3E956]/40">
+                          <CheckCircle className="w-3 h-3 text-[#4D7111]" />
                           <span>Selesai</span>
                         </span>
                       ) : st.status === 'LOCKED_VIOLATION' ? (
@@ -813,8 +813,8 @@ export default function StudentResults() {
                           <span>Belum Masuk</span>
                         </span>
                       ) : (
-                        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-blue-50 text-blue-700 border border-blue-200">
-                          <Clock className="w-3 h-3 text-blue-500" />
+                        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-[#E1F8ED] text-[#1F4B2C] border border-[#91EAAF]/60">
+                          <Clock className="w-3 h-3 text-[#1F4B2C]" />
                           <span>Mengerjakan</span>
                         </span>
                       )}
@@ -832,9 +832,9 @@ export default function StudentResults() {
                         </div>
                       ) : st.total_score !== null && st.total_score !== undefined && st.status !== 'NOT_STARTED' ? (
                         <div className="flex flex-col items-center gap-1">
-                          <div className="inline-flex items-baseline gap-1 px-2.5 py-1 rounded-lg bg-zinc-900 text-white font-mono font-bold text-xs shadow-2xs">
-                            <span className="text-sm font-black text-emerald-400">{st.total_score}</span>
-                            <span className="text-[10px] text-zinc-400">/ 100</span>
+                          <div className="inline-flex items-baseline gap-1 px-2.5 py-1 rounded-lg bg-[#102919] border border-[#1F4B2C] text-white font-mono font-bold text-xs shadow-xs">
+                            <span className="text-sm font-black text-[#C3E956]">{st.total_score}</span>
+                            <span className="text-[10px] text-zinc-300">/ 100</span>
                           </div>
                           {st.previous_score !== null && st.previous_score !== undefined && (
                             <span 
@@ -856,10 +856,10 @@ export default function StudentResults() {
                           type="button"
                           onClick={() => handleOpenBreakdownModal(st)}
                           disabled={!st.attempt_id || st.status === 'NOT_STARTED'}
-                          className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-white hover:bg-emerald-50 border border-zinc-200 hover:border-emerald-300 text-zinc-700 hover:text-emerald-700 font-semibold text-xs transition shadow-2xs active:scale-[0.98] disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
+                          className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-white hover:bg-[#F4FFFC] border border-[#91EAAF]/60 text-[#1F4B2C] font-semibold text-xs transition shadow-xs active:scale-[0.98] disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
                           title={st.status === 'NOT_STARTED' ? 'Siswa belum memulai ujian' : 'Lihat Rincian Analisis Jawaban Siswa per Butir Soal'}
                         >
-                          <Eye className="w-3.5 h-3.5 text-emerald-600" />
+                          <Eye className="w-3.5 h-3.5 text-[#1F4B2C]" />
                           <span>Lihat Jawaban</span>
                         </button>
 
@@ -869,7 +869,7 @@ export default function StudentResults() {
                             type="button"
                             onClick={() => handleOpenRemedialModal(st)}
                             disabled={isOpeningRemedial}
-                            className={`inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg font-semibold text-xs transition shadow-2xs active:scale-[0.98] cursor-pointer ${
+                            className={`inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg font-semibold text-xs transition shadow-xs active:scale-[0.98] cursor-pointer ${
                               st.is_remedial_allowed
                                 ? 'bg-amber-500 hover:bg-amber-600 text-white border border-amber-600 shadow-amber-500/20'
                                 : 'bg-white hover:bg-amber-50 border border-amber-200 hover:border-amber-300 text-amber-700'
@@ -894,24 +894,24 @@ export default function StudentResults() {
       {/* 5. MODAL DETAIL LEMBAR JAWABAN SISWA                     */}
       {/* ======================================================== */}
       {selectedAttempt && (
-        <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-xs flex items-center justify-center p-3 sm:p-5 animate-fade-in">
-          <div className="bg-white rounded-2xl max-w-4xl w-full max-h-[92vh] flex flex-col shadow-2xl border border-zinc-200 overflow-hidden">
+        <div className="fixed inset-0 z-50 bg-[#102919]/80 backdrop-blur-md flex items-center justify-center p-3 sm:p-5 animate-fade-in">
+          <div className="bg-white rounded-2xl max-w-4xl w-full max-h-[92vh] flex flex-col shadow-2xl border border-[#91EAAF]/40 overflow-hidden">
             {/* Modal Header */}
-            <div className="px-6 py-4 border-b border-zinc-200 bg-zinc-50 flex items-center justify-between">
+            <div className="px-6 py-4 border-b border-[#1F4B2C] bg-gradient-to-r from-[#102919] via-[#143820] to-[#1F4B2C] text-white flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-600 font-bold shrink-0">
+                <div className="w-10 h-10 rounded-xl bg-[#143820] border border-[#91EAAF]/40 flex items-center justify-center text-[#C3E956] font-bold shrink-0 shadow-xs">
                   <FileText className="w-5 h-5" />
                 </div>
                 <div>
-                  <h3 className="text-base sm:text-lg font-bold text-zinc-900">
+                  <h3 className="text-base sm:text-lg font-bold text-white">
                     Lembar Jawaban: {selectedAttempt.student_name}
                   </h3>
-                  <div className="flex flex-wrap items-center gap-2 text-xs text-zinc-500 mt-0.5 font-medium">
+                  <div className="flex flex-wrap items-center gap-2 text-xs text-zinc-300 mt-0.5 font-medium">
                     <span>NISN: <strong>{selectedAttempt.nisn}</strong></span>
-                    <span>•</span>
+                    <span className="text-[#91EAAF]/60">•</span>
                     <span>Kelas: <strong>{selectedAttempt.classroom_name}</strong></span>
-                    <span>•</span>
-                    <span>{sessionResults?.subject_name}</span>
+                    <span className="text-[#91EAAF]/60">•</span>
+                    <span className="text-[#C3E956]">{sessionResults?.subject_name}</span>
                   </div>
                 </div>
               </div>
@@ -920,17 +920,17 @@ export default function StudentResults() {
               <button
                 type="button"
                 onClick={handleCloseBreakdownModal}
-                className="p-2 rounded-lg bg-white hover:bg-zinc-100 text-zinc-500 hover:text-zinc-800 border border-zinc-200 transition"
+                className="p-2 rounded-lg bg-[#143820] hover:bg-[#1F4B2C] text-zinc-300 hover:text-white border border-[#91EAAF]/30 transition"
               >
                 <X className="w-4 h-4" />
               </button>
             </div>
 
             {/* Modal Body (Scrollable) */}
-            <div className="p-6 overflow-y-auto space-y-6 flex-1 bg-zinc-50/30">
+            <div className="p-6 overflow-y-auto space-y-6 flex-1 bg-[#F4FFFC]/40">
               {isLoadingBreakdown ? (
                 <div className="py-20 text-center space-y-3">
-                  <RefreshCw className="w-8 h-8 text-emerald-600 animate-spin mx-auto" />
+                  <RefreshCw className="w-8 h-8 text-[#1F4B2C] animate-spin mx-auto" />
                   <div className="text-xs text-zinc-500 font-medium">Mengambil analisis lembar jawaban siswa...</div>
                 </div>
               ) : !breakdownData ? (
@@ -941,13 +941,13 @@ export default function StudentResults() {
               ) : (
                 <>
                   {/* Score KPI Header Inside Modal */}
-                  <div className="bg-white border border-zinc-200/90 rounded-xl p-4 shadow-2xs flex flex-col sm:flex-row items-center justify-between gap-4">
+                  <div className="bg-white border border-[#91EAAF]/40 rounded-xl p-4 shadow-xs flex flex-col sm:flex-row items-center justify-between gap-4">
                     <div className="flex items-center gap-4">
-                      <div className="w-16 h-16 rounded-xl bg-zinc-950 flex flex-col items-center justify-center text-white shrink-0 shadow-xs">
-                        <span className="text-2xl font-black font-mono text-emerald-400">
+                      <div className="w-16 h-16 rounded-xl bg-[#102919] border border-[#1F4B2C] flex flex-col items-center justify-center text-white shrink-0 shadow-xs">
+                        <span className="text-2xl font-black font-mono text-[#C3E956]">
                           {breakdownData.total_score}
                         </span>
-                        <span className="text-[9px] uppercase tracking-wider text-zinc-400">Skor Akhir</span>
+                        <span className="text-[9px] uppercase tracking-wider text-zinc-300">Skor Akhir</span>
                       </div>
                       <div>
                         <div className="text-xs text-zinc-400 uppercase font-semibold tracking-wider">Capaian Nilai</div>
@@ -962,30 +962,30 @@ export default function StudentResults() {
 
                     {/* Breakdown Badges */}
                     <div className="flex items-center gap-2">
-                      <div className="px-3 py-2 rounded-lg bg-emerald-50 border border-emerald-200 text-center">
-                        <div className="text-base font-bold font-mono text-emerald-700">{breakdownData.total_correct ?? 0}</div>
-                        <div className="text-[10px] text-emerald-600 font-medium">Benar</div>
+                      <div className="px-3 py-2 rounded-lg bg-[#C3E956]/20 border border-[#C3E956]/40 text-center">
+                        <div className="text-base font-bold font-mono text-[#4D7111]">{breakdownData.total_correct ?? 0}</div>
+                        <div className="text-[10px] text-[#4D7111] font-semibold">Benar</div>
                       </div>
                       <div className="px-3 py-2 rounded-lg bg-rose-50 border border-rose-200 text-center">
                         <div className="text-base font-bold font-mono text-rose-700">{breakdownData.total_incorrect ?? 0}</div>
                         <div className="text-[10px] text-rose-600 font-medium">Salah / Belum</div>
                       </div>
-                      <div className="px-3 py-2 rounded-lg bg-zinc-100 border border-zinc-200 text-center">
-                        <div className="text-base font-bold font-mono text-zinc-800">{breakdownData.total_questions ?? 0}</div>
-                        <div className="text-[10px] text-zinc-600 font-medium">Total Soal</div>
+                      <div className="px-3 py-2 rounded-lg bg-[#E1F8ED] border border-[#91EAAF]/60 text-center">
+                        <div className="text-base font-bold font-mono text-[#1F4B2C]">{breakdownData.total_questions ?? 0}</div>
+                        <div className="text-[10px] text-[#1F4B2C] font-semibold">Total Soal</div>
                       </div>
                     </div>
                   </div>
 
                   {/* Filter Tabs Inside Modal */}
-                  <div className="flex items-center gap-1 border-b border-zinc-200 pb-2">
+                  <div className="flex items-center gap-1 border-b border-[#91EAAF]/30 pb-2">
                     <button
                       type="button"
                       onClick={() => setBreakdownFilter('ALL')}
                       className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition ${
                         breakdownFilter === 'ALL'
-                          ? 'bg-zinc-900 text-white'
-                          : 'bg-white hover:bg-zinc-100 text-zinc-600 border border-zinc-200'
+                          ? 'bg-[#1F4B2C] text-[#C3E956]'
+                          : 'bg-white hover:bg-[#F4FFFC] text-[#1F4B2C] border border-[#91EAAF]/60'
                       }`}
                     >
                       Semua Soal ({breakdownData.items?.length || 0})
@@ -995,8 +995,8 @@ export default function StudentResults() {
                       onClick={() => setBreakdownFilter('CORRECT')}
                       className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition ${
                         breakdownFilter === 'CORRECT'
-                          ? 'bg-emerald-600 text-white'
-                          : 'bg-white hover:bg-emerald-50 text-emerald-700 border border-emerald-200'
+                          ? 'bg-[#1F4B2C] text-[#C3E956]'
+                          : 'bg-white hover:bg-emerald-50 text-[#1F4B2C] border border-[#91EAAF]/60'
                       }`}
                     >
                       Benar ({breakdownData.items?.filter((i) => i.status === 'CORRECT' || i.status === 'PARTIAL').length || 0})
@@ -1017,8 +1017,8 @@ export default function StudentResults() {
                       onClick={() => setBreakdownFilter('ESSAY')}
                       className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition ${
                         breakdownFilter === 'ESSAY'
-                          ? 'bg-blue-600 text-white'
-                          : 'bg-white hover:bg-blue-50 text-blue-700 border border-blue-200'
+                          ? 'bg-[#1F4B2C] text-[#C3E956]'
+                          : 'bg-white hover:bg-[#F4FFFC] text-[#1F4B2C] border border-[#91EAAF]/60'
                       }`}
                     >
                       Esai ({breakdownData.items?.filter((i) => i.question_type === 'ESSAY').length || 0})

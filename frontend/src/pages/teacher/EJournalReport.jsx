@@ -356,7 +356,7 @@ export default function EJournalReport() {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 print:hidden">
         <div>
           <div className="flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-lg bg-zinc-100 border border-zinc-200 flex items-center justify-center text-zinc-800 shadow-2xs">
+            <div className="w-9 h-9 rounded-lg bg-[#1F4B2C] border border-[#C3E956]/30 flex items-center justify-center text-[#C3E956] shadow-xs">
               <FileSpreadsheet className="w-4 h-4" />
             </div>
             <div>
@@ -375,37 +375,37 @@ export default function EJournalReport() {
           <button
             type="button"
             onClick={() => navigate(`/teacher/results${currentSession?.id ? `?session=${currentSession.id}` : ''}`)}
-            className="w-full sm:w-auto px-3.5 py-2 bg-emerald-50 hover:bg-emerald-100/80 text-emerald-800 border border-emerald-300 rounded-lg text-xs font-semibold transition flex items-center justify-center gap-1.5 shadow-2xs hover:-translate-y-0.5 active:scale-[0.98]"
+            className="w-full sm:w-auto px-3.5 py-2 bg-[#C3E956]/20 hover:bg-[#C3E956]/30 text-[#4D7111] border border-[#C3E956]/40 rounded-lg text-xs font-semibold transition flex items-center justify-center gap-1.5 shadow-xs active:scale-[0.98] cursor-pointer"
             title="Buka Analisis Lembar Jawaban & Rekap Nilai Siswa"
           >
-            <Award className="w-3.5 h-3.5 text-emerald-600" />
+            <Award className="w-3.5 h-3.5 text-[#4D7111]" />
             <span>Rekap Nilai Siswa</span>
           </button>
 
           <button
             onClick={handleExportExcel}
             disabled={isExportingExcel || !currentSession}
-            className="w-full sm:w-auto px-3.5 py-2 bg-white hover:bg-zinc-50 text-zinc-700 border border-zinc-200 rounded-lg text-xs font-medium transition flex items-center justify-center gap-1.5 shadow-2xs hover:-translate-y-0.5 active:scale-[0.98] disabled:opacity-50"
+            className="w-full sm:w-auto px-3.5 py-2 bg-white hover:bg-[#F4FFFC] text-[#1F4B2C] border border-[#91EAAF]/60 rounded-lg text-xs font-semibold transition flex items-center justify-center gap-1.5 shadow-xs active:scale-[0.98] disabled:opacity-50 cursor-pointer"
             title="Ekspor Rekapitulasi Nilai Format Excel .xlsx"
           >
-            <Download className="w-3.5 h-3.5 text-zinc-500" />
+            <Download className="w-3.5 h-3.5 text-[#1F4B2C]" />
             <span>{isExportingExcel ? 'Membuat Excel...' : 'Ekspor Rekap (.xlsx)'}</span>
           </button>
 
           <button
             onClick={handleExportPDF}
             disabled={isExportingPdf || !currentSession}
-            className="w-full sm:w-auto px-4 py-2 bg-zinc-900 hover:bg-zinc-800 text-white rounded-lg text-xs font-semibold transition flex items-center justify-center gap-1.5 shadow-xs hover:-translate-y-0.5 active:scale-[0.98] disabled:opacity-50"
+            className="w-full sm:w-auto px-4 py-2 bg-[#1F4B2C] hover:bg-[#183D23] text-white rounded-lg text-xs font-semibold transition flex items-center justify-center gap-1.5 shadow-xs active:scale-[0.98] disabled:opacity-50 cursor-pointer"
             title="Unduh Berita Acara Format PDF Resmi"
           >
-            <FileDown className="w-3.5 h-3.5" />
+            <FileDown className="w-3.5 h-3.5 text-[#C3E956]" />
             <span>{isExportingPdf ? 'Membuat PDF...' : 'Unduh Berita Acara (PDF)'}</span>
           </button>
 
           <button
             onClick={() => window.print()}
             disabled={!currentSession}
-            className="hidden sm:flex p-2 text-zinc-600 hover:text-zinc-900 bg-white border border-zinc-200 rounded-lg hover:bg-zinc-50 transition disabled:opacity-50 items-center justify-center shadow-2xs hover:-translate-y-0.5 active:scale-[0.98]"
+            className="hidden sm:flex p-2 text-[#1F4B2C] hover:text-[#183D23] bg-white border border-[#91EAAF]/60 rounded-lg hover:bg-[#F4FFFC] transition disabled:opacity-50 items-center justify-center shadow-xs active:scale-[0.98] cursor-pointer"
             title="Cetak Langsung Lembar Dokumen (Print Preview)"
           >
             <Printer className="w-3.5 h-3.5" />
@@ -416,10 +416,10 @@ export default function EJournalReport() {
       {/* ======================================================== */}
       {/* 2. FILTER MULTI-LEVEL (PAKET SOAL, KELAS, & SESI UJIAN) */}
       {/* ======================================================== */}
-      <div className="bg-white rounded-xl p-5 border border-zinc-200/90 shadow-2xs space-y-4 print:hidden">
-        <div className="flex items-center justify-between border-b border-zinc-100 pb-3">
-          <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-zinc-700">
-            <Filter className="w-3.5 h-3.5 text-zinc-500" />
+      <div className="bg-white rounded-xl p-5 border border-[#91EAAF]/40 shadow-xs space-y-4 print:hidden">
+        <div className="flex items-center justify-between border-b border-[#91EAAF]/30 pb-3">
+          <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#1F4B2C]">
+            <Filter className="w-3.5 h-3.5 text-[#4D7111]" />
             <span>Pilih Paket Soal, Rombel Kelas, & Sesi Ujian</span>
           </div>
           <span className="text-[11px] text-zinc-400 font-mono">
@@ -430,13 +430,13 @@ export default function EJournalReport() {
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           {/* Filter 1: Paket Soal */}
           <div>
-            <label className="block text-[11px] font-semibold text-zinc-500 uppercase tracking-wider mb-1">
+            <label className="block text-[11px] font-semibold text-zinc-700 uppercase tracking-wider mb-1">
               Filter Paket Soal:
             </label>
             <select
               value={selectedPackageFilter}
               onChange={(e) => setSelectedPackageFilter(e.target.value)}
-              className="w-full text-xs font-medium rounded-lg border border-zinc-200 focus:outline-none focus:border-zinc-400 py-2 bg-white text-zinc-800"
+              className="w-full text-xs font-medium rounded-lg border border-[#91EAAF]/60 focus:outline-none focus:ring-2 focus:ring-[#91EAAF]/40 focus:border-[#1F4B2C] py-2 px-2.5 bg-[#F4FFFC]/50 text-zinc-800"
             >
               <option value="ALL">Semua Paket Soal ({allPackages.length})</option>
               {allPackages.map((pkg) => (
@@ -449,13 +449,13 @@ export default function EJournalReport() {
 
           {/* Filter 2: Kelas / Rombel */}
           <div>
-            <label className="block text-[11px] font-semibold text-zinc-500 uppercase tracking-wider mb-1">
+            <label className="block text-[11px] font-semibold text-zinc-700 uppercase tracking-wider mb-1">
               Filter Kelas / Rombel:
             </label>
             <select
               value={selectedClassFilter}
               onChange={(e) => setSelectedClassFilter(e.target.value)}
-              className="w-full text-xs font-medium rounded-lg border border-zinc-200 focus:outline-none focus:border-zinc-400 py-2 bg-white text-zinc-800"
+              className="w-full text-xs font-medium rounded-lg border border-[#91EAAF]/60 focus:outline-none focus:ring-2 focus:ring-[#91EAAF]/40 focus:border-[#1F4B2C] py-2 px-2.5 bg-[#F4FFFC]/50 text-zinc-800"
             >
               <option value="ALL">-- Seluruh Kelas ({allClassrooms.length}) --</option>
               {allClassrooms.map((cls) => (
@@ -468,14 +468,14 @@ export default function EJournalReport() {
 
           {/* Filter 3: Sesi Ujian Spesifik */}
           <div>
-            <label className="block text-[11px] font-semibold text-zinc-500 uppercase tracking-wider mb-1">
+            <label className="block text-[11px] font-semibold text-zinc-700 uppercase tracking-wider mb-1">
               Pilih Sesi Ujian Terbuka:
             </label>
             <select
               value={selectedSessionId}
               onChange={(e) => setSelectedSessionId(e.target.value)}
               disabled={filteredSessions.length === 0}
-              className="w-full text-xs font-semibold rounded-lg border border-zinc-200 focus:outline-none focus:border-zinc-400 py-2 bg-zinc-50 text-zinc-900 disabled:bg-zinc-100 disabled:text-zinc-400"
+              className="w-full text-xs font-semibold rounded-lg border border-[#91EAAF]/60 focus:outline-none focus:ring-2 focus:ring-[#91EAAF]/40 focus:border-[#1F4B2C] py-2 px-2.5 bg-[#F4FFFC] text-[#1F4B2C] disabled:bg-zinc-100 disabled:text-zinc-400"
             >
               {filteredSessions.length === 0 ? (
                 <option value="">Tidak ada sesi yang cocok</option>
@@ -522,8 +522,8 @@ export default function EJournalReport() {
           {/* ======================================================== */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 print:hidden">
             {/* Kartu 1: Total Terjadwal */}
-            <div className="bg-white rounded-xl p-4 border border-zinc-200/90 shadow-2xs flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-zinc-100 text-zinc-700 border border-zinc-200 flex items-center justify-center shrink-0">
+            <div className="bg-white rounded-xl p-4 border border-[#91EAAF]/40 shadow-xs flex items-center gap-3">
+              <div className="w-10 h-10 rounded-lg bg-[#E1F8ED] text-[#1F4B2C] border border-[#91EAAF]/60 flex items-center justify-center shrink-0">
                 <Users className="w-4 h-4" />
               </div>
               <div>
@@ -534,32 +534,32 @@ export default function EJournalReport() {
             </div>
 
             {/* Kartu 2: Hadir Mengerjakan */}
-            <div className="bg-white rounded-xl p-4 border border-emerald-200/70 shadow-2xs flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-emerald-50 text-emerald-700 border border-emerald-200 flex items-center justify-center shrink-0">
+            <div className="bg-white rounded-xl p-4 border border-[#91EAAF]/40 shadow-xs flex items-center gap-3">
+              <div className="w-10 h-10 rounded-lg bg-[#C3E956]/20 text-[#4D7111] border border-[#C3E956]/40 flex items-center justify-center shrink-0">
                 <CheckCircle2 className="w-4 h-4" />
               </div>
               <div>
-                <div className="text-[10px] text-emerald-700 font-semibold uppercase tracking-wider">Hadir / Selesai</div>
-                <div className="text-lg sm:text-xl font-bold font-mono text-emerald-700 mt-0.5">{presentStudents} Siswa</div>
+                <div className="text-[10px] text-[#4D7111] font-semibold uppercase tracking-wider">Hadir / Selesai</div>
+                <div className="text-lg sm:text-xl font-bold font-mono text-[#1F4B2C] mt-0.5">{presentStudents} Siswa</div>
                 <div className="text-[10px] text-zinc-400">{absentStudents} belum hadir</div>
               </div>
             </div>
 
             {/* Kartu 3: Rata-Rata Nilai */}
-            <div className="bg-white rounded-xl p-4 border border-zinc-200/90 shadow-2xs flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-zinc-100 text-zinc-700 border border-zinc-200 flex items-center justify-center shrink-0">
+            <div className="bg-white rounded-xl p-4 border border-[#91EAAF]/40 shadow-xs flex items-center gap-3">
+              <div className="w-10 h-10 rounded-lg bg-[#E1F8ED] text-[#1F4B2C] border border-[#91EAAF]/60 flex items-center justify-center shrink-0">
                 <Award className="w-4 h-4" />
               </div>
               <div>
                 <div className="text-[10px] text-zinc-500 font-semibold uppercase tracking-wider">Rata-Rata Kelas</div>
-                <div className="text-lg sm:text-xl font-bold font-mono text-zinc-900 mt-0.5">{averageScore} Poin</div>
+                <div className="text-lg sm:text-xl font-bold font-mono text-[#1F4B2C] mt-0.5">{averageScore} Poin</div>
                 <div className="text-[10px] text-zinc-400">Min: {lowestScore} • Max: {highestScore}</div>
               </div>
             </div>
 
             {/* Kartu 4: Total Insiden Pelanggaran */}
-            <div className={`bg-white rounded-xl p-4 border shadow-2xs flex items-center gap-3 ${
-              totalViolations > 0 ? 'border-amber-300 bg-amber-50/20' : 'border-zinc-200/90'
+            <div className={`bg-white rounded-xl p-4 border shadow-xs flex items-center gap-3 ${
+              totalViolations > 0 ? 'border-amber-300 bg-amber-50/20' : 'border-[#91EAAF]/40'
             }`}>
               <div className="w-10 h-10 rounded-lg bg-amber-50 text-amber-800 border border-amber-200 flex items-center justify-center shrink-0">
                 <ShieldCheck className="w-4 h-4" />
@@ -575,7 +575,7 @@ export default function EJournalReport() {
           {/* ======================================================== */}
           {/* 5. LEMBAR BERITA ACARA RESMI (KERTAS A4 STYLE) */}
           {/* ======================================================== */}
-          <div className="bg-white rounded-xl border border-zinc-200 shadow-sm p-6 sm:p-10 max-w-5xl mx-auto space-y-6 text-zinc-800">
+          <div className="bg-white rounded-xl border border-[#91EAAF]/40 shadow-sm p-6 sm:p-10 max-w-5xl mx-auto space-y-6 text-zinc-800">
             {/* KOP SURAT SEKOLAH DINAMIS */}
             <div className="border-b-2 border-zinc-900 pb-5 text-center relative">
               {displaySchool.sub_header && (
@@ -606,7 +606,7 @@ export default function EJournalReport() {
             </div>
 
             {/* INFORMASI METADATA ASESMEN */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs bg-zinc-50/80 p-4 rounded-lg border border-zinc-200/80">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs bg-[#F4FFFC]/70 p-4 rounded-lg border border-[#91EAAF]/40">
               <div className="space-y-1.5">
                 <div className="flex">
                   <span className="w-32 text-zinc-500 font-medium">Mata Pelajaran:</span>
@@ -630,7 +630,7 @@ export default function EJournalReport() {
                       </>
                     ) : (
                       <>
-                        <BookOpen className="w-3 h-3 text-emerald-600" />
+                        <BookOpen className="w-3 h-3 text-[#1F4B2C]" />
                         <span>Soal Mandiri (AKM / Esai)</span>
                       </>
                     )}
@@ -840,9 +840,9 @@ export default function EJournalReport() {
                 <div className="flex justify-end print:hidden">
                   <button
                     onClick={handleSaveNotes}
-                    className="px-3.5 py-1.5 bg-zinc-900 hover:bg-zinc-800 text-white rounded-lg text-xs font-semibold transition flex items-center gap-1.5 shadow-xs hover:-translate-y-0.5 active:scale-[0.98]"
+                    className="px-3.5 py-1.5 bg-[#1F4B2C] hover:bg-[#183D23] text-white rounded-lg text-xs font-semibold transition flex items-center gap-1.5 shadow-xs active:scale-[0.98] cursor-pointer"
                   >
-                    <Save className="w-3.5 h-3.5" />
+                    <Save className="w-3.5 h-3.5 text-[#C3E956]" />
                     <span>Simpan Catatan Berita Acara</span>
                   </button>
                 </div>

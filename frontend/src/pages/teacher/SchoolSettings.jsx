@@ -111,7 +111,7 @@ export default function SchoolSettings() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-lg bg-zinc-100 border border-zinc-200/90 flex items-center justify-center text-zinc-800 shadow-2xs">
+            <div className="w-10 h-10 rounded-xl bg-[#1F4B2C] border border-[#C3E956]/30 flex items-center justify-center text-[#C3E956] shadow-xs">
               <Building2 className="w-5 h-5" />
             </div>
             <div>
@@ -128,23 +128,23 @@ export default function SchoolSettings() {
         <button
           onClick={fetchSchoolSettings}
           disabled={isLoading}
-          className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white border border-zinc-200/90 text-xs font-semibold text-zinc-700 hover:bg-zinc-50 transition shadow-2xs"
+          className="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg bg-white border border-[#91EAAF]/60 text-xs font-semibold text-[#1F4B2C] hover:bg-[#F4FFFC] transition shadow-xs active:scale-[0.98] cursor-pointer"
         >
-          <RefreshCw className={`w-3.5 h-3.5 ${isLoading ? 'animate-spin text-zinc-900' : ''}`} />
+          <RefreshCw className={`w-3.5 h-3.5 ${isLoading ? 'animate-spin text-[#1F4B2C]' : 'text-[#4D7111]'}`} />
           <span>Muat Ulang</span>
         </button>
       </div>
 
       {/* Alert Notifikasi */}
       {successMessage && (
-        <div className="p-3.5 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs sm:text-sm font-semibold flex items-center gap-2.5 shadow-2xs">
-          <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+        <div className="p-3.5 rounded-lg bg-[#C3E956]/20 border border-[#C3E956]/40 text-[#4D7111] text-xs sm:text-sm font-semibold flex items-center gap-2.5 shadow-xs animate-fadeIn">
+          <CheckCircle2 className="w-4 h-4 text-[#4D7111] shrink-0" />
           <span>{successMessage}</span>
         </div>
       )}
 
       {errorMessage && (
-        <div className="p-3.5 rounded-lg bg-rose-50 border border-rose-200 text-rose-800 text-xs sm:text-sm font-semibold flex items-center gap-2.5 shadow-2xs">
+        <div className="p-3.5 rounded-lg bg-rose-50 border border-rose-200 text-rose-800 text-xs sm:text-sm font-semibold flex items-center gap-2.5 shadow-xs animate-fadeIn">
           <AlertCircle className="w-4 h-4 text-rose-600 shrink-0" />
           <span>{errorMessage}</span>
         </div>
@@ -154,13 +154,13 @@ export default function SchoolSettings() {
         {/* ======================================================== */}
         {/* KOLOM KIRI: FORMULIR INPUT PENGATURAN (7 Kolom) */}
         {/* ======================================================== */}
-        <div className="lg:col-span-7 bg-white rounded-xl border border-zinc-200/90 shadow-2xs p-5 sm:p-6 space-y-5">
-          <div className="border-b border-zinc-100 pb-4 flex items-center justify-between">
+        <div className="lg:col-span-7 bg-white rounded-xl border border-[#91EAAF]/40 shadow-xs p-5 sm:p-6 space-y-5">
+          <div className="border-b border-[#91EAAF]/30 pb-4 flex items-center justify-between">
             <div>
               <h2 className="text-sm font-bold text-zinc-900">Form Identitas & Dokumen Resmi</h2>
               <p className="text-xs text-zinc-500">Data ini otomatis tercetak pada Berita Acara, Lembar E-Jurnal, dan Ekspor PDF/Excel.</p>
             </div>
-            <span className="px-2 py-0.5 rounded text-[10px] font-medium uppercase tracking-wider bg-zinc-100 text-zinc-700 border border-zinc-200">
+            <span className="px-2 py-0.5 rounded text-[10px] font-semibold uppercase tracking-wider bg-[#C3E956]/20 text-[#4D7111] border border-[#C3E956]/40">
               Dinamis
             </span>
           </div>
@@ -178,7 +178,7 @@ export default function SchoolSettings() {
                 value={formData.name}
                 onChange={handleChange}
                 placeholder="Contoh: MIS RISALAH / SMK NEGERI 1 INFORMATIKA"
-                className="w-full px-3 py-2 bg-zinc-50 rounded-lg border border-zinc-200/90 text-xs sm:text-sm font-semibold text-zinc-900 focus:bg-white focus:outline-none focus:ring-1 focus:ring-zinc-900 focus:border-zinc-900 transition"
+                className="w-full px-3 py-2 bg-[#F4FFFC]/50 rounded-lg border border-[#91EAAF]/60 text-xs sm:text-sm font-semibold text-zinc-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#91EAAF]/40 focus:border-[#1F4B2C] transition"
               />
             </div>
 
@@ -192,7 +192,7 @@ export default function SchoolSettings() {
                 value={formData.sub_header}
                 onChange={handleChange}
                 placeholder="Contoh: KEMENTERIAN AGAMA REPUBLIK INDONESIA / DINAS PENDIDIKAN"
-                className="w-full px-3 py-2 bg-zinc-50 rounded-lg border border-zinc-200/90 text-xs sm:text-sm text-zinc-900 focus:bg-white focus:outline-none focus:ring-1 focus:ring-zinc-900 focus:border-zinc-900 transition"
+                className="w-full px-3 py-2 bg-[#F4FFFC]/50 rounded-lg border border-[#91EAAF]/60 text-xs sm:text-sm text-zinc-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#91EAAF]/40 focus:border-[#1F4B2C] transition"
               />
               <span className="text-[11px] text-zinc-400 block">Tampil pada baris paling atas kop dokumen resmi</span>
             </div>
@@ -208,8 +208,8 @@ export default function SchoolSettings() {
                   name="address"
                   value={formData.address}
                   onChange={handleChange}
-                  placeholder="Contoh: Jl. Raya Karangampel No. 45"
-                  className="w-full px-3 py-2 bg-zinc-50 rounded-lg border border-zinc-200/90 text-xs sm:text-sm text-zinc-900 focus:bg-white focus:outline-none focus:ring-1 focus:ring-zinc-900 focus:border-zinc-900 transition"
+                  placeholder="Contoh: Lembu RT 02/ RW 01, Jimus, Polanharjo, Klaten"
+                  className="w-full px-3 py-2 bg-[#F4FFFC]/50 rounded-lg border border-[#91EAAF]/60 text-xs sm:text-sm text-zinc-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#91EAAF]/40 focus:border-[#1F4B2C] transition"
                 />
               </div>
 
@@ -222,8 +222,8 @@ export default function SchoolSettings() {
                   name="city"
                   value={formData.city}
                   onChange={handleChange}
-                  placeholder="Contoh: Indramayu"
-                  className="w-full px-3 py-2 bg-zinc-50 rounded-lg border border-zinc-200/90 text-xs sm:text-sm text-zinc-900 focus:bg-white focus:outline-none focus:ring-1 focus:ring-zinc-900 focus:border-zinc-900 transition"
+                  placeholder="Contoh: Klaten"
+                  className="w-full px-3 py-2 bg-[#F4FFFC]/50 rounded-lg border border-[#91EAAF]/60 text-xs sm:text-sm text-zinc-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#91EAAF]/40 focus:border-[#1F4B2C] transition"
                 />
               </div>
             </div>
@@ -239,8 +239,8 @@ export default function SchoolSettings() {
                   name="phone"
                   value={formData.phone}
                   onChange={handleChange}
-                  placeholder="Contoh: (0234) 123456"
-                  className="w-full px-3 py-2 bg-zinc-50 rounded-lg border border-zinc-200/90 text-xs sm:text-sm text-zinc-900 focus:bg-white focus:outline-none focus:ring-1 focus:ring-zinc-900 focus:border-zinc-900 transition"
+                  placeholder="Contoh: (0272) 123456"
+                  className="w-full px-3 py-2 bg-[#F4FFFC]/50 rounded-lg border border-[#91EAAF]/60 text-xs sm:text-sm text-zinc-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#91EAAF]/40 focus:border-[#1F4B2C] transition"
                 />
               </div>
 
@@ -253,14 +253,14 @@ export default function SchoolSettings() {
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  placeholder="Contoh: info@mis-risalah.sch.id"
-                  className="w-full px-3 py-2 bg-zinc-50 rounded-lg border border-zinc-200/90 text-xs sm:text-sm text-zinc-900 focus:bg-white focus:outline-none focus:ring-1 focus:ring-zinc-900 focus:border-zinc-900 transition"
+                  placeholder="Contoh: info@sdmis.sch.id"
+                  className="w-full px-3 py-2 bg-[#F4FFFC]/50 rounded-lg border border-[#91EAAF]/60 text-xs sm:text-sm text-zinc-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#91EAAF]/40 focus:border-[#1F4B2C] transition"
                 />
               </div>
             </div>
 
             {/* 4. Pejabat Kepala Sekolah & NIP */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-zinc-100">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-[#91EAAF]/30">
               <div className="space-y-1.5">
                 <label className="block text-xs font-semibold text-zinc-700 uppercase tracking-wider">
                   Nama Kepala Sekolah / Madrasah
@@ -271,7 +271,7 @@ export default function SchoolSettings() {
                   value={formData.principal_name}
                   onChange={handleChange}
                   placeholder="Contoh: H. Ahmad Syafi'i, M.Pd.I"
-                  className="w-full px-3 py-2 bg-zinc-50 rounded-lg border border-zinc-200/90 text-xs sm:text-sm font-semibold text-zinc-900 focus:bg-white focus:outline-none focus:ring-1 focus:ring-zinc-900 focus:border-zinc-900 transition"
+                  className="w-full px-3 py-2 bg-[#F4FFFC]/50 rounded-lg border border-[#91EAAF]/60 text-xs sm:text-sm font-semibold text-zinc-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#91EAAF]/40 focus:border-[#1F4B2C] transition"
                 />
               </div>
 
@@ -285,7 +285,7 @@ export default function SchoolSettings() {
                   value={formData.principal_nip}
                   onChange={handleChange}
                   placeholder="Contoh: 197508102003121002"
-                  className="w-full px-3 py-2 bg-zinc-50 rounded-lg border border-zinc-200/90 text-xs sm:text-sm font-mono text-zinc-900 focus:bg-white focus:outline-none focus:ring-1 focus:ring-zinc-900 focus:border-zinc-900 transition"
+                  className="w-full px-3 py-2 bg-[#F4FFFC]/50 rounded-lg border border-[#91EAAF]/60 text-xs sm:text-sm font-mono text-zinc-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#91EAAF]/40 focus:border-[#1F4B2C] transition"
                 />
               </div>
             </div>
@@ -301,25 +301,25 @@ export default function SchoolSettings() {
                 value={formData.academic_year}
                 onChange={handleChange}
                 placeholder="Contoh: 2026/2027"
-                className="w-full sm:w-1/2 px-3 py-2 bg-zinc-50 rounded-lg border border-zinc-200/90 text-xs sm:text-sm font-medium text-zinc-900 focus:bg-white focus:outline-none focus:ring-1 focus:ring-zinc-900 focus:border-zinc-900 transition"
+                className="w-full sm:w-1/2 px-3 py-2 bg-[#F4FFFC]/50 rounded-lg border border-[#91EAAF]/60 text-xs sm:text-sm font-medium text-zinc-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#91EAAF]/40 focus:border-[#1F4B2C] transition"
               />
             </div>
 
             {/* Tombol Simpan Form */}
-            <div className="pt-4 border-t border-zinc-100 flex items-center justify-end">
+            <div className="pt-4 border-t border-[#91EAAF]/30 flex items-center justify-end">
               <button
                 type="submit"
                 disabled={isSaving}
-                className="px-4 py-2 bg-zinc-900 hover:bg-zinc-800 text-white rounded-lg text-xs sm:text-sm font-semibold shadow-2xs hover:-translate-y-0.5 active:scale-[0.98] transition-all flex items-center gap-2 disabled:opacity-50"
+                className="px-4 py-2 bg-[#1F4B2C] hover:bg-[#183D23] text-white rounded-lg text-xs sm:text-sm font-semibold shadow-xs active:scale-[0.98] transition-all flex items-center gap-2 disabled:opacity-50 cursor-pointer"
               >
                 {isSaving ? (
                   <>
-                    <RefreshCw className="w-4 h-4 animate-spin" />
+                    <RefreshCw className="w-4 h-4 animate-spin text-[#C3E956]" />
                     <span>Menyimpan Perubahan...</span>
                   </>
                 ) : (
                   <>
-                    <Save className="w-4 h-4" />
+                    <Save className="w-4 h-4 text-[#C3E956]" />
                     <span>Simpan Pengaturan Sekolah</span>
                   </>
                 )}
@@ -332,18 +332,18 @@ export default function SchoolSettings() {
         {/* KOLOM KANAN: LIVE PREVIEW KOP & TANDA TANGAN (5 Kolom) */}
         {/* ======================================================== */}
         <div className="lg:col-span-5 space-y-4">
-          <div className="bg-[#090D16] text-white p-3.5 rounded-xl border border-zinc-800 shadow-2xs flex items-center justify-between">
+          <div className="bg-gradient-to-r from-[#102919] via-[#143820] to-[#1F4B2C] text-white p-3.5 rounded-xl border border-[#1F4B2C] shadow-xs flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <Eye className="w-4 h-4 text-zinc-300" />
+              <Eye className="w-4 h-4 text-[#C3E956]" />
               <span className="text-xs font-bold uppercase tracking-wider">Pratinjau Lembar Dokumen</span>
             </div>
-            <span className="text-[10px] bg-zinc-800 text-zinc-300 px-2 py-0.5 rounded font-mono border border-zinc-700">
+            <span className="text-[10px] bg-[#143820] text-[#C3E956] px-2 py-0.5 rounded font-mono border border-[#91EAAF]/30">
               Live Preview
             </span>
           </div>
 
           {/* Kotak Kertas A4 Mini */}
-          <div className="bg-white rounded-xl border border-zinc-200/90 shadow-2xs p-5 sm:p-6 space-y-5 text-zinc-800 text-center">
+          <div className="bg-white rounded-xl border border-[#91EAAF]/40 shadow-xs p-5 sm:p-6 space-y-5 text-zinc-800 text-center">
             {/* Kop Surat Live Preview */}
             <div className="border-b-2 border-zinc-900 pb-3 text-center space-y-1">
               {formData.sub_header && (
@@ -374,10 +374,10 @@ export default function SchoolSettings() {
             </div>
 
             {/* Ilustrasi Tabel Nilai */}
-            <div className="p-3 bg-zinc-50 rounded-lg border border-zinc-200/90 text-left text-[11px] space-y-1">
+            <div className="p-3 bg-[#F4FFFC]/70 rounded-lg border border-[#91EAAF]/40 text-left text-[11px] space-y-1">
               <div className="flex justify-between font-semibold text-zinc-700">
                 <span>Contoh Rekapitulasi:</span>
-                <span className="text-emerald-700 font-bold">32 Siswa Hadir</span>
+                <span className="text-[#1F4B2C] font-bold">32 Siswa Hadir</span>
               </div>
               <div className="text-zinc-500 text-[10px]">
                 Rekapitulasi kehadiran, hasil pengerjaan soal, skor pilihan ganda, dan log sensor kecurangan.
@@ -385,7 +385,7 @@ export default function SchoolSettings() {
             </div>
 
             {/* Tanda Tangan Pengesahan Live Preview */}
-            <div className="pt-3 border-t border-zinc-100 grid grid-cols-2 gap-4 text-center text-[10px]">
+            <div className="pt-3 border-t border-[#91EAAF]/30 grid grid-cols-2 gap-4 text-center text-[10px]">
               <div>
                 <div className="text-zinc-500">Mengetahui,</div>
                 <div className="font-semibold text-zinc-900">Kepala {formData.name || 'Sekolah'}</div>
