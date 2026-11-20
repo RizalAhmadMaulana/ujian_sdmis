@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import { createPortal } from 'react-dom';
 import { useSearchParams } from 'react-router-dom';
 import { 
   Award, 
@@ -74,6 +75,18 @@ export default function StudentResults() {
   const [remedialStudent, setRemedialStudent] = useState(null);
   const [isOpeningRemedial, setIsOpeningRemedial] = useState(false);
   const [remedialFeedback, setRemedialFeedback] = useState(null);
+
+  // Kunci scroll halaman saat modal rincian lembar jawaban atau remidi terbuka
+  useEffect(() => {
+    if (selectedAttempt || remedialStudent) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [selectedAttempt, remedialStudent]);
 
   // 1. Inisialisasi Filter Data (Paket, Kelas, dan Sesi)
   useEffect(() => {
@@ -891,27 +904,27 @@ export default function StudentResults() {
       </div>
 
       {/* ======================================================== */}
-      {/* 5. MODAL DETAIL LEMBAR JAWABAN SISWA                     */}
+      {/* 5. MODAL DETAIL LEMBAR JAWABAN SISWA (PORTAL FULLSCREEN) */}
       {/* ======================================================== */}
-      {selectedAttempt && (
-        <div className="fixed inset-0 z-50 bg-[#102919]/80 backdrop-blur-md flex items-center justify-center p-3 sm:p-5 animate-fade-in">
-          <div className="bg-white rounded-2xl max-w-4xl w-full max-h-[92vh] flex flex-col shadow-2xl border border-[#91EAAF]/40 overflow-hidden">
+      {selectedAttempt && createPortal(
+        <div className="fixed inset-0 z-[9999] bg-[#0A1D11]/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 overflow-y-auto animate-fade-in">
+          <div className="bg-white rounded-2xl max-w-4xl w-full max-h-[92vh] flex flex-col shadow-2xl border border-[#91EAAF]/40 overflow-hidden my-auto">
             {/* Modal Header */}
-            <div className="px-6 py-4 border-b border-[#1F4B2C] bg-gradient-to-r from-[#102919] via-[#143820] to-[#1F4B2C] text-white flex items-center justify-between">
+            <div className="px-6 py-4 border-b border-[#1F4B2C] bg-gradient-to-r from-[#102919] via-[#143820] to-[#1F4B2C] text-white flex items-center justify-between shrink-0 shadow-sm">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-xl bg-[#143820] border border-[#91EAAF]/40 flex items-center justify-center text-[#C3E956] font-bold shrink-0 shadow-xs">
                   <FileText className="w-5 h-5" />
                 </div>
                 <div>
-                  <h3 className="text-base sm:text-lg font-bold text-white">
+                  <h3 className="text-base sm:text-lg font-bold text-white leading-tight">
                     Lembar Jawaban: {selectedAttempt.student_name}
                   </h3>
-                  <div className="flex flex-wrap items-center gap-2 text-xs text-zinc-300 mt-0.5 font-medium">
-                    <span>NISN: <strong>{selectedAttempt.nisn}</strong></span>
+                  <div className="flex flex-wrap items-center gap-2 text-xs text-zinc-300 mt-1 font-medium">
+                    <span className="font-mono text-[#C3E956] font-bold">NISN: {selectedAttempt.nisn}</span>
                     <span className="text-[#91EAAF]/60">•</span>
-                    <span>Kelas: <strong>{selectedAttempt.classroom_name}</strong></span>
+                    <span>Kelas: <strong className="text-white">{selectedAttempt.classroom_name}</strong></span>
                     <span className="text-[#91EAAF]/60">•</span>
-                    <span className="text-[#C3E956]">{sessionResults?.subject_name}</span>
+                    <span className="text-[#91EAAF]">{sessionResults?.subject_name}</span>
                   </div>
                 </div>
               </div>
@@ -920,14 +933,15 @@ export default function StudentResults() {
               <button
                 type="button"
                 onClick={handleCloseBreakdownModal}
-                className="p-2 rounded-lg bg-[#143820] hover:bg-[#1F4B2C] text-zinc-300 hover:text-white border border-[#91EAAF]/30 transition"
+                className="p-2 rounded-xl bg-[#143820] hover:bg-[#1F4B2C] text-zinc-300 hover:text-white border border-[#91EAAF]/30 transition cursor-pointer"
+                title="Tutup Lembar Jawaban"
               >
                 <X className="w-4 h-4" />
               </button>
             </div>
 
             {/* Modal Body (Scrollable) */}
-            <div className="p-6 overflow-y-auto space-y-6 flex-1 bg-[#F4FFFC]/40">
+            <div className="p-6 overflow-y-auto space-y-6 flex-1 bg-[#F4FFFC]/40 custom-scrollbar">
               {isLoadingBreakdown ? (
                 <div className="py-20 text-center space-y-3">
                   <RefreshCw className="w-8 h-8 text-[#1F4B2C] animate-spin mx-auto" />
@@ -947,7 +961,7 @@ export default function StudentResults() {
                         <span className="text-2xl font-black font-mono text-[#C3E956]">
                           {breakdownData.total_score}
                         </span>
-                        <span className="text-[9px] uppercase tracking-wider text-zinc-300">Skor Akhir</span>
+                        <span className="text-[9px] uppercase tracking-wider text-zinc-300 font-bold">Skor Akhir</span>
                       </div>
                       <div>
                         <div className="text-xs text-zinc-400 uppercase font-semibold tracking-wider">Capaian Nilai</div>
@@ -955,7 +969,7 @@ export default function StudentResults() {
                           {breakdownData.total_score} dari {breakdownData.total_max_points || 100} Poin Maksimal
                         </div>
                         <div className="text-xs text-zinc-500 mt-0.5">
-                          Persentase: <strong>{breakdownData.total_max_points ? Math.round((breakdownData.total_score / breakdownData.total_max_points) * 100) : 0}%</strong>
+                          Persentase: <strong className="text-[#1F4B2C]">{breakdownData.total_max_points ? Math.round((breakdownData.total_score / breakdownData.total_max_points) * 100) : 0}%</strong>
                         </div>
                       </div>
                     </div>
@@ -1206,28 +1220,29 @@ export default function StudentResults() {
             </div>
 
             {/* Modal Footer */}
-            <div className="px-6 py-3.5 border-t border-zinc-200 bg-zinc-50 flex items-center justify-between">
+            <div className="px-6 py-3.5 border-t border-zinc-200 bg-zinc-50 flex items-center justify-between shrink-0">
               <span className="text-xs text-zinc-500">
                 Tekan tombol di kanan untuk menutup lembar analisis.
               </span>
               <button
                 type="button"
                 onClick={handleCloseBreakdownModal}
-                className="px-5 py-2 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-white text-xs font-semibold transition active:scale-[0.98]"
+                className="px-5 py-2 rounded-xl bg-[#1F4B2C] hover:bg-[#183D23] text-white text-xs font-bold transition active:scale-[0.98] cursor-pointer"
               >
                 Tutup Lembar Jawaban
               </button>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
 
       {/* ======================================================== */}
-      {/* 6. MODAL KONFIRMASI BUKA REMIDI SISWA                   */}
+      {/* 6. MODAL KONFIRMASI BUKA REMIDI SISWA (PORTAL)          */}
       {/* ======================================================== */}
-      {remedialStudent && (
-        <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-xs flex items-center justify-center p-4 animate-fade-in">
-          <div className="bg-white rounded-2xl max-w-md w-full shadow-2xl border border-zinc-200 overflow-hidden">
+      {remedialStudent && createPortal(
+        <div className="fixed inset-0 z-[9999] bg-[#0A1D11]/85 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto animate-fade-in">
+          <div className="bg-white rounded-2xl max-w-md w-full shadow-2xl border border-zinc-200 overflow-hidden my-auto">
             {/* Header */}
             <div className="px-6 py-4 border-b border-zinc-100 bg-amber-50/50 flex items-center justify-between">
               <div className="flex items-center gap-3">
@@ -1320,7 +1335,8 @@ export default function StudentResults() {
               </button>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </div>
   );

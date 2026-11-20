@@ -658,153 +658,187 @@ export default function LiveProctoring() {
             return (
               <div
                 key={student.studentId || student.nisn}
-                className={`rounded-xl p-4 sm:p-5 border transition-all duration-150 flex flex-col justify-between space-y-3.5 shadow-2xs ${
+                className={`rounded-2xl border-2 transition-all duration-200 flex flex-col justify-between overflow-hidden shadow-xs hover:shadow-md ${
                   isLocked
-                    ? 'bg-rose-50/70 border-rose-300 ring-1 ring-rose-400'
+                    ? 'bg-rose-50/70 border-rose-500 ring-2 ring-rose-400/30'
                     : isSubmitted
-                    ? 'bg-white border-zinc-200/90 hover:border-zinc-300 hover:-translate-y-0.5'
-                    : 'bg-white border-zinc-200/90 hover:border-zinc-300 hover:-translate-y-0.5'
+                    ? 'bg-white border-[#91EAAF]/70 hover:border-[#1F4B2C]'
+                    : 'bg-white border-[#1F4B2C]/35 hover:border-[#1F4B2C]'
                 }`}
               >
                 <div>
-                  {/* Bar Atas Kartu Siswa */}
-                  <div className="flex items-start justify-between gap-2 mb-2.5">
+                  {/* Top Status Banner across card header */}
+                  <div className={`px-4 py-2 flex items-center justify-between text-xs font-bold ${
+                    isLocked
+                      ? 'bg-rose-600 text-white animate-pulse'
+                      : isSubmitted
+                      ? 'bg-gradient-to-r from-[#102919] to-[#1F4B2C] text-[#C3E956]'
+                      : 'bg-gradient-to-r from-[#143820] to-[#102919] text-[#91EAAF]'
+                  }`}>
+                    <div className="flex items-center gap-1.5">
+                      {isLocked ? (
+                        <>
+                          <AlertTriangle className="w-3.5 h-3.5 text-white" />
+                          <span>Layar Terkunci</span>
+                        </>
+                      ) : isSubmitted ? (
+                        <>
+                          <CheckCircle2 className="w-3.5 h-3.5 text-[#C3E956]" />
+                          <span>Selesai Terkirim</span>
+                        </>
+                      ) : (
+                        <>
+                          <span className="w-2 h-2 rounded-full bg-[#C3E956] animate-pulse" />
+                          <span className="text-white">Sedang Fokus</span>
+                        </>
+                      )}
+                    </div>
+
+                    <span className={`text-[10px] font-mono px-2 py-0.5 rounded-full font-bold ${
+                      isLocked
+                        ? 'bg-white text-rose-700'
+                        : isSubmitted
+                        ? 'bg-[#0A1D11] text-[#C3E956]'
+                        : 'bg-[#1F4B2C] text-[#91EAAF]'
+                    }`}>
+                      {student.classroom || 'Kelas'}
+                    </span>
+                  </div>
+
+                  <div className="p-4 space-y-3">
+                    {/* Student Identity */}
                     <div>
-                      <h3 className="font-semibold text-zinc-900 text-sm sm:text-base leading-tight tracking-tight">
+                      <h3 className="font-extrabold text-zinc-900 text-sm sm:text-base leading-tight tracking-tight">
                         {student.fullName}
                       </h3>
-                      <div className="text-[11px] text-zinc-500 mt-0.5 flex items-center gap-1.5 flex-wrap">
-                        <span className="font-mono text-zinc-700 bg-zinc-100 px-1.5 py-0.2 rounded border border-zinc-200">
-                          {student.nisn}
-                        </span>
-                        <span>•</span>
-                        <span className="font-medium text-zinc-700 bg-zinc-50 px-1.5 py-0.2 rounded border border-zinc-200">
-                          {student.classroom}
+                      <div className="text-[11px] text-zinc-500 mt-1 flex items-center gap-2 flex-wrap">
+                        <span className="font-mono text-[#1F4B2C] bg-[#E1F8ED] px-2 py-0.5 rounded-md border border-[#91EAAF]/60 font-bold">
+                          NISN: {student.nisn}
                         </span>
                       </div>
                     </div>
-                    <StatusBadge status={student.status} />
-                  </div>
 
-                  {/* Info Device & Waktu */}
-                  <div className="space-y-1.5 text-xs bg-zinc-50/90 border border-zinc-200/80 rounded-lg p-3 mb-3">
-                    <div className="flex items-center justify-between">
-                      <span className="text-zinc-500 font-medium flex items-center gap-1.5">
-                        {student.screenOrientation === 'LANDSCAPE' ? (
-                          <Monitor className="w-3.5 h-3.5 text-zinc-500" />
-                        ) : (
-                          <Smartphone className="w-3.5 h-3.5 text-zinc-500" />
-                        )}
-                        Orientasi Layar:
-                      </span>
-                      <span className="font-mono text-zinc-900 bg-white px-1.5 py-0.2 rounded border border-zinc-200 text-[11px]">
-                        {student.screenOrientation}
-                      </span>
-                    </div>
-
-                    <div className="flex items-center justify-between">
-                      <span className="text-zinc-500 font-medium">Mulai:</span>
-                      <span className="font-mono text-zinc-800 text-[11px]">{student.startedAt || '-'}</span>
-                    </div>
-
-                    <div className="flex items-center justify-between">
-                      <span className="text-zinc-500 font-medium">Selesai:</span>
-                      <span className="font-mono text-zinc-800 text-[11px]">{student.finishedAt || 'Sedang Berjalan'}</span>
-                    </div>
-
-                    <div className="flex items-center justify-between">
-                      <span className="text-zinc-500 font-medium flex items-center gap-1">
-                        <Wifi className="w-3 h-3 text-zinc-500" />
-                        Latensi:
-                      </span>
-                      <span
-                        className={`font-mono text-[10px] px-1.5 py-0.2 rounded border flex items-center gap-1 ${
-                          student.networkLatencyMs > 0 && student.networkLatencyMs < 150
-                            ? 'bg-emerald-50 text-emerald-800 border-emerald-200'
-                            : student.networkLatencyMs >= 150 && student.networkLatencyMs < 400
-                            ? 'bg-amber-50 text-amber-800 border-amber-200'
-                            : student.networkLatencyMs >= 400
-                            ? 'bg-rose-50 text-rose-800 border-rose-200'
-                            : 'bg-zinc-100 text-zinc-600 border-zinc-200'
-                        }`}
-                      >
-                        <span
-                          className={`w-1 h-1 rounded-full ${
-                            student.networkLatencyMs > 0 && student.networkLatencyMs < 150
-                              ? 'bg-emerald-500'
-                              : student.networkLatencyMs >= 150 && student.networkLatencyMs < 400
-                              ? 'bg-amber-500'
-                              : student.networkLatencyMs >= 400
-                              ? 'bg-rose-500'
-                              : 'bg-zinc-400'
-                          }`}
-                        />
-                        {student.networkLatencyMs ? `${student.networkLatencyMs} ms` : 'Aktif'}
-                      </span>
-                    </div>
-
-                    <div className="flex items-center justify-between border-t border-zinc-200 pt-1.5 mt-1">
-                      <span className="text-zinc-500 font-medium">Pelanggaran:</span>
-                      <span className={`font-mono text-[11px] px-1.5 py-0.2 rounded border ${
-                        student.violationCount > 0 
-                          ? 'text-rose-700 bg-rose-50 border-rose-200 animate-pulse font-semibold' 
-                          : 'text-emerald-800 bg-emerald-50 border-emerald-200'
-                      }`}>
-                        {student.violationCount > 0 ? `${student.violationCount} Kali` : '0 Kali'}
-                      </span>
-                    </div>
-
-                    {student.score !== null && student.score !== undefined && (
-                      <div className="flex items-center justify-between border-t border-zinc-200 pt-1.5 mt-1">
-                        <span className="text-zinc-600 font-medium">Skor Nilai:</span>
-                        <span className="text-zinc-900 font-mono font-semibold text-xs bg-white px-1.5 py-0.2 rounded border border-zinc-200">
-                          {student.score} Poin
+                    {/* Info Sensor Device & Waktu */}
+                    <div className="space-y-1.5 text-xs bg-[#F4FFFC] border border-[#91EAAF]/50 rounded-xl p-3">
+                      <div className="flex items-center justify-between">
+                        <span className="text-zinc-600 font-medium flex items-center gap-1.5">
+                          {student.screenOrientation === 'LANDSCAPE' ? (
+                            <Monitor className="w-3.5 h-3.5 text-[#1F4B2C]" />
+                          ) : (
+                            <Smartphone className="w-3.5 h-3.5 text-[#1F4B2C]" />
+                          )}
+                          Orientasi:
                         </span>
+                        <span className="font-mono font-bold text-zinc-800 bg-white px-2 py-0.5 rounded-md border border-zinc-200 text-[11px]">
+                          {student.screenOrientation}
+                        </span>
+                      </div>
+
+                      <div className="flex items-center justify-between">
+                        <span className="text-zinc-600 font-medium">Jam Mulai:</span>
+                        <span className="font-mono text-zinc-800 font-semibold text-[11px]">{student.startedAt || '-'}</span>
+                      </div>
+
+                      <div className="flex items-center justify-between">
+                        <span className="text-zinc-600 font-medium">Jam Selesai:</span>
+                        <span className="font-mono text-zinc-800 font-semibold text-[11px]">{student.finishedAt || 'Sedang Berjalan'}</span>
+                      </div>
+
+                      <div className="flex items-center justify-between">
+                        <span className="text-zinc-600 font-medium flex items-center gap-1">
+                          <Wifi className="w-3.5 h-3.5 text-[#1F4B2C]" />
+                          Latensi:
+                        </span>
+                        <span
+                          className={`font-mono text-[10px] px-2 py-0.5 rounded-md border flex items-center gap-1 font-semibold ${
+                            student.networkLatencyMs > 0 && student.networkLatencyMs < 150
+                              ? 'bg-emerald-50 text-emerald-800 border-emerald-200'
+                              : student.networkLatencyMs >= 150 && student.networkLatencyMs < 400
+                              ? 'bg-amber-50 text-amber-800 border-amber-200'
+                              : student.networkLatencyMs >= 400
+                              ? 'bg-rose-50 text-rose-800 border-rose-200'
+                              : 'bg-white text-zinc-700 border-zinc-200'
+                          }`}
+                        >
+                          <span
+                            className={`w-1.5 h-1.5 rounded-full ${
+                              student.networkLatencyMs > 0 && student.networkLatencyMs < 150
+                                ? 'bg-emerald-500'
+                                : student.networkLatencyMs >= 150 && student.networkLatencyMs < 400
+                                ? 'bg-amber-500'
+                                : student.networkLatencyMs >= 400
+                                ? 'bg-rose-500'
+                                : 'bg-emerald-500'
+                            }`}
+                          />
+                          {student.networkLatencyMs ? `${student.networkLatencyMs} ms` : 'Aktif'}
+                        </span>
+                      </div>
+
+                      <div className="flex items-center justify-between border-t border-[#91EAAF]/30 pt-1.5 mt-1">
+                        <span className="text-zinc-600 font-bold">Pelanggaran:</span>
+                        <span className={`font-mono text-[11px] px-2 py-0.5 rounded-md border font-extrabold ${
+                          student.violationCount > 0 
+                            ? 'text-white bg-rose-600 border-rose-700 animate-pulse' 
+                            : 'text-[#4D7111] bg-[#C3E956]/20 border-[#C3E956]/40'
+                        }`}>
+                          {student.violationCount > 0 ? `${student.violationCount} Kali` : '0 Bersih'}
+                        </span>
+                      </div>
+
+                      {student.score !== null && student.score !== undefined && (
+                        <div className="flex items-center justify-between border-t border-[#91EAAF]/30 pt-1.5 mt-1">
+                          <span className="text-zinc-700 font-bold">Skor Nilai:</span>
+                          <span className="text-[#C3E956] font-mono font-black text-xs bg-[#102919] px-2 py-0.5 rounded-md border border-[#1F4B2C]">
+                            {student.score} Poin
+                          </span>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Warning Box Pelanggaran Terakhir */}
+                    {isLocked && student.lastViolation && (
+                      <div className="p-3 bg-rose-100 border border-rose-300 rounded-xl text-xs text-rose-950 space-y-1 shadow-2xs">
+                        <div className="flex items-center gap-1.5 font-bold text-rose-900">
+                          <AlertTriangle className="w-3.5 h-3.5 text-rose-600 shrink-0" />
+                          <span>Pelanggaran [{student.lastViolation.time}]:</span>
+                        </div>
+                        <div className="text-[11px] leading-relaxed font-medium">
+                          {student.lastViolation.description}
+                        </div>
                       </div>
                     )}
                   </div>
-
-                  {/* Kotak Peringatan Pelanggaran Terakhir */}
-                  {isLocked && student.lastViolation && (
-                    <div className="p-2.5 bg-rose-100/70 border border-rose-300 rounded-lg mb-3 text-xs text-rose-950 space-y-0.5">
-                      <div className="flex items-center gap-1.5 font-semibold text-rose-900">
-                        <AlertTriangle className="w-3.5 h-3.5 text-rose-600 shrink-0" />
-                        <span>Pelanggaran ({student.lastViolation.time}):</span>
-                      </div>
-                      <div className="text-[11px] leading-relaxed">
-                        {student.lastViolation.description}
-                      </div>
-                    </div>
-                  )}
                 </div>
 
                 {/* Tombol Aksi Pengawas */}
-                <div className="pt-2 border-t border-zinc-100 flex items-center gap-1.5">
+                <div className="p-3 pt-0 flex items-center gap-2">
                   {isLocked ? (
                     <button
                       onClick={() => handleUnlock(student)}
-                      className="flex-1 py-1.5 px-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-semibold transition flex items-center justify-center gap-1.5 shadow-2xs active:scale-[0.98] hover:-translate-y-0.5"
+                      className="flex-1 py-2 px-3 bg-[#1F4B2C] hover:bg-[#183D23] text-[#C3E956] border border-[#C3E956]/40 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5 shadow-xs active:scale-[0.98] cursor-pointer"
                     >
-                      <Unlock className="w-3.5 h-3.5" /> Buka Kunci Siswa
+                      <Unlock className="w-4 h-4 text-[#C3E956]" />
+                      <span>Buka Kunci Layar</span>
                     </button>
                   ) : isSubmitted ? (
-                    <div className="flex-1 py-1.5 px-3 bg-zinc-100 text-zinc-700 border border-zinc-200 rounded-lg text-xs font-medium text-center flex items-center justify-center gap-1.5">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-zinc-500" />
-                      Selesai Terkirim
+                    <div className="flex-1 py-2 px-3 bg-[#C3E956]/20 text-[#4D7111] border border-[#C3E956]/40 rounded-xl text-xs font-bold text-center flex items-center justify-center gap-1.5">
+                      <CheckCircle2 className="w-4 h-4 text-[#4D7111]" />
+                      <span>Selesai Terkirim</span>
                     </div>
                   ) : (
-                    <div className="flex-1 py-1.5 px-3 bg-zinc-50 text-zinc-700 border border-zinc-200 rounded-lg text-xs font-medium flex items-center justify-center gap-1.5">
-                      <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
-                      Aman & Terkunci
+                    <div className="flex-1 py-2 px-3 bg-[#E1F8ED] text-[#1F4B2C] border border-[#91EAAF]/60 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5">
+                      <ShieldCheck className="w-4 h-4 text-[#1F4B2C]" />
+                      <span>Kondusif & Terkunci</span>
                     </div>
                   )}
 
                   <button
                     onClick={() => handleDisqualify(student)}
-                    className="p-1.5 text-zinc-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg border border-transparent hover:border-rose-200 transition active:scale-[0.98]"
+                    className="p-2 text-zinc-400 hover:text-rose-600 hover:bg-rose-50 rounded-xl border border-zinc-200 hover:border-rose-200 transition active:scale-[0.98] cursor-pointer"
                     title="Diskualifikasi Siswa dari Ujian"
                   >
-                    <Ban className="w-3.5 h-3.5" />
+                    <Ban className="w-4 h-4" />
                   </button>
                 </div>
               </div>

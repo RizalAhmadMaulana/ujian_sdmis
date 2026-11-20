@@ -197,27 +197,62 @@ Tampilan menu Koreksi Esai dirombak total sesuai kebutuhan guru pengawas asesmen
 
 ---
 
+---
+
+### 🎯 7. Total Redesign & Overhaul Portal Guru (Green Screen Palette & Executive Anti-Slop UI)
+Sesuai arahan dan evaluasi menyeluruh dari client, seluruh tampilan portal guru dirombak total agar tampil baru, profesional, informatif, dan responsif dengan tema **Green Screen Palette (Vasil Enev: `#F4FFFC`, `#91EAAF`, `#C3E956`, `#4D7111`, `#1F4B2C`, `#102919`)**:
+
+1. **Perbaikan Tuntas Modal Fullscreen Blur di Rekap Nilai (`/teacher/results`):**
+   - **Akar Masalah:** Modal rincian lembar jawaban siswa sebelumnya dirender di dalam hierarki kontainer `<main>` layout guru, sehingga overlay backdrop blur tidak menutupi top header dan sidebar.
+   - **Solusi:** 
+     - Menggunakan `createPortal(..., document.body)` untuk me-mount modal rincian lembar jawaban dan modal remidi langsung di root body.
+     - Posisi `fixed inset-0 z-[9999] bg-[#0A1D11]/85 backdrop-blur-md` menjamin 100% layar (seluruh header dan sidebar) ter-blur sempurna dan elegan tanpa celah.
+     - Mengunci body scroll (`document.body.style.overflow = 'hidden'`) secara otomatis saat modal aktif.
+     - Merombak desain modal dengan header forest gradient, skor KPI besar (`#102919` pill text `#C3E956`), tab filter (Semua, Benar, Salah, Esai), dan kartu butir soal berformat KaTeX dengan evaluasi rubrik.
+
+2. **Total Redesign Sidebar Navigasi (`TeacherLayout.jsx`):**
+   - Latar belakang sidebar menggunakan gradasi deep forest `bg-gradient-to-b from-[#102919] via-[#0E2416] to-[#0A1D11]` dengan border emerald halus.
+   - Header sekolah terintegrasi dengan logo `logo sd mis.png`, "SD MENTARI ISLAMIC SCHOOL", NPSN: 70047473, serta pill tagline *"Digital Mind, Islamic Heart"*.
+   - Navigasi dikelompokkan secara terstruktur (*Utama*, *Asesmen & Nilai*, *Master Data & Sekolah*).
+   - **Signature Active Link Pill:** Menggunakan warna hijau ke kuning-kuningan chartreuse `#C3E956` dengan teks gelap `#0A1D11` tebal (font-bold) dan bayangan lembut, sehingga menu yang sedang aktif langsung terlihat sangat kontras dan mencolok.
+   - Kartu profil pengawas di bagian bawah dengan avatar, NIP, tombol akses profil, dan logout.
+
+3. **Penguatan Kartu Siswa Live Proctoring (`LiveProctoring.jsx`):**
+   - Menghilangkan tampilan washed-out / abu-abu pucat.
+   - Setiap kartu siswa kini dilengkapi **Top Status Banner** melintang:
+     - *Layar Terkunci:* `bg-rose-600 text-white font-bold animate-pulse`
+     - *Selesai Terkirim:* `bg-gradient-to-r from-[#102919] to-[#1F4B2C] text-[#C3E956] font-bold`
+     - *Sedang Fokus:* `bg-gradient-to-r from-[#143820] to-[#102919] text-[#91EAAF] font-bold`
+   - Frame kartu menggunakan `border-2` solid dengan hover shadow yang taktil.
+   - Kotak metrik sensor berlatar `#F4FFFC` dengan orientasi layar, jam mulai/selesai, sensor latensi dengan pulsing dot hijau live, badge pelanggaran beranimasi, dan skor nilai berlatar gelap `#102919 text-[#C3E956]`.
+   - Tombol aksi buka kunci taktil langsung di footer kartu.
+
+4. **Rombak Total Halaman Dashboard Guru (`DashboardTeacher.jsx`):**
+   - Dibangun ulang dari nol sebagai **Executive School Command Center**:
+     - **School Identity Hero Banner:** Menampilkan logo sekolah resmi, nama "SD MENTARI ISLAMIC SCHOOL", NPSN: 70047473, alamat Lembu Polanharjo Klaten, dan kutipan visi resmi client: *"Kami bangga menjadi pelopor dalam menggabungkan teknologi modern dengan nilai-nilai Islam yang kokoh. 'Digital Mind, Islamic Heart'."*
+     - **4 Executive KPI Cards:** Total Bank Soal, Sesi Ujian Aktif, Siswa Sedang Fokus, dan Status Integritas (0 Pelanggaran).
+     - **Matriks Sesi Ujian Aktif (2 Kolom Kiri):** Kartu sesi dengan countdown rotasi token 10 menit live, token masuk (copy click), PIN pengawas, dan tombol akses cepat proctoring & rekap nilai.
+     - **Audit Pelanggaran Real-Time (1 Kolom Kanan):** Feed live riwayat sensor siswa dengan tombol satu-klik buka kunci layar.
+     - **Matriks Layanan Cepat (6 Modul Utama):** Bank Soal, Jadwal Sesi, Live Proctoring, Koreksi Esai, Rekap Nilai, dan E-Jurnal.
+
+5. **Tampilan Profesional & Berwarna Profil Guru (`ProfileSettings.jsx`):**
+   - Banner profil eksekutif dengan gradasi dark forest, avatar besar beraksen `#C3E956`, badge verified pengawas, dan NIP.
+   - Tiga kartu terstruktur: *Informasi Data Diri & Kontak*, *Keamanan & Ganti Sandi* (dengan eye toggle show/hide), dan *Kepatuhan Asesmen*.
+   - Tombol simpan perubahan profil lebar beraksen lime `#C3E956` dengan teks gelap `#0A1D11` font-bold.
+
+---
+
 ## 📋 Riwayat Aktivitas & Perubahan File
 
 | Tanggal | Komponen / File | Aksi | Rincian Perubahan |
 |---|---|---|---|
 | 2026-11-20 | `frontend/tailwind.config.js` | Config | Menambahkan konfigurasi extended colors `brand` dan palette `primary` sesuai Green Screen (Vasil Enev: `#F4FFFC`, `#91EAAF`, `#C3E956`, `#4D7111`, `#1F4B2C`, `#102919`). |
 | 2026-11-20 | `frontend/src/pages/auth/LoginPage.jsx` | Rebranding UI | Redesain total halaman login depan responsif split-screen dengan foto gedung `loc-mis.jpeg`, logo `logo sd mis.png`, NPSN 70047473, alamat Klaten, tagline 'Digital Mind, Islamic Heart', dan tombol login lime `#C3E956`. |
-| 2026-11-20 | `frontend/src/layouts/TeacherLayout.jsx` | Rebranding UI | Rebranding sidebar navigation dan mobile header ke deep forest `#0E2416`, active link pill `#1F4B2C` text `#C3E956`, dan background canvas layout `#F4FFFC`. |
-| 2026-11-20 | `frontend/src/pages/teacher/DashboardTeacher.jsx` | Rebranding UI | Rebranding hero welcome banner dark forest, 4 stat cards, sesi ujian aktif, dan sensor feed dengan Green Screen styling. |
-| 2026-11-20 | `frontend/src/pages/teacher/ClassroomManagement.jsx` | Rebranding UI | Rebranding tombol aksi, header tabel `#F4FFFC`, badge tahun ajaran, dan modal form kelas ke palet hijau-lime. |
-| 2026-11-20 | `frontend/src/pages/teacher/StudentManagement.jsx` | Rebranding UI | Rebranding tombol tambah siswa, import/template Excel, avatar siswa `#E1F8ED text-[#1F4B2C]`, search bar, dan paginasi aktif. |
-| 2026-11-20 | `frontend/src/pages/teacher/TeacherManagement.jsx` | Rebranding UI | Rebranding tabel guru, avatar initials, modal form tambah/edit guru, dan tombol aksi ke Green Screen palette. |
-| 2026-11-20 | `frontend/src/pages/teacher/UserManagement.jsx` | Rebranding UI | Rebranding tabel manajemen pengguna, badge role per peran, modal form reset password, dan modal import akun. |
-| 2026-11-20 | `frontend/src/pages/teacher/ExamPackageList.jsx` | Rebranding UI | Rebranding kartu bank soal paket ujian, badge AKM/Google Form, dan modal buat paket (tanpa field kelas). |
-| 2026-11-20 | `frontend/src/pages/teacher/ExamSessionSetup.jsx` | Rebranding UI | Rebranding banner Zero-Tolerance lockdown, tombol buka sesi ujian `#1F4B2C text-[#C3E956]`, dan duo token cards. |
-| 2026-11-20 | `frontend/src/pages/teacher/LiveProctoring.jsx` | Rebranding UI | Rebranding tombol buka kunci massal, tombol siaran, tab filter pengerjaan, dan duo token tiles pengawas. |
-| 2026-11-20 | `frontend/src/pages/teacher/EssayGrading.jsx` | Rebranding UI | Rebranding filter berjenjang, stat cards, tabel siswa, score badges `#102919 text-[#C3E956]`, dan modal lembar koreksi (createPortal full screen). |
-| 2026-11-20 | `frontend/src/pages/teacher/StudentResults.jsx` | Rebranding UI | Rebranding 4 KPI statistik nilai, tombol download Excel `#1F4B2C text-[#C3E956]`, tabel rekap nilai, modal rincian lembar jawaban, dan modal remidi. |
-| 2026-11-20 | `frontend/src/pages/teacher/ViolationHistory.jsx` | Rebranding UI | Rebranding toolbar riwayat audit pelanggaran, 4 kartu metrik insiden, tabel log sensor, dan modal hapus catatan. |
-| 2026-11-20 | `frontend/src/pages/teacher/EJournalReport.jsx` | Rebranding UI | Rebranding tombol ekspor Excel/PDF `#1F4B2C text-[#C3E956]`, lembar dokumen berita acara resmi MIS, tabel presensi & skor, serta form catatan pengawas. |
-| 2026-11-20 | `frontend/src/pages/teacher/SchoolSettings.jsx` | Rebranding UI | Rebranding form identitas sekolah, tombol simpan `#1F4B2C text-[#C3E956]`, dan live preview kop dokumen bergradasi dark forest. |
-| 2026-11-20 | `frontend/src/pages/teacher/ProfileSettings.jsx` | Rebranding UI | Rebranding banner profil akun guru, badge keamanan akun, form data diri & sandi, dan tombol simpan `#1F4B2C text-[#C3E956]`. |
+| 2026-11-20 | `frontend/src/layouts/TeacherLayout.jsx` | Overhaul UI | Total redesign sidebar Green Screen: background gradasi dark forest, signature active link pill chartreuse `#C3E956` text `#0A1D11` font-bold, header identitas SD Mentari Islamic School + tagline pill, dan footer kartu profil guru. |
+| 2026-11-20 | `frontend/src/pages/teacher/DashboardTeacher.jsx` | Overhaul UI | Rombak total dashboard menjadi Executive School Command Center: hero banner identitas resmi SD Mentari Islamic School (NPSN 70047473, Polanharjo Klaten, quote visi), 4 KPI cards, sesi aktif rotasi token 10 menit, audit pelanggaran live feed, dan 6 modul cepat. |
+| 2026-11-20 | `frontend/src/pages/teacher/LiveProctoring.jsx` | Overhaul & Bugfix | Penguatan kartu siswa real-time: border-2 solid, top status banner melintang (Terkunci: rose animate-pulse, Selesai: forest/lime, Fokus: emerald), kotak sensor berlatar `#F4FFFC`, live pulsing dot latensi, badge pelanggaran beranimasi, dan tombol aksi taktil. Membersihkan sisa tag button duplikat di baris 848 yang memicu error vite-babel. |
+| 2026-11-20 | `frontend/src/pages/teacher/StudentResults.jsx` | Bugfix & UI | Perbaikan tuntas modal fullscreen blur bug menggunakan `createPortal(..., document.body)` dengan `z-[9999] bg-[#0A1D11]/85 backdrop-blur-md` & body scroll lock. Menghilangkan celah putih header/sidebar. Rombak tampilan modal rincian lembar jawaban siswa dan remidi. |
+| 2026-11-20 | `frontend/src/pages/teacher/ProfileSettings.jsx` | Overhaul UI | Desain ulang profil guru yang lebih profesional & berwarna: hero profile banner dengan avatar besar beraksen `#C3E956`, badge verified pengawas, 3 kartu terstruktur (Data Diri, Keamanan Sandi, Kepatuhan Asesmen), dan tombol simpan beraksen lime `#C3E956`. |
 | 2026-11-20 | `session.md` | Update | Dokumentasi lengkap seluruh pembaruan rebranding Green Screen dan panduan deployment. |
 
 ---
