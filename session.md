@@ -2,58 +2,94 @@
 
 **Domain Produksi Aktif:** [https://ujian.sdmis.sch.id/](https://ujian.sdmis.sch.id/)  
 **Root Workspace:** `ujian_sdmis/`  
-**Tanggal Update:** 19 November 2026  
+**Tanggal Update:** 20 November 2026  
 **Status Sistem:** Production Ready & Live  
 
 ---
 
-## 📌 Ringkasan Update Sesi Ini (19 November 2026)
+## 📌 Ringkasan Update Sesi Ini (20 November 2026)
 
-### 🎯 1. Solusi Tuntas: Gunicorn Worker Timeout & Ultra-Fast Bulk Password Hasher
-Berdasarkan investigasi log PM2 server production (`pm2 logs ujian-sdmis-backend`), ditemukan akar masalah sesungguhnya dari error 500 saat impor data siswa: **Gunicorn Worker Timeout (30 detik)** yang memicu pemutusan paksa worker (`handle_abort -> sys.exit(1)`).
-- **Penyebab:** Django bawaan menggunakan `pbkdf2_sha256` 1.500.000 iterasi. Hashing 130+ siswa memakan waktu > 30 detik di server VPS sehingga Gunicorn memutus koneksi.
-- **Solusi:** Diterapkan `FastBulkPasswordHasher(PBKDF2PasswordHasher)` (25.000 iterasi) sehingga proses hashing 130+ siswa selesai dalam **< 0.5 detik**. Impor 144 siswa kini berhasil 100%!
-
----
-
-### 🎯 2. Peningkatan Kecepatan Kilat Menu Manajemen Pengguna (High-Speed Listing)
-Setelah data 144 siswa berhasil terimpor, menu **Manajemen Pengguna & Hak Akses** (`/teacher/users`) terasa lambat dimuat.
-
-#### Akar Masalah:
-1. **Komputasi PBKDF2 Password Check di Listing User:**
-   Pada `UserSerializer` terdapat `SerializerMethodField` untuk `is_password_default` dan `needs_profile_completion`. Saat me-list data user, untuk user yang sedang aktif login, sistem mengecek 9 kata sandi default secara berulang dengan PBKDF2 1.5M iterasi, lalu diulang kembali oleh field kedua. Hal ini menyebabkan server freeze selama **15–20 detik** hanya untuk merespon satu request!
-2. **N+1 Query pada Daftar Kelas:**
-   `ClassRoomSerializer` memanggil `students.count()` secara individual per kelas, menghasilkan belasan query SQL terpisah.
-
-#### Solusi yang Diterapkan:
-1. **`UserListSerializer` Khusus Listing:**
-   Dibuat serializer ringan khusus untuk endpoint `GET /api/accounts/users/`. Serializer ini hanya mengambil data yang dibutuhkan oleh tabel manajemen pengguna (`id`, `username`, `full_name`, `role`, `email`, `nip`, `nisn`, `classroom`, `is_active`, `is_staff`), tanpa komputasi password hashing sama sekali.
-2. **Optimasi Query Kelas (`Count('students')`):**
-   `ClassRoomListCreateView` kini menggunakan `ClassRoom.objects.annotate(student_count_annotated=Count('students'))` sehingga seluruh jumlah siswa per kelas dihitung dalam **1 query SQL tunggal**.
-3. **Hasil:**
-   Waktu respon `GET /api/accounts/users/` terpangkas drastis dari **~20 detik menjadi < 50 milidetik (Instan)**!
+### 🎯 1. Analisis & Solusi Tuntas Jawaban Esai Siswa Tidak Tampil di Menu Koreksi Esai
+Berdasarkan investigasi mendalam terhadap alur penyimpanan jawaban siswa dan serialisasi data backend ke frontend:
+- **Akar Masalah Utama:**
+  1. **Mismatch Struktur Data (Array vs Object Keyed):**  
+     Endpoint backend `SessionEssaySubmissionsView` mengirimkan lembar jawaban siswa sebagai **Array/List** (`answers: [ { question_id: '...', student_answer: '...' } ]`), sedangkan frontend `EssayGrading.jsx` mengaksesnya sebagai properti Object berbasis UUID butir soal (`selectedStudent.answers?.[question.id]`). Dalam JavaScript, mengakses array dengan indeks string UUID (`array['uuid']`) selalu menghasilkan `undefined`. Akibatnya, `studentAns?.student_answer` bernilai kosong (`""`), memicu tampilan *"Lembar jawaban kosong. (Tidak ada jawaban diketik oleh siswa)"* padahal siswa telah mengetik jawaban dan tersimpan di database.
+  2. **Field Compatibility (`points` vs `max_score`):**  
+     Frontend mengharapkan `question.max_score` dan `question.order`, sedangkan backend sebelumnya hanya menyediakan `points` dan `order_number`. Akibatnya teks header menampilkan `Bobot Maks: Poin` dan input skor bertuliskan `Skor (0 - ):`.
+  3. **Penyelamatan Atribut Gambar:**  
+     Pengambilan `image_url` pada model `Question` yang bertipe CharField memanggil `.url` yang berisiko error jika berupa string URL mentah.
+- **Solusi yang Diterapkan:**
+  1. `SessionEssaySubmissionsView` kini menyediakan **DUAL FORMAT**:
+     - `answers`: Dictionary/Object yang di-index langsung berdasarkan `question_id` string untuk akses instan `selectedStudent.answers[question.id]`.
+     - `answers_list`: List/Array untuk iterasi fleksibel.
+  2. Multi-key fallback extractor pada backend: mengambil jawaban siswa dari `str(q.id)`, `lowercase/uppercase uuid`, `q_{order_number}`, maupun format dict/objek.
+  3. Menambahkan atribut kompatibilitas lengkap: `max_score`, `max_points`, `points`, `order`, `order_number`.
+  4. Perbaikan pada frontend `EssayGrading.jsx` dengan multi-layer safe accessor.
 
 ---
 
-### 3. Apakah Perlu `makemigrations` dan `migrate` di Production?
+### 🎯 2. Rombak Total Tampilan Menu Koreksi Esai (`/teacher/grading`)
+Tampilan menu Koreksi Esai dirombak total sesuai kebutuhan guru pengawas asesmen:
+1. **Bagian Atas (Top Cascading Filter Bar):**
+   - **Dropdown 1: Filter Paket Soal** (pilih paket soal tertentu atau semua paket).
+   - **Dropdown 2: Filter Kelas / Rombel** (pilih kelas tertentu atau seluruh kelas).
+   - **Dropdown 3: Sesi Ujian Aktif** (otomatis tersinkronisasi dan menampilkan sesi ujian yang relevan sesuai paket dan kelas terpilih).
+   - Metadata baris informasi sesi aktif (Mata pelajaran, Rombel kelas, Durasi waktu, ID Sesi).
+   - Tombol Segarkan Data & 4 Kartu Statistik Ringkas: *Total Peserta*, *Butir Soal Esai*, *Perlu Dikoreksi*, dan *Selesai Dikoreksi*.
+2. **Bagian Bawah (Tabel Daftar Nama Siswa):**
+   - Menampilkan daftar siswa pada kelas terpilih dalam format tabel yang rapi dan elegan.
+   - Kolom tabel: *No, NISN, Nama Lengkap Siswa, Kelas/Rombel, Status Ujian (Selesai/Mengerjakan), Status Koreksi (Badge Selesai/Belum Dinilai + Rasio Soal), Skor Esai Terkumpul, dan Tombol Aksi "Koreksi Jawaban"*.
+   - Filter Tab cepat (*Semua Peserta*, *Perlu Dikoreksi*, *Selesai Dikoreksi*) serta Search bar pencarian nama siswa atau NISN.
+3. **Lembar Koreksi Interaktif (Interactive Student Grading Sheet / Modal):**
+   - Terbuka saat nama siswa atau tombol "Koreksi Jawaban" di-klik.
+   - Header fokus: Nama Siswa, NISN, Kelas, Status Pengerjaan, Progres Nilai, serta Tombol Navigasi Cepat *Prev Siswa* dan *Next Siswa*.
+   - Tampilan per butir soal esai:
+     - Nomor Urut & Bobot Poin Maksimal.
+     - Pertanyaan Soal (didukung rumus matematika KaTeX via `MathText`).
+     - Gambar Soal (jika ada).
+     - **Teks Jawaban Siswa** yang diformat jelas dengan tipografi nyaman dan proteksi pre-wrap.
+     - Form Koreksi: Input skor nilai dengan step 0.5, tombol nilai cepat `Maks` dan `0`, input catatan umpan balik guru (opsional), dan tombol `Simpan Nilai` (terintegrasi API async instan).
+   - Tombol "Kembali ke Daftar Siswa" dan "Lanjut ke Siswa Berikutnya".
+
+---
+
+### 🎯 3. Integrasi Rekap Nilai Siswa (`/teacher/results`) & Tampilan Semua Ragam Ujian
+1. **Pelepasan Filter Pilihan Ganda pada Menu Rekap Nilai:**
+   - Filter master data paket soal dan sesi ujian di `StudentResults.jsx` tidak lagi membatasi tipe ujian. Seluruh ujian (pilihan ganda, esai, campuran, maupun formulir eksternal) kini tampil lengkap pada pilihan filter.
+2. **Status 'Belum Dinilai' untuk Ujian Esai:**
+   - Backend `SessionStudentResultsView` kini mendeteksi apakah suatu sesi memiliki butir esai dan memeriksa apakah seluruh esai siswa telah dinilai guru (`is_essay_graded`).
+   - Jika siswa telah mengirimkan ujian (`SUBMITTED`) namun butir esainya belum selesai dinilai oleh guru, kolom **Nilai Akhir** pada tabel dan rekap menampilkan status **'Belum Dinilai'** (Badge amber: `Belum Dinilai (X/Y Esai Dinilai)`).
+   - Siswa yang esainya belum dinilai juga secara otomatis dikecualikan dari kalkulasi rerata/tertinggi/terendah kelas agar tidak merusak statistik kelas.
+   - Setelah guru selesai mengoreksi seluruh butir esai, nilai akhir akumulasi otomatis tampil utuh di menu Rekap Nilai Siswa.
+3. **Ekspor Excel Rekap Nilai:**
+   - File Excel (.xlsx) yang diunduh dari menu Rekap Nilai kini juga otomatis menuliskan `"Belum Dinilai"` dengan format sel soft amber jika penilaian esai siswa belum selesai.
+
+---
+
+### 4. Apakah Perlu `makemigrations` dan `migrate` di Production?
 
 > 💡 **JAWABAN: TIDAK PERLU!**  
-> Seluruh perbaikan ini murni optimasi kode Python di `views.py` dan `serializers.py`. Tidak ada perubahan struktur database.
+> Seluruh perbaikan ini murni penyempurnaan logika backend Django REST framework (`views.py`, `excel_results_generator.py`) dan frontend React (`EssayGrading.jsx`, `StudentResults.jsx`, `examApi.js`). Model database `StudentAttempt` telah memiliki field `answers_json` dan `essay_scores` sejak awal sehingga struktur tabel SQL tidak berubah.
 
 ---
 
 ## 🏗️ Detail Perubahan Kode
 
 ### File yang Diperbarui:
-1. **`backend/apps/accounts/serializers.py`**
-   - Menambahkan `UserListSerializer` tanpa beban komputasi hashing password.
-   - Mengoptimalkan `UserSerializer.get_is_password_default` agar mengabaikan path `/accounts/users/`.
-   - Mengoptimalkan `ClassRoomSerializer` agar menggunakan hasil annotasi `student_count_annotated`.
-2. **`backend/apps/accounts/views.py`**
-   - Menambahkan `FastBulkPasswordHasher` (PBKDF2 25k iterasi) untuk impor secepat kilat (< 0.5 detik).
-   - Memperbarui `UserListCreateView.get_serializer_class()` agar menggunakan `UserListSerializer` pada request `GET`.
-   - Memperbarui `ClassRoomListCreateView.queryset` dengan `.annotate(student_count_annotated=Count('students'))`.
-   - Proteksi `try...except` top-to-bottom pada `StudentExcelImportView`.
+1. **`backend/apps/exams/views.py`**
+   - `SessionEssaySubmissionsView`: Menambahkan filter `classroom`, dual format representasi jawaban (`answers` dict & `answers_list`), safe string formatter gambar soal, dan atribut lengkap `points`/`max_score`.
+   - `GradeEssaySubmissionView`: Mendukung identifikasi via `attempt_id` maupun `student_id`, dan otomatis menghitung ulang `attempt.total_score` pasca penilaian esai.
+   - `SessionStudentResultsView`: Menambahkan deteksi kelengkapan koreksi esai (`has_essay`, `is_essay_graded`, `has_ungraded_essay`, `essay_graded_count`) serta isolasi skor belum dinilai dari statistik rata-rata.
+   - `ExportSessionResultsExcelView`: Meneruskan flag `has_ungraded_essay` ke generator Excel.
+2. **`backend/apps/exams/excel_results_generator.py`**
+   - Menampilkan `"Belum Dinilai"` pada kolom Nilai Akhir berkas Excel jika ujian esai siswa belum tuntas dikoreksi.
+3. **`frontend/src/api/examApi.js`**
+   - Memperbarui `getEssaySubmissionsApi(sessionId, classroomId)` agar mendukung parameter filter kelas.
+4. **`frontend/src/pages/teacher/EssayGrading.jsx`**
+   - Rombak total UI: 3 dropdown filter berjenjang (Paket, Kelas, Sesi), 4 kartu statistik, tabel daftar siswa dengan status koreksi, serta modal lembar koreksi esai per siswa dengan navigasi cepat Prev/Next.
+5. **`frontend/src/pages/teacher/StudentResults.jsx`**
+   - Menampilkan seluruh paket & sesi tanpa filter eksklusif.
+   - Menampilkan badge **'Belum Dinilai'** pada kolom Nilai Akhir jika terdapat butir esai yang belum dinilai guru.
 
 ---
 
@@ -61,9 +97,12 @@ Setelah data 144 siswa berhasil terimpor, menu **Manajemen Pengguna & Hak Akses*
 
 | Tanggal | Komponen / File | Aksi | Rincian Perubahan |
 |---|---|---|---|
-| 2026-11-19 | `backend/apps/accounts/views.py` | Optimasi & Fix | Mengatasi timeout worker via `FastBulkPasswordHasher`, memangkas impor 144 siswa ke < 1 detik. |
-| 2026-11-19 | `backend/apps/accounts/serializers.py` & `views.py` | Optimasi | Implementasi `UserListSerializer` & single-query `Count('students')`, memangkas waktu muat menu Manajemen Pengguna dari ~20 detik ke < 50 ms. |
-| 2026-11-19 | `session.md` | Update | Dokumentasi lengkap hasil perbaikan performa impor siswa dan loading menu Manajemen Pengguna. |
+| 2026-11-20 | `backend/apps/exams/views.py` | Fix & Feature | Resolusi bug jawaban esai kosong via dual format dict/list, integrasi kalkulasi total skor esai, dan flag kelengkapan koreksi esai di rekap nilai. |
+| 2026-11-20 | `backend/apps/exams/excel_results_generator.py` | Feature | Penyesuaian output ekspor Excel agar menampilkan 'Belum Dinilai' untuk siswa yang esainya belum dinilai. |
+| 2026-11-20 | `frontend/src/api/examApi.js` | Update | Penambahan parameter `classroomId` pada `getEssaySubmissionsApi`. |
+| 2026-11-20 | `frontend/src/pages/teacher/EssayGrading.jsx` | Rombak Total UI | Rombak total menu Koreksi Esai: 3 filter berjenjang di atas, tabel list siswa di bawah, dan modal lembar koreksi interaktif dengan navigasi siswa. |
+| 2026-11-20 | `frontend/src/pages/teacher/StudentResults.jsx` | Update UI | Menampilkan semua tipe ujian pada filter dan menampilkan badge 'Belum Dinilai' pada kolom Nilai Akhir siswa. |
+| 2026-11-20 | `session.md` | Update | Dokumentasi lengkap sesi investigasi bug esai, rombak total UI koreksi esai, dan panduan deployment. |
 
 ---
 
@@ -75,8 +114,8 @@ Jalankan di PowerShell komputer Anda:
 ```powershell
 cd C:\xampp\htdocs\mis_dev\ujian_sdmis
 git status
-git add backend/apps/accounts/views.py backend/apps/accounts/serializers.py session.md
-git commit -m "perf(users): optimize user management listing speed from 20s to <50ms"
+git add backend/apps/exams/views.py backend/apps/exams/excel_results_generator.py frontend/src/api/examApi.js frontend/src/pages/teacher/EssayGrading.jsx frontend/src/pages/teacher/StudentResults.jsx session.md
+git commit -m "feat(grading): overhaul essay grading UI, fix student essay answers display, and integrate ungraded status into student results"
 git push origin main
 ```
 
@@ -86,15 +125,27 @@ git push origin main
 Jalankan di terminal SSH Anda:
 
 ```bash
-# 1. Masuk ke direktori project
+# 1. Masuk ke direktori project di VPS
 cd ~/htdocs/ujian_sdmis
 
-# 2. Tarik update terbaru
+# 2. Tarik update terbaru dari repository GitHub
 git pull origin main
 
-# 3. Masuk ke backend dan restart PM2
-cd backend
+# 3. Build frontend jika frontend di-serve via build production (opsional jika menggunakan vite build)
+cd frontend
+npm run build
+
+# 4. Masuk ke backend dan restart PM2 backend ujian
+cd ../backend
 pm2 restart ujian-sdmis-backend
 ```
 
-Setelah PM2 di-restart, refresh halaman https://ujian.sdmis.sch.id/teacher/users. Daftar seluruh pengguna kini akan tampil **langsung instan tanpa jeda loading**!
+Setelah PM2 di-restart dan halaman di-refresh pada browser:
+1. Masuk ke menu **Koreksi Esai** (`/teacher/grading`):
+   - Filter paket soal, kelas, dan sesi ujian akan tampil di bagian atas.
+   - Tabel list nama siswa tampil di bagian bawah lengkap dengan status ujian, status koreksi, dan tombol "Koreksi Jawaban".
+   - Klik baris siswa: seluruh jawaban esai yang diketik siswa akan tampil secara jelas dan guru dapat langsung mengoreksi satu per satu.
+2. Masuk ke menu **Rekap Nilai Siswa** (`/teacher/results`):
+   - Seluruh sesi dan paket ujian (termasuk esai) kini dapat dipilih.
+   - Jika ada ujian esai yang belum selesai dinilai, kolom Nilai Akhir menampilkan badge **'Belum Dinilai'**.
+   - Setelah dinilai di menu Koreksi Esai, nilai totalnya otomatis terakumulasi dan tampil di menu Rekap Nilai Siswa!
