@@ -88,7 +88,20 @@ Tampilan menu Koreksi Esai dirombak total sesuai kebutuhan guru pengawas asesmen
 
 ---
 
-### 6. Apakah Perlu `makemigrations` dan `migrate` di Production?
+### 🎯 6. Perbaikan Tampilan Modal Koreksi Esai (Full Screen & Enhanced Glass Backdrop Blur)
+- **Latar Belakang Masalah:**  
+  Sebelumnya, saat guru membuka lembar koreksi esai siswa pada menu `/teacher/grading`, overlay modal berada di dalam kontainer konten `<main>` layout guru. Hal ini menyebabkan bagian header atas layout (`MIS RISALAH • Zero-Tolerance Lockdown Aktif ...`) tidak tertutup backdrop (muncul celah putih di atas), dan efek blur latar belakang terasa kurang (`backdrop-blur-xs`).
+- **Solusi yang Diterapkan pada `frontend/src/pages/teacher/EssayGrading.jsx`:**
+  1. **React Portal (`createPortal` ke `document.body`):**  
+     Modal lembar koreksi kini di-render langsung ke `document.body` di luar hierarki DOM layout, sehingga posisi `fixed inset-0 z-[9999]` benar-benar membungkus **100% layar (true full screen)** tanpa celah header maupun sidebar.
+  2. **Enhanced Glass Backdrop Blur:**  
+     Memperbarui styling overlay menjadi `bg-black/80 backdrop-blur-md` dengan animasi `animate-fade-in`, menghasilkan efek frosted-glass yang sangat elegan, fokus, dan merata di seluruh layar.
+  3. **Body Scroll Lock:**  
+     Menambahkan `useEffect` otomatis untuk mengunci scroll halaman browser (`overflow: hidden`) saat modal aktif, dan mengembalikannya saat modal ditutup.
+
+---
+
+### 7. Apakah Perlu `makemigrations` dan `migrate` di Production?
 
 > 💡 **JAWABAN: TIDAK PERLU!**  
 > Seluruh perbaikan ini murni pada frontend React dan endpoint serializer/views Django REST framework. Struktur database tidak mengalami perubahan.
@@ -130,6 +143,7 @@ Tampilan menu Koreksi Esai dirombak total sesuai kebutuhan guru pengawas asesmen
 | 2026-11-20 | `frontend/src/api/examApi.js` | Update | Penambahan parameter `classroomId` pada `getEssaySubmissionsApi`. |
 | 2026-11-20 | `frontend/src/pages/teacher/EssayGrading.jsx` | Rombak Total UI | Rombak total menu Koreksi Esai: 3 filter berjenjang di atas, tabel list siswa di bawah, dan modal lembar koreksi interaktif dengan navigasi siswa. |
 | 2026-11-20 | `frontend/src/pages/teacher/StudentResults.jsx` | Update UI | Menampilkan semua tipe ujian pada filter dan menampilkan badge 'Belum Dinilai' pada kolom Nilai Akhir siswa. |
+| 2026-11-20 | `frontend/src/pages/teacher/EssayGrading.jsx` | Fix UI Modal | Implementasi React createPortal (root document.body), z-[9999], bg-black/80, backdrop-blur-md (true full screen tanpa celah header), dan body scroll lock. |
 | 2026-11-20 | `session.md` | Update | Dokumentasi lengkap seluruh pembaruan dan panduan deployment. |
 
 ---
@@ -142,8 +156,8 @@ Jalankan di PowerShell komputer Anda:
 ```powershell
 cd C:\xampp\htdocs\mis_dev\ujian_sdmis
 git status
-git add frontend/src/pages/teacher/ExamPackageList.jsx frontend/src/pages/student/ExamWorkspace.jsx backend/apps/exams/views.py backend/apps/exams/excel_results_generator.py frontend/src/api/examApi.js frontend/src/pages/teacher/EssayGrading.jsx frontend/src/pages/teacher/StudentResults.jsx session.md
-git commit -m "feat: remove target classroom from exam package form and improve post-exam score display for essays"
+git add frontend/src/pages/teacher/EssayGrading.jsx session.md
+git commit -m "fix(grading): render essay grading modal via createPortal for true fullscreen and rich glass backdrop blur"
 git push origin main
 ```
 
