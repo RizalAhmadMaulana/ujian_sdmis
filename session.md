@@ -9,15 +9,37 @@
 
 ## 📌 Ringkasan Update Sesi Ini (20 November 2026)
 
-### 🎯 1. Analisis & Solusi Tuntas Jawaban Esai Siswa Tidak Tampil di Menu Koreksi Esai
-Berdasarkan investigasi mendalam terhadap alur penyimpanan jawaban siswa dan serialisasi data backend ke frontend:
-- **Akar Masalah Utama:**
+### 🎯 1. Penghapusan Field "Kelas Peserta" di Menu Bank Soal & Paket Ujian
+- **Latar Belakang:**  
+  Sebelumnya, saat guru membuat atau mengedit paket soal di menu Bank Soal & Paket Ujian (`/teacher/packages`), terdapat field input *Kelas Peserta*. Field ini tidak diperlukan lagi karena pengaturan rombel kelas peserta sudah ditentukan secara spesifik dan fleksibel saat guru menjadwalkan sesi ujian di menu *Jadwal & Sesi Ujian* (`/teacher/sessions`).
+- **Perubahan yang Diterapkan:**
+  - Menghapus field dropdown *Kelas Peserta* dari modal "Buat Paket Ujian Baru (Hybrid Mode)" dan modal edit pada file `frontend/src/pages/teacher/ExamPackageList.jsx`.
+  - Merapikan grid informasi paket asesmen menjadi 2 kolom simetris: **Judul Paket Ujian** dan **Mata Pelajaran**.
+
+---
+
+### 🎯 2. Tampilan Baru Pasca Selesai Ujian Siswa (2 Kondisi Berdasarkan Tipe Soal)
+- **Latar Belakang:**  
+  Sebelumnya, saat siswa selesai mengerjakan ujian yang berisi soal esai atau non-pilihan ganda, modal ucapan selamat menampilkan angka nilai `0` (karena soal esai belum dinilai manual oleh guru). Hal ini membuat siswa khawatir mengira nilainya nol.
+- **Perubahan yang Diterapkan pada `frontend/src/pages/student/ExamWorkspace.jsx`:**
+  Sistem kini membedakan tampilan hasil pengerjaan ke dalam **2 Kondisi**:
+  1. **Kondisi 1 — Ujian Pilihan Ganda Murni (100% Dinilai Otomatis):**
+     - Menampilkan angka nilai asesmen secara langsung (misal `85`), poin maksimal, dan persentase capaian secara transparan.
+  2. **Kondisi 2 — Ujian Selain Pilihan Ganda / Terdapat Soal Esai / Form Eksternal:**
+     - **Angka nilai 0 disembunyikan sepenuhnya!**
+     - Menampilkan badge status: **"Menunggu Hasil Koreksi Guru (Belum Dikoreksi)"**.
+     - Menampilkan ucapan selamat yang menenangkan siswa:  
+       > *"Selamat, Anda telah berhasil menyelesaikan ujian! Seluruh lembar jawaban Anda telah tersimpan dan nilai akhir akan diumumkan setelah hasil koreksi selesai dinilai oleh guru pengawas."*
+     - Menampilkan informasi ringkas jumlah butir soal yang berhasil terkirim.
+
+---
+
+### 🎯 3. Analisis & Solusi Tuntas Jawaban Esai Siswa Tidak Tampil di Menu Koreksi Esai
+- **Akar Masalah:**
   1. **Mismatch Struktur Data (Array vs Object Keyed):**  
      Endpoint backend `SessionEssaySubmissionsView` mengirimkan lembar jawaban siswa sebagai **Array/List** (`answers: [ { question_id: '...', student_answer: '...' } ]`), sedangkan frontend `EssayGrading.jsx` mengaksesnya sebagai properti Object berbasis UUID butir soal (`selectedStudent.answers?.[question.id]`). Dalam JavaScript, mengakses array dengan indeks string UUID (`array['uuid']`) selalu menghasilkan `undefined`. Akibatnya, `studentAns?.student_answer` bernilai kosong (`""`), memicu tampilan *"Lembar jawaban kosong. (Tidak ada jawaban diketik oleh siswa)"* padahal siswa telah mengetik jawaban dan tersimpan di database.
   2. **Field Compatibility (`points` vs `max_score`):**  
-     Frontend mengharapkan `question.max_score` dan `question.order`, sedangkan backend sebelumnya hanya menyediakan `points` dan `order_number`. Akibatnya teks header menampilkan `Bobot Maks: Poin` dan input skor bertuliskan `Skor (0 - ):`.
-  3. **Penyelamatan Atribut Gambar:**  
-     Pengambilan `image_url` pada model `Question` yang bertipe CharField memanggil `.url` yang berisiko error jika berupa string URL mentah.
+     Frontend mengharapkan `question.max_score` dan `question.order`, sedangkan backend sebelumnya hanya menyediakan `points` dan `order_number`.
 - **Solusi yang Diterapkan:**
   1. `SessionEssaySubmissionsView` kini menyediakan **DUAL FORMAT**:
      - `answers`: Dictionary/Object yang di-index langsung berdasarkan `question_id` string untuk akses instan `selectedStudent.answers[question.id]`.
@@ -28,7 +50,7 @@ Berdasarkan investigasi mendalam terhadap alur penyimpanan jawaban siswa dan ser
 
 ---
 
-### 🎯 2. Rombak Total Tampilan Menu Koreksi Esai (`/teacher/grading`)
+### 🎯 4. Rombak Total Tampilan Menu Koreksi Esai (`/teacher/grading`)
 Tampilan menu Koreksi Esai dirombak total sesuai kebutuhan guru pengawas asesmen:
 1. **Bagian Atas (Top Cascading Filter Bar):**
    - **Dropdown 1: Filter Paket Soal** (pilih paket soal tertentu atau semua paket).
@@ -53,7 +75,7 @@ Tampilan menu Koreksi Esai dirombak total sesuai kebutuhan guru pengawas asesmen
 
 ---
 
-### 🎯 3. Integrasi Rekap Nilai Siswa (`/teacher/results`) & Tampilan Semua Ragam Ujian
+### 🎯 5. Integrasi Rekap Nilai Siswa (`/teacher/results`) & Tampilan Semua Ragam Ujian
 1. **Pelepasan Filter Pilihan Ganda pada Menu Rekap Nilai:**
    - Filter master data paket soal dan sesi ujian di `StudentResults.jsx` tidak lagi membatasi tipe ujian. Seluruh ujian (pilihan ganda, esai, campuran, maupun formulir eksternal) kini tampil lengkap pada pilihan filter.
 2. **Status 'Belum Dinilai' untuk Ujian Esai:**
@@ -66,28 +88,32 @@ Tampilan menu Koreksi Esai dirombak total sesuai kebutuhan guru pengawas asesmen
 
 ---
 
-### 4. Apakah Perlu `makemigrations` dan `migrate` di Production?
+### 6. Apakah Perlu `makemigrations` dan `migrate` di Production?
 
 > 💡 **JAWABAN: TIDAK PERLU!**  
-> Seluruh perbaikan ini murni penyempurnaan logika backend Django REST framework (`views.py`, `excel_results_generator.py`) dan frontend React (`EssayGrading.jsx`, `StudentResults.jsx`, `examApi.js`). Model database `StudentAttempt` telah memiliki field `answers_json` dan `essay_scores` sejak awal sehingga struktur tabel SQL tidak berubah.
+> Seluruh perbaikan ini murni pada frontend React dan endpoint serializer/views Django REST framework. Struktur database tidak mengalami perubahan.
 
 ---
 
 ## 🏗️ Detail Perubahan Kode
 
 ### File yang Diperbarui:
-1. **`backend/apps/exams/views.py`**
+1. **`frontend/src/pages/teacher/ExamPackageList.jsx`**
+   - Menghapus field input *Kelas Peserta* dari modal buat dan edit paket soal.
+2. **`frontend/src/pages/student/ExamWorkspace.jsx`**
+   - Memperbarui modal hasil ujian siswa: Jika ujian bertipe esai / selain pilihan ganda, menampilkan status **Belum Dikoreksi (Menunggu Pemeriksaan Guru)** tanpa memunculkan angka nilai 0. Jika pilihan ganda murni, menampilkan nilai langsung.
+3. **`backend/apps/exams/views.py`**
    - `SessionEssaySubmissionsView`: Menambahkan filter `classroom`, dual format representasi jawaban (`answers` dict & `answers_list`), safe string formatter gambar soal, dan atribut lengkap `points`/`max_score`.
    - `GradeEssaySubmissionView`: Mendukung identifikasi via `attempt_id` maupun `student_id`, dan otomatis menghitung ulang `attempt.total_score` pasca penilaian esai.
    - `SessionStudentResultsView`: Menambahkan deteksi kelengkapan koreksi esai (`has_essay`, `is_essay_graded`, `has_ungraded_essay`, `essay_graded_count`) serta isolasi skor belum dinilai dari statistik rata-rata.
    - `ExportSessionResultsExcelView`: Meneruskan flag `has_ungraded_essay` ke generator Excel.
-2. **`backend/apps/exams/excel_results_generator.py`**
+4. **`backend/apps/exams/excel_results_generator.py`**
    - Menampilkan `"Belum Dinilai"` pada kolom Nilai Akhir berkas Excel jika ujian esai siswa belum tuntas dikoreksi.
-3. **`frontend/src/api/examApi.js`**
+5. **`frontend/src/api/examApi.js`**
    - Memperbarui `getEssaySubmissionsApi(sessionId, classroomId)` agar mendukung parameter filter kelas.
-4. **`frontend/src/pages/teacher/EssayGrading.jsx`**
+6. **`frontend/src/pages/teacher/EssayGrading.jsx`**
    - Rombak total UI: 3 dropdown filter berjenjang (Paket, Kelas, Sesi), 4 kartu statistik, tabel daftar siswa dengan status koreksi, serta modal lembar koreksi esai per siswa dengan navigasi cepat Prev/Next.
-5. **`frontend/src/pages/teacher/StudentResults.jsx`**
+7. **`frontend/src/pages/teacher/StudentResults.jsx`**
    - Menampilkan seluruh paket & sesi tanpa filter eksklusif.
    - Menampilkan badge **'Belum Dinilai'** pada kolom Nilai Akhir jika terdapat butir esai yang belum dinilai guru.
 
@@ -97,12 +123,14 @@ Tampilan menu Koreksi Esai dirombak total sesuai kebutuhan guru pengawas asesmen
 
 | Tanggal | Komponen / File | Aksi | Rincian Perubahan |
 |---|---|---|---|
+| 2026-11-20 | `frontend/src/pages/teacher/ExamPackageList.jsx` | Update UI | Menghapus field Kelas Peserta pada modal tambah/edit paket soal karena kelas sudah diatur pada sesi ujian. |
+| 2026-11-20 | `frontend/src/pages/student/ExamWorkspace.jsx` | Update UI | Modal penyelesaian ujian menampilkan 'Belum Dikoreksi' (tanpa skor 0) untuk ujian esai/non-pilgan, dan nilai langsung untuk pilgan. |
 | 2026-11-20 | `backend/apps/exams/views.py` | Fix & Feature | Resolusi bug jawaban esai kosong via dual format dict/list, integrasi kalkulasi total skor esai, dan flag kelengkapan koreksi esai di rekap nilai. |
 | 2026-11-20 | `backend/apps/exams/excel_results_generator.py` | Feature | Penyesuaian output ekspor Excel agar menampilkan 'Belum Dinilai' untuk siswa yang esainya belum dinilai. |
 | 2026-11-20 | `frontend/src/api/examApi.js` | Update | Penambahan parameter `classroomId` pada `getEssaySubmissionsApi`. |
 | 2026-11-20 | `frontend/src/pages/teacher/EssayGrading.jsx` | Rombak Total UI | Rombak total menu Koreksi Esai: 3 filter berjenjang di atas, tabel list siswa di bawah, dan modal lembar koreksi interaktif dengan navigasi siswa. |
 | 2026-11-20 | `frontend/src/pages/teacher/StudentResults.jsx` | Update UI | Menampilkan semua tipe ujian pada filter dan menampilkan badge 'Belum Dinilai' pada kolom Nilai Akhir siswa. |
-| 2026-11-20 | `session.md` | Update | Dokumentasi lengkap sesi investigasi bug esai, rombak total UI koreksi esai, dan panduan deployment. |
+| 2026-11-20 | `session.md` | Update | Dokumentasi lengkap seluruh pembaruan dan panduan deployment. |
 
 ---
 
@@ -114,15 +142,15 @@ Jalankan di PowerShell komputer Anda:
 ```powershell
 cd C:\xampp\htdocs\mis_dev\ujian_sdmis
 git status
-git add backend/apps/exams/views.py backend/apps/exams/excel_results_generator.py frontend/src/api/examApi.js frontend/src/pages/teacher/EssayGrading.jsx frontend/src/pages/teacher/StudentResults.jsx session.md
-git commit -m "feat(grading): overhaul essay grading UI, fix student essay answers display, and integrate ungraded status into student results"
+git add frontend/src/pages/teacher/ExamPackageList.jsx frontend/src/pages/student/ExamWorkspace.jsx backend/apps/exams/views.py backend/apps/exams/excel_results_generator.py frontend/src/api/examApi.js frontend/src/pages/teacher/EssayGrading.jsx frontend/src/pages/teacher/StudentResults.jsx session.md
+git commit -m "feat: remove target classroom from exam package form and improve post-exam score display for essays"
 git push origin main
 ```
 
 ---
 
 ### B. Menerapkan di Server Produksi (SSH / VPS):
-Jalankan di terminal SSH Anda:
+Jalankan di terminal SSH VPS Anda:
 
 ```bash
 # 1. Masuk ke direktori project di VPS
@@ -131,7 +159,7 @@ cd ~/htdocs/ujian_sdmis
 # 2. Tarik update terbaru dari repository GitHub
 git pull origin main
 
-# 3. Build frontend jika frontend di-serve via build production (opsional jika menggunakan vite build)
+# 3. Build ulang frontend (karena ada perubahan di ExamPackageList, ExamWorkspace, EssayGrading, StudentResults)
 cd frontend
 npm run build
 
@@ -139,13 +167,3 @@ npm run build
 cd ../backend
 pm2 restart ujian-sdmis-backend
 ```
-
-Setelah PM2 di-restart dan halaman di-refresh pada browser:
-1. Masuk ke menu **Koreksi Esai** (`/teacher/grading`):
-   - Filter paket soal, kelas, dan sesi ujian akan tampil di bagian atas.
-   - Tabel list nama siswa tampil di bagian bawah lengkap dengan status ujian, status koreksi, dan tombol "Koreksi Jawaban".
-   - Klik baris siswa: seluruh jawaban esai yang diketik siswa akan tampil secara jelas dan guru dapat langsung mengoreksi satu per satu.
-2. Masuk ke menu **Rekap Nilai Siswa** (`/teacher/results`):
-   - Seluruh sesi dan paket ujian (termasuk esai) kini dapat dipilih.
-   - Jika ada ujian esai yang belum selesai dinilai, kolom Nilai Akhir menampilkan badge **'Belum Dinilai'**.
-   - Setelah dinilai di menu Koreksi Esai, nilai totalnya otomatis terakumulasi dan tampil di menu Rekap Nilai Siswa!
