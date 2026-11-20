@@ -338,10 +338,93 @@ Sesuai arahan client dan taste-skill (`design-taste-frontend`), seluruh tampilan
 
 ---
 
+## 10. Pembaruan Total Zero-White Theme (Hijau Muda Kekuning-kuningan) Role Guru (Teacher Portal)
+
+Sesuai arahan client untuk merombak total seluruh desain style pada seluruh halaman role guru dan menghapus seluruh warna dasar putih (`bg-white`, `#F4FFFC`, `bg-zinc-50`, `#FFFFFF`, `border-zinc-200`) menjadi warna dasar **Hijau Muda Kekuning-kuningan ("Zero-White Lime-Yellow System")**:
+- **Outer Canvas:** `bg-gradient-to-b from-[#EBF7CD] via-[#E2F4B8] to-[#D9F0A5]`
+- **Main Surface / Cards / Table Wrappers / Modals:** `bg-[#EFF9CE] border-2 border-[#8BC829] shadow-sm text-[#102919]`
+- **Sub-Cards / Filter Bars / Row Alternations / Table Headers:** `bg-[#E2F4B4] border-2 border-[#8BC829] text-[#102919]`
+- **Inputs / Dropdowns / Textareas / Code Inputs:** `bg-[#F9FDEE] border-2 border-[#8BC829] text-[#102919] placeholder-[#102919]/40 focus:outline-none focus:border-[#102919] focus:bg-[#EFF9CE]`
+- **Primary Action Buttons:** `bg-[#C3E956] hover:bg-[#b8e337] text-[#0A1D11] font-black border-2 border-[#4D7111]/30 shadow-xs cursor-pointer`
+- **Secondary Action Buttons:** `bg-[#E2F4B4] hover:bg-[#d6f0a3] text-[#102919] font-black border-2 border-[#8BC829] cursor-pointer`
+- **Dark Executive Buttons / Active Indicator Pills:** `bg-[#102919] hover:bg-[#1F4B2C] text-[#C3E956] font-black border border-[#C3E956]/40 shadow-xs cursor-pointer`
+- **Text & Headings:** Deep Forest Black `#102919` font-black, secondary `#102919]/70` font-bold.
+
+### Rincian Pembaruan Per Komponen & Halaman Role Guru:
+1. **TeacherLayout (`frontend/src/layouts/TeacherLayout.jsx`):**
+   - Kanvas terluar berganti ke `bg-gradient-to-b from-[#EBF7CD] via-[#E2F4B8] to-[#D9F0A5]`.
+   - Header desktop `bg-[#EFF9CE]/95 border-b-2 border-[#8BC829]`, badge NPSN `#E2F4B4`, avatar profile chip `#E2F4B4`.
+2. **Dashboard Guru (`DashboardTeacher.jsx` - `/teacher/dashboard`):**
+   - Hero banner identitas SD Mentari Islamic School berlatar `#EFF9CE` border-2 `#8BC829`.
+   - 4 KPI cards berlatar `#EFF9CE` border-2 `#8BC829` dengan icon container `#E2F4B4`.
+   - Kotak sesi aktif berlatar `#EFF9CE`, chip token/PIN `#E2F4B4` dengan border-2 `#8BC829`.
+   - Kotak live audit sensor berlatar `#EFF9CE`, 6 modul menu cepat berlatar `#EFF9CE` border-2 `#8BC829`.
+3. **Live Proctoring (`LiveProctoring.jsx` - `/teacher/proctoring`):**
+   - Filter bar sesi dan status bar berlatar `#EFF9CE` border-2 `#8BC829`, input cari `#F9FDEE`.
+   - Kartu monitoring siswa real-time berlatar `#EFF9CE` border-2 solid `#8BC829`, strip data & sensor `#E2F4B4`, modal dialog peringatan & diskualifikasi `#EFF9CE`.
+4. **Koreksi Esai (`EssayGrading.jsx` - `/teacher/grading`):**
+   - Top cascading filter container berlatar `#EFF9CE` border-2 `#8BC829`.
+   - 4 KPI cards berlatar `#EFF9CE` border-2 `#8BC829`.
+   - Tabel siswa berlatar `#EFF9CE` border-2 `#8BC829`, header `#E2F4B4`, baris hover `#E2F4B4]/60`.
+   - Modal interaktif koreksi esai (React Portal) full-screen blur `bg-[#0A1D11]/85`, kartu dialog `#EFF9CE` border-2 `#8BC829`, butir soal `#E2F4B4`, input nilai `#F9FDEE` border-2 `#8BC829`.
+5. **Rekap Nilai Siswa (`StudentResults.jsx` - `/teacher/results`):**
+   - Header, filter, dan 4 KPI cards berlatar `#EFF9CE` border-2 `#8BC829`.
+   - Tabel hasil nilai berlatar `#EFF9CE`, thead `#E2F4B4`, baris hover `#E2F4B4]/60`.
+   - Modal Lembar Jawaban Siswa & Modal Remidi berlatar `#EFF9CE` border-2 `#8BC829`.
+6. **Riwayat Pelanggaran (`ViolationHistory.jsx` - `/teacher/violations`):**
+   - Header, cascading filter, dan 4 KPI cards berlatar `#EFF9CE` border-2 `#8BC829`.
+   - Tabel pelanggaran berlatar `#EFF9CE`, thead `#E2F4B4`, modal hapus berlatar `#EFF9CE`.
+7. **Manajemen Pengguna (`UserManagement.jsx` - `/teacher/users`):**
+   - Header, action buttons, filter peran, dan tabel pengguna berlatar `#EFF9CE` border-2 `#8BC829`.
+   - Modal Tambah/Edit User, Modal Konfirmasi Hapus User, dan Modal Import Excel Pengguna berlatar `#EFF9CE` border-2 `#8BC829`, form input `#F9FDEE`, drop area Excel `#F9FDEE` border-dashed `#8BC829`.
+8. **Bank Soal & Paket Ujian (`ExamPackageList.jsx` - `/teacher/packages`):**
+   - Kartu paket soal berlatar `#EFF9CE` border-2 `#8BC829`, tombol aksi `#E2F4B4` & `#C3E956`.
+   - Modal Import Soal Massal (Word & Excel): Format card `#EFF9CE` & `#C3E956`, input berkas `#F9FDEE` border-2 `#8BC829`.
+   - Modal Buat/Edit Paket Ujian: Section A & B `#E2F4B4` border-2 `#8BC829`, kartu butir soal `#EFF9CE` border-2 `#8BC829`, toolbar KaTeX `#E2F4B4`, 6 ragam form soal (PG, Kompleks, Isian Singkat, Benar/Salah Matrix, Menjodohkan, Esai) berlatar `#E2F4B4` dan `#F9FDEE` border-2 `#8BC829`. Sticky footer `#EFF9CE]/95` border-t-2 `#8BC829`.
+   - Modal Preview Iframe Formulir & Modal Preview Soal Mandiri AKM: Dialog `#EFF9CE` border-2 `#8BC829`, lembar pratinjau siswa `#EFF9CE` dan `#E2F4B4`.
+9. **Jadwal & Sesi Ujian (`ExamSessionSetup.jsx` - `/teacher/sessions`):**
+   - 4 KPI cards & tabel sesi ujian berlatar `#EFF9CE` border-2 `#8BC829`.
+   - Modal Buka/Edit Sesi Ujian: Container kelas `#E2F4B4` border-2 `#8BC829`, grid multi-select kelas `#F9FDEE` & `#C3E956`, inputs (judul, durasi, tanggal, jam) `#F9FDEE` border-2 `#8BC829`, token masuk & PIN pengawas `#E2F4B4` input font-mono `#F9FDEE`, kotak info regenerasi 10 menit `#EFF9CE`, pengacakan soal & opsi `#E2F4B4`.
+10. **E-Jurnal & Rekap Nilai (`EJournalReport.jsx` - `/teacher/journal`):**
+    - Action buttons (#C3E956, #E2F4B4, #102919).
+    - Multi-level cascading filter card & 4 KPI cards berlatar `#EFF9CE` border-2 `#8BC829`.
+    - Lembar Berita Acara Resmi (Kertas Dokumen A4): Surface `#EFF9CE` border-2 `#8BC829`, kop surat pembatas tebal `#102919`, metadata box `#E2F4B4`, tabel presensi `#E2F4B4` thead, tabel pelanggaran sensor `#E2F4B4`, catatan pengawas form `#F9FDEE` textarea, kolom tanda tangan pengesahan kepala sekolah & pengawas.
+11. **Pengaturan Identitas Sekolah (`SchoolSettings.jsx` - `/teacher/school`):**
+    - Formulir input identitas berlatar `#EFF9CE` border-2 `#8BC829`, semua input field `#F9FDEE` border-2 `#8BC829` teks `#102919`, tombol simpan `#C3E956`.
+    - Live Preview Lembar Dokumen berlatar `#102919` header dan kertas pratinjau `#E2F4B4` border-2 `#8BC829`.
+12. **Pengaturan Profil Pengawas (`ProfileSettings.jsx` - `/teacher/profile`):**
+    - 3 kartu profil (Data Diri Pengawas, Keamanan & Ganti Kata Sandi, Kepatuhan Asesmen) berlatar `#EFF9CE` border-2 `#8BC829`.
+    - Semua kotak input berlatar `#F9FDEE` border-2 `#8BC829` teks gelap `#102919`.
+    - Action bar bawah `#EFF9CE` border-2 `#8BC829` dan tombol simpan `#C3E956`.
+13. **Komponen Modal Universal (`Modal.jsx`):**
+    - Latar modal terstandarisasi ke `#EFF9CE` border-2 solid `#8BC829`, header gradient `#102919` ke `#1F4B2C` dengan judul `#C3E956`.
+
+---
+
 ## 📋 Riwayat Aktivitas & Perubahan File
 
 | Tanggal | Komponen / File | Aksi | Rincian Perubahan |
 |---|---|---|---|
+| 2026-11-20 | `frontend/tailwind.config.js` | Config | Menambahkan konfigurasi extended colors `brand` dan palette `primary` sesuai Green Screen (Vasil Enev: `#F4FFFC`, `#91EAAF`, `#C3E956`, `#4D7111`, `#1F4B2C`, `#102919`). |
+| 2026-11-20 | `frontend/src/pages/auth/LoginPage.jsx` | Rebranding UI | Redesain total halaman login depan responsif split-screen dengan foto gedung `loc-mis.jpeg`, logo `logo sd mis.png`, NPSN 70047473, alamat Klaten, tagline 'Digital Mind, Islamic Heart', dan tombol login lime `#C3E956`. |
+| 2026-11-20 | `frontend/src/layouts/TeacherLayout.jsx` | Overhaul UI | Rebranding total layout guru: background kanvas gradasi `#EBF7CD` ke `#D9F0A5`, desktop header `#EFF9CE` border-b-2 `#8BC829`, badge NPSN `#E2F4B4`, sidebar dark forest `#102919` dengan active pill `#C3E956`. |
+| 2026-11-20 | `frontend/src/pages/teacher/DashboardTeacher.jsx` | Overhaul UI | Rebranding total dashboard guru zero-white: hero banner identitas SD Mentari Islamic School `#EFF9CE` border-2 `#8BC829`, 4 KPI cards `#EFF9CE`, token rotasi 10 menit chip `#E2F4B4`, live sensor audit feed `#EFF9CE`, 6 modul menu cepat `#EFF9CE`. |
+| 2026-11-20 | `frontend/src/pages/teacher/LiveProctoring.jsx` | Overhaul & Bugfix | Rebranding total live proctoring zero-white: filter bar & tab status `#EFF9CE` border-2 `#8BC829`, kartu monitoring siswa `#EFF9CE` border-2 solid `#8BC829`, strip sensor `#E2F4B4`, modal dialog peringatan & diskualifikasi `#EFF9CE`. |
+| 2026-11-20 | `frontend/src/pages/teacher/EssayGrading.jsx` | Overhaul UI | Rebranding total koreksi esai zero-white: cascading filter `#EFF9CE` border-2 `#8BC829`, 4 KPI cards `#EFF9CE`, tabel siswa `#EFF9CE` thead `#E2F4B4`, modal penilaian esai React Portal fullscreen blur `#EFF9CE` border-2 `#8BC829` butir soal `#E2F4B4` input `#F9FDEE`. |
+| 2026-11-20 | `frontend/src/pages/teacher/StudentResults.jsx` | Overhaul UI | Rebranding total rekap hasil siswa zero-white: filter card `#EFF9CE`, 4 KPI cards `#EFF9CE`, tabel hasil `#EFF9CE`, modal rincian lembar jawaban `#EFF9CE` border-2 `#8BC829`, modal remidi `#EFF9CE`. |
+| 2026-11-20 | `frontend/src/pages/teacher/ViolationHistory.jsx` | Overhaul UI | Rebranding total riwayat pelanggaran zero-white: header, filter & 4 KPI cards `#EFF9CE` border-2 `#8BC829`, tabel pelanggaran `#EFF9CE`, modal konfirmasi hapus `#EFF9CE`. |
+| 2026-11-20 | `frontend/src/pages/teacher/ClassroomManagement.jsx` | Overhaul UI | Rebranding total data kelas zero-white: header `#EFF9CE`, search bar `#EFF9CE`, tabel kelas `#EFF9CE` thead `#E2F4B4`, modal tambah/edit kelas `#EFF9CE`, modal daftar siswa rombel `#EFF9CE` border-2 `#8BC829`. |
+| 2026-11-20 | `frontend/src/pages/teacher/TeacherManagement.jsx` | Overhaul UI | Rebranding total data guru zero-white: header, search bar, tabel guru `#EFF9CE` thead `#E2F4B4`, modal tambah/edit guru `#EFF9CE`, modal hapus `#EFF9CE`, modal import Excel `#EFF9CE`. |
+| 2026-11-20 | `frontend/src/pages/teacher/StudentManagement.jsx` | Overhaul UI | Rebranding total data siswa zero-white: header, search bar, tabel siswa `#EFF9CE` thead `#E2F4B4`, modal tambah/edit siswa `#EFF9CE`, modal hapus `#EFF9CE`, modal import Excel `#EFF9CE`. |
+| 2026-11-20 | `frontend/src/pages/teacher/UserManagement.jsx` | Overhaul UI | Rebranding total manajemen pengguna zero-white: search bar, filter peran, tabel user `#EFF9CE`, modal tambah/edit user `#EFF9CE` input `#F9FDEE`, modal hapus `#EFF9CE`, modal import Excel user `#EFF9CE`. |
+| 2026-11-20 | `frontend/src/pages/teacher/ExamPackageList.jsx` | Overhaul UI | Rebranding total bank soal & paket ujian zero-white: kartu paket soal `#EFF9CE`, modal import soal massal (Word & Excel) `#EFF9CE`, modal builder butir soal AKM `#EFF9CE` & `#E2F4B4`, 6 ragam form soal `#E2F4B4` input `#F9FDEE`, modal preview iframe & preview soal AKM `#EFF9CE`. |
+| 2026-11-20 | `frontend/src/pages/teacher/ExamSessionSetup.jsx` | Overhaul UI | Rebranding total jadwal & sesi ujian zero-white: 4 KPI cards & tabel sesi `#EFF9CE`, modal buka sesi `#EFF9CE`, container kelas `#E2F4B4`, grid checkbox kelas `#F9FDEE`, input jadwal & token `#F9FDEE` border-2 `#8BC829`. |
+| 2026-11-20 | `frontend/src/pages/teacher/EJournalReport.jsx` | Overhaul UI | Rebranding total E-Jurnal berita acara zero-white: action buttons `#C3E956` & `#E2F4B4`, cascading filter `#EFF9CE`, 4 KPI cards `#EFF9CE`, lembar berita acara kertas A4 `#EFF9CE` border-2 `#8BC829` kop surat `#102919` tabel presensi & pelanggaran `#E2F4B4` thead form catatan `#F9FDEE` textarea. |
+| 2026-11-20 | `frontend/src/pages/teacher/SchoolSettings.jsx` | Overhaul UI | Rebranding total pengaturan sekolah zero-white: form identitas sekolah `#EFF9CE` border-2 `#8BC829`, seluruh input field `#F9FDEE` border-2 `#8BC829` teks `#102919`, kartu live preview dokumen resmi `#102919` & `#E2F4B4`. |
+| 2026-11-20 | `frontend/src/pages/teacher/ProfileSettings.jsx` | Overhaul UI | Rebranding total profil guru zero-white: 3 kartu profil `#EFF9CE` border-2 `#8BC829`, semua input `#F9FDEE` border-2 `#8BC829`, bottom action bar `#EFF9CE` dan tombol simpan `#C3E956`. |
+| 2026-11-20 | `frontend/src/components/common/Modal.jsx` | Zero-White Redesign | Mengganti background putih modal menjadi hijau muda kekuningan `#EFF9CE` border-2 `#8BC829` dengan header dark forest `#102919` ke `#1F4B2C` dan judul `#C3E956`. |
+| 2026-11-20 | `frontend/src/pages/student/*` (5 File) | Zero-White Redesign | Rombak total seluruh halaman role siswa: `StudentLobby.jsx`, `SubjectPortal.jsx`, `GatekeeperPin.jsx`, `StudentProfileSettings.jsx`, `ExamWorkspace.jsx` bertema zero-white lime-yellow. |
+| 2026-11-20 | `session.md` | Update | Dokumentasi lengkap seluruh pembaruan rebranding Zero-White Theme (Hijau Muda Kekuning-kuningan) untuk role guru dan siswa serta panduan deployment. |
 | 2026-11-20 | `frontend/tailwind.config.js` | Config | Menambahkan konfigurasi extended colors `brand` dan palette `primary` sesuai Green Screen (Vasil Enev: `#F4FFFC`, `#91EAAF`, `#C3E956`, `#4D7111`, `#1F4B2C`, `#102919`). |
 | 2026-11-20 | `frontend/src/pages/auth/LoginPage.jsx` | Rebranding UI | Redesain total halaman login depan responsif split-screen dengan foto gedung `loc-mis.jpeg`, logo `logo sd mis.png`, NPSN 70047473, alamat Klaten, tagline 'Digital Mind, Islamic Heart', dan tombol login lime `#C3E956`. |
 | 2026-11-20 | `frontend/src/layouts/TeacherLayout.jsx` | Overhaul UI | Total redesign sidebar Green Screen: background gradasi dark forest, signature active link pill chartreuse `#C3E956` text `#0A1D11` font-bold, header identitas SD Mentari Islamic School + tagline pill, dan footer kartu profil guru. |
@@ -369,7 +452,7 @@ Jalankan di terminal PowerShell komputer Anda:
 cd C:\xampp\htdocs\mis_dev\ujian_sdmis
 git status
 git add frontend/tailwind.config.js frontend/src/components/common/Modal.jsx frontend/src/components/modals/WelcomeProfileModal.jsx frontend/src/pages/auth/LoginPage.jsx frontend/src/layouts/TeacherLayout.jsx frontend/src/pages/teacher/DashboardTeacher.jsx frontend/src/pages/teacher/ClassroomManagement.jsx frontend/src/pages/teacher/StudentManagement.jsx frontend/src/pages/teacher/TeacherManagement.jsx frontend/src/pages/teacher/UserManagement.jsx frontend/src/pages/teacher/ExamPackageList.jsx frontend/src/pages/teacher/ExamSessionSetup.jsx frontend/src/pages/teacher/LiveProctoring.jsx frontend/src/pages/teacher/EssayGrading.jsx frontend/src/pages/teacher/StudentResults.jsx frontend/src/pages/teacher/ViolationHistory.jsx frontend/src/pages/teacher/EJournalReport.jsx frontend/src/pages/teacher/SchoolSettings.jsx frontend/src/pages/teacher/ProfileSettings.jsx frontend/src/pages/student/StudentLobby.jsx frontend/src/pages/student/SubjectPortal.jsx frontend/src/pages/student/GatekeeperPin.jsx frontend/src/pages/student/StudentProfileSettings.jsx frontend/src/pages/student/ExamWorkspace.jsx session.md
-git commit -m "feat(student-rebranding): complete zero-white overhaul with vibrant lime-yellow palette (#EFF9CE, #E2F4B4, #C3E956, #8BC829) across all student pages"
+git commit -m "feat(rebranding): complete zero-white lime-yellow overhaul (#EFF9CE, #E2F4B4, #C3E956, #8BC829) across all teacher and student portal pages"
 git push origin main
 ```
 

@@ -96,13 +96,13 @@ export default function TeacherLayout() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#F4FFFC] flex flex-col md:flex-row text-zinc-800 antialiased font-sans">
+    <div className="min-h-screen bg-gradient-to-b from-[#EBF7CD] via-[#E2F4B8] to-[#D9F0A5] flex flex-col md:flex-row text-[#102919] antialiased font-sans">
       {/* ======================================================== */}
       {/* MOBILE HEADER BAR */}
       {/* ======================================================== */}
-      <div className="md:hidden bg-[#102919] text-[#F4FFFC] flex items-center justify-between px-4 py-3 border-b border-[#1F4B2C] sticky top-0 z-40 shadow-md">
+      <div className="md:hidden bg-[#102919] text-[#EFF9CE] flex items-center justify-between px-4 py-3 border-b-2 border-[#1F4B2C] sticky top-0 z-40 shadow-md">
         <div className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-lg bg-white p-1 flex items-center justify-center shadow-xs ring-1 ring-[#91EAAF]/50 shrink-0">
+          <div className="w-8 h-8 rounded-lg bg-[#EFF9CE] border border-[#8BC829]/50 p-1 flex items-center justify-center shadow-xs ring-1 ring-[#C3E956]/50 shrink-0">
             <img src={logoSdMis} alt="Logo SDMIS" className="w-full h-full object-contain" />
           </div>
           <div>
@@ -125,13 +125,13 @@ export default function TeacherLayout() {
             type="button"
             onClick={() => navigate('/teacher/profile')}
             title="Pengaturan Profil Akun"
-            className="p-1.5 rounded-lg bg-[#143820] border border-[#1F4B2C] text-[#91EAAF] hover:text-[#C3E956] transition"
+            className="p-1.5 rounded-lg bg-[#143820] border border-[#1F4B2C] text-[#C3E956] hover:bg-[#1F4B2C] transition"
           >
             <Settings className="w-4 h-4" />
           </button>
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="p-1.5 rounded-lg bg-[#143820] border border-[#1F4B2C] text-[#91EAAF] hover:text-[#C3E956] transition"
+            className="p-1.5 rounded-lg bg-[#143820] border border-[#1F4B2C] text-[#C3E956] hover:bg-[#1F4B2C] transition"
           >
             {isMobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
           </button>
@@ -142,7 +142,7 @@ export default function TeacherLayout() {
       {/* SIDEBAR NAVIGATION (Executive Green Screen Theme)       */}
       {/* ======================================================== */}
       <aside
-        className={`fixed inset-y-0 left-0 z-50 w-64 bg-gradient-to-b from-[#102919] via-[#0E2416] to-[#0A1D11] text-[#F4FFFC] flex flex-col border-r border-[#1F4B2C] shadow-2xl transform transition-transform duration-200 ease-in-out md:static md:translate-x-0 ${
+        className={`fixed inset-y-0 left-0 z-50 w-64 bg-gradient-to-b from-[#102919] via-[#0E2416] to-[#0A1D11] text-[#EFF9CE] flex flex-col border-r-2 border-[#1F4B2C] shadow-2xl transform transition-transform duration-200 ease-in-out md:static md:translate-x-0 ${
           isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
@@ -150,7 +150,7 @@ export default function TeacherLayout() {
         <div className="p-4 border-b border-[#1F4B2C]/80 bg-[#0A1D11]/70">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-white p-1.5 flex items-center justify-center shadow-lg ring-2 ring-[#91EAAF]/40 shrink-0">
+              <div className="w-10 h-10 rounded-xl bg-[#EFF9CE] border border-[#8BC829]/50 p-1.5 flex items-center justify-center shadow-lg ring-2 ring-[#C3E956]/40 shrink-0">
                 <img src={logoSdMis} alt="Logo SDMIS" className="w-full h-full object-contain" />
               </div>
               <div className="min-w-0">
@@ -170,7 +170,7 @@ export default function TeacherLayout() {
           {/* School Tagline Pill */}
           <div className="mt-2.5 px-2.5 py-1 rounded-lg bg-[#143820]/80 border border-[#1F4B2C] flex items-center gap-1.5">
             <Sparkles className="w-3 h-3 text-[#C3E956] shrink-0" />
-            <span className="text-[10px] font-medium text-[#91EAAF] truncate">Digital Mind, Islamic Heart</span>
+            <span className="text-[10px] font-bold text-[#C3E956] truncate">Digital Mind, Islamic Heart</span>
           </div>
         </div>
 
@@ -191,8 +191,8 @@ export default function TeacherLayout() {
                     className={({ isActive }) =>
                       `group relative flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold transition-all duration-150 ${
                         isActive
-                          ? 'bg-[#C3E956] text-[#0A1D11] font-bold shadow-md shadow-[#C3E956]/20'
-                          : 'text-[#F4FFFC]/80 hover:bg-[#1F4B2C]/70 hover:text-white'
+                          ? 'bg-[#C3E956] text-[#0A1D11] font-black shadow-md shadow-[#C3E956]/20'
+                          : 'text-[#EFF9CE]/85 hover:bg-[#1F4B2C]/70 hover:text-white'
                       }`
                     }
                   >
@@ -239,14 +239,14 @@ export default function TeacherLayout() {
               className="flex items-center gap-2.5 overflow-hidden cursor-pointer hover:opacity-90 transition flex-1 min-w-0"
               title="Buka Pengaturan Profil Akun"
             >
-              <div className="w-8 h-8 rounded-lg bg-[#1F4B2C] border border-[#C3E956]/50 flex items-center justify-center text-[#C3E956] font-bold text-xs shrink-0 shadow-xs">
+              <div className="w-8 h-8 rounded-lg bg-[#1F4B2C] border border-[#C3E956]/50 flex items-center justify-center text-[#C3E956] font-black text-xs shrink-0 shadow-xs">
                 {currentUser?.fullName?.charAt(0) || currentUser?.username?.charAt(0) || 'G'}
               </div>
               <div className="overflow-hidden min-w-0">
                 <div className="text-xs font-bold text-white truncate">
                   {currentUser?.fullName || currentUser?.full_name || currentUser?.username || 'Guru Pengawas'}
                 </div>
-                <div className="text-[10px] font-mono text-[#91EAAF] truncate">
+                <div className="text-[10px] font-mono text-[#C3E956] truncate">
                   {currentUser?.nip || currentUser?.username || 'NIP: -'}
                 </div>
               </div>
@@ -286,17 +286,17 @@ export default function TeacherLayout() {
       {/* ======================================================== */}
       {/* MAIN CONTENT AREA WITH DESKTOP TOP BAR */}
       {/* ======================================================== */}
-      <div className="flex-1 flex flex-col min-h-0 overflow-y-auto bg-[#F4FFFC]">
+      <div className="flex-1 flex flex-col min-h-0 overflow-y-auto bg-gradient-to-b from-[#EBF7CD] via-[#E2F4B8] to-[#D9F0A5]">
         {/* Desktop Header */}
-        <header className="hidden md:flex bg-white/95 backdrop-blur-md border-b border-[#91EAAF]/35 px-6 py-3 items-center justify-between sticky top-0 z-30 shadow-2xs">
+        <header className="hidden md:flex bg-[#EFF9CE]/95 backdrop-blur-md border-b-2 border-[#8BC829] px-6 py-3 items-center justify-between sticky top-0 z-30 shadow-xs">
           <div className="flex items-center gap-2.5">
-            <span className="text-xs font-bold px-3 py-1 rounded-lg bg-[#F4FFFC] text-[#1F4B2C] border border-[#91EAAF]/60 shadow-2xs flex items-center gap-1.5">
-              <span className="w-2 h-2 rounded-full bg-[#1F4B2C]" />
+            <span className="text-xs font-black px-3 py-1.5 rounded-xl bg-[#E2F4B4] text-[#102919] border-2 border-[#8BC829] shadow-xs flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-[#102919]" />
               {schoolSettings?.name || 'SD MENTARI ISLAMIC SCHOOL'}
             </span>
-            <span className="text-[#91EAAF]">•</span>
-            <span className="text-xs text-[#4D7111] font-bold flex items-center gap-1.5 bg-[#C3E956]/20 px-3 py-1 rounded-lg border border-[#C3E956]/40">
-              <span className="w-2 h-2 rounded-full bg-[#C3E956] animate-pulse" />
+            <span className="text-[#8BC829] font-black">•</span>
+            <span className="text-xs text-[#0A1D11] font-black flex items-center gap-1.5 bg-[#C3E956] px-3 py-1.5 rounded-xl border-2 border-[#4D7111]/30 shadow-xs">
+              <span className="w-2 h-2 rounded-full bg-[#0A1D11] animate-pulse" />
               Zero-Tolerance Lockdown Aktif
             </span>
           </div>
@@ -305,19 +305,19 @@ export default function TeacherLayout() {
             {lockedStudentsCount > 0 && (
               <button
                 onClick={() => navigate('/teacher/proctoring')}
-                className="px-3 py-1 rounded-lg bg-rose-50 border border-rose-200 text-rose-700 text-xs font-bold flex items-center gap-1.5 hover:bg-rose-100 transition animate-pulse"
+                className="px-3 py-1 rounded-lg bg-rose-100 border-2 border-rose-300 text-rose-900 text-xs font-black flex items-center gap-1.5 hover:bg-rose-200 transition animate-pulse"
               >
-                <ShieldAlert className="w-3.5 h-3.5 text-rose-600" />
+                <ShieldAlert className="w-3.5 h-3.5 text-rose-700" />
                 <span>{lockedStudentsCount} Siswa Terkunci</span>
               </button>
             )}
 
-            <div className="flex items-center gap-3 pl-3 border-l border-[#91EAAF]/40">
+            <div className="flex items-center gap-3 pl-3 border-l-2 border-[#8BC829]">
               <button
                 type="button"
                 onClick={() => navigate('/teacher/profile')}
                 title="Pengaturan Profil & Akun"
-                className="p-1.5 text-zinc-600 hover:text-[#1F4B2C] hover:bg-[#F4FFFC] rounded-lg border border-zinc-200 hover:border-[#91EAAF]/60 transition group"
+                className="p-2 text-[#102919] hover:text-[#0A1D11] bg-[#E2F4B4] hover:bg-[#C3E956] rounded-xl border-2 border-[#8BC829] transition group"
               >
                 <Settings className="w-4 h-4 group-hover:rotate-45 transition-transform duration-200" />
               </button>
@@ -327,16 +327,16 @@ export default function TeacherLayout() {
                 className="text-right cursor-pointer hover:opacity-85 transition"
                 title="Buka Pengaturan Profil Akun"
               >
-                <div className="text-xs font-bold text-[#1F4B2C] leading-tight">
+                <div className="text-xs font-black text-[#102919] leading-tight">
                   {currentUser?.fullName || currentUser?.full_name || currentUser?.username || 'Guru Pengawas'}
                 </div>
-                <div className="text-[10px] text-zinc-500 font-mono font-semibold">Guru Pengawas Ujian</div>
+                <div className="text-[10px] text-[#102919]/70 font-mono font-bold">Guru Pengawas Ujian</div>
               </div>
 
               <button
                 onClick={handleLogout}
                 title="Keluar"
-                className="p-1.5 text-zinc-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition"
+                className="p-2 text-[#102919] hover:text-rose-700 bg-[#E2F4B4] hover:bg-rose-100 rounded-xl border-2 border-[#8BC829] hover:border-rose-300 transition"
               >
                 <LogOut className="w-4 h-4" />
               </button>

@@ -356,14 +356,14 @@ export default function EJournalReport() {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 print:hidden">
         <div>
           <div className="flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-lg bg-[#1F4B2C] border border-[#C3E956]/30 flex items-center justify-center text-[#C3E956] shadow-xs">
-              <FileSpreadsheet className="w-4 h-4" />
+            <div className="w-10 h-10 rounded-xl bg-[#102919] border-2 border-[#8BC829] flex items-center justify-center text-[#C3E956] shadow-xs">
+              <FileSpreadsheet className="w-5 h-5" />
             </div>
             <div>
-              <h1 className="text-xl sm:text-2xl font-bold text-zinc-900 tracking-tight">
+              <h1 className="text-xl sm:text-2xl font-black text-[#102919] tracking-tight">
                 E-Jurnal & Rekapitulasi Nilai Ujian
               </h1>
-              <p className="text-xs sm:text-sm text-zinc-500 mt-0.5 leading-relaxed">
+              <p className="text-xs sm:text-sm text-[#102919]/70 mt-0.5 leading-relaxed font-bold">
                 Dokumentasi resmi kehadiran, rekapitulasi nilai per kelas, log sensor anti-cheat, dan unduh PDF/Excel.
               </p>
             </div>
@@ -375,27 +375,27 @@ export default function EJournalReport() {
           <button
             type="button"
             onClick={() => navigate(`/teacher/results${currentSession?.id ? `?session=${currentSession.id}` : ''}`)}
-            className="w-full sm:w-auto px-3.5 py-2 bg-[#C3E956]/20 hover:bg-[#C3E956]/30 text-[#4D7111] border border-[#C3E956]/40 rounded-lg text-xs font-semibold transition flex items-center justify-center gap-1.5 shadow-xs active:scale-[0.98] cursor-pointer"
+            className="w-full sm:w-auto px-4 py-2 bg-[#C3E956] hover:bg-[#b8e337] text-[#0A1D11] border-2 border-[#4D7111]/30 rounded-xl text-xs font-black transition flex items-center justify-center gap-1.5 shadow-xs active:scale-[0.98] cursor-pointer"
             title="Buka Analisis Lembar Jawaban & Rekap Nilai Siswa"
           >
-            <Award className="w-3.5 h-3.5 text-[#4D7111]" />
+            <Award className="w-3.5 h-3.5 text-[#0A1D11]" />
             <span>Rekap Nilai Siswa</span>
           </button>
 
           <button
             onClick={handleExportExcel}
             disabled={isExportingExcel || !currentSession}
-            className="w-full sm:w-auto px-3.5 py-2 bg-white hover:bg-[#F4FFFC] text-[#1F4B2C] border border-[#91EAAF]/60 rounded-lg text-xs font-semibold transition flex items-center justify-center gap-1.5 shadow-xs active:scale-[0.98] disabled:opacity-50 cursor-pointer"
+            className="w-full sm:w-auto px-4 py-2 bg-[#E2F4B4] hover:bg-[#d6f0a3] text-[#102919] border-2 border-[#8BC829] rounded-xl text-xs font-black transition flex items-center justify-center gap-1.5 shadow-xs active:scale-[0.98] disabled:opacity-50 cursor-pointer"
             title="Ekspor Rekapitulasi Nilai Format Excel .xlsx"
           >
-            <Download className="w-3.5 h-3.5 text-[#1F4B2C]" />
+            <Download className="w-3.5 h-3.5 text-[#102919]" />
             <span>{isExportingExcel ? 'Membuat Excel...' : 'Ekspor Rekap (.xlsx)'}</span>
           </button>
 
           <button
             onClick={handleExportPDF}
             disabled={isExportingPdf || !currentSession}
-            className="w-full sm:w-auto px-4 py-2 bg-[#1F4B2C] hover:bg-[#183D23] text-white rounded-lg text-xs font-semibold transition flex items-center justify-center gap-1.5 shadow-xs active:scale-[0.98] disabled:opacity-50 cursor-pointer"
+            className="w-full sm:w-auto px-4 py-2 bg-[#102919] hover:bg-[#1F4B2C] text-[#C3E956] border-2 border-[#102919] rounded-xl text-xs font-black transition flex items-center justify-center gap-1.5 shadow-xs active:scale-[0.98] disabled:opacity-50 cursor-pointer"
             title="Unduh Berita Acara Format PDF Resmi"
           >
             <FileDown className="w-3.5 h-3.5 text-[#C3E956]" />
@@ -405,10 +405,10 @@ export default function EJournalReport() {
           <button
             onClick={() => window.print()}
             disabled={!currentSession}
-            className="hidden sm:flex p-2 text-[#1F4B2C] hover:text-[#183D23] bg-white border border-[#91EAAF]/60 rounded-lg hover:bg-[#F4FFFC] transition disabled:opacity-50 items-center justify-center shadow-xs active:scale-[0.98] cursor-pointer"
+            className="hidden sm:flex p-2.5 text-[#102919] hover:text-[#0A1D11] bg-[#E2F4B4] border-2 border-[#8BC829] rounded-xl hover:bg-[#d6f0a3] transition disabled:opacity-50 items-center justify-center shadow-xs active:scale-[0.98] cursor-pointer"
             title="Cetak Langsung Lembar Dokumen (Print Preview)"
           >
-            <Printer className="w-3.5 h-3.5" />
+            <Printer className="w-4 h-4" />
           </button>
         </div>
       </div>
@@ -416,13 +416,13 @@ export default function EJournalReport() {
       {/* ======================================================== */}
       {/* 2. FILTER MULTI-LEVEL (PAKET SOAL, KELAS, & SESI UJIAN) */}
       {/* ======================================================== */}
-      <div className="bg-white rounded-xl p-5 border border-[#91EAAF]/40 shadow-xs space-y-4 print:hidden">
-        <div className="flex items-center justify-between border-b border-[#91EAAF]/30 pb-3">
-          <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#1F4B2C]">
-            <Filter className="w-3.5 h-3.5 text-[#4D7111]" />
+      <div className="bg-[#EFF9CE] rounded-2xl p-5 border-2 border-[#8BC829] shadow-xs space-y-4 print:hidden">
+        <div className="flex items-center justify-between border-b-2 border-[#8BC829]/30 pb-3">
+          <div className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-[#102919]">
+            <Filter className="w-3.5 h-3.5 text-[#1F4B2C]" />
             <span>Pilih Paket Soal, Rombel Kelas, & Sesi Ujian</span>
           </div>
-          <span className="text-[11px] text-zinc-400 font-mono">
+          <span className="text-[11px] text-[#102919]/70 font-mono font-bold">
             {filteredSessions.length} sesi asesmen
           </span>
         </div>
@@ -430,13 +430,13 @@ export default function EJournalReport() {
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           {/* Filter 1: Paket Soal */}
           <div>
-            <label className="block text-[11px] font-semibold text-zinc-700 uppercase tracking-wider mb-1">
+            <label className="block text-[11px] font-black text-[#102919] uppercase tracking-wider mb-1">
               Filter Paket Soal:
             </label>
             <select
               value={selectedPackageFilter}
               onChange={(e) => setSelectedPackageFilter(e.target.value)}
-              className="w-full text-xs font-medium rounded-lg border border-[#91EAAF]/60 focus:outline-none focus:ring-2 focus:ring-[#91EAAF]/40 focus:border-[#1F4B2C] py-2 px-2.5 bg-[#F4FFFC]/50 text-zinc-800"
+              className="w-full text-xs font-bold rounded-xl border-2 border-[#8BC829] focus:outline-none focus:border-[#102919] py-2 px-2.5 bg-[#F9FDEE] text-[#102919] cursor-pointer"
             >
               <option value="ALL">Semua Paket Soal ({allPackages.length})</option>
               {allPackages.map((pkg) => (
@@ -449,13 +449,13 @@ export default function EJournalReport() {
 
           {/* Filter 2: Kelas / Rombel */}
           <div>
-            <label className="block text-[11px] font-semibold text-zinc-700 uppercase tracking-wider mb-1">
+            <label className="block text-[11px] font-black text-[#102919] uppercase tracking-wider mb-1">
               Filter Kelas / Rombel:
             </label>
             <select
               value={selectedClassFilter}
               onChange={(e) => setSelectedClassFilter(e.target.value)}
-              className="w-full text-xs font-medium rounded-lg border border-[#91EAAF]/60 focus:outline-none focus:ring-2 focus:ring-[#91EAAF]/40 focus:border-[#1F4B2C] py-2 px-2.5 bg-[#F4FFFC]/50 text-zinc-800"
+              className="w-full text-xs font-bold rounded-xl border-2 border-[#8BC829] focus:outline-none focus:border-[#102919] py-2 px-2.5 bg-[#F9FDEE] text-[#102919] cursor-pointer"
             >
               <option value="ALL">-- Seluruh Kelas ({allClassrooms.length}) --</option>
               {allClassrooms.map((cls) => (
@@ -468,14 +468,14 @@ export default function EJournalReport() {
 
           {/* Filter 3: Sesi Ujian Spesifik */}
           <div>
-            <label className="block text-[11px] font-semibold text-zinc-700 uppercase tracking-wider mb-1">
+            <label className="block text-[11px] font-black text-[#102919] uppercase tracking-wider mb-1">
               Pilih Sesi Ujian Terbuka:
             </label>
             <select
               value={selectedSessionId}
               onChange={(e) => setSelectedSessionId(e.target.value)}
               disabled={filteredSessions.length === 0}
-              className="w-full text-xs font-semibold rounded-lg border border-[#91EAAF]/60 focus:outline-none focus:ring-2 focus:ring-[#91EAAF]/40 focus:border-[#1F4B2C] py-2 px-2.5 bg-[#F4FFFC] text-[#1F4B2C] disabled:bg-zinc-100 disabled:text-zinc-400"
+              className="w-full text-xs font-black rounded-xl border-2 border-[#8BC829] focus:outline-none focus:border-[#102919] py-2 px-2.5 bg-[#F9FDEE] text-[#102919] disabled:opacity-40 cursor-pointer"
             >
               {filteredSessions.length === 0 ? (
                 <option value="">Tidak ada sesi yang cocok</option>
@@ -495,20 +495,20 @@ export default function EJournalReport() {
       {/* 3. JIKA TIDAK ADA SESI / BELUM MEMBUKA SESI (EMPTY STATE) */}
       {/* ======================================================== */}
       {!currentSession ? (
-        <div className="bg-white rounded-xl border border-dashed border-zinc-300 p-12 text-center max-w-xl mx-auto space-y-3">
-          <div className="w-12 h-12 rounded-lg bg-zinc-100 text-zinc-600 border border-zinc-200 flex items-center justify-center mx-auto">
-            <FileSpreadsheet className="w-6 h-6" />
+        <div className="bg-[#EFF9CE] rounded-2xl border-2 border-dashed border-[#8BC829] p-12 text-center max-w-xl mx-auto space-y-3">
+          <div className="w-12 h-12 rounded-xl bg-[#E2F4B4] text-[#102919] border-2 border-[#8BC829] flex items-center justify-center mx-auto">
+            <FileSpreadsheet className="w-6 h-6 text-[#1F4B2C]" />
           </div>
           <div className="space-y-1">
-            <h3 className="text-base font-semibold text-zinc-900">Belum Ada Sesi Ujian yang Dipilih</h3>
-            <p className="text-xs text-zinc-500 leading-relaxed">
+            <h3 className="text-base font-black text-[#102919]">Belum Ada Sesi Ujian yang Dipilih</h3>
+            <p className="text-xs text-[#102919]/70 leading-relaxed font-medium">
               Silakan jadwalkan atau buka sesi ujian terlebih dahulu pada menu Jadwal & Sesi Ujian agar rekapitulasi nilai dan lembar berita acara dapat diakses.
             </p>
           </div>
           <div className="pt-2">
             <button
               onClick={() => navigate('/teacher/sessions')}
-              className="px-4 py-2 bg-zinc-900 hover:bg-zinc-800 text-white rounded-lg text-xs font-semibold shadow-xs transition inline-flex items-center gap-1.5 hover:-translate-y-0.5 active:scale-[0.98]"
+              className="px-4 py-2 bg-[#C3E956] hover:bg-[#b8e337] text-[#0A1D11] border-2 border-[#4D7111]/30 rounded-xl text-xs font-black shadow-xs transition inline-flex items-center gap-1.5 hover:-translate-y-0.5 active:scale-[0.98] cursor-pointer"
             >
               <Calendar className="w-3.5 h-3.5" />
               <span>Buka Menu Jadwal & Sesi Ujian</span>
@@ -522,52 +522,52 @@ export default function EJournalReport() {
           {/* ======================================================== */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 print:hidden">
             {/* Kartu 1: Total Terjadwal */}
-            <div className="bg-white rounded-xl p-4 border border-[#91EAAF]/40 shadow-xs flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-[#E1F8ED] text-[#1F4B2C] border border-[#91EAAF]/60 flex items-center justify-center shrink-0">
-                <Users className="w-4 h-4" />
+            <div className="bg-[#EFF9CE] rounded-2xl p-4 border-2 border-[#8BC829] shadow-xs flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-[#E2F4B4] text-[#102919] border border-[#8BC829] flex items-center justify-center shrink-0">
+                <Users className="w-5 h-5 text-[#1F4B2C]" />
               </div>
               <div>
-                <div className="text-[10px] text-zinc-500 font-semibold uppercase tracking-wider">Total Peserta</div>
-                <div className="text-lg sm:text-xl font-bold font-mono text-zinc-900 mt-0.5">{totalScheduled} Siswa</div>
-                <div className="text-[10px] text-zinc-400">Kelas {selectedClassName || (selectedClassFilter !== 'ALL' ? selectedClassFilter : (currentSession.classroom_name || currentSession.classroom))}</div>
+                <div className="text-[10px] text-[#102919]/70 font-black uppercase tracking-wider">Total Peserta</div>
+                <div className="text-lg sm:text-xl font-black font-mono text-[#102919] mt-0.5">{totalScheduled} Siswa</div>
+                <div className="text-[10px] text-[#102919]/60 font-bold">Kelas {selectedClassName || (selectedClassFilter !== 'ALL' ? selectedClassFilter : (currentSession.classroom_name || currentSession.classroom))}</div>
               </div>
             </div>
 
             {/* Kartu 2: Hadir Mengerjakan */}
-            <div className="bg-white rounded-xl p-4 border border-[#91EAAF]/40 shadow-xs flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-[#C3E956]/20 text-[#4D7111] border border-[#C3E956]/40 flex items-center justify-center shrink-0">
-                <CheckCircle2 className="w-4 h-4" />
+            <div className="bg-[#EFF9CE] rounded-2xl p-4 border-2 border-[#8BC829] shadow-xs flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-[#C3E956] text-[#0A1D11] border border-[#4D7111]/30 flex items-center justify-center shrink-0">
+                <CheckCircle2 className="w-5 h-5 text-[#0A1D11]" />
               </div>
               <div>
-                <div className="text-[10px] text-[#4D7111] font-semibold uppercase tracking-wider">Hadir / Selesai</div>
-                <div className="text-lg sm:text-xl font-bold font-mono text-[#1F4B2C] mt-0.5">{presentStudents} Siswa</div>
-                <div className="text-[10px] text-zinc-400">{absentStudents} belum hadir</div>
+                <div className="text-[10px] text-[#102919]/70 font-black uppercase tracking-wider">Hadir / Selesai</div>
+                <div className="text-lg sm:text-xl font-black font-mono text-[#102919] mt-0.5">{presentStudents} Siswa</div>
+                <div className="text-[10px] text-[#102919]/60 font-bold">{absentStudents} belum hadir</div>
               </div>
             </div>
 
             {/* Kartu 3: Rata-Rata Nilai */}
-            <div className="bg-white rounded-xl p-4 border border-[#91EAAF]/40 shadow-xs flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-[#E1F8ED] text-[#1F4B2C] border border-[#91EAAF]/60 flex items-center justify-center shrink-0">
-                <Award className="w-4 h-4" />
+            <div className="bg-[#EFF9CE] rounded-2xl p-4 border-2 border-[#8BC829] shadow-xs flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-[#E2F4B4] text-[#102919] border border-[#8BC829] flex items-center justify-center shrink-0">
+                <Award className="w-5 h-5 text-[#1F4B2C]" />
               </div>
               <div>
-                <div className="text-[10px] text-zinc-500 font-semibold uppercase tracking-wider">Rata-Rata Kelas</div>
-                <div className="text-lg sm:text-xl font-bold font-mono text-[#1F4B2C] mt-0.5">{averageScore} Poin</div>
-                <div className="text-[10px] text-zinc-400">Min: {lowestScore} • Max: {highestScore}</div>
+                <div className="text-[10px] text-[#102919]/70 font-black uppercase tracking-wider">Rata-Rata Kelas</div>
+                <div className="text-lg sm:text-xl font-black font-mono text-[#102919] mt-0.5">{averageScore} Poin</div>
+                <div className="text-[10px] text-[#102919]/60 font-bold">Min: {lowestScore} • Max: {highestScore}</div>
               </div>
             </div>
 
             {/* Kartu 4: Total Insiden Pelanggaran */}
-            <div className={`bg-white rounded-xl p-4 border shadow-xs flex items-center gap-3 ${
-              totalViolations > 0 ? 'border-amber-300 bg-amber-50/20' : 'border-[#91EAAF]/40'
+            <div className={`bg-[#EFF9CE] rounded-2xl p-4 border-2 shadow-xs flex items-center gap-3 ${
+              totalViolations > 0 ? 'border-amber-500 bg-amber-100/40' : 'border-[#8BC829]'
             }`}>
-              <div className="w-10 h-10 rounded-lg bg-amber-50 text-amber-800 border border-amber-200 flex items-center justify-center shrink-0">
-                <ShieldCheck className="w-4 h-4" />
+              <div className="w-10 h-10 rounded-xl bg-amber-200 text-amber-900 border border-amber-300 flex items-center justify-center shrink-0">
+                <ShieldCheck className="w-5 h-5" />
               </div>
               <div>
-                <div className="text-[10px] text-amber-800 font-semibold uppercase tracking-wider">Sensor Anti-Cheat</div>
-                <div className="text-lg sm:text-xl font-bold font-mono text-amber-900 mt-0.5">{totalViolations} Insiden</div>
-                <div className="text-[10px] text-zinc-400">Zero-Tolerance Active</div>
+                <div className="text-[10px] text-amber-900 font-black uppercase tracking-wider">Sensor Anti-Cheat</div>
+                <div className="text-lg sm:text-xl font-black font-mono text-amber-950 mt-0.5">{totalViolations} Insiden</div>
+                <div className="text-[10px] text-amber-800/80 font-bold">Zero-Tolerance Active</div>
               </div>
             </div>
           </div>
@@ -575,18 +575,18 @@ export default function EJournalReport() {
           {/* ======================================================== */}
           {/* 5. LEMBAR BERITA ACARA RESMI (KERTAS A4 STYLE) */}
           {/* ======================================================== */}
-          <div className="bg-white rounded-xl border border-[#91EAAF]/40 shadow-sm p-6 sm:p-10 max-w-5xl mx-auto space-y-6 text-zinc-800">
+          <div className="bg-[#EFF9CE] rounded-2xl border-2 border-[#8BC829] shadow-md p-6 sm:p-10 max-w-5xl mx-auto space-y-6 text-[#102919]">
             {/* KOP SURAT SEKOLAH DINAMIS */}
-            <div className="border-b-2 border-zinc-900 pb-5 text-center relative">
+            <div className="border-b-2 border-[#102919] pb-5 text-center relative">
               {displaySchool.sub_header && (
-                <div className="text-xs font-semibold uppercase tracking-wider text-zinc-500">
+                <div className="text-xs font-black uppercase tracking-wider text-[#102919]/70">
                   {displaySchool.sub_header}
                 </div>
               )}
-              <h2 className="text-lg sm:text-xl font-bold text-zinc-900 tracking-tight mt-0.5 uppercase">
+              <h2 className="text-lg sm:text-xl font-black text-[#102919] tracking-tight mt-0.5 uppercase">
                 {displaySchool.name || 'MIS RISALAH'}
               </h2>
-              <p className="text-[11px] text-zinc-500 mt-1 leading-relaxed">
+              <p className="text-[11px] text-[#102919]/80 font-bold mt-1 leading-relaxed">
                 {[
                   displaySchool.address,
                   displaySchool.phone ? `Telp: ${displaySchool.phone}` : null,
@@ -597,35 +597,35 @@ export default function EJournalReport() {
 
             {/* JUDUL DOKUMEN BERITA ACARA */}
             <div className="text-center space-y-1">
-              <h3 className="text-sm sm:text-base font-bold uppercase text-zinc-900 tracking-wide underline underline-offset-4">
+              <h3 className="text-sm sm:text-base font-black uppercase text-[#102919] tracking-wide underline underline-offset-4">
                 Berita Acara & E-Jurnal Pelaksanaan Asesmen Sekolah
               </h3>
-              <p className="text-xs text-zinc-500">
+              <p className="text-xs text-[#102919]/70 font-bold">
                 Tahun Ajaran {displaySchool.academic_year || currentSession.classroom_academic_year || '2026/2027'} • Protokol Zero-Tolerance Lockdown Anti-Cheat
               </p>
             </div>
 
             {/* INFORMASI METADATA ASESMEN */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs bg-[#F4FFFC]/70 p-4 rounded-lg border border-[#91EAAF]/40">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs bg-[#E2F4B4] p-4 rounded-2xl border-2 border-[#8BC829]">
               <div className="space-y-1.5">
                 <div className="flex">
-                  <span className="w-32 text-zinc-500 font-medium">Mata Pelajaran:</span>
-                  <span className="font-semibold text-zinc-900">{currentSession.subject_name || currentSession.subjectName}</span>
+                  <span className="w-32 text-[#102919]/70 font-bold">Mata Pelajaran:</span>
+                  <span className="font-black text-[#102919]">{currentSession.subject_name || currentSession.subjectName}</span>
                 </div>
                 <div className="flex">
-                  <span className="w-32 text-zinc-500 font-medium">Kelas / Rombel:</span>
-                  <span className="font-semibold text-zinc-900">{selectedClassName || (selectedClassFilter !== 'ALL' ? selectedClassFilter : (currentSession.classroom_name || currentSession.classroom))}</span>
+                  <span className="w-32 text-[#102919]/70 font-bold">Kelas / Rombel:</span>
+                  <span className="font-black text-[#102919]">{selectedClassName || (selectedClassFilter !== 'ALL' ? selectedClassFilter : (currentSession.classroom_name || currentSession.classroom))}</span>
                 </div>
                 <div className="flex">
-                  <span className="w-32 text-zinc-500 font-medium">Judul Paket Soal:</span>
-                  <span className="font-medium text-zinc-800">{currentSession.title}</span>
+                  <span className="w-32 text-[#102919]/70 font-bold">Judul Paket Soal:</span>
+                  <span className="font-black text-[#102919]">{currentSession.title}</span>
                 </div>
                 <div className="flex">
-                  <span className="w-32 text-zinc-500 font-medium">Tipe Pengerjaan:</span>
-                  <span className="font-medium text-zinc-800 flex items-center gap-1.5">
+                  <span className="w-32 text-[#102919]/70 font-bold">Tipe Pengerjaan:</span>
+                  <span className="font-black text-[#102919] flex items-center gap-1.5">
                     {(currentSession.exam_type === 'EXTERNAL_LINK' || currentSession.examType === 'EXTERNAL_LINK') ? (
                       <>
-                        <ExternalLink className="w-3 h-3 text-blue-600" />
+                        <ExternalLink className="w-3 h-3 text-[#1F4B2C]" />
                         <span>Formulir Terproteksi (Google Form)</span>
                       </>
                     ) : (
@@ -640,27 +640,27 @@ export default function EJournalReport() {
 
               <div className="space-y-1.5">
                 <div className="flex">
-                  <span className="w-32 text-zinc-500 font-medium">Hari / Tanggal:</span>
-                  <span className="font-medium text-zinc-800">
+                  <span className="w-32 text-[#102919]/70 font-bold">Hari / Tanggal:</span>
+                  <span className="font-black text-[#102919]">
                     {currentSession.start_time 
                       ? new Date(currentSession.start_time).toLocaleDateString('id-ID', { dateStyle: 'full' }) 
                       : (currentSession.date || new Date().toLocaleDateString('id-ID', { dateStyle: 'full' }))}
                   </span>
                 </div>
                 <div className="flex">
-                  <span className="w-32 text-zinc-500 font-medium">Waktu Sesi:</span>
-                  <span className="font-mono text-zinc-800">
+                  <span className="w-32 text-[#102919]/70 font-bold">Waktu Sesi:</span>
+                  <span className="font-mono font-black text-[#102919]">
                     {currentSession.startTime || (currentSession.start_time?.includes('T') ? currentSession.start_time.split('T')[1].substring(0, 5) : '08:00')} - {currentSession.endTime || (currentSession.end_time?.includes('T') ? currentSession.end_time.split('T')[1].substring(0, 5) : '09:30')} WIB ({currentSession.duration_minutes || currentSession.durationMinutes || 60} Menit)
                   </span>
                 </div>
                 <div className="flex">
-                  <span className="w-32 text-zinc-500 font-medium">Guru Pengawas:</span>
-                  <span className="font-semibold text-zinc-900">{teacherName}</span>
+                  <span className="w-32 text-[#102919]/70 font-bold">Guru Pengawas:</span>
+                  <span className="font-black text-[#102919]">{teacherName}</span>
                 </div>
                 <div className="flex">
-                  <span className="w-32 text-zinc-500 font-medium">Status Keamanan:</span>
-                  <span className="font-medium text-emerald-700 flex items-center gap-1">
-                    <CheckCircle2 className="w-3 h-3 text-emerald-600" />
+                  <span className="w-32 text-[#102919]/70 font-bold">Status Keamanan:</span>
+                  <span className="font-black text-[#1F4B2C] flex items-center gap-1">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-[#4D7111]" />
                     Terverifikasi Zero-Tolerance Lockdown
                   </span>
                 </div>
@@ -670,44 +670,44 @@ export default function EJournalReport() {
             {/* TABEL 1: REKAPITULASI PRESENSI & NILAI HASIL ASESMEN */}
             <div className="space-y-3">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                <h4 className="text-xs font-semibold text-zinc-900 uppercase tracking-wider flex items-center gap-2">
+                <h4 className="text-xs font-black text-[#102919] uppercase tracking-wider flex items-center gap-2">
                   <span>1. Rekapitulasi Presensi & Nilai Hasil Asesmen</span>
-                  <span className="text-[11px] font-normal text-zinc-500">
+                  <span className="text-[11px] font-bold text-[#102919]/70">
                     ({attendanceList.length} siswa terekam)
                   </span>
                 </h4>
 
                 {/* Search Bar Siswa (Hidden in Print) */}
                 <div className="relative print:hidden sm:w-60">
-                  <Search className="w-3.5 h-3.5 text-zinc-400 absolute left-2.5 top-2" />
+                  <Search className="w-3.5 h-3.5 text-[#102919]/50 absolute left-2.5 top-2.5" />
                   <input
                     type="text"
                     placeholder="Cari nama / NISN..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full pl-8 pr-2.5 py-1 text-xs rounded-lg border border-zinc-200 focus:outline-none focus:border-zinc-400 bg-white"
+                    className="w-full pl-8 pr-2.5 py-1.5 text-xs rounded-xl border-2 border-[#8BC829] focus:outline-none focus:border-[#102919] bg-[#F9FDEE] text-[#102919] font-bold placeholder-[#102919]/40"
                   />
                 </div>
               </div>
 
-              <div className="overflow-x-auto rounded-lg border border-zinc-200">
+              <div className="overflow-x-auto rounded-2xl border-2 border-[#8BC829]">
                 <table className="w-full text-xs text-left">
-                  <thead className="bg-zinc-50 text-zinc-700 font-semibold uppercase text-[10px] tracking-wider border-b border-zinc-200">
+                  <thead className="bg-[#E2F4B4] text-[#102919] font-black uppercase text-[10px] tracking-wider border-b-2 border-[#8BC829]">
                     <tr>
-                      <th className="py-2 px-3 text-center w-10">No</th>
-                      <th className="py-2 px-3">NISN</th>
-                      <th className="py-2 px-3">Nama Lengkap Siswa</th>
-                      <th className="py-2 px-3 text-center">Waktu Mulai</th>
-                      <th className="py-2 px-3 text-center">Waktu Selesai</th>
-                      <th className="py-2 px-3 text-center">Pelanggaran</th>
-                      <th className="py-2 px-3 text-center">Status</th>
-                      <th className="py-2 px-3 text-right">Nilai Akhir</th>
+                      <th className="py-2.5 px-3 text-center w-10">No</th>
+                      <th className="py-2.5 px-3">NISN</th>
+                      <th className="py-2.5 px-3">Nama Lengkap Siswa</th>
+                      <th className="py-2.5 px-3 text-center">Waktu Mulai</th>
+                      <th className="py-2.5 px-3 text-center">Waktu Selesai</th>
+                      <th className="py-2.5 px-3 text-center">Pelanggaran</th>
+                      <th className="py-2.5 px-3 text-center">Status</th>
+                      <th className="py-2.5 px-3 text-right">Nilai Akhir</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-zinc-100">
+                  <tbody className="divide-y divide-[#8BC829]/30">
                     {filteredAttendance.length === 0 ? (
                       <tr>
-                        <td colSpan="8" className="py-8 text-center text-zinc-400 text-xs">
+                        <td colSpan="8" className="py-8 text-center text-[#102919]/60 font-bold text-xs">
                           {searchQuery 
                             ? 'Tidak ada siswa yang sesuai dengan kata kunci pencarian.'
                             : 'Belum ada siswa yang terekam pengerjaannya pada sesi ini.'}
@@ -727,25 +727,25 @@ export default function EJournalReport() {
                         const score = s.total_score !== undefined ? s.total_score : s.score;
 
                         return (
-                          <tr key={s.student_id || s.studentId || idx} className="hover:bg-zinc-50 transition">
-                            <td className="py-2 px-3 text-center font-mono text-zinc-500">{idx + 1}</td>
-                            <td className="py-2 px-3 font-mono text-zinc-600">{nisn}</td>
-                            <td className="py-2 px-3 font-medium text-zinc-900">{studentName}</td>
-                            <td className="py-2 px-3 text-center font-mono text-zinc-600">{started}</td>
-                            <td className="py-2 px-3 text-center font-mono text-zinc-600">{finished}</td>
-                            <td className="py-2 px-3 text-center">
-                              <span className={violations > 0 ? 'text-rose-600 font-mono font-semibold' : 'text-zinc-400 font-mono'}>
+                          <tr key={s.student_id || s.studentId || idx} className="hover:bg-[#E2F4B4]/60 transition">
+                            <td className="py-2.5 px-3 text-center font-mono font-bold text-[#102919]">{idx + 1}</td>
+                            <td className="py-2.5 px-3 font-mono font-bold text-[#102919]">{nisn}</td>
+                            <td className="py-2.5 px-3 font-black text-[#102919]">{studentName}</td>
+                            <td className="py-2.5 px-3 text-center font-mono font-bold text-[#102919]">{started}</td>
+                            <td className="py-2.5 px-3 text-center font-mono font-bold text-[#102919]">{finished}</td>
+                            <td className="py-2.5 px-3 text-center">
+                              <span className={violations > 0 ? 'text-rose-700 font-mono font-black' : 'text-[#102919]/60 font-mono font-bold'}>
                                 {violations}x
                               </span>
                             </td>
-                            <td className="py-2 px-3 text-center">
+                            <td className="py-2.5 px-3 text-center">
                               <StatusBadge status={s.status} />
                             </td>
-                            <td className="py-2 px-3 text-right font-mono font-semibold text-zinc-900">
+                            <td className="py-2.5 px-3 text-right font-mono font-black text-[#102919]">
                               {score !== null && score !== undefined ? (
                                 <span>{Number(score).toFixed(0)}</span>
                               ) : (
-                                <span className="text-zinc-400 font-normal text-xs">-</span>
+                                <span className="text-[#102919]/40 font-normal text-xs">-</span>
                               )}
                             </td>
                           </tr>
@@ -759,46 +759,46 @@ export default function EJournalReport() {
 
             {/* TABEL 2: LOG CATATAN PELANGGARAN SENSOR ANTI-CHEAT */}
             <div className="space-y-3">
-              <h4 className="text-xs font-semibold text-zinc-900 uppercase tracking-wider flex items-center gap-2">
+              <h4 className="text-xs font-black text-[#102919] uppercase tracking-wider flex items-center gap-2">
                 <span>2. Catatan Integritas Ujian & Insiden Sensor Anti-Cheat</span>
               </h4>
 
               {violationList.length > 0 ? (
-                <div className="overflow-x-auto rounded-lg border border-rose-200">
+                <div className="overflow-x-auto rounded-2xl border-2 border-rose-300">
                   <table className="w-full text-xs text-left">
-                    <thead className="bg-rose-50 text-rose-900 font-semibold uppercase text-[10px] tracking-wider border-b border-rose-200">
+                    <thead className="bg-rose-100 text-rose-950 font-black uppercase text-[10px] tracking-wider border-b-2 border-rose-300">
                       <tr>
-                        <th className="py-2 px-3 text-center w-10">No</th>
-                        <th className="py-2 px-3">Nama Siswa</th>
-                        <th className="py-2 px-3 text-center">NISN</th>
-                        <th className="py-2 px-3 text-center">Jenis Pelanggaran</th>
-                        <th className="py-2 px-3">Keterangan Sensor</th>
-                        <th className="py-2 px-3 text-center">Waktu</th>
-                        <th className="py-2 px-3 text-center">Status Buka Kunci</th>
+                        <th className="py-2.5 px-3 text-center w-10">No</th>
+                        <th className="py-2.5 px-3">Nama Siswa</th>
+                        <th className="py-2.5 px-3 text-center">NISN</th>
+                        <th className="py-2.5 px-3 text-center">Jenis Pelanggaran</th>
+                        <th className="py-2.5 px-3">Keterangan Sensor</th>
+                        <th className="py-2.5 px-3 text-center">Waktu</th>
+                        <th className="py-2.5 px-3 text-center">Status Buka Kunci</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-rose-100 bg-rose-50/20">
+                    <tbody className="divide-y divide-rose-200/60 bg-rose-50/40">
                       {violationList.map((v, idx) => (
                         <tr key={v.id || idx}>
-                          <td className="py-2 px-3 text-center font-mono font-semibold text-rose-700">{idx + 1}</td>
-                          <td className="py-2 px-3 font-medium text-zinc-900">{v.student_name}</td>
-                          <td className="py-2 px-3 text-center font-mono text-zinc-600">{v.nisn}</td>
-                          <td className="py-2 px-3 text-center">
-                            <span className="px-2 py-0.5 rounded bg-rose-100 text-rose-800 font-medium text-[10px]">
+                          <td className="py-2.5 px-3 text-center font-mono font-black text-rose-800">{idx + 1}</td>
+                          <td className="py-2.5 px-3 font-black text-[#102919]">{v.student_name}</td>
+                          <td className="py-2.5 px-3 text-center font-mono font-bold text-[#102919]">{v.nisn}</td>
+                          <td className="py-2.5 px-3 text-center">
+                            <span className="px-2.5 py-0.5 rounded-xl bg-rose-200 text-rose-900 font-black text-[10px] border border-rose-300">
                               {v.violation_type_label || v.violation_type}
                             </span>
                           </td>
-                          <td className="py-2 px-3 text-zinc-700">{v.description}</td>
-                          <td className="py-2 px-3 text-center font-mono text-zinc-600">
+                          <td className="py-2.5 px-3 text-[#102919] font-medium">{v.description}</td>
+                          <td className="py-2.5 px-3 text-center font-mono font-bold text-[#102919]">
                             {v.detected_at ? new Date(v.detected_at).toLocaleTimeString('id-ID') : '-'}
                           </td>
-                          <td className="py-2 px-3 text-center">
+                          <td className="py-2.5 px-3 text-center">
                             {v.unlocked_at ? (
-                              <span className="text-emerald-700 font-medium text-[10px] flex items-center justify-center gap-1">
-                                <Check className="w-3 h-3" /> Dibuka [{new Date(v.unlocked_at).toLocaleTimeString('id-ID')}]
+                              <span className="text-[#1F4B2C] font-black text-[10px] flex items-center justify-center gap-1">
+                                <Check className="w-3.5 h-3.5" /> Dibuka [{new Date(v.unlocked_at).toLocaleTimeString('id-ID')}]
                               </span>
                             ) : (
-                              <span className="text-rose-700 font-medium text-[10px]">Terkunci</span>
+                              <span className="text-rose-700 font-black text-[10px]">Terkunci</span>
                             )}
                           </td>
                         </tr>
@@ -807,9 +807,9 @@ export default function EJournalReport() {
                   </table>
                 </div>
               ) : (
-                <div className="p-3.5 rounded-lg bg-emerald-50/70 border border-emerald-200 text-emerald-800 text-xs flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                  <span>
+                <div className="p-3.5 rounded-2xl bg-[#E2F4B4] border-2 border-[#8BC829] text-[#102919] text-xs flex items-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-[#4D7111] shrink-0" />
+                  <span className="font-bold">
                     Seluruh peserta ujian menaati tata tertib Zero-Tolerance Lockdown. Tidak ada indikasi kecurangan perpindahan tab atau aplikasi yang terdeteksi.
                   </span>
                 </div>
@@ -819,11 +819,11 @@ export default function EJournalReport() {
             {/* BAGIAN 3: CATATAN KEJADIAN PENTING PENGAWAS UJIAN */}
             <div className="space-y-2.5">
               <div className="flex items-center justify-between">
-                <h4 className="text-xs font-semibold text-zinc-900 uppercase tracking-wider flex items-center gap-2">
+                <h4 className="text-xs font-black text-[#102919] uppercase tracking-wider flex items-center gap-2">
                   <span>3. Catatan Kejadian Penting Pengawas Ujian</span>
                 </h4>
                 {isSaved && (
-                  <span className="text-xs text-emerald-600 font-medium flex items-center gap-1 animate-pulse">
+                  <span className="text-xs text-[#1F4B2C] font-black flex items-center gap-1 animate-pulse">
                     <Check className="w-3.5 h-3.5" /> Catatan Tersimpan ke Database!
                   </span>
                 )}
@@ -835,14 +835,14 @@ export default function EJournalReport() {
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
                   placeholder="Ketik catatan pengawas jalannya asesmen, insiden khusus, kendala teknis listrik/jaringan, atau rekomendasi..."
-                  className="w-full p-2.5 text-xs sm:text-sm rounded-lg border border-zinc-200 focus:outline-none focus:border-zinc-400 bg-white text-zinc-800 print:bg-transparent print:border-none print:p-0"
+                  className="w-full p-3 text-xs sm:text-sm rounded-2xl border-2 border-[#8BC829] focus:outline-none focus:border-[#102919] bg-[#F9FDEE] text-[#102919] font-bold placeholder-[#102919]/40 print:bg-transparent print:border-none print:p-0"
                 />
                 <div className="flex justify-end print:hidden">
                   <button
                     onClick={handleSaveNotes}
-                    className="px-3.5 py-1.5 bg-[#1F4B2C] hover:bg-[#183D23] text-white rounded-lg text-xs font-semibold transition flex items-center gap-1.5 shadow-xs active:scale-[0.98] cursor-pointer"
+                    className="px-4 py-2 bg-[#C3E956] hover:bg-[#b8e337] text-[#0A1D11] rounded-xl text-xs font-black border-2 border-[#4D7111]/30 transition flex items-center gap-1.5 shadow-xs active:scale-[0.98] cursor-pointer"
                   >
-                    <Save className="w-3.5 h-3.5 text-[#C3E956]" />
+                    <Save className="w-3.5 h-3.5 text-[#0A1D11]" />
                     <span>Simpan Catatan Berita Acara</span>
                   </button>
                 </div>
@@ -850,37 +850,37 @@ export default function EJournalReport() {
             </div>
 
             {/* BAGIAN 4: LEMBAR PENGESAHAN & TANDA TANGAN */}
-            <div className="pt-6 border-t border-zinc-200 grid grid-cols-2 gap-8 text-center text-xs">
+            <div className="pt-6 border-t-2 border-[#8BC829]/30 grid grid-cols-2 gap-8 text-center text-xs">
               <div>
-                <div className="text-zinc-500 font-medium">Mengetahui,</div>
-                <div className="font-semibold text-zinc-900 mt-0.5">
+                <div className="text-[#102919]/70 font-bold">Mengetahui,</div>
+                <div className="font-black text-[#102919] mt-0.5">
                   Kepala {displaySchool.name || 'Sekolah'}
                 </div>
-                <div className="h-14 flex items-center justify-center text-zinc-300 italic text-[10px]">
+                <div className="h-14 flex items-center justify-center text-[#102919]/30 italic text-[10px] font-bold">
                   (Tanda Tangan & Cap Resmi)
                 </div>
-                <div className="font-semibold text-zinc-900 underline">
+                <div className="font-black text-[#102919] underline">
                   {displaySchool.principal_name || 'H. Ahmad Syafi\'i, M.Pd.I'}
                 </div>
-                <div className="text-zinc-500 font-mono text-[11px] mt-0.5">
+                <div className="text-[#102919]/70 font-mono font-bold text-[11px] mt-0.5">
                   {displaySchool.principal_nip ? `NIP. ${displaySchool.principal_nip}` : '-'}
                 </div>
               </div>
 
               <div>
-                <div className="text-zinc-500 font-medium">
+                <div className="text-[#102919]/70 font-bold">
                   {displaySchool.city || 'Indramayu'}, {new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}
                 </div>
-                <div className="font-semibold text-zinc-900 mt-0.5">
+                <div className="font-black text-[#102919] mt-0.5">
                   Guru Pengawas Ujian
                 </div>
-                <div className="h-14 flex items-center justify-center text-zinc-300 italic text-[10px]">
+                <div className="h-14 flex items-center justify-center text-[#102919]/30 italic text-[10px] font-bold">
                   (Tanda Tangan)
                 </div>
-                <div className="font-semibold text-zinc-900 underline">
+                <div className="font-black text-[#102919] underline">
                   {teacherName}
                 </div>
-                <div className="text-zinc-500 font-mono text-[11px] mt-0.5">
+                <div className="text-[#102919]/70 font-mono font-bold text-[11px] mt-0.5">
                   NIP. {teacherNip}
                 </div>
               </div>

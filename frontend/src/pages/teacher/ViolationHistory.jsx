@@ -297,15 +297,15 @@ export default function ViolationHistory() {
       {/* ======================================================== */}
       {/* 1. HEADER HALAMAN & ACTION TOOLBAR                       */}
       {/* ======================================================== */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-[#EFF9CE] p-6 rounded-3xl border-2 border-[#8BC829] shadow-sm">
         <div>
           <div className="flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-rose-600 animate-pulse" />
-            <h1 className="text-xl sm:text-2xl font-bold text-zinc-900 tracking-tight">
+            <span className="w-3 h-3 rounded-full bg-rose-600 animate-pulse" />
+            <h1 className="text-xl sm:text-2xl font-black text-[#102919] tracking-tight">
               Riwayat Pelanggaran Integritas Ujian
             </h1>
           </div>
-          <p className="text-xs sm:text-sm text-zinc-500 mt-0.5 leading-relaxed">
+          <p className="text-xs sm:text-sm text-[#102919]/80 mt-1 leading-relaxed font-medium">
             Monitor dan bersihkan data pelanggaran sensor yang tidak disengaja oleh siswa sebelum E-Jurnal Berita Acara dicetak resmi.
           </p>
         </div>
@@ -314,28 +314,28 @@ export default function ViolationHistory() {
         <div className="flex items-center gap-2 flex-wrap">
           <button
             onClick={() => navigate('/teacher/ejournal')}
-            className="px-3.5 py-2 rounded-lg bg-[#1F4B2C] hover:bg-[#183D23] text-white text-xs font-semibold transition flex items-center gap-1.5 shadow-xs active:scale-[0.98] cursor-pointer"
+            className="px-4 py-2.5 rounded-xl bg-[#102919] hover:bg-[#1F4B2C] text-[#C3E956] border border-[#C3E956]/40 text-xs font-black transition flex items-center gap-1.5 shadow-sm active:scale-[0.98] cursor-pointer"
             title="Buka Lembar E-Jurnal Berita Acara untuk Verifikasi & Cetak"
           >
-            <FileSpreadsheet className="w-3.5 h-3.5 text-[#C3E956]" />
+            <FileSpreadsheet className="w-4 h-4 text-[#C3E956]" />
             <span>Lihat di E-Jurnal</span>
           </button>
 
           <button
             onClick={fetchViolations}
             disabled={isLoading}
-            className="p-2 rounded-lg bg-white border border-[#91EAAF]/60 hover:bg-[#F4FFFC] text-[#1F4B2C] transition shadow-xs active:scale-[0.98] cursor-pointer"
+            className="p-2.5 rounded-xl bg-[#E2F4B4] border-2 border-[#8BC829] hover:bg-[#C3E956] text-[#102919] transition shadow-xs active:scale-[0.98] cursor-pointer"
             title="Muat Ulang Riwayat"
           >
-            <RefreshCw className={`w-3.5 h-3.5 ${isLoading ? 'animate-spin text-[#1F4B2C]' : 'text-[#4D7111]'}`} />
+            <RefreshCw className={`w-4 h-4 ${isLoading ? 'animate-spin text-[#102919]' : 'text-[#102919]'}`} />
           </button>
         </div>
       </div>
 
       {/* Toast Notifikasi Sukses */}
       {toastMessage && (
-        <div className="p-3.5 bg-[#C3E956]/20 border border-[#C3E956]/40 text-[#4D7111] rounded-lg text-xs font-semibold flex items-center gap-2 shadow-xs animate-fadeIn">
-          <CheckCircle2 className="w-4 h-4 text-[#4D7111] shrink-0" />
+        <div className="p-3.5 bg-[#C3E956] text-[#0A1D11] border-2 border-[#4D7111]/30 rounded-2xl text-xs font-black flex items-center gap-2 shadow-xs animate-fadeIn">
+          <CheckCircle2 className="w-4 h-4 text-[#0A1D11] shrink-0" />
           <span>{toastMessage}</span>
         </div>
       )}
@@ -343,27 +343,27 @@ export default function ViolationHistory() {
       {/* ======================================================== */}
       {/* 2. KARTU FILTER PERSIS E-JURNAL (PAKET, KELAS, & SESI)   */}
       {/* ======================================================== */}
-      <div className="bg-white rounded-xl p-5 border border-[#91EAAF]/40 shadow-xs space-y-3.5">
-        <div className="flex items-center justify-between border-b border-[#91EAAF]/30 pb-3">
-          <div className="flex items-center gap-2 text-xs font-semibold text-[#1F4B2C] uppercase tracking-wider">
-            <Filter className="w-3.5 h-3.5 text-[#4D7111]" />
+      <div className="bg-[#EFF9CE] rounded-3xl p-6 border-2 border-[#8BC829] shadow-sm space-y-4">
+        <div className="flex items-center justify-between border-b-2 border-[#8BC829]/40 pb-3">
+          <div className="flex items-center gap-2 text-xs font-black text-[#102919] uppercase tracking-wider">
+            <Filter className="w-4 h-4 text-[#102919]" />
             <span>Pilih Paket Soal, Rombel Kelas, & Sesi Ujian</span>
           </div>
-          <span className="text-[11px] font-mono font-medium text-zinc-500">
+          <span className="text-[11px] font-mono font-bold text-[#102919]/70">
             {filteredSessions.length} sesi asesmen
           </span>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {/* 1. Filter Paket Soal */}
           <div>
-            <label className="block text-[11px] font-semibold uppercase tracking-wider text-zinc-700 mb-1">
+            <label className="block text-xs font-black uppercase tracking-wider text-[#102919] mb-1.5">
               Filter Paket Soal:
             </label>
             <select
               value={selectedPackageFilter}
               onChange={(e) => setSelectedPackageFilter(e.target.value)}
-              className="w-full text-xs font-medium rounded-lg border border-[#91EAAF]/60 focus:outline-none focus:ring-2 focus:ring-[#91EAAF]/40 focus:border-[#1F4B2C] py-2 px-2.5 bg-[#F4FFFC]/50 text-zinc-900"
+              className="w-full text-xs font-bold rounded-xl border-2 border-[#8BC829] focus:outline-none focus:ring-2 focus:ring-[#C3E956] focus:border-[#102919] py-2.5 px-3 bg-[#F9FDEE] text-[#102919]"
             >
               <option value="ALL">Semua Paket Soal</option>
               {allPackages.map((pkg) => (
@@ -376,13 +376,13 @@ export default function ViolationHistory() {
 
           {/* 2. Filter Kelas / Rombel */}
           <div>
-            <label className="block text-[11px] font-semibold uppercase tracking-wider text-zinc-700 mb-1">
+            <label className="block text-xs font-black uppercase tracking-wider text-[#102919] mb-1.5">
               Filter Kelas / Rombel:
             </label>
             <select
               value={selectedClassFilter}
               onChange={(e) => setSelectedClassFilter(e.target.value)}
-              className="w-full text-xs font-medium rounded-lg border border-[#91EAAF]/60 focus:outline-none focus:ring-2 focus:ring-[#91EAAF]/40 focus:border-[#1F4B2C] py-2 px-2.5 bg-[#F4FFFC]/50 text-zinc-900"
+              className="w-full text-xs font-bold rounded-xl border-2 border-[#8BC829] focus:outline-none focus:ring-2 focus:ring-[#C3E956] focus:border-[#102919] py-2.5 px-3 bg-[#F9FDEE] text-[#102919]"
             >
               <option value="ALL">-- Seluruh Kelas ({allClassrooms.length}) --</option>
               {allClassrooms.map((cls) => (
@@ -395,14 +395,14 @@ export default function ViolationHistory() {
 
           {/* 3. Pilih Sesi Ujian Terbuka */}
           <div>
-            <label className="block text-[11px] font-semibold uppercase tracking-wider text-zinc-700 mb-1">
+            <label className="block text-xs font-black uppercase tracking-wider text-[#102919] mb-1.5">
               Pilih Sesi Ujian Terbuka:
             </label>
             <select
               value={selectedSessionId}
               onChange={(e) => setSelectedSessionId(e.target.value)}
               disabled={filteredSessions.length === 0}
-              className="w-full text-xs font-medium rounded-lg border border-[#91EAAF]/60 focus:outline-none focus:ring-2 focus:ring-[#91EAAF]/40 focus:border-[#1F4B2C] py-2 px-2.5 bg-[#F4FFFC]/50 text-zinc-900 disabled:opacity-50"
+              className="w-full text-xs font-bold rounded-xl border-2 border-[#8BC829] focus:outline-none focus:ring-2 focus:ring-[#C3E956] focus:border-[#102919] py-2.5 px-3 bg-[#F9FDEE] text-[#102919] disabled:opacity-50"
             >
               {filteredSessions.length === 0 ? (
                 <option value="">Tidak ada sesi yang cocok</option>
@@ -422,39 +422,39 @@ export default function ViolationHistory() {
       {/* 3. 4 KARTU METRIK STATISTIK PELANGGARAN                   */}
       {/* ======================================================== */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-        <div className="bg-white p-4 rounded-xl border border-[#91EAAF]/40 shadow-xs">
-          <div className="text-[11px] font-semibold uppercase tracking-wider text-zinc-500">
+        <div className="bg-[#EFF9CE] p-5 rounded-2xl border-2 border-[#8BC829] shadow-sm">
+          <div className="text-[11px] font-black uppercase tracking-wider text-[#102919]/70">
             Total Pelanggaran
           </div>
-          <div className="text-xl sm:text-2xl font-bold font-mono text-rose-600 mt-1">
-            {totalViolations} <span className="text-xs font-normal text-zinc-500 font-sans">kejadian</span>
+          <div className="text-xl sm:text-2xl font-black font-mono text-rose-700 mt-1">
+            {totalViolations} <span className="text-xs font-bold text-[#102919]/60 font-sans">kejadian</span>
           </div>
         </div>
 
-        <div className="bg-white p-4 rounded-xl border border-[#91EAAF]/40 shadow-xs">
-          <div className="text-[11px] font-semibold uppercase tracking-wider text-zinc-500">
+        <div className="bg-[#EFF9CE] p-5 rounded-2xl border-2 border-[#8BC829] shadow-sm">
+          <div className="text-[11px] font-black uppercase tracking-wider text-[#102919]/70">
             Siswa Terdeteksi
           </div>
-          <div className="text-xl sm:text-2xl font-bold font-mono text-[#1F4B2C] mt-1">
-            {uniqueStudents} <span className="text-xs font-normal text-zinc-500 font-sans">orang</span>
+          <div className="text-xl sm:text-2xl font-black font-mono text-[#102919] mt-1">
+            {uniqueStudents} <span className="text-xs font-bold text-[#102919]/60 font-sans">orang</span>
           </div>
         </div>
 
-        <div className="bg-white p-4 rounded-xl border border-[#91EAAF]/40 shadow-xs">
-          <div className="text-[11px] font-semibold uppercase tracking-wider text-zinc-500">
+        <div className="bg-[#EFF9CE] p-5 rounded-2xl border-2 border-[#8BC829] shadow-sm">
+          <div className="text-[11px] font-black uppercase tracking-wider text-[#102919]/70">
             Sudah Dibuka Kunci
           </div>
-          <div className="text-xl sm:text-2xl font-bold font-mono text-[#1F4B2C] mt-1">
-            {unlockedCount} <span className="text-xs font-normal text-zinc-500 font-sans">kali</span>
+          <div className="text-xl sm:text-2xl font-black font-mono text-[#102919] mt-1">
+            {unlockedCount} <span className="text-xs font-bold text-[#102919]/60 font-sans">kali</span>
           </div>
         </div>
 
-        <div className="bg-white p-4 rounded-xl border border-amber-200/80 shadow-xs">
-          <div className="text-[11px] font-semibold uppercase tracking-wider text-zinc-500">
+        <div className="bg-[#EFF9CE] p-5 rounded-2xl border-2 border-amber-300 shadow-sm">
+          <div className="text-[11px] font-black uppercase tracking-wider text-amber-900">
             Status Masih Terkunci
           </div>
-          <div className="text-xl sm:text-2xl font-bold font-mono text-amber-600 mt-1">
-            {stillLockedCount} <span className="text-xs font-normal text-zinc-500 font-sans">kali</span>
+          <div className="text-xl sm:text-2xl font-black font-mono text-amber-900 mt-1">
+            {stillLockedCount} <span className="text-xs font-bold text-amber-800 font-sans">kali</span>
           </div>
         </div>
       </div>
@@ -462,17 +462,17 @@ export default function ViolationHistory() {
       {/* ======================================================== */}
       {/* 4. TABEL RIWAYAT PELANGGARAN PERSIS CATATAN INTEGRITAS   */}
       {/* ======================================================== */}
-      <div className="bg-white rounded-xl border border-[#91EAAF]/40 shadow-xs overflow-hidden space-y-4 p-5">
+      <div className="bg-[#EFF9CE] rounded-3xl border-2 border-[#8BC829] shadow-sm overflow-hidden space-y-4 p-5 sm:p-6 text-[#102919]">
         {/* Toolbar Tabel: Search & Tombol Hapus Massal */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div className="relative w-full sm:w-72">
-            <Search className="w-4 h-4 text-[#1F4B2C]/50 absolute left-3 top-2.5" />
+            <Search className="w-4 h-4 text-[#102919]/60 absolute left-3 top-2.5" />
             <input
               type="text"
               placeholder="Cari siswa, NISN, atau keterangan..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-9 pr-3 py-1.5 text-xs rounded-lg border border-[#91EAAF]/60 focus:outline-none focus:ring-2 focus:ring-[#91EAAF]/40 focus:border-[#1F4B2C] bg-white text-zinc-800"
+              className="w-full pl-9 pr-3 py-2 text-xs rounded-xl border-2 border-[#8BC829] focus:outline-none focus:ring-2 focus:ring-[#C3E956] focus:border-[#102919] bg-[#F9FDEE] text-[#102919] font-bold"
             />
           </div>
 
@@ -480,7 +480,7 @@ export default function ViolationHistory() {
             {selectedIds.length > 0 ? (
               <button
                 onClick={() => setIsBulkDeleteModalOpen(true)}
-                className="px-3 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-500 text-white text-xs font-semibold transition flex items-center gap-1.5 shadow-xs active:scale-[0.98] cursor-pointer"
+                className="px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs font-black transition flex items-center gap-1.5 shadow-sm active:scale-[0.98] cursor-pointer"
               >
                 <Trash2 className="w-3.5 h-3.5" />
                 <span>Hapus Terpilih ({selectedIds.length})</span>
@@ -488,10 +488,10 @@ export default function ViolationHistory() {
             ) : violations.length > 0 ? (
               <button
                 onClick={() => setIsBulkDeleteModalOpen(true)}
-                className="px-3 py-1.5 rounded-lg bg-white border border-rose-200 hover:bg-rose-50 text-rose-700 text-xs font-semibold transition flex items-center gap-1.5 active:scale-[0.98] cursor-pointer"
+                className="px-4 py-2 rounded-xl bg-[#E2F4B4] border-2 border-rose-300 hover:bg-rose-100 text-rose-900 text-xs font-black transition flex items-center gap-1.5 active:scale-[0.98] cursor-pointer"
                 title="Hapus seluruh log pelanggaran pada sesi aktif ini sekaligus"
               >
-                <Trash2 className="w-3.5 h-3.5 text-rose-500" />
+                <Trash2 className="w-3.5 h-3.5 text-rose-700" />
                 <span>Bersihkan Seluruh Log Sesi</span>
               </button>
             ) : null}
@@ -499,47 +499,47 @@ export default function ViolationHistory() {
         </div>
 
         {/* Kontainer Tabel */}
-        <div className="overflow-x-auto rounded-lg border border-[#91EAAF]/40">
+        <div className="overflow-x-auto rounded-2xl border-2 border-[#8BC829]">
           <table className="w-full text-xs text-left">
-            <thead className="bg-[#F4FFFC] text-[#1F4B2C] font-semibold uppercase text-[10px] tracking-wider border-b border-[#91EAAF]/40">
+            <thead className="bg-[#E2F4B4] text-[#102919] font-black uppercase text-[10px] tracking-wider border-b-2 border-[#8BC829]">
               <tr>
-                <th className="py-2.5 px-3 text-center w-8">
+                <th className="py-3 px-3 text-center w-8">
                   <input
                     type="checkbox"
                     checked={filteredViolations.length > 0 && selectedIds.length === filteredViolations.length}
                     onChange={handleToggleSelectAll}
-                    className="rounded border-zinc-300 text-[#1F4B2C] focus:ring-[#91EAAF] cursor-pointer"
+                    className="rounded border-[#8BC829] text-[#102919] focus:ring-[#C3E956] cursor-pointer"
                   />
                 </th>
-                <th className="py-2.5 px-3 text-center w-10">No</th>
-                <th className="py-2.5 px-3">Nama Siswa</th>
-                <th className="py-2.5 px-3 text-center">Kelas</th>
-                <th className="py-2.5 px-3 text-center">NISN</th>
-                <th className="py-2.5 px-3 text-center">Jenis Pelanggaran</th>
-                <th className="py-2.5 px-3">Keterangan Sensor</th>
-                <th className="py-2.5 px-3 text-center">Tanggal</th>
-                <th className="py-2.5 px-3 text-center">Waktu</th>
-                <th className="py-2.5 px-3 text-center">Status Buka Kunci</th>
-                <th className="py-2.5 px-3 text-center w-16">Aksi</th>
+                <th className="py-3 px-3 text-center w-10">No</th>
+                <th className="py-3 px-3">Nama Siswa</th>
+                <th className="py-3 px-3 text-center">Kelas</th>
+                <th className="py-3 px-3 text-center">NISN</th>
+                <th className="py-3 px-3 text-center">Jenis Pelanggaran</th>
+                <th className="py-3 px-3">Keterangan Sensor</th>
+                <th className="py-3 px-3 text-center">Tanggal</th>
+                <th className="py-3 px-3 text-center">Waktu</th>
+                <th className="py-3 px-3 text-center">Status Buka Kunci</th>
+                <th className="py-3 px-3 text-center w-16">Aksi</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-zinc-100 bg-white">
+            <tbody className="divide-y-2 divide-[#8BC829]/30 bg-[#EFF9CE]">
               {isLoading ? (
                 <tr>
-                  <td colSpan="11" className="py-10 text-center text-zinc-500 text-xs">
-                    <RefreshCw className="w-4 h-4 animate-spin mx-auto mb-1.5 text-rose-600" />
+                  <td colSpan="11" className="py-10 text-center text-[#102919] text-xs font-bold">
+                    <RefreshCw className="w-5 h-5 animate-spin mx-auto mb-1.5 text-rose-600" />
                     <span>Memuat riwayat pelanggaran...</span>
                   </td>
                 </tr>
               ) : filteredViolations.length === 0 ? (
                 <tr>
-                  <td colSpan="11" className="py-12 text-center text-zinc-400 text-xs">
+                  <td colSpan="11" className="py-12 text-center text-[#102919]/70 text-xs">
                     {searchQuery ? (
-                      <div>Tidak ditemukan data pelanggaran dengan kata kunci "{searchQuery}".</div>
+                      <div className="font-bold">Tidak ditemukan data pelanggaran dengan kata kunci "{searchQuery}".</div>
                     ) : (
                       <div className="space-y-1">
-                        <div className="font-semibold text-zinc-700">Bersih! Tidak Ada Catatan Pelanggaran</div>
-                        <p className="text-zinc-500 text-[11px]">
+                        <div className="font-black text-[#102919] text-sm">Bersih! Tidak Ada Catatan Pelanggaran</div>
+                        <p className="text-[#102919]/80 text-[11px] font-medium">
                           {selectedClassFilter !== 'ALL' 
                             ? `Seluruh siswa kelas ${selectedClassName || selectedClassFilter} pada sesi ini tertib tanpa insiden yang tercatat.`
                             : 'Seluruh siswa pada sesi ini mengerjakan secara tertib tanpa ada insiden yang tercatat.'}
@@ -554,64 +554,64 @@ export default function ViolationHistory() {
                   return (
                     <tr 
                       key={v.id || idx}
-                      className={`hover:bg-rose-100/40 transition ${isSelected ? 'bg-rose-100/60' : ''}`}
+                      className={`hover:bg-[#E2F4B4] transition ${isSelected ? 'bg-[#E2F4B4]' : ''}`}
                     >
-                      <td className="py-2 px-3 text-center">
+                      <td className="py-2.5 px-3 text-center">
                         <input
                           type="checkbox"
                           checked={isSelected}
                           onChange={() => handleToggleSelectOne(v.id)}
-                          className="rounded border-zinc-300 text-rose-600 focus:ring-rose-500 cursor-pointer"
+                          className="rounded border-[#8BC829] text-rose-600 focus:ring-rose-500 cursor-pointer"
                         />
                       </td>
-                      <td className="py-2 px-3 text-center font-mono font-semibold text-rose-700">
+                      <td className="py-2.5 px-3 text-center font-mono font-black text-rose-700">
                         {idx + 1}
                       </td>
-                      <td className="py-2 px-3 font-semibold text-zinc-900">
+                      <td className="py-2.5 px-3 font-black text-[#102919]">
                         {v.student_name}
                       </td>
-                      <td className="py-2 px-3 text-center">
-                        <span className="px-2 py-0.5 rounded bg-zinc-100 border border-zinc-200 text-zinc-800 text-[10px] font-mono font-medium">
+                      <td className="py-2.5 px-3 text-center">
+                        <span className="px-2 py-0.5 rounded-lg bg-[#E2F4B4] border border-[#8BC829] text-[#102919] text-[10px] font-mono font-bold">
                           {v.classroom_name || v.classroom || '-'}
                         </span>
                       </td>
-                      <td className="py-2 px-3 text-center font-mono text-zinc-600">
+                      <td className="py-2.5 px-3 text-center font-mono font-bold text-[#102919]">
                         {v.nisn}
                       </td>
-                      <td className="py-2 px-3 text-center">
-                        <span className="px-2 py-0.5 rounded bg-rose-100 text-rose-800 font-medium text-[10px]">
+                      <td className="py-2.5 px-3 text-center">
+                        <span className="px-2 py-0.5 rounded-lg bg-rose-100 text-rose-900 border border-rose-300 font-bold text-[10px]">
                           {v.violation_type_label || v.violation_type}
                         </span>
                       </td>
-                      <td className="py-2 px-3 text-zinc-700 leading-relaxed">
+                      <td className="py-2.5 px-3 text-[#102919] font-medium leading-relaxed">
                         {v.description}
                       </td>
-                      <td className="py-2 px-3 text-center font-mono text-zinc-600 whitespace-nowrap">
+                      <td className="py-2.5 px-3 text-center font-mono font-bold text-[#102919] whitespace-nowrap">
                         {v.detected_date && v.detected_date !== '-' 
                           ? v.detected_date 
                           : (v.detected_at ? new Date(v.detected_at).toLocaleDateString('id-ID', { day: '2-digit', month: '2-digit', year: 'numeric' }) : '-')}
                       </td>
-                      <td className="py-2 px-3 text-center font-mono text-zinc-600 whitespace-nowrap">
+                      <td className="py-2.5 px-3 text-center font-mono font-bold text-[#102919] whitespace-nowrap">
                         {v.detected_time && v.detected_time !== '-'
                           ? v.detected_time
                           : (v.detected_at ? new Date(v.detected_at).toLocaleTimeString('id-ID') : '-')}
                       </td>
-                      <td className="py-2 px-3 text-center">
+                      <td className="py-2.5 px-3 text-center">
                         {v.unlocked_by_teacher_at ? (
-                          <span className="text-emerald-700 font-medium text-[10px] flex items-center justify-center gap-1">
+                          <span className="text-[#102919] bg-[#C3E956] border border-[#4D7111]/30 px-2 py-0.5 rounded-lg font-black text-[10px] inline-flex items-center justify-center gap-1">
                             <Check className="w-3 h-3" /> Dibuka [{new Date(v.unlocked_by_teacher_at).toLocaleTimeString('id-ID')}]
                           </span>
                         ) : (
-                          <span className="text-rose-700 font-semibold text-[10px]">
+                          <span className="text-white bg-rose-600 px-2 py-0.5 rounded-lg font-black text-[10px] inline-block animate-pulse">
                             Terkunci
                           </span>
                         )}
                       </td>
-                      <td className="py-2 px-3 text-center">
+                      <td className="py-2.5 px-3 text-center">
                         <button
                           type="button"
                           onClick={() => setDeleteTarget(v)}
-                          className="p-1.5 rounded-lg bg-white border border-rose-200 hover:bg-rose-100 text-rose-600 transition shadow-2xs active:scale-95"
+                          className="p-1.5 rounded-xl bg-[#E2F4B4] border border-[#8BC829] hover:bg-rose-100 text-[#102919] hover:text-rose-700 transition shadow-2xs active:scale-95 cursor-pointer"
                           title="Hapus catatan pelanggaran ini"
                         >
                           <Trash2 className="w-3.5 h-3.5" />
@@ -626,9 +626,9 @@ export default function ViolationHistory() {
         </div>
 
         {/* Keterangan Sinkronisasi Otomatis E-Jurnal */}
-        <div className="flex items-center justify-between text-[11px] text-zinc-500 pt-1">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between text-xs text-[#102919]/80 font-bold pt-1 gap-2">
           <div className="flex items-center gap-1.5">
-            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+            <CheckCircle2 className="w-4 h-4 text-[#102919]" />
             <span>Setiap data riwayat yang dihapus di sini otomatis langsung memperbarui catatan integritas dan rekapitulasi di E-Jurnal.</span>
           </div>
           <div className="font-mono">
@@ -641,45 +641,45 @@ export default function ViolationHistory() {
       {/* 5. MODAL KONFIRMASI HAPUS SATUAN                         */}
       {/* ======================================================== */}
       {deleteTarget && (
-        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4 animate-fadeIn select-none">
-          <div className="bg-white rounded-xl border border-zinc-200/90 max-w-md w-full p-6 shadow-xl space-y-4">
+        <div className="fixed inset-0 z-50 bg-[#0A1D11]/85 backdrop-blur-md flex items-center justify-center p-4 animate-fadeIn select-none">
+          <div className="bg-[#EFF9CE] rounded-3xl border-2 border-[#8BC829] max-w-md w-full p-6 shadow-2xl space-y-4 text-[#102919]">
             <div className="flex items-start gap-3.5">
-              <div className="w-11 h-11 rounded-lg bg-rose-50 border border-rose-200 flex items-center justify-center text-rose-600 shrink-0">
-                <Trash2 className="w-5 h-5" />
+              <div className="w-12 h-12 rounded-2xl bg-rose-100 border-2 border-rose-300 flex items-center justify-center text-rose-700 shrink-0">
+                <Trash2 className="w-6 h-6" />
               </div>
               <div className="flex-1">
-                <h3 className="text-base font-bold text-zinc-900 tracking-tight">
+                <h3 className="text-base font-black text-[#102919] tracking-tight">
                   Hapus Catatan Pelanggaran Siswa?
                 </h3>
-                <p className="text-xs text-zinc-500 mt-1 leading-relaxed">
-                  Apakah Anda yakin ingin menghapus catatan insiden untuk siswa <strong>{deleteTarget.student_name}</strong>?
+                <p className="text-xs text-[#102919]/70 mt-1 leading-relaxed font-medium">
+                  Apakah Anda yakin ingin menghapus catatan insiden untuk siswa <strong className="text-[#102919] font-black">{deleteTarget.student_name}</strong>?
                 </p>
               </div>
               <button
                 type="button"
                 onClick={() => setDeleteTarget(null)}
-                className="p-1 rounded-md text-zinc-400 hover:text-zinc-600 hover:bg-zinc-100 transition"
+                className="p-1.5 rounded-xl text-[#102919] hover:bg-[#E2F4B4] transition cursor-pointer"
               >
                 <X className="w-4 h-4" />
               </button>
             </div>
 
-            <div className="bg-zinc-50 border border-zinc-200/80 rounded-lg p-3 text-xs text-zinc-600 space-y-1">
+            <div className="bg-[#E2F4B4] border-2 border-[#8BC829] rounded-2xl p-3.5 text-xs text-[#102919] space-y-1 font-bold">
               <div>• <strong>Jenis:</strong> {deleteTarget.violation_type_label || deleteTarget.violation_type}</div>
               <div>• <strong>Keterangan:</strong> {deleteTarget.description}</div>
               <div>• <strong>Waktu:</strong> {deleteTarget.detected_at ? new Date(deleteTarget.detected_at).toLocaleTimeString('id-ID') : '-'}</div>
             </div>
 
-            <div className="text-[11px] text-zinc-500 leading-relaxed bg-amber-50 border border-amber-200/80 p-3 rounded-lg text-amber-900">
+            <div className="text-[11px] leading-relaxed bg-[#F9FDEE] border-2 border-[#8BC829] p-3 rounded-2xl text-[#102919] font-medium">
               Penghapusan ini akan mengurangkan total akumulasi pelanggaran siswa tersebut dan seketika tercermin pada lembar Berita Acara E-Jurnal sebelum dicetak.
             </div>
 
-            <div className="flex items-center justify-end gap-2.5 pt-2 border-t border-zinc-100">
+            <div className="flex items-center justify-end gap-2.5 pt-2 border-t-2 border-[#8BC829]/40">
               <button
                 type="button"
                 disabled={isDeleting}
                 onClick={() => setDeleteTarget(null)}
-                className="px-3.5 py-2 rounded-lg text-xs font-medium text-zinc-700 hover:bg-zinc-100 transition disabled:opacity-50"
+                className="px-4 py-2.5 rounded-xl text-xs font-black text-[#102919] bg-[#E2F4B4] hover:bg-[#d6f0a3] border-2 border-[#8BC829] transition disabled:opacity-50 cursor-pointer"
               >
                 Batal
               </button>
@@ -687,7 +687,7 @@ export default function ViolationHistory() {
                 type="button"
                 disabled={isDeleting}
                 onClick={handleConfirmSingleDelete}
-                className="px-4 py-2 rounded-lg bg-rose-600 hover:bg-rose-500 text-white text-xs font-semibold transition flex items-center gap-1.5 shadow-2xs active:scale-[0.98] disabled:opacity-50"
+                className="px-5 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs font-black transition flex items-center gap-1.5 shadow-sm active:scale-[0.98] disabled:opacity-50 cursor-pointer"
               >
                 {isDeleting ? (
                   <>
@@ -710,19 +710,19 @@ export default function ViolationHistory() {
       {/* 6. MODAL KONFIRMASI HAPUS MASSAL                         */}
       {/* ======================================================== */}
       {isBulkDeleteModalOpen && (
-        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4 animate-fadeIn select-none">
-          <div className="bg-white rounded-xl border border-zinc-200/90 max-w-md w-full p-6 shadow-xl space-y-4">
+        <div className="fixed inset-0 z-50 bg-[#0A1D11]/85 backdrop-blur-md flex items-center justify-center p-4 animate-fadeIn select-none">
+          <div className="bg-[#EFF9CE] rounded-3xl border-2 border-[#8BC829] max-w-md w-full p-6 shadow-2xl space-y-4 text-[#102919]">
             <div className="flex items-start gap-3.5">
-              <div className="w-11 h-11 rounded-lg bg-rose-50 border border-rose-200 flex items-center justify-center text-rose-600 shrink-0">
-                <Trash2 className="w-5 h-5" />
+              <div className="w-12 h-12 rounded-2xl bg-rose-100 border-2 border-rose-300 flex items-center justify-center text-rose-700 shrink-0">
+                <Trash2 className="w-6 h-6" />
               </div>
               <div className="flex-1">
-                <h3 className="text-base font-bold text-zinc-900 tracking-tight">
+                <h3 className="text-base font-black text-[#102919] tracking-tight">
                   {selectedIds.length > 0 
                     ? `Hapus ${selectedIds.length} Catatan Pelanggaran Terpilih?` 
                     : `Bersihkan Seluruh Log Pelanggaran Sesi Ini?`}
                 </h3>
-                <p className="text-xs text-zinc-500 mt-1 leading-relaxed">
+                <p className="text-xs text-[#102919]/70 mt-1 leading-relaxed font-medium">
                   {selectedIds.length > 0
                     ? `Seluruh ${selectedIds.length} catatan pelanggaran yang Anda pilih akan dihapus permanen dari basis data.`
                     : `Seluruh catatan insiden pelanggaran pada sesi ${currentSession?.title || 'ini'} akan dihapus permanen.`}
@@ -731,22 +731,22 @@ export default function ViolationHistory() {
               <button
                 type="button"
                 onClick={() => setIsBulkDeleteModalOpen(false)}
-                className="p-1 rounded-md text-zinc-400 hover:text-zinc-600 hover:bg-zinc-100 transition"
+                className="p-1.5 rounded-xl text-[#102919] hover:bg-[#E2F4B4] transition cursor-pointer"
               >
                 <X className="w-4 h-4" />
               </button>
             </div>
 
-            <div className="text-[11px] text-zinc-600 bg-zinc-50 border border-zinc-200/80 p-3 rounded-lg leading-relaxed">
+            <div className="text-[11px] text-[#102919] bg-[#E2F4B4] border-2 border-[#8BC829] p-3.5 rounded-2xl leading-relaxed font-medium">
               Tindakan ini akan me-reset akumulasi pelanggaran siswa yang bersangkutan. Tabel Catatan Integritas pada E-Jurnal otomatis disinkronkan secara bersih sebelum Anda mencetak dokumen berita acara.
             </div>
 
-            <div className="flex items-center justify-end gap-2.5 pt-2 border-t border-zinc-100">
+            <div className="flex items-center justify-end gap-2.5 pt-2 border-t-2 border-[#8BC829]/40">
               <button
                 type="button"
                 disabled={isDeleting}
                 onClick={() => setIsBulkDeleteModalOpen(false)}
-                className="px-3.5 py-2 rounded-lg text-xs font-medium text-zinc-700 hover:bg-zinc-100 transition disabled:opacity-50"
+                className="px-4 py-2.5 rounded-xl text-xs font-black text-[#102919] bg-[#E2F4B4] hover:bg-[#d6f0a3] border-2 border-[#8BC829] transition disabled:opacity-50 cursor-pointer"
               >
                 Batal
               </button>
@@ -754,7 +754,7 @@ export default function ViolationHistory() {
                 type="button"
                 disabled={isDeleting}
                 onClick={handleConfirmBulkDelete}
-                className="px-4 py-2 rounded-lg bg-rose-600 hover:bg-rose-500 text-white text-xs font-semibold transition flex items-center gap-1.5 shadow-2xs active:scale-[0.98] disabled:opacity-50"
+                className="px-5 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs font-black transition flex items-center gap-1.5 shadow-sm active:scale-[0.98] disabled:opacity-50 cursor-pointer"
               >
                 {isDeleting ? (
                   <>

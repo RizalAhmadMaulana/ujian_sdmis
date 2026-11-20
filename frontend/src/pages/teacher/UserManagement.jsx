@@ -300,14 +300,14 @@ export default function UserManagement() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2.5">
-            <div className="w-10 h-10 rounded-xl bg-[#F4FFFC] border border-[#91EAAF]/60 text-[#1F4B2C] flex items-center justify-center shadow-2xs">
-              <ShieldCheck className="w-5 h-5 text-[#1F4B2C]" />
+            <div className="w-10 h-10 rounded-2xl bg-[#E2F4B4] border-2 border-[#8BC829] text-[#102919] flex items-center justify-center shadow-xs">
+              <ShieldCheck className="w-5 h-5 text-[#102919]" />
             </div>
-            <h1 className="text-xl sm:text-2xl font-bold text-zinc-900 tracking-tight">
+            <h1 className="text-xl sm:text-2xl font-black text-[#102919] tracking-tight">
               Manajemen Pengguna & Hak Akses
             </h1>
           </div>
-          <p className="text-xs sm:text-sm text-zinc-500 mt-1">
+          <p className="text-xs sm:text-sm text-[#102919]/80 mt-1 leading-relaxed font-medium">
             Kelola seluruh akun pengguna, hak akses peran, dan reset kata sandi asesmen.
           </p>
         </div>
@@ -316,9 +316,9 @@ export default function UserManagement() {
         <div className="flex items-center gap-2 flex-wrap self-start sm:self-auto">
           <button
             onClick={handleOpenAdd}
-            className="px-4 py-2 bg-[#1F4B2C] hover:bg-[#183D23] text-white rounded-xl text-xs font-bold shadow-xs hover:-translate-y-0.5 active:scale-[0.98] transition-all flex items-center gap-2"
+            className="px-4 py-2.5 bg-[#C3E956] hover:bg-[#b8e337] text-[#0A1D11] border-2 border-[#4D7111]/30 rounded-xl text-xs font-black shadow-sm hover:-translate-y-0.5 active:scale-[0.98] transition-all flex items-center gap-2 cursor-pointer"
           >
-            <Plus className="w-4 h-4 text-[#C3E956]" />
+            <Plus className="w-4 h-4 text-[#0A1D11] stroke-[2.5]" />
             <span>Tambah User</span>
           </button>
 
@@ -329,34 +329,34 @@ export default function UserManagement() {
               setImportResult(null);
               setIsImportModalOpen(true);
             }}
-            className="px-4 py-2 bg-white hover:bg-[#F4FFFC] text-[#1F4B2C] border border-[#91EAAF]/60 rounded-xl text-xs font-bold shadow-2xs hover:-translate-y-0.5 active:scale-[0.98] transition-all flex items-center gap-2"
+            className="px-4 py-2.5 bg-[#E2F4B4] hover:bg-[#d6f0a3] text-[#102919] border-2 border-[#8BC829] rounded-xl text-xs font-black shadow-xs hover:-translate-y-0.5 active:scale-[0.98] transition-all flex items-center gap-2 cursor-pointer"
           >
-            <FileSpreadsheet className="w-4 h-4 text-[#4D7111]" />
+            <FileSpreadsheet className="w-4 h-4 text-[#102919]" />
             <span>Import Excel</span>
           </button>
 
           <button
             onClick={handleDownloadTemplate}
             disabled={isDownloadingTemplate}
-            className="px-4 py-2 bg-white hover:bg-[#F4FFFC] text-[#1F4B2C] border border-[#91EAAF]/60 rounded-xl text-xs font-bold shadow-2xs hover:-translate-y-0.5 active:scale-[0.98] transition-all flex items-center gap-2 disabled:opacity-50"
+            className="px-4 py-2.5 bg-[#E2F4B4] hover:bg-[#d6f0a3] text-[#102919] border-2 border-[#8BC829] rounded-xl text-xs font-black shadow-xs hover:-translate-y-0.5 active:scale-[0.98] transition-all flex items-center gap-2 disabled:opacity-50 cursor-pointer"
           >
-            <Download className="w-4 h-4 text-[#4D7111]" />
+            <Download className="w-4 h-4 text-[#102919]" />
             <span>{isDownloadingTemplate ? 'Mengunduh...' : 'Template Excel'}</span>
           </button>
         </div>
       </div>
 
       {/* Bar Pencarian, Show Entries, Filter Peran, & Refresh */}
-      <div className="bg-white rounded-xl p-3 sm:p-4 border border-[#91EAAF]/40 shadow-2xs flex flex-col lg:flex-row lg:items-center justify-between gap-3">
+      <div className="bg-[#EFF9CE] rounded-3xl p-4 sm:p-5 border-2 border-[#8BC829] shadow-sm flex flex-col lg:flex-row lg:items-center justify-between gap-3">
         {/* Sisi Kiri: Show Entries & Filter Peran */}
         <div className="flex items-center gap-3 flex-wrap">
           {/* Show Entries */}
-          <div className="flex items-center gap-2 text-xs text-zinc-600 font-medium">
+          <div className="flex items-center gap-2 text-xs text-[#102919] font-bold">
             <span>Show</span>
             <select
               value={entriesPerPage}
               onChange={(e) => setEntriesPerPage(Number(e.target.value))}
-              className="px-2.5 py-1.5 bg-[#F4FFFC] border border-[#91EAAF]/50 rounded-lg text-xs font-semibold text-[#1F4B2C] focus:bg-white focus:ring-1 focus:ring-[#1F4B2C] focus:border-[#1F4B2C] outline-none cursor-pointer"
+              className="px-2.5 py-1.5 bg-[#F9FDEE] border-2 border-[#8BC829] rounded-xl text-xs font-black text-[#102919] focus:outline-none focus:ring-2 focus:ring-[#C3E956] cursor-pointer"
             >
               <option value={10}>10</option>
               <option value={25}>25</option>
@@ -365,16 +365,16 @@ export default function UserManagement() {
             <span>entries</span>
           </div>
 
-          <span className="text-[#91EAAF] hidden sm:inline">|</span>
+          <span className="text-[#8BC829] font-black hidden sm:inline">|</span>
 
           {/* Filter Peran */}
-          <div className="flex items-center gap-2 text-xs text-zinc-600 font-medium">
-            <Filter className="w-3.5 h-3.5 text-[#4D7111]" />
+          <div className="flex items-center gap-2 text-xs text-[#102919] font-bold">
+            <Filter className="w-3.5 h-3.5 text-[#102919]" />
             <span>Peran:</span>
             <select
               value={roleFilter}
               onChange={(e) => setRoleFilter(e.target.value)}
-              className="px-2.5 py-1.5 bg-[#F4FFFC] border border-[#91EAAF]/50 rounded-lg text-xs font-semibold text-[#1F4B2C] focus:bg-white focus:ring-1 focus:ring-[#1F4B2C] focus:border-[#1F4B2C] outline-none cursor-pointer"
+              className="px-3 py-1.5 bg-[#F9FDEE] border-2 border-[#8BC829] rounded-xl text-xs font-black text-[#102919] focus:outline-none focus:ring-2 focus:ring-[#C3E956] cursor-pointer"
             >
               <option value="">Semua Peran</option>
               <option value="TEACHER">Guru Pengawas</option>
@@ -386,18 +386,18 @@ export default function UserManagement() {
         {/* Sisi Kanan: Search Bar & Counter */}
         <div className="flex items-center gap-3 w-full lg:w-auto">
           <div className="relative flex-1 lg:w-64">
-            <Search className="w-4 h-4 text-zinc-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+            <Search className="w-4 h-4 text-[#102919]/50 absolute left-3.5 top-1/2 -translate-y-1/2" />
             <input
               type="text"
               placeholder="Cari Username / Nama..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-9 py-2 bg-zinc-50 border border-zinc-200 rounded-lg text-xs text-zinc-900 focus:bg-white focus:ring-1 focus:ring-[#1F4B2C] focus:border-[#1F4B2C] outline-none transition"
+              className="w-full pl-10 pr-9 py-2 bg-[#F9FDEE] border-2 border-[#8BC829] rounded-xl text-xs text-[#102919] placeholder-[#102919]/50 font-medium focus:outline-none focus:border-[#102919] focus:ring-2 focus:ring-[#C3E956] transition"
             />
             {searchTerm && (
               <button
                 onClick={() => setSearchTerm('')}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-600"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-[#102919]/50 hover:text-[#102919]"
               >
                 <X className="w-3.5 h-3.5" />
               </button>
@@ -405,95 +405,95 @@ export default function UserManagement() {
           </div>
 
           <div className="flex items-center gap-2 shrink-0">
-            <span className="text-xs text-zinc-500 font-medium hidden md:inline">
-              Total: <strong className="text-[#1F4B2C] font-mono font-bold">{users.length}</strong> Pengguna
+            <span className="text-xs text-[#102919]/80 font-bold hidden md:inline">
+              Total: <strong className="text-[#102919] font-mono font-black">{users.length}</strong> Pengguna
             </span>
             <button
               onClick={fetchUsers}
               disabled={isLoading}
-              className="p-2 rounded-lg bg-white border border-[#91EAAF]/50 hover:bg-[#F4FFFC] text-[#1F4B2C] transition shadow-2xs hover:-translate-y-0.5 active:scale-[0.98]"
+              className="p-2.5 rounded-xl bg-[#E2F4B4] border-2 border-[#8BC829] hover:bg-[#d6f0a3] text-[#102919] transition shadow-xs hover:-translate-y-0.5 active:scale-[0.98] cursor-pointer"
               title="Muat Ulang"
             >
-              <RefreshCw className={`w-4 h-4 ${isLoading ? 'animate-spin text-[#1F4B2C]' : ''}`} />
+              <RefreshCw className={`w-3.5 h-3.5 ${isLoading ? 'animate-spin text-[#102919]' : ''}`} />
             </button>
           </div>
         </div>
       </div>
 
       {/* Tabel Manajemen Pengguna */}
-      <div className="bg-white rounded-xl border border-[#91EAAF]/40 shadow-2xs overflow-hidden">
+      <div className="bg-[#EFF9CE] rounded-3xl border-2 border-[#8BC829] shadow-sm overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs text-zinc-700">
-            <thead className="bg-[#F4FFFC] border-b border-[#91EAAF]/40 text-[#1F4B2C] font-semibold uppercase tracking-wider text-[11px]">
+          <table className="w-full text-left text-xs text-[#102919]">
+            <thead className="bg-[#E2F4B4] border-b-2 border-[#8BC829] text-[#102919] font-black uppercase tracking-wider text-[11px]">
               <tr>
-                <th className="py-3 px-4 w-14 text-center">NO</th>
-                <th className="py-3 px-4">Nama Lengkap Pengguna</th>
-                <th className="py-3 px-4">Username (NIP / NISN)</th>
-                <th className="py-3 px-4">Email</th>
-                <th className="py-3 px-4 text-center">Role / Hak Akses</th>
-                <th className="py-3 px-4 text-center w-36">Aksi</th>
+                <th className="py-3.5 px-4 w-14 text-center">NO</th>
+                <th className="py-3.5 px-4">Nama Lengkap Pengguna</th>
+                <th className="py-3.5 px-4">Username (NIP / NISN)</th>
+                <th className="py-3.5 px-4">Email</th>
+                <th className="py-3.5 px-4 text-center">Role / Hak Akses</th>
+                <th className="py-3.5 px-4 text-center w-36">Aksi</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-zinc-100">
+            <tbody className="divide-y-2 divide-[#8BC829]/30">
               {users.length === 0 ? (
                 <tr>
-                  <td colSpan="6" className="py-12 text-center text-zinc-400 text-xs">
+                  <td colSpan="6" className="py-12 text-center text-[#102919]/60 text-xs font-medium">
                     {isLoading ? 'Memuat data pengguna...' : 'Belum ada akun pengguna yang terdaftar.'}
                   </td>
                 </tr>
               ) : (
                 currentItems.map((u, index) => (
-                  <tr key={u.id} className="hover:bg-[#F4FFFC]/50 transition">
-                    <td className="py-3 px-4 text-center font-mono text-zinc-500 tabular-nums">
+                  <tr key={u.id} className="hover:bg-[#E2F4B4]/60 transition">
+                    <td className="py-3.5 px-4 text-center font-mono font-bold text-[#102919]/70 tabular-nums">
                       {indexOfFirstItem + index + 1}
                     </td>
-                    <td className="py-3 px-4 font-semibold text-zinc-900 text-xs sm:text-sm">
+                    <td className="py-3.5 px-4 font-semibold text-[#102919] text-xs sm:text-sm">
                       <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 rounded-lg bg-[#E1F8ED] border border-[#91EAAF]/60 text-[#1F4B2C] font-bold text-xs flex items-center justify-center shrink-0">
+                        <div className="w-8 h-8 rounded-xl bg-[#102919] text-[#C3E956] font-black text-xs flex items-center justify-center shrink-0 shadow-xs">
                           {getInitials(u.full_name || u.username)}
                         </div>
                         <div>
-                          <div className="text-zinc-900 font-bold">{u.full_name || '-'}</div>
-                          <div className="text-[11px] text-zinc-400 font-normal">
+                          <div className="text-[#102919] font-black">{u.full_name || '-'}</div>
+                          <div className="text-[11px] text-[#102919]/60 font-medium">
                             {u.role === 'TEACHER' ? 'Dewan Guru Pengawas' : (u.classroom?.name || u.classroom_name ? `Kelas: ${u.classroom?.name || u.classroom_name}` : 'Siswa Peserta')}
                           </div>
                         </div>
                       </div>
                     </td>
-                    <td className="py-3 px-4">
-                      <span className="font-mono px-2 py-0.5 rounded-md bg-[#F4FFFC] border border-[#91EAAF]/60 text-[#1F4B2C] font-bold text-[11px] tabular-nums">
+                    <td className="py-3.5 px-4">
+                      <span className="font-mono px-3 py-1 rounded-xl bg-[#E2F4B4] border-2 border-[#8BC829] text-[#102919] font-black text-[11px] tabular-nums shadow-2xs">
                         {u.username}
                       </span>
                     </td>
-                    <td className="py-3 px-4 text-zinc-600 font-normal">
+                    <td className="py-3.5 px-4 text-[#102919]/80 font-mono text-[11px] font-medium">
                       {u.email || '-'}
                     </td>
-                    <td className="py-3 px-4 text-center">
+                    <td className="py-3.5 px-4 text-center">
                       {u.role === 'TEACHER' ? (
-                        <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-[#E1F8ED] text-[#1F4B2C] font-bold text-xs border border-[#91EAAF]/60">
-                          <GraduationCap className="w-3.5 h-3.5 text-[#1F4B2C]" />
+                        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-[#102919] text-[#C3E956] font-black text-xs border border-[#C3E956]/40 shadow-2xs">
+                          <GraduationCap className="w-3.5 h-3.5 text-[#C3E956]" />
                           <span>Guru Pengawas</span>
                         </span>
                       ) : (
-                        <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-[#C3E956]/20 text-[#4D7111] font-bold text-xs border border-[#C3E956]/40">
-                          <Users className="w-3.5 h-3.5 text-[#4D7111]" />
+                        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-[#C3E956] text-[#0A1D11] font-black text-xs border border-[#4D7111]/30 shadow-2xs">
+                          <Users className="w-3.5 h-3.5 text-[#0A1D11]" />
                           <span>Siswa Peserta</span>
                         </span>
                       )}
                     </td>
-                    <td className="py-3 px-4 text-center">
-                      <div className="flex items-center justify-center gap-1.5">
+                    <td className="py-3.5 px-4 text-center">
+                      <div className="flex items-center justify-center gap-2">
                         <button
                           onClick={() => handleOpenEdit(u)}
-                          className="px-2.5 py-1 rounded-md bg-[#F4FFFC] border border-[#91EAAF]/50 hover:bg-[#E1F8ED] text-[#1F4B2C] font-bold text-xs flex items-center gap-1.5 shadow-2xs transition-all active:scale-[0.98]"
+                          className="px-3 py-1.5 rounded-xl bg-[#E2F4B4] border-2 border-[#8BC829] hover:bg-[#d6f0a3] text-[#102919] font-black text-xs flex items-center gap-1.5 shadow-xs transition-all active:scale-[0.98] cursor-pointer"
                           title="Edit User & Reset Sandi"
                         >
-                          <Edit3 className="w-3.5 h-3.5 text-[#1F4B2C]" />
+                          <Edit3 className="w-3.5 h-3.5 text-[#102919]" />
                           <span>Edit</span>
                         </button>
                         <button
                           onClick={() => handleOpenDelete(u)}
-                          className="px-2.5 py-1 rounded-md bg-white border border-rose-200 hover:bg-rose-50 text-rose-600 font-medium text-xs flex items-center gap-1.5 shadow-2xs transition-all active:scale-[0.98]"
+                          className="px-3 py-1.5 rounded-xl bg-[#E2F4B4] border-2 border-rose-300 hover:bg-rose-600 text-rose-700 hover:text-white font-black text-xs flex items-center gap-1.5 shadow-xs transition-all active:scale-[0.98] cursor-pointer"
                           title="Hapus User"
                         >
                           <Trash2 className="w-3.5 h-3.5" />
@@ -509,18 +509,18 @@ export default function UserManagement() {
         </div>
 
         {/* Card Footer: Info Entri & Paginasi */}
-        <div className="p-3 sm:p-4 bg-[#F4FFFC]/50 border-t border-[#91EAAF]/30 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-zinc-500 font-medium">
+        <div className="p-4 bg-[#E2F4B4]/70 border-t-2 border-[#8BC829]/40 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-[#102919] font-bold">
           <div>
-            Menampilkan <strong className="text-[#1F4B2C] font-bold">{users.length > 0 ? indexOfFirstItem + 1 : 0}</strong> sampai{' '}
-            <strong className="text-[#1F4B2C] font-bold">{Math.min(indexOfLastItem, users.length)}</strong> dari{' '}
-            <strong className="text-[#1F4B2C] font-bold">{users.length}</strong> pengguna
+            Menampilkan <strong className="text-[#102919] font-black">{users.length > 0 ? indexOfFirstItem + 1 : 0}</strong> sampai{' '}
+            <strong className="text-[#102919] font-black">{Math.min(indexOfLastItem, users.length)}</strong> dari{' '}
+            <strong className="text-[#102919] font-black">{users.length}</strong> pengguna
           </div>
 
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-1.5">
             <button
               onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
               disabled={currentPage === 1}
-              className="px-3 py-1.5 rounded-lg border border-[#91EAAF]/50 bg-white hover:bg-[#F4FFFC] text-[#1F4B2C] font-semibold text-xs disabled:opacity-40 transition"
+              className="px-3 py-1.5 rounded-xl border-2 border-[#8BC829] bg-[#EFF9CE] hover:bg-[#d6f0a3] text-[#102919] font-black text-xs disabled:opacity-40 transition cursor-pointer"
             >
               Prev
             </button>
@@ -529,10 +529,10 @@ export default function UserManagement() {
               <button
                 key={page}
                 onClick={() => setCurrentPage(page)}
-                className={`w-7 h-7 rounded-lg text-xs font-bold transition flex items-center justify-center ${
+                className={`w-8 h-8 rounded-xl font-black text-xs transition flex items-center justify-center cursor-pointer ${
                   currentPage === page
-                    ? 'bg-[#1F4B2C] text-[#C3E956] shadow-xs border border-[#1F4B2C]'
-                    : 'bg-white border border-[#91EAAF]/50 text-zinc-700 hover:bg-[#F4FFFC]'
+                    ? 'bg-[#102919] text-[#C3E956] shadow-xs border-2 border-[#102919]'
+                    : 'bg-[#EFF9CE] border-2 border-[#8BC829] text-[#102919] hover:bg-[#d6f0a3]'
                 }`}
               >
                 {page}
@@ -542,7 +542,7 @@ export default function UserManagement() {
             <button
               onClick={() => setCurrentPage((p) => Math.min(p + 1, totalPages))}
               disabled={currentPage === totalPages || totalPages === 0}
-              className="px-3 py-1.5 rounded-lg border border-[#91EAAF]/50 bg-white hover:bg-[#F4FFFC] text-[#1F4B2C] font-semibold text-xs disabled:opacity-40 transition"
+              className="px-3 py-1.5 rounded-xl border-2 border-[#8BC829] bg-[#EFF9CE] hover:bg-[#d6f0a3] text-[#102919] font-black text-xs disabled:opacity-40 transition cursor-pointer"
             >
               Next
             </button>
@@ -568,35 +568,35 @@ export default function UserManagement() {
           )}
 
           <div>
-            <label className="block text-xs font-semibold text-zinc-700 uppercase tracking-wider mb-1.5">
-              Username (NIP / NISN) <span className="text-rose-500">*</span>
+            <label className="block text-xs font-black text-[#102919] uppercase tracking-wider mb-1.5">
+              Username (NIP / NISN) <span className="text-rose-600">*</span>
             </label>
             <input
               type="text"
               placeholder="Contoh: 19850101... atau 008123..."
               value={formData.username}
               onChange={(e) => setFormData({ ...formData, username: e.target.value })}
-              className="w-full px-3 py-2 bg-zinc-50 border border-zinc-200/90 rounded-lg text-xs sm:text-sm font-mono font-medium text-zinc-900 focus:bg-white focus:ring-1 focus:ring-zinc-900 focus:border-zinc-900 outline-none transition"
+              className="w-full px-3 py-2 bg-[#F9FDEE] border-2 border-[#8BC829] rounded-xl text-xs sm:text-sm font-mono font-bold text-[#102919] placeholder-[#102919]/40 focus:bg-[#EFF9CE] focus:ring-2 focus:ring-[#C3E956] focus:border-[#102919] outline-none transition"
               required
             />
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-zinc-700 uppercase tracking-wider mb-1.5">
-              Nama Lengkap <span className="text-rose-500">*</span>
+            <label className="block text-xs font-black text-[#102919] uppercase tracking-wider mb-1.5">
+              Nama Lengkap <span className="text-rose-600">*</span>
             </label>
             <input
               type="text"
               placeholder="Nama lengkap pengguna"
               value={formData.full_name}
               onChange={(e) => setFormData({ ...formData, full_name: e.target.value })}
-              className="w-full px-3 py-2 bg-zinc-50 border border-zinc-200/90 rounded-lg text-xs sm:text-sm font-medium text-zinc-900 focus:bg-white focus:ring-1 focus:ring-zinc-900 focus:border-zinc-900 outline-none transition"
+              className="w-full px-3 py-2 bg-[#F9FDEE] border-2 border-[#8BC829] rounded-xl text-xs sm:text-sm font-bold text-[#102919] placeholder-[#102919]/40 focus:bg-[#EFF9CE] focus:ring-2 focus:ring-[#C3E956] focus:border-[#102919] outline-none transition"
               required
             />
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-zinc-700 uppercase tracking-wider mb-1.5">
+            <label className="block text-xs font-black text-[#102919] uppercase tracking-wider mb-1.5">
               Email (Opsional)
             </label>
             <input
@@ -604,19 +604,19 @@ export default function UserManagement() {
               placeholder="user@sekolah.sch.id"
               value={formData.email}
               onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-              className="w-full px-3 py-2 bg-zinc-50 border border-zinc-200/90 rounded-lg text-xs sm:text-sm font-medium text-zinc-900 focus:bg-white focus:ring-1 focus:ring-zinc-900 focus:border-zinc-900 outline-none transition"
+              className="w-full px-3 py-2 bg-[#F9FDEE] border-2 border-[#8BC829] rounded-xl text-xs sm:text-sm font-medium text-[#102919] placeholder-[#102919]/40 focus:bg-[#EFF9CE] focus:ring-2 focus:ring-[#C3E956] focus:border-[#102919] outline-none transition"
             />
           </div>
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-semibold text-zinc-700 uppercase tracking-wider mb-1.5">
-                Peran Akun <span className="text-rose-500">*</span>
+              <label className="block text-xs font-black text-[#102919] uppercase tracking-wider mb-1.5">
+                Peran Akun <span className="text-rose-600">*</span>
               </label>
               <select
                 value={formData.role}
                 onChange={(e) => setFormData({ ...formData, role: e.target.value })}
-                className="w-full px-3 py-2 bg-zinc-50 border border-zinc-200/90 rounded-lg text-xs sm:text-sm font-medium text-zinc-900 focus:bg-white focus:ring-1 focus:ring-zinc-900 focus:border-zinc-900 outline-none transition"
+                className="w-full px-3 py-2 bg-[#F9FDEE] border-2 border-[#8BC829] rounded-xl text-xs sm:text-sm font-bold text-[#102919] focus:bg-[#EFF9CE] focus:ring-2 focus:ring-[#C3E956] focus:border-[#102919] outline-none transition cursor-pointer"
               >
                 <option value="STUDENT">Siswa Peserta</option>
                 <option value="TEACHER">Guru Pengawas</option>
@@ -625,13 +625,13 @@ export default function UserManagement() {
 
             {formData.role === 'STUDENT' && (
               <div>
-                <label className="block text-xs font-semibold text-zinc-700 uppercase tracking-wider mb-1.5">
+                <label className="block text-xs font-black text-[#102919] uppercase tracking-wider mb-1.5">
                   Kelas / Rombel
                 </label>
                 <select
                   value={formData.classroom_id}
                   onChange={(e) => setFormData({ ...formData, classroom_id: e.target.value })}
-                  className="w-full px-3 py-2 bg-zinc-50 border border-zinc-200/90 rounded-lg text-xs sm:text-sm font-medium text-zinc-900 focus:bg-white focus:ring-1 focus:ring-zinc-900 focus:border-zinc-900 outline-none transition"
+                  className="w-full px-3 py-2 bg-[#F9FDEE] border-2 border-[#8BC829] rounded-xl text-xs sm:text-sm font-bold text-[#102919] focus:bg-[#EFF9CE] focus:ring-2 focus:ring-[#C3E956] focus:border-[#102919] outline-none transition cursor-pointer"
                 >
                   <option value="">-- Tanpa Kelas --</option>
                   {classrooms.map((cls) => (
@@ -645,41 +645,41 @@ export default function UserManagement() {
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-zinc-700 uppercase tracking-wider mb-1.5">
-              {isEditing ? 'Ubah Kata Sandi (Kosongkan jika tidak diubah)' : 'Kata Sandi'} {!isEditing && <span className="text-rose-500">*</span>}
+            <label className="block text-xs font-black text-[#102919] uppercase tracking-wider mb-1.5">
+              {isEditing ? 'Ubah Kata Sandi (Kosongkan jika tidak diubah)' : 'Kata Sandi'} {!isEditing && <span className="text-rose-600">*</span>}
             </label>
             <div className="relative">
-              <KeyRound className="w-4 h-4 text-zinc-400 absolute left-3 top-1/2 -translate-y-1/2" />
+              <KeyRound className="w-4 h-4 text-[#102919]/50 absolute left-3 top-1/2 -translate-y-1/2" />
               <input
                 type="text"
                 placeholder={isEditing ? 'Masukkan kata sandi baru...' : 'Masukkan kata sandi akun'}
                 value={formData.password}
                 onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                className="w-full pl-9 pr-3 py-2 bg-zinc-50 border border-zinc-200/90 rounded-lg text-xs sm:text-sm font-medium text-zinc-900 focus:bg-white focus:ring-1 focus:ring-zinc-900 focus:border-zinc-900 outline-none transition"
+                className="w-full pl-9 pr-3 py-2 bg-[#F9FDEE] border-2 border-[#8BC829] rounded-xl text-xs sm:text-sm font-medium text-[#102919] placeholder-[#102919]/40 focus:bg-[#EFF9CE] focus:ring-2 focus:ring-[#C3E956] focus:border-[#102919] outline-none transition"
                 required={!isEditing}
               />
             </div>
             {isEditing && (
-              <p className="text-[11px] text-zinc-500 mt-1">
+              <p className="text-[11px] text-[#102919]/70 font-medium mt-1">
                 * Isi kolom ini untuk me-reset kata sandi pengguna jika pengguna lupa sandi.
               </p>
             )}
           </div>
 
-          <div className="flex items-center justify-end gap-2 pt-3 border-t border-zinc-100">
+          <div className="flex items-center justify-end gap-2 pt-3 border-t-2 border-[#8BC829]/30">
             <button
               type="button"
               onClick={() => setIsModalOpen(false)}
-              className="px-3.5 py-2 rounded-lg bg-white border border-zinc-200/90 hover:bg-zinc-50 text-zinc-700 text-xs sm:text-sm font-semibold transition"
+              className="px-3.5 py-2 rounded-xl bg-[#E2F4B4] border-2 border-[#8BC829] hover:bg-[#d6f0a3] text-[#102919] text-xs sm:text-sm font-black transition cursor-pointer"
             >
               Batal
             </button>
             <button
               type="submit"
               disabled={isSubmitting}
-              className="px-4 py-2 rounded-xl bg-[#1F4B2C] hover:bg-[#183D23] text-white text-xs sm:text-sm font-bold transition shadow-xs flex items-center gap-2 disabled:opacity-50"
+              className="px-4 py-2 rounded-xl bg-[#C3E956] hover:bg-[#b8e337] text-[#0A1D11] text-xs sm:text-sm font-black border-2 border-[#4D7111]/30 transition shadow-xs flex items-center gap-2 disabled:opacity-50 cursor-pointer"
             >
-              {isSubmitting && <RefreshCw className="w-4 h-4 animate-spin text-[#C3E956]" />}
+              {isSubmitting && <RefreshCw className="w-4 h-4 animate-spin text-[#0A1D11]" />}
               <span>{isEditing ? 'Simpan Perubahan' : 'Tambah User'}</span>
             </button>
           </div>
@@ -696,14 +696,14 @@ export default function UserManagement() {
         maxWidth="max-w-sm"
       >
         <div className="space-y-4 text-center">
-          <div className="w-11 h-11 rounded-lg bg-rose-50 border border-rose-200/80 text-rose-600 flex items-center justify-center mx-auto shadow-2xs">
+          <div className="w-11 h-11 rounded-xl bg-rose-100 border-2 border-rose-300 text-rose-700 flex items-center justify-center mx-auto shadow-2xs">
             <Trash2 className="w-5 h-5" />
           </div>
           <div>
-            <h3 className="text-sm font-bold text-zinc-900">
+            <h3 className="text-sm font-black text-[#102919]">
               Hapus akun pengguna ini?
             </h3>
-            <p className="text-xs text-zinc-500 mt-1">
+            <p className="text-xs text-[#102919]/70 font-medium mt-1">
               Akun <strong>{userToDelete?.full_name || userToDelete?.username}</strong> ({userToDelete?.username}) akan dihapus secara permanen dari sistem.
             </p>
           </div>
@@ -711,7 +711,7 @@ export default function UserManagement() {
             <button
               type="button"
               onClick={() => setIsDeleteModalOpen(false)}
-              className="px-3.5 py-2 rounded-lg bg-white border border-zinc-200/90 hover:bg-zinc-50 text-zinc-700 text-xs font-semibold transition"
+              className="px-3.5 py-2 rounded-xl bg-[#E2F4B4] border-2 border-[#8BC829] hover:bg-[#d6f0a3] text-[#102919] text-xs font-black transition cursor-pointer"
             >
               Batal
             </button>
@@ -719,7 +719,7 @@ export default function UserManagement() {
               type="button"
               onClick={handleConfirmDelete}
               disabled={isDeleting}
-              className="px-4 py-2 rounded-lg bg-rose-600 hover:bg-rose-700 text-white text-xs font-semibold transition shadow-2xs disabled:opacity-50"
+              className="px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs font-black border-2 border-rose-700 transition shadow-xs disabled:opacity-50 cursor-pointer"
             >
               {isDeleting ? 'Menghapus...' : 'Ya, Hapus'}
             </button>
@@ -737,46 +737,46 @@ export default function UserManagement() {
         maxWidth="max-w-md"
       >
         <div className="space-y-4">
-          <div className="text-center">
-            <div className="w-12 h-12 rounded-lg bg-zinc-100 border border-zinc-200/90 flex items-center justify-center text-zinc-700 mx-auto mb-3 shadow-2xs">
-              <FileSpreadsheet className="w-6 h-6 text-emerald-600" />
+          <div className="text-center bg-[#E2F4B4] border-2 border-[#8BC829] rounded-2xl p-4">
+            <div className="w-12 h-12 rounded-xl bg-[#EFF9CE] border-2 border-[#8BC829] flex items-center justify-center text-[#102919] mx-auto mb-2 shadow-2xs">
+              <FileSpreadsheet className="w-6 h-6 text-[#1F4B2C]" />
             </div>
-            <p className="text-xs text-zinc-600 font-medium">
+            <p className="text-xs text-[#102919] font-bold">
               Format Header Kolom Excel: <br />
-              <span className="font-mono font-medium text-zinc-800 bg-zinc-100 px-2 py-0.5 rounded border border-zinc-200 mt-1 inline-block">
+              <span className="font-mono font-bold text-[#102919] bg-[#EFF9CE] px-2 py-0.5 rounded border border-[#8BC829] mt-1 inline-block">
                 username, full_name, email, role, password
               </span>
             </p>
           </div>
 
           {importError && (
-            <div className="p-3 rounded-lg bg-rose-50 border border-rose-200 text-xs text-rose-700 flex items-center gap-2">
-              <AlertCircle className="w-4 h-4 text-rose-500 shrink-0" />
-              <span>{importError}</span>
+            <div className="p-3 rounded-xl bg-rose-100 border-2 border-rose-300 text-xs text-rose-800 flex items-center gap-2">
+              <AlertCircle className="w-4 h-4 text-rose-600 shrink-0" />
+              <span className="font-bold">{importError}</span>
             </div>
           )}
 
           {importResult && (
-            <div className="p-3 rounded-lg bg-emerald-50 border border-emerald-200 text-xs text-emerald-800 space-y-1">
-              <div className="font-semibold flex items-center gap-1.5 text-emerald-700">
-                <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+            <div className="p-3 rounded-xl bg-[#E2F4B4] border-2 border-[#8BC829] text-xs text-[#102919] space-y-1">
+              <div className="font-black flex items-center gap-1.5 text-[#102919]">
+                <CheckCircle2 className="w-4 h-4 text-[#4D7111]" />
                 <span>{importResult.message}</span>
               </div>
-              <div className="text-[11px] text-emerald-600 pl-5.5">
+              <div className="text-[11px] text-[#102919]/80 font-bold pl-5.5">
                 Pengguna Baru: <strong>{importResult.created_count}</strong> • Diperbarui: <strong>{importResult.updated_count}</strong>
               </div>
             </div>
           )}
 
-          <div className="border border-dashed border-[#91EAAF] rounded-xl p-4 bg-[#F4FFFC] text-center hover:bg-[#E1F8ED]/60 transition">
+          <div className="border-2 border-dashed border-[#8BC829] rounded-2xl p-4 bg-[#F9FDEE] text-center hover:bg-[#EFF9CE] transition">
             <input
               ref={fileInputRef}
               type="file"
               accept=".xlsx,.xls"
               onChange={(e) => setImportFile(e.target.files[0] || null)}
-              className="text-xs text-zinc-700 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-[#1F4B2C] file:text-white hover:file:bg-[#183D23] cursor-pointer w-full"
+              className="text-xs text-[#102919] font-medium file:mr-3 file:py-1.5 file:px-3 file:rounded-xl file:border-2 file:border-[#4D7111]/30 file:text-xs file:font-black file:bg-[#C3E956] file:text-[#0A1D11] hover:file:bg-[#b8e337] cursor-pointer w-full"
             />
-            <p className="text-[11px] text-zinc-500 mt-2">
+            <p className="text-[11px] text-[#102919]/70 font-medium mt-2">
               Pilih file spreadsheet .xlsx atau .xls dari komputer Anda.
             </p>
           </div>
@@ -785,7 +785,7 @@ export default function UserManagement() {
             <button
               type="button"
               onClick={handleDownloadTemplate}
-              className="text-xs font-bold text-[#1F4B2C] hover:text-[#4D7111] flex items-center gap-1.5"
+              className="text-xs font-black text-[#102919] hover:text-[#4D7111] flex items-center gap-1.5 cursor-pointer"
             >
               <Download className="w-3.5 h-3.5 text-[#4D7111]" /> Unduh Format Template
             </button>
@@ -794,11 +794,11 @@ export default function UserManagement() {
               type="button"
               onClick={handleImportSubmit}
               disabled={isImporting || !importFile}
-              className="px-4 py-2 rounded-xl bg-[#1F4B2C] hover:bg-[#183D23] text-white text-xs sm:text-sm font-bold shadow-xs transition flex items-center gap-2 disabled:opacity-50"
+              className="px-4 py-2 rounded-xl bg-[#C3E956] hover:bg-[#b8e337] text-[#0A1D11] text-xs sm:text-sm font-black border-2 border-[#4D7111]/30 shadow-xs transition flex items-center gap-2 disabled:opacity-50 cursor-pointer"
             >
               {isImporting ? (
                 <>
-                  <RefreshCw className="w-4 h-4 animate-spin text-[#C3E956]" />
+                  <RefreshCw className="w-4 h-4 animate-spin text-[#0A1D11]" />
                   <span>Memproses...</span>
                 </>
               ) : (

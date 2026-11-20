@@ -424,7 +424,7 @@ export default function LiveProctoring() {
             className={`px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-xs hover:-translate-y-0.5 active:scale-[0.98] ${
               lockedCount > 0
                 ? 'bg-[#1F4B2C] hover:bg-[#183D23] text-[#C3E956] border border-[#C3E956]/40 shadow-xs'
-                : 'bg-white hover:bg-[#F4FFFC] text-[#1F4B2C] border border-[#91EAAF]/50'
+                : 'bg-[#E2F4B4] hover:bg-[#d6f0a3] text-[#102919] border-2 border-[#8BC829]'
             }`}
             title="Buka kembali layar seluruh siswa yang saat ini terkunci secara serentak"
           >
@@ -450,42 +450,42 @@ export default function LiveProctoring() {
           <button
             onClick={fetchSessionStatus}
             disabled={isLoading}
-            className="p-2 rounded-xl bg-white border border-[#91EAAF]/50 hover:bg-[#F4FFFC] text-[#1F4B2C] transition shadow-2xs hover:-translate-y-0.5 active:scale-[0.98]"
+            className="p-2.5 rounded-xl bg-[#E2F4B4] border-2 border-[#8BC829] hover:bg-[#C3E956] text-[#102919] transition shadow-xs hover:-translate-y-0.5 active:scale-[0.98] cursor-pointer"
             title="Muat Ulang Status"
           >
-            <RefreshCw className={`w-4 h-4 ${isLoading ? 'animate-spin text-[#1F4B2C]' : ''}`} />
+            <RefreshCw className={`w-4 h-4 ${isLoading ? 'animate-spin text-[#102919]' : ''}`} />
           </button>
         </div>
       </div>
 
       {/* Toast Sukses Unlock All */}
       {unlockAllSuccessToast && (
-        <div className="p-3 bg-[#E1F8ED] border border-[#91EAAF]/60 text-[#1F4B2C] rounded-xl text-xs font-bold flex items-center gap-2 shadow-2xs animate-fadeIn">
-          <CheckCircle2 className="w-4 h-4 text-[#1F4B2C] shrink-0" />
+        <div className="p-3 bg-[#E2F4B4] border-2 border-[#8BC829] text-[#102919] rounded-2xl text-xs font-black flex items-center gap-2 shadow-xs animate-fadeIn">
+          <CheckCircle2 className="w-4 h-4 text-[#102919] shrink-0" />
           <span>{unlockAllSuccessToast}</span>
         </div>
       )}
 
       {/* Toast Sukses Broadcast */}
       {broadcastAlertToast && (
-        <div className="p-3 bg-[#E1F8ED] border border-[#91EAAF]/60 text-[#1F4B2C] rounded-xl text-xs font-bold flex items-center gap-2 shadow-2xs animate-fadeIn">
-          <CheckCircle2 className="w-4 h-4 text-[#1F4B2C] shrink-0" />
+        <div className="p-3 bg-[#E2F4B4] border-2 border-[#8BC829] text-[#102919] rounded-2xl text-xs font-black flex items-center gap-2 shadow-xs animate-fadeIn">
+          <CheckCircle2 className="w-4 h-4 text-[#102919] shrink-0" />
           <span>{broadcastAlertToast}</span>
         </div>
       )}
 
       {/* Bar Filter Sesi Ujian & Ringkasan Status */}
-      <div className="bg-white rounded-2xl p-5 sm:p-6 border border-[#91EAAF]/40 shadow-2xs space-y-4">
+      <div className="bg-[#EFF9CE] rounded-3xl p-5 sm:p-6 border-2 border-[#8BC829] shadow-sm space-y-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5 items-center">
           {/* Pilih Sesi Ujian */}
           <div>
-            <label className="block text-[11px] font-bold uppercase tracking-wider text-[#1F4B2C] mb-1">
+            <label className="block text-[11px] font-black uppercase tracking-wider text-[#102919] mb-1">
               Pilih Sesi Ujian Aktif:
             </label>
             <select
               value={selectedSessionId}
               onChange={(e) => setSelectedSessionId(e.target.value)}
-              className="w-full text-xs sm:text-sm font-semibold rounded-lg border border-[#91EAAF]/60 focus:outline-none focus:border-[#1F4B2C] focus:ring-1 focus:ring-[#1F4B2C] py-2 bg-[#F4FFFC] text-[#1F4B2C]"
+              className="w-full text-xs sm:text-sm font-bold rounded-xl border-2 border-[#8BC829] focus:outline-none focus:border-[#102919] focus:ring-2 focus:ring-[#C3E956] py-2.5 px-3 bg-[#F9FDEE] text-[#102919]"
             >
               {availableSessions.map((ses) => (
                 <option key={ses.id} value={ses.id}>
@@ -497,17 +497,17 @@ export default function LiveProctoring() {
 
           {/* Bar Pencarian Siswa */}
           <div className="md:col-span-2">
-            <label className="block text-[11px] font-bold uppercase tracking-wider text-[#1F4B2C] mb-1">
+            <label className="block text-[11px] font-black uppercase tracking-wider text-[#102919] mb-1">
               Cari Nama atau NISN Siswa:
             </label>
             <div className="relative">
-              <Search className="w-4 h-4 text-zinc-400 absolute left-3 top-2.5" />
+              <Search className="w-4 h-4 text-[#102919]/60 absolute left-3.5 top-3" />
               <input
                 type="text"
                 placeholder="Ketik nama atau nomor induk..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-9 pr-3 py-2 text-xs sm:text-sm font-medium rounded-lg border border-zinc-200 focus:outline-none focus:border-[#1F4B2C] focus:ring-1 focus:ring-[#1F4B2C] bg-white"
+                className="w-full pl-10 pr-3 py-2.5 text-xs sm:text-sm font-bold rounded-xl border-2 border-[#8BC829] focus:outline-none focus:border-[#102919] focus:ring-2 focus:ring-[#C3E956] bg-[#F9FDEE] text-[#102919]"
               />
             </div>
           </div>
@@ -523,14 +523,14 @@ export default function LiveProctoring() {
           const countdownStr = formatTimeRemaining(dynamicTokens.expiresInSeconds);
 
           return (
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 p-3.5 rounded-xl bg-gradient-to-r from-[#102919] via-[#143820] to-[#1F4B2C] text-white border border-[#1F4B2C] shadow-sm">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 p-3.5 rounded-2xl bg-gradient-to-r from-[#102919] via-[#143820] to-[#1F4B2C] text-white border-2 border-[#1F4B2C] shadow-sm">
               <div className="flex items-center gap-2 flex-wrap text-xs">
-                <span className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-[#0A1D11]/80 border border-[#C3E956]/40 text-[#C3E956] font-mono text-[11px] font-bold">
+                <span className="flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-[#0A1D11]/80 border border-[#C3E956]/40 text-[#C3E956] font-mono text-[11px] font-black">
                   <RotateCcw className="w-3.5 h-3.5 text-[#C3E956] animate-spin" style={{ animationDuration: '6s' }} />
                   <span>Rotasi: <strong className="text-white font-black">{countdownStr}</strong></span>
                 </span>
-                <span className="text-[#91EAAF] hidden md:inline">|</span>
-                <span className="text-[#F4FFFC]/90 font-medium text-[11px] hidden md:inline">
+                <span className="text-[#8BC829] hidden md:inline">•</span>
+                <span className="text-[#EFF9CE]/90 font-medium text-[11px] hidden md:inline">
                   Token berganti otomatis tiap 10 menit
                 </span>
               </div>
@@ -540,14 +540,14 @@ export default function LiveProctoring() {
                 <button
                   type="button"
                   onClick={() => handleCopyLiveToken(entryToken, 'entry')}
-                  className="px-3 py-1.5 rounded-lg bg-[#0A1D11]/90 hover:bg-[#0A1D11] border border-[#C3E956]/40 text-[#C3E956] text-xs flex items-center gap-1.5 transition active:scale-[0.98] shadow-2xs"
+                  className="px-3.5 py-1.5 rounded-xl bg-[#0A1D11]/90 hover:bg-[#0A1D11] border border-[#C3E956]/50 text-[#C3E956] text-xs flex items-center gap-1.5 transition active:scale-[0.98] shadow-xs cursor-pointer"
                   title="Salin Token Masuk Siswa"
                 >
                   <KeyRound className="w-3.5 h-3.5 text-[#C3E956]" />
-                  <span className="text-[#F4FFFC]/80 text-[11px]">Token Masuk:</span>
+                  <span className="text-[#EFF9CE]/80 text-[11px]">Token Masuk:</span>
                   <strong className="text-white font-mono font-black">{entryToken}</strong>
                   {copiedToken === 'entry' ? (
-                    <span className="text-[#C3E956] text-[10px] font-bold animate-pulse ml-0.5">Tersalin!</span>
+                    <span className="text-[#C3E956] text-[10px] font-black animate-pulse ml-0.5">Tersalin!</span>
                   ) : (
                     <Copy className="w-3 h-3 text-[#C3E956]/80 hover:text-white ml-0.5" />
                   )}
@@ -557,14 +557,14 @@ export default function LiveProctoring() {
                 <button
                   type="button"
                   onClick={() => handleCopyLiveToken(pinToken, 'pin')}
-                  className="px-3 py-1.5 rounded-lg bg-[#0A1D11]/90 hover:bg-[#0A1D11] border border-[#91EAAF]/40 text-[#91EAAF] text-xs flex items-center gap-1.5 transition active:scale-[0.98] shadow-2xs"
+                  className="px-3.5 py-1.5 rounded-xl bg-[#0A1D11]/90 hover:bg-[#0A1D11] border border-[#91EAAF]/40 text-[#91EAAF] text-xs flex items-center gap-1.5 transition active:scale-[0.98] shadow-xs cursor-pointer"
                   title="Salin PIN Buka Kunci Pengawas"
                 >
                   <ShieldCheck className="w-3.5 h-3.5 text-[#91EAAF]" />
-                  <span className="text-[#F4FFFC]/80 text-[11px]">PIN Pengawas:</span>
+                  <span className="text-[#EFF9CE]/80 text-[11px]">PIN Pengawas:</span>
                   <strong className="text-white font-mono font-black">{pinToken}</strong>
                   {copiedToken === 'pin' ? (
-                    <span className="text-[#91EAAF] text-[10px] font-bold animate-pulse ml-0.5">Tersalin!</span>
+                    <span className="text-[#91EAAF] text-[10px] font-black animate-pulse ml-0.5">Tersalin!</span>
                   ) : (
                     <Copy className="w-3 h-3 text-[#91EAAF]/80 hover:text-white ml-0.5" />
                   )}
@@ -575,27 +575,27 @@ export default function LiveProctoring() {
         })()}
 
         {/* 4 Tombol Filter Tab Status */}
-        <div className="flex items-center gap-1.5 pt-2 border-t border-[#91EAAF]/25 overflow-x-auto pb-1 sm:flex-wrap">
+        <div className="flex items-center gap-2 pt-2 border-t-2 border-[#8BC829]/40 overflow-x-auto pb-1 sm:flex-wrap">
           <button
             onClick={() => setStatusFilter('ALL')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 shrink-0 border ${
+            className={`px-3.5 py-1.5 rounded-xl text-xs font-black transition flex items-center gap-1.5 shrink-0 border-2 cursor-pointer ${
               statusFilter === 'ALL'
-                ? 'bg-[#1F4B2C] text-[#C3E956] border-[#1F4B2C] shadow-xs'
-                : 'bg-white text-[#1F4B2C] border-[#91EAAF]/50 hover:bg-[#F4FFFC]'
+                ? 'bg-[#102919] text-[#C3E956] border-[#102919] shadow-xs'
+                : 'bg-[#E2F4B4] text-[#102919] border-[#8BC829] hover:bg-[#d6f0a3]'
             }`}
           >
             <span>Semua Siswa</span>
-            <span className="px-1.5 py-0.2 rounded-full text-[10px] bg-[#143820] text-[#C3E956] font-mono font-bold">
+            <span className="px-2 py-0.5 rounded-full text-[10px] bg-[#EFF9CE] text-[#102919] font-mono font-black">
               {totalCount}
             </span>
           </button>
 
           <button
             onClick={() => setStatusFilter('WORKING')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 shrink-0 border ${
+            className={`px-3.5 py-1.5 rounded-xl text-xs font-black transition flex items-center gap-1.5 shrink-0 border-2 cursor-pointer ${
               statusFilter === 'WORKING'
-                ? 'bg-[#1F4B2C] text-white border-[#1F4B2C] shadow-xs'
-                : 'bg-[#E1F8ED] text-[#1F4B2C] border-[#91EAAF]/60 hover:bg-[#cbf4e0]'
+                ? 'bg-[#102919] text-[#C3E956] border-[#102919] shadow-xs'
+                : 'bg-[#E2F4B4] text-[#102919] border-[#8BC829] hover:bg-[#d6f0a3]'
             }`}
           >
             <span className="w-1.5 h-1.5 rounded-full bg-[#C3E956]" />
@@ -658,22 +658,22 @@ export default function LiveProctoring() {
             return (
               <div
                 key={student.studentId || student.nisn}
-                className={`rounded-2xl border-2 transition-all duration-200 flex flex-col justify-between overflow-hidden shadow-xs hover:shadow-md ${
+                className={`rounded-3xl border-2 transition-all duration-200 flex flex-col justify-between overflow-hidden shadow-sm hover:shadow-md ${
                   isLocked
-                    ? 'bg-rose-50/70 border-rose-500 ring-2 ring-rose-400/30'
+                    ? 'bg-rose-50 border-rose-500 ring-2 ring-rose-400/40'
                     : isSubmitted
-                    ? 'bg-white border-[#91EAAF]/70 hover:border-[#1F4B2C]'
-                    : 'bg-white border-[#1F4B2C]/35 hover:border-[#1F4B2C]'
+                    ? 'bg-[#EFF9CE] border-2 border-[#8BC829] hover:border-[#102919]'
+                    : 'bg-[#EFF9CE] border-2 border-[#8BC829] hover:border-[#102919]'
                 }`}
               >
                 <div>
                   {/* Top Status Banner across card header */}
-                  <div className={`px-4 py-2 flex items-center justify-between text-xs font-bold ${
+                  <div className={`px-4 py-2.5 flex items-center justify-between text-xs font-black ${
                     isLocked
                       ? 'bg-rose-600 text-white animate-pulse'
                       : isSubmitted
                       ? 'bg-gradient-to-r from-[#102919] to-[#1F4B2C] text-[#C3E956]'
-                      : 'bg-gradient-to-r from-[#143820] to-[#102919] text-[#91EAAF]'
+                      : 'bg-gradient-to-r from-[#143820] to-[#102919] text-[#C3E956]'
                   }`}>
                     <div className="flex items-center gap-1.5">
                       {isLocked ? (
@@ -694,12 +694,12 @@ export default function LiveProctoring() {
                       )}
                     </div>
 
-                    <span className={`text-[10px] font-mono px-2 py-0.5 rounded-full font-bold ${
+                    <span className={`text-[10px] font-mono px-2 py-0.5 rounded-full font-black ${
                       isLocked
-                        ? 'bg-white text-rose-700'
+                        ? 'bg-rose-200 text-rose-900 border border-rose-300'
                         : isSubmitted
                         ? 'bg-[#0A1D11] text-[#C3E956]'
-                        : 'bg-[#1F4B2C] text-[#91EAAF]'
+                        : 'bg-[#1F4B2C] text-[#C3E956]'
                     }`}>
                       {student.classroom || 'Kelas'}
                     </span>
@@ -708,56 +708,56 @@ export default function LiveProctoring() {
                   <div className="p-4 space-y-3">
                     {/* Student Identity */}
                     <div>
-                      <h3 className="font-extrabold text-zinc-900 text-sm sm:text-base leading-tight tracking-tight">
+                      <h3 className="font-black text-[#102919] text-sm sm:text-base leading-tight tracking-tight">
                         {student.fullName}
                       </h3>
-                      <div className="text-[11px] text-zinc-500 mt-1 flex items-center gap-2 flex-wrap">
-                        <span className="font-mono text-[#1F4B2C] bg-[#E1F8ED] px-2 py-0.5 rounded-md border border-[#91EAAF]/60 font-bold">
+                      <div className="text-[11px] text-[#102919]/70 mt-1 flex items-center gap-2 flex-wrap">
+                        <span className="font-mono text-[#102919] bg-[#E2F4B4] px-2 py-0.5 rounded-lg border border-[#8BC829] font-black">
                           NISN: {student.nisn}
                         </span>
                       </div>
                     </div>
 
                     {/* Info Sensor Device & Waktu */}
-                    <div className="space-y-1.5 text-xs bg-[#F4FFFC] border border-[#91EAAF]/50 rounded-xl p-3">
+                    <div className="space-y-1.5 text-xs bg-[#E2F4B4] border-2 border-[#8BC829] rounded-2xl p-3 text-[#102919]">
                       <div className="flex items-center justify-between">
-                        <span className="text-zinc-600 font-medium flex items-center gap-1.5">
+                        <span className="text-[#102919] font-bold flex items-center gap-1.5">
                           {student.screenOrientation === 'LANDSCAPE' ? (
-                            <Monitor className="w-3.5 h-3.5 text-[#1F4B2C]" />
+                            <Monitor className="w-3.5 h-3.5 text-[#102919]" />
                           ) : (
-                            <Smartphone className="w-3.5 h-3.5 text-[#1F4B2C]" />
+                            <Smartphone className="w-3.5 h-3.5 text-[#102919]" />
                           )}
                           Orientasi:
                         </span>
-                        <span className="font-mono font-bold text-zinc-800 bg-white px-2 py-0.5 rounded-md border border-zinc-200 text-[11px]">
+                        <span className="font-mono font-black text-[#102919] bg-[#F9FDEE] px-2 py-0.5 rounded-lg border border-[#8BC829] text-[11px]">
                           {student.screenOrientation}
                         </span>
                       </div>
 
                       <div className="flex items-center justify-between">
-                        <span className="text-zinc-600 font-medium">Jam Mulai:</span>
-                        <span className="font-mono text-zinc-800 font-semibold text-[11px]">{student.startedAt || '-'}</span>
+                        <span className="text-[#102919] font-bold">Jam Mulai:</span>
+                        <span className="font-mono text-[#102919] font-bold text-[11px]">{student.startedAt || '-'}</span>
                       </div>
 
                       <div className="flex items-center justify-between">
-                        <span className="text-zinc-600 font-medium">Jam Selesai:</span>
-                        <span className="font-mono text-zinc-800 font-semibold text-[11px]">{student.finishedAt || 'Sedang Berjalan'}</span>
+                        <span className="text-[#102919] font-bold">Jam Selesai:</span>
+                        <span className="font-mono text-[#102919] font-bold text-[11px]">{student.finishedAt || 'Sedang Berjalan'}</span>
                       </div>
 
                       <div className="flex items-center justify-between">
-                        <span className="text-zinc-600 font-medium flex items-center gap-1">
-                          <Wifi className="w-3.5 h-3.5 text-[#1F4B2C]" />
+                        <span className="text-[#102919] font-bold flex items-center gap-1">
+                          <Wifi className="w-3.5 h-3.5 text-[#102919]" />
                           Latensi:
                         </span>
                         <span
-                          className={`font-mono text-[10px] px-2 py-0.5 rounded-md border flex items-center gap-1 font-semibold ${
+                          className={`font-mono text-[10px] px-2 py-0.5 rounded-lg border flex items-center gap-1 font-bold ${
                             student.networkLatencyMs > 0 && student.networkLatencyMs < 150
-                              ? 'bg-emerald-50 text-emerald-800 border-emerald-200'
+                              ? 'bg-emerald-100 text-emerald-900 border-emerald-300'
                               : student.networkLatencyMs >= 150 && student.networkLatencyMs < 400
-                              ? 'bg-amber-50 text-amber-800 border-amber-200'
+                              ? 'bg-amber-100 text-amber-900 border-amber-300'
                               : student.networkLatencyMs >= 400
-                              ? 'bg-rose-50 text-rose-800 border-rose-200'
-                              : 'bg-white text-zinc-700 border-zinc-200'
+                              ? 'bg-rose-100 text-rose-900 border-rose-300'
+                              : 'bg-[#F9FDEE] text-[#102919] border-[#8BC829]'
                           }`}
                         >
                           <span
@@ -775,21 +775,21 @@ export default function LiveProctoring() {
                         </span>
                       </div>
 
-                      <div className="flex items-center justify-between border-t border-[#91EAAF]/30 pt-1.5 mt-1">
-                        <span className="text-zinc-600 font-bold">Pelanggaran:</span>
-                        <span className={`font-mono text-[11px] px-2 py-0.5 rounded-md border font-extrabold ${
+                      <div className="flex items-center justify-between border-t border-[#8BC829]/40 pt-1.5 mt-1">
+                        <span className="text-[#102919] font-black">Pelanggaran:</span>
+                        <span className={`font-mono text-[11px] px-2 py-0.5 rounded-lg border font-black ${
                           student.violationCount > 0 
                             ? 'text-white bg-rose-600 border-rose-700 animate-pulse' 
-                            : 'text-[#4D7111] bg-[#C3E956]/20 border-[#C3E956]/40'
+                            : 'text-[#0A1D11] bg-[#C3E956] border-[#4D7111]/30'
                         }`}>
                           {student.violationCount > 0 ? `${student.violationCount} Kali` : '0 Bersih'}
                         </span>
                       </div>
 
                       {student.score !== null && student.score !== undefined && (
-                        <div className="flex items-center justify-between border-t border-[#91EAAF]/30 pt-1.5 mt-1">
-                          <span className="text-zinc-700 font-bold">Skor Nilai:</span>
-                          <span className="text-[#C3E956] font-mono font-black text-xs bg-[#102919] px-2 py-0.5 rounded-md border border-[#1F4B2C]">
+                        <div className="flex items-center justify-between border-t border-[#8BC829]/40 pt-1.5 mt-1">
+                          <span className="text-[#102919] font-black">Skor Nilai:</span>
+                          <span className="text-[#0A1D11] font-mono font-black text-xs bg-[#C3E956] px-2 py-0.5 rounded-lg border border-[#4D7111]/30">
                             {student.score} Poin
                           </span>
                         </div>
@@ -816,26 +816,26 @@ export default function LiveProctoring() {
                   {isLocked ? (
                     <button
                       onClick={() => handleUnlock(student)}
-                      className="flex-1 py-2 px-3 bg-[#1F4B2C] hover:bg-[#183D23] text-[#C3E956] border border-[#C3E956]/40 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5 shadow-xs active:scale-[0.98] cursor-pointer"
+                      className="flex-1 py-2.5 px-3 bg-[#102919] hover:bg-[#1F4B2C] text-[#C3E956] border border-[#C3E956]/40 rounded-xl text-xs font-black transition flex items-center justify-center gap-1.5 shadow-sm active:scale-[0.98] cursor-pointer"
                     >
                       <Unlock className="w-4 h-4 text-[#C3E956]" />
                       <span>Buka Kunci Layar</span>
                     </button>
                   ) : isSubmitted ? (
-                    <div className="flex-1 py-2 px-3 bg-[#C3E956]/20 text-[#4D7111] border border-[#C3E956]/40 rounded-xl text-xs font-bold text-center flex items-center justify-center gap-1.5">
-                      <CheckCircle2 className="w-4 h-4 text-[#4D7111]" />
+                    <div className="flex-1 py-2 px-3 bg-[#C3E956] text-[#0A1D11] border border-[#4D7111]/30 rounded-xl text-xs font-black text-center flex items-center justify-center gap-1.5 shadow-xs">
+                      <CheckCircle2 className="w-4 h-4 text-[#0A1D11]" />
                       <span>Selesai Terkirim</span>
                     </div>
                   ) : (
-                    <div className="flex-1 py-2 px-3 bg-[#E1F8ED] text-[#1F4B2C] border border-[#91EAAF]/60 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5">
-                      <ShieldCheck className="w-4 h-4 text-[#1F4B2C]" />
+                    <div className="flex-1 py-2 px-3 bg-[#E2F4B4] text-[#102919] border-2 border-[#8BC829] rounded-xl text-xs font-black flex items-center justify-center gap-1.5">
+                      <ShieldCheck className="w-4 h-4 text-[#102919]" />
                       <span>Kondusif & Terkunci</span>
                     </div>
                   )}
 
                   <button
                     onClick={() => handleDisqualify(student)}
-                    className="p-2 text-zinc-400 hover:text-rose-600 hover:bg-rose-50 rounded-xl border border-zinc-200 hover:border-rose-200 transition active:scale-[0.98] cursor-pointer"
+                    className="p-2 text-[#102919] hover:text-rose-700 bg-[#E2F4B4] hover:bg-rose-100 rounded-xl border-2 border-[#8BC829] hover:border-rose-300 transition active:scale-[0.98] cursor-pointer"
                     title="Diskualifikasi Siswa dari Ujian"
                   >
                     <Ban className="w-4 h-4" />
@@ -845,12 +845,12 @@ export default function LiveProctoring() {
             );
           })
         ) : (
-          <div className="col-span-full py-16 text-center bg-white rounded-xl border border-dashed border-zinc-300 p-6 space-y-2">
-            <div className="w-12 h-12 rounded-lg bg-zinc-100 flex items-center justify-center text-zinc-400 mx-auto mb-2 border border-zinc-200">
+          <div className="col-span-full py-16 text-center bg-[#EFF9CE] rounded-3xl border-2 border-dashed border-[#8BC829] p-6 space-y-2">
+            <div className="w-12 h-12 rounded-2xl bg-[#E2F4B4] flex items-center justify-center text-[#102919] mx-auto mb-2 border-2 border-[#8BC829]">
               <UserCheck className="w-6 h-6" />
             </div>
-            <h3 className="font-semibold text-zinc-800 text-base">Belum Ada Siswa yang Sedang Mengerjakan</h3>
-            <p className="text-xs text-zinc-500 max-w-md mx-auto leading-relaxed">
+            <h3 className="font-black text-[#102919] text-base">Belum Ada Siswa yang Sedang Mengerjakan</h3>
+            <p className="text-xs text-[#102919]/70 max-w-md mx-auto leading-relaxed font-medium">
               Saat ini belum ada peserta yang memulai sesi ujian ini atau seluruh sesi pengerjaan telah selesai. Kartu pemantauan akan otomatis muncul secara langsung (real-time) saat siswa memasukkan Password Masuk Ujian.
             </p>
           </div>
@@ -859,44 +859,44 @@ export default function LiveProctoring() {
 
       {/* MODAL SIARAN PENGUMUMAN LANGSUNG KE SISWA */}
       {isBroadcastModalOpen && (
-        <div className="fixed inset-0 z-50 bg-zinc-950/50 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto animate-fadeIn">
-          <div className="bg-white rounded-xl max-w-lg w-full p-5 sm:p-6 shadow-xl border border-zinc-200 space-y-4 my-8">
-            <div className="flex items-start justify-between gap-3 border-b border-zinc-100 pb-3">
+        <div className="fixed inset-0 z-50 bg-[#0A1D11]/85 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto animate-fadeIn">
+          <div className="bg-[#EFF9CE] rounded-3xl max-w-lg w-full p-5 sm:p-6 shadow-2xl border-2 border-[#8BC829] space-y-4 my-8 text-[#102919]">
+            <div className="flex items-start justify-between gap-3 border-b-2 border-[#8BC829]/40 pb-3">
               <div className="flex items-center gap-2.5">
-                <div className="w-9 h-9 rounded-lg bg-zinc-100 border border-zinc-200 text-zinc-800 flex items-center justify-center shrink-0">
-                  <Megaphone className="w-4 h-4" />
+                <div className="w-10 h-10 rounded-2xl bg-[#E2F4B4] border-2 border-[#8BC829] text-[#102919] flex items-center justify-center shrink-0">
+                  <Megaphone className="w-5 h-5" />
                 </div>
                 <div>
-                  <h3 className="text-base font-semibold text-zinc-900">
+                  <h3 className="text-base font-black text-[#102919]">
                     Siaran Pengumuman Pengawas
                   </h3>
-                  <p className="text-xs text-zinc-500">
+                  <p className="text-xs text-[#102919]/70 font-medium">
                     Kirim ralat soal atau instruksi waktu langsung ke layar seluruh siswa aktif.
                   </p>
                 </div>
               </div>
               <button
                 onClick={() => setIsBroadcastModalOpen(false)}
-                className="p-1 rounded-md text-zinc-400 hover:text-zinc-600 hover:bg-zinc-100 transition"
+                className="p-1.5 rounded-xl text-[#102919] hover:bg-[#E2F4B4] border border-transparent hover:border-[#8BC829] transition cursor-pointer"
               >
-                <X className="w-4 h-4" />
+                <X className="w-5 h-5" />
               </button>
             </div>
 
             <form onSubmit={handleSendBroadcast} className="space-y-4">
               {/* Urgensi Level */}
               <div>
-                <label className="block text-xs font-semibold text-zinc-700 mb-1.5">
+                <label className="block text-xs font-black text-[#102919] mb-1.5">
                   Tingkat Urgensi Pengumuman:
                 </label>
                 <div className="grid grid-cols-3 gap-2">
                   <button
                     type="button"
                     onClick={() => setBroadcastUrgency('INFO')}
-                    className={`py-2 px-3 rounded-lg text-xs font-medium border transition text-center ${
+                    className={`py-2 px-3 rounded-xl text-xs font-black border-2 transition text-center cursor-pointer ${
                       broadcastUrgency === 'INFO'
-                        ? 'bg-zinc-900 border-zinc-900 text-white font-semibold shadow-2xs'
-                        : 'bg-white border-zinc-200 text-zinc-700 hover:bg-zinc-50'
+                        ? 'bg-[#102919] border-[#102919] text-[#C3E956] shadow-xs'
+                        : 'bg-[#E2F4B4] border-[#8BC829] text-[#102919] hover:bg-[#d6f0a3]'
                     }`}
                   >
                     Info Umum
@@ -904,10 +904,10 @@ export default function LiveProctoring() {
                   <button
                     type="button"
                     onClick={() => setBroadcastUrgency('WARNING')}
-                    className={`py-2 px-3 rounded-lg text-xs font-medium border transition text-center ${
+                    className={`py-2 px-3 rounded-xl text-xs font-black border-2 transition text-center cursor-pointer ${
                       broadcastUrgency === 'WARNING'
-                        ? 'bg-amber-600 border-amber-600 text-white font-semibold shadow-2xs'
-                        : 'bg-white border-zinc-200 text-zinc-700 hover:bg-zinc-50'
+                        ? 'bg-amber-600 border-amber-700 text-white shadow-xs'
+                        : 'bg-[#E2F4B4] border-[#8BC829] text-[#102919] hover:bg-[#d6f0a3]'
                     }`}
                   >
                     Peringatan
@@ -915,10 +915,10 @@ export default function LiveProctoring() {
                   <button
                     type="button"
                     onClick={() => setBroadcastUrgency('URGENT')}
-                    className={`py-2 px-3 rounded-lg text-xs font-medium border transition text-center ${
+                    className={`py-2 px-3 rounded-xl text-xs font-black border-2 transition text-center cursor-pointer ${
                       broadcastUrgency === 'URGENT'
-                        ? 'bg-rose-600 border-rose-600 text-white font-semibold shadow-2xs'
-                        : 'bg-white border-zinc-200 text-zinc-700 hover:bg-zinc-50'
+                        ? 'bg-rose-600 border-rose-700 text-white shadow-xs'
+                        : 'bg-[#E2F4B4] border-[#8BC829] text-[#102919] hover:bg-[#d6f0a3]'
                     }`}
                   >
                     Ralat Vital
@@ -928,7 +928,7 @@ export default function LiveProctoring() {
 
               {/* Textarea Pesan */}
               <div>
-                <label className="block text-xs font-semibold text-zinc-700 mb-1.5">
+                <label className="block text-xs font-black text-[#102919] mb-1.5">
                   Isi Pesan Pengumuman / Ralat Soal:
                 </label>
                 <textarea
@@ -937,24 +937,24 @@ export default function LiveProctoring() {
                   placeholder="Contoh: Perhatian siswa, untuk Soal No. 8 satuan yang dimaksud adalah cm bukan meter. Waktu tersisa 15 menit lagi."
                   value={broadcastMessage}
                   onChange={(e) => setBroadcastMessage(e.target.value)}
-                  className="w-full p-2.5 text-xs sm:text-sm rounded-lg border border-zinc-200 focus:outline-none focus:border-zinc-400 transition resize-none font-medium leading-relaxed"
+                  className="w-full p-3 text-xs sm:text-sm rounded-xl border-2 border-[#8BC829] bg-[#F9FDEE] text-[#102919] focus:outline-none focus:border-[#102919] focus:ring-2 focus:ring-[#C3E956] transition resize-none font-bold leading-relaxed"
                 />
               </div>
 
               {/* Riwayat Pengumuman Sebelumnya (jika ada) */}
               {broadcastHistory.length > 0 && (
-                <div className="bg-zinc-50 p-3 rounded-lg border border-zinc-200 space-y-1.5">
-                  <div className="text-[11px] font-semibold text-zinc-600 uppercase tracking-wider">
+                <div className="bg-[#E2F4B4] p-3 rounded-2xl border-2 border-[#8BC829] space-y-1.5">
+                  <div className="text-[11px] font-black text-[#102919] uppercase tracking-wider">
                     Riwayat Siaran Sesi Ini:
                   </div>
-                  <div className="max-h-28 overflow-y-auto space-y-1 pr-1 divide-y divide-zinc-200/60 text-xs">
+                  <div className="max-h-28 overflow-y-auto space-y-1 pr-1 divide-y divide-[#8BC829]/40 text-xs">
                     {broadcastHistory.map((h) => (
                       <div key={h.id} className="pt-1.5 first:pt-0">
-                        <div className="flex items-center justify-between text-[10px] text-zinc-400 font-mono">
-                          <span className="font-semibold text-zinc-700">[{h.urgency}] {h.time}</span>
+                        <div className="flex items-center justify-between text-[10px] text-[#102919]/70 font-mono font-bold">
+                          <span className="font-black text-[#102919]">[{h.urgency}] {h.time}</span>
                           <span>Oleh: {h.sender}</span>
                         </div>
-                        <p className="text-zinc-800 text-[11px] mt-0.5 line-clamp-2">
+                        <p className="text-[#102919] text-[11px] mt-0.5 line-clamp-2 font-medium">
                           {h.message}
                         </p>
                       </div>
@@ -964,18 +964,18 @@ export default function LiveProctoring() {
               )}
 
               {/* Tombol Aksi */}
-              <div className="flex items-center justify-end gap-2 pt-2 border-t border-zinc-100">
+              <div className="flex items-center justify-end gap-2 pt-2 border-t-2 border-[#8BC829]/40">
                 <button
                   type="button"
                   onClick={() => setIsBroadcastModalOpen(false)}
-                  className="px-3.5 py-2 rounded-lg text-xs font-medium text-zinc-700 hover:bg-zinc-50 transition"
+                  className="px-4 py-2.5 rounded-xl text-xs font-black text-[#102919] bg-[#E2F4B4] hover:bg-[#d6f0a3] border-2 border-[#8BC829] transition cursor-pointer"
                 >
                   Batal
                 </button>
                 <button
                   type="submit"
                   disabled={!broadcastMessage.trim()}
-                  className="px-4 py-2 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-white text-xs font-semibold transition flex items-center gap-1.5 shadow-xs hover:-translate-y-0.5 active:scale-[0.98] disabled:opacity-50"
+                  className="px-5 py-2.5 rounded-xl bg-[#C3E956] hover:bg-[#b8e337] text-[#0A1D11] text-xs font-black transition flex items-center gap-1.5 shadow-sm border-2 border-[#4D7111]/30 cursor-pointer disabled:opacity-50"
                 >
                   <Send className="w-3.5 h-3.5" />
                   <span>Kirim ke Seluruh Siswa</span>
@@ -990,45 +990,45 @@ export default function LiveProctoring() {
       {/* MODAL KONFIRMASI BUKA KUNCI SELURUH SISWA (MASS UNLOCK)   */}
       {/* ======================================================== */}
       {isUnlockAllModalOpen && (
-        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4 animate-fadeIn select-none">
-          <div className="bg-white rounded-xl border border-zinc-200/90 max-w-md w-full p-6 shadow-xl space-y-4 relative">
+        <div className="fixed inset-0 z-50 bg-[#0A1D11]/85 backdrop-blur-md flex items-center justify-center p-4 animate-fadeIn select-none">
+          <div className="bg-[#EFF9CE] rounded-3xl border-2 border-[#8BC829] max-w-md w-full p-6 shadow-2xl space-y-4 relative text-[#102919]">
             <div className="flex items-start gap-3.5">
-              <div className="w-11 h-11 rounded-lg bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-600 shrink-0">
-                <Unlock className="w-5 h-5" />
+              <div className="w-12 h-12 rounded-2xl bg-[#E2F4B4] border-2 border-[#8BC829] flex items-center justify-center text-[#102919] shrink-0">
+                <Unlock className="w-6 h-6" />
               </div>
               <div className="flex-1">
-                <h3 className="text-base font-bold text-zinc-900 tracking-tight">
+                <h3 className="text-base font-black text-[#102919] tracking-tight">
                   Buka Kunci Seluruh Siswa?
                 </h3>
-                <p className="text-xs text-zinc-500 mt-1 leading-relaxed">
-                  Sistem mendeteksi ada <strong className="text-rose-600 font-semibold">{lockedCount} siswa</strong> yang layarnya saat ini terkunci akibat penalti keamanan.
+                <p className="text-xs text-[#102919]/70 mt-1 leading-relaxed font-medium">
+                  Sistem mendeteksi ada <strong className="text-rose-700 font-black">{lockedCount} siswa</strong> yang layarnya saat ini terkunci akibat penalti keamanan.
                 </p>
               </div>
               <button
                 type="button"
                 onClick={() => setIsUnlockAllModalOpen(false)}
-                className="p-1 rounded-md text-zinc-400 hover:text-zinc-600 hover:bg-zinc-100 transition"
+                className="p-1.5 rounded-xl text-[#102919] hover:bg-[#E2F4B4] border border-transparent hover:border-[#8BC829] transition cursor-pointer"
               >
-                <X className="w-4 h-4" />
+                <X className="w-5 h-5" />
               </button>
             </div>
 
-            <div className="bg-zinc-50 border border-zinc-200/80 rounded-lg p-3.5 text-xs text-zinc-600 space-y-2 leading-relaxed">
-              <div className="flex items-center gap-1.5 text-zinc-800 font-semibold">
-                <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+            <div className="bg-[#E2F4B4] border-2 border-[#8BC829] rounded-2xl p-4 text-xs text-[#102919] space-y-2 leading-relaxed">
+              <div className="flex items-center gap-1.5 text-[#102919] font-black">
+                <CheckCircle2 className="w-4 h-4 text-[#1F4B2C]" />
                 <span>Pemulihan Layar Ujian Otomatis</span>
               </div>
-              <p>
+              <p className="font-medium">
                 Dengan menekan tombol konfirmasi di bawah, sinyal buka kunci akan dikirimkan ke seluruh peramban siswa yang terkunci secara serentak. Layar ujian siswa otomatis kembali aktif dalam mode layar penuh (Fullscreen) tanpa perlu dibuka satu per satu.
               </p>
             </div>
 
-            <div className="flex items-center justify-end gap-2.5 pt-2 border-t border-zinc-100">
+            <div className="flex items-center justify-end gap-2.5 pt-2 border-t-2 border-[#8BC829]/40">
               <button
                 type="button"
                 disabled={isUnlockingAll}
                 onClick={() => setIsUnlockAllModalOpen(false)}
-                className="px-3.5 py-2 rounded-lg text-xs font-medium text-zinc-700 hover:bg-zinc-100 transition disabled:opacity-50"
+                className="px-4 py-2.5 rounded-xl text-xs font-black text-[#102919] bg-[#E2F4B4] hover:bg-[#d6f0a3] border-2 border-[#8BC829] transition disabled:opacity-50 cursor-pointer"
               >
                 Batal
               </button>
@@ -1036,16 +1036,16 @@ export default function LiveProctoring() {
                 type="button"
                 disabled={isUnlockingAll}
                 onClick={handleUnlockAll}
-                className="px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold transition flex items-center gap-1.5 shadow-2xs hover:-translate-y-0.5 active:scale-[0.98] disabled:opacity-50"
+                className="px-5 py-2.5 rounded-xl bg-[#C3E956] hover:bg-[#b8e337] text-[#0A1D11] text-xs font-black transition flex items-center gap-1.5 shadow-sm border-2 border-[#4D7111]/30 disabled:opacity-50 cursor-pointer"
               >
                 {isUnlockingAll ? (
                   <>
-                    <RefreshCw className="w-3.5 h-3.5 animate-spin" />
+                    <RefreshCw className="w-4 h-4 animate-spin text-[#0A1D11]" />
                     <span>Membuka Kunci...</span>
                   </>
                 ) : (
                   <>
-                    <Unlock className="w-3.5 h-3.5" />
+                    <Unlock className="w-4 h-4 text-[#0A1D11]" />
                     <span>Ya, Buka Kunci {lockedCount} Siswa</span>
                   </>
                 )}

@@ -432,36 +432,36 @@ export default function ExamSessionSetup() {
         </div>
         <button
           onClick={handleOpenAddSession}
-          className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-2 bg-[#1F4B2C] hover:bg-[#183D23] text-white rounded-xl text-xs font-bold hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-150 shadow-xs shrink-0"
+          className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-[#C3E956] hover:bg-[#b8e337] text-[#0A1D11] rounded-xl text-xs font-black hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-150 shadow-sm border-2 border-[#4D7111]/30 shrink-0 cursor-pointer"
         >
-          <Plus className="w-3.5 h-3.5 text-[#C3E956] stroke-[2.5]" />
+          <Plus className="w-3.5 h-3.5 text-[#0A1D11] stroke-[2.5]" />
           <span>Buka Sesi Ujian Baru</span>
         </button>
       </div>
 
       {/* Mandatory Security Information Panel - SDMIS Forest Brand */}
-      <div className="rounded-2xl bg-gradient-to-r from-[#102919] via-[#143820] to-[#1F4B2C] border border-[#1F4B2C] text-white p-4 sm:p-5 relative overflow-hidden shadow-md">
+      <div className="rounded-3xl bg-gradient-to-r from-[#102919] via-[#143820] to-[#1F4B2C] border-2 border-[#1F4B2C] text-white p-4 sm:p-5 relative overflow-hidden shadow-md">
         <div className="flex items-center justify-between gap-3">
           <div className="flex items-center gap-3 min-w-0">
-            <div className="w-9 h-9 rounded-xl bg-[#0A1D11] border border-[#C3E956]/40 flex items-center justify-center text-[#C3E956] shrink-0">
+            <div className="w-10 h-10 rounded-2xl bg-[#0A1D11] border border-[#C3E956]/40 flex items-center justify-center text-[#C3E956] shrink-0">
               <ShieldCheck className="w-5 h-5" />
             </div>
             <div className="min-w-0">
               <div className="flex items-center gap-2 flex-wrap">
-                <span className="font-bold text-white text-xs sm:text-sm tracking-tight">
+                <span className="font-black text-white text-xs sm:text-sm tracking-tight">
                   Zero-Tolerance Lockdown
                 </span>
-                <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-[#C3E956]/20 text-[#C3E956] border border-[#C3E956]/40 uppercase">
+                <span className="text-[10px] font-mono font-black px-2.5 py-0.5 rounded-full bg-[#C3E956] text-[#0A1D11] uppercase shadow-xs">
                   Mandatory ON
                 </span>
               </div>
-              <p className="text-[11px] text-[#91EAAF] hidden sm:block mt-0.5 leading-relaxed max-w-3xl">
+              <p className="text-[11px] text-[#EFF9CE]/90 hidden sm:block mt-0.5 leading-relaxed max-w-3xl font-medium">
                 Penguncian layar penuh (Mandatory Fullscreen), deteksi pindah tab & aplikasi (Window Blur Guard), serta pemblokiran copy-paste aktif otomatis pada setiap sesi.
               </p>
             </div>
           </div>
           <div className="shrink-0">
-            <span className="text-[11px] font-bold px-2.5 py-1 rounded-lg bg-[#0A1D11]/80 border border-[#C3E956]/40 text-[#C3E956] flex items-center gap-1.5 shadow-2xs">
+            <span className="text-[11px] font-black px-3 py-1.5 rounded-xl bg-[#0A1D11]/80 border border-[#C3E956]/40 text-[#C3E956] flex items-center gap-1.5 shadow-xs">
               <Check className="w-3.5 h-3.5 text-[#C3E956]" />
               <span className="hidden xs:inline">Terproteksi</span>
             </span>
@@ -472,10 +472,10 @@ export default function ExamSessionSetup() {
       {/* Grid Kartu Sesi Ujian Aktif */}
       <div className="space-y-4">
         {examSessions.length === 0 && (
-          <div className="bg-white rounded-2xl p-8 sm:p-12 text-center border border-dashed border-[#91EAAF]/50">
-            <CalendarClock className="w-10 h-10 text-[#91EAAF] mx-auto mb-2.5" />
-            <h4 className="font-bold text-zinc-900 text-base">Belum Ada Sesi Ujian Aktif</h4>
-            <p className="text-xs text-zinc-500 mt-1 max-w-sm mx-auto leading-relaxed">
+          <div className="bg-[#EFF9CE] rounded-3xl p-8 sm:p-12 text-center border-2 border-dashed border-[#8BC829]">
+            <CalendarClock className="w-10 h-10 text-[#8BC829] mx-auto mb-2.5" />
+            <h4 className="font-black text-[#102919] text-base">Belum Ada Sesi Ujian Aktif</h4>
+            <p className="text-xs text-[#102919]/70 mt-1 max-w-sm mx-auto leading-relaxed font-medium">
               Klik tombol "Buka Sesi Ujian Baru" di atas untuk membuka ruang ujian bagi siswa.
             </p>
           </div>
@@ -518,56 +518,56 @@ export default function ExamSessionSetup() {
           return (
             <div
               key={session.id}
-              className="bg-white rounded-2xl p-5 sm:p-6 border border-[#91EAAF]/40 hover:border-[#1F4B2C] shadow-2xs hover:shadow-md transition-all duration-200 space-y-4 border-t-4 border-t-[#1F4B2C]"
+              className="bg-[#EFF9CE] rounded-3xl p-5 sm:p-6 border-2 border-[#8BC829] hover:border-[#102919] shadow-sm hover:shadow-md transition-all duration-200 space-y-4 border-t-4 border-t-[#102919]"
             >
               {/* Baris 1: Header Kartu (Kelas, Tipe Soal, Status Jadwal, & Tombol Aksi) */}
-              <div className="flex items-center justify-between gap-2 border-b border-[#91EAAF]/25 pb-3">
+              <div className="flex items-center justify-between gap-2 border-b-2 border-[#8BC829]/40 pb-3">
                 <div className="flex items-center gap-1.5 flex-wrap">
-                  <span className="text-xs font-mono px-2.5 py-1 rounded-lg font-bold uppercase shadow-2xs bg-[#1F4B2C] text-[#C3E956] border border-[#C3E956]/40" title={session.classroom || session.classroom_name || 'Semua Kelas'}>
+                  <span className="text-xs font-mono px-2.5 py-1 rounded-xl font-black uppercase shadow-xs bg-[#102919] text-[#C3E956] border border-[#C3E956]/40" title={session.classroom || session.classroom_name || 'Semua Kelas'}>
                     {session.classroom || session.classroom_name || (session.allow_all_classes ? 'Semua Kelas' : 'Semua Kelas')}
                   </span>
                   {isGForm ? (
-                    <span className="text-xs font-bold px-2.5 py-1 rounded-lg bg-[#C3E956]/20 text-[#4D7111] border border-[#C3E956]/40 flex items-center gap-1.5 shadow-2xs">
-                      <ExternalLink className="w-3.5 h-3.5 text-[#4D7111] stroke-[2.5]" /> Google Form
+                    <span className="text-xs font-black px-2.5 py-1 rounded-xl bg-[#C3E956] text-[#0A1D11] border border-[#4D7111]/30 flex items-center gap-1.5 shadow-xs">
+                      <ExternalLink className="w-3.5 h-3.5 text-[#0A1D11] stroke-[2.5]" /> Google Form
                     </span>
                   ) : (
-                    <span className="text-xs font-bold px-2.5 py-1 rounded-lg bg-[#E1F8ED] text-[#1F4B2C] border border-[#91EAAF]/60 flex items-center gap-1.5 shadow-2xs">
-                      <BookOpen className="w-3.5 h-3.5 text-[#1F4B2C] stroke-[2.5]" /> Soal Mandiri
+                    <span className="text-xs font-black px-2.5 py-1 rounded-xl bg-[#E2F4B4] text-[#102919] border-2 border-[#8BC829] flex items-center gap-1.5 shadow-xs">
+                      <BookOpen className="w-3.5 h-3.5 text-[#102919] stroke-[2.5]" /> Soal Mandiri
                     </span>
                   )}
-                  <span className="text-xs font-bold px-2.5 py-1 rounded-lg bg-[#F4FFFC] text-zinc-700 border border-[#91EAAF]/40 flex items-center gap-1 shadow-2xs">
-                    <Clock className="w-3.5 h-3.5 text-[#1F4B2C]" />
+                  <span className="text-xs font-bold px-2.5 py-1 rounded-xl bg-[#E2F4B4] text-[#102919] border border-[#8BC829] flex items-center gap-1 shadow-xs">
+                    <Clock className="w-3.5 h-3.5 text-[#102919]" />
                     {session.durationMinutes || session.duration_minutes || 60} Menit
                   </span>
 
                   {/* Status Sinkronisasi Jadwal */}
                   {scheduleStatus === 'ACTIVE' && (
-                    <span className="text-xs font-bold px-2.5 py-1 rounded-lg bg-[#C3E956]/20 text-[#4D7111] border border-[#C3E956]/40 flex items-center gap-1.5 shadow-2xs">
-                      <span className="w-2 h-2 rounded-full bg-[#C3E956] animate-pulse" />
+                    <span className="text-xs font-black px-2.5 py-1 rounded-xl bg-[#C3E956] text-[#0A1D11] border border-[#4D7111]/30 flex items-center gap-1.5 shadow-xs">
+                      <span className="w-2 h-2 rounded-full bg-[#0A1D11] animate-pulse" />
                       Sedang Berjalan
                     </span>
                   )}
                   {scheduleStatus === 'UPCOMING' && (
-                    <span className="text-xs font-bold px-2.5 py-1 rounded-lg bg-amber-50 text-amber-800 border border-amber-300 flex items-center gap-1.5 shadow-2xs">
-                      <Clock className="w-3.5 h-3.5 text-amber-600" />
+                    <span className="text-xs font-black px-2.5 py-1 rounded-xl bg-amber-100 text-amber-950 border-2 border-amber-300 flex items-center gap-1.5 shadow-xs">
+                      <Clock className="w-3.5 h-3.5 text-amber-700" />
                       Belum Dimulai
                     </span>
                   )}
                   {scheduleStatus === 'EXPIRED' && (
-                    <span className="text-xs font-bold px-2.5 py-1 rounded-lg bg-zinc-100 text-zinc-600 border border-zinc-300 flex items-center gap-1.5 shadow-2xs">
-                      <Lock className="w-3.5 h-3.5 text-zinc-500" />
+                    <span className="text-xs font-black px-2.5 py-1 rounded-xl bg-zinc-200 text-zinc-700 border border-zinc-300 flex items-center gap-1.5 shadow-xs">
+                      <Lock className="w-3.5 h-3.5 text-zinc-600" />
                       Telah Berakhir
                     </span>
                   )}
 
                   {(session.shuffleQuestions || session.shuffle_questions) && (
-                    <span className="text-xs font-semibold px-2.5 py-1 rounded-lg bg-zinc-100 text-zinc-700 border border-zinc-200 flex items-center gap-1 shadow-2xs">
-                      <Shuffle className="w-3.5 h-3.5 text-zinc-500" /> Acak Soal
+                    <span className="text-xs font-bold px-2.5 py-1 rounded-xl bg-[#E2F4B4] text-[#102919] border border-[#8BC829] flex items-center gap-1 shadow-xs">
+                      <Shuffle className="w-3.5 h-3.5 text-[#102919]" /> Acak Soal
                     </span>
                   )}
                   {(session.shuffleOptions || session.shuffle_options) && (
-                    <span className="text-xs font-semibold px-2.5 py-1 rounded-lg bg-zinc-100 text-zinc-700 border border-zinc-200 flex items-center gap-1 shadow-2xs">
-                      <Shuffle className="w-3.5 h-3.5 text-zinc-500" /> Acak Opsi
+                    <span className="text-xs font-bold px-2.5 py-1 rounded-xl bg-[#E2F4B4] text-[#102919] border border-[#8BC829] flex items-center gap-1 shadow-xs">
+                      <Shuffle className="w-3.5 h-3.5 text-[#102919]" /> Acak Opsi
                     </span>
                   )}
                 </div>
@@ -576,15 +576,15 @@ export default function ExamSessionSetup() {
                 <div className="flex items-center gap-1.5 shrink-0">
                   <button
                     onClick={() => handleOpenEditSession(session)}
-                    className="px-3 py-1.5 bg-[#F4FFFC] hover:bg-[#E1F8ED] border border-[#91EAAF]/60 text-[#1F4B2C] rounded-lg text-xs font-bold transition flex items-center gap-1.5 shadow-2xs active:scale-[0.98] cursor-pointer"
+                    className="px-3 py-1.5 bg-[#E2F4B4] hover:bg-[#d6f0a3] border-2 border-[#8BC829] text-[#102919] rounded-xl text-xs font-black transition flex items-center gap-1.5 shadow-xs active:scale-[0.98] cursor-pointer"
                     title="Edit Sesi Ujian"
                   >
-                    <Edit3 className="w-3.5 h-3.5 text-[#1F4B2C]" />
+                    <Edit3 className="w-3.5 h-3.5 text-[#102919]" />
                     <span className="hidden sm:inline">Edit</span>
                   </button>
                   <button
                     onClick={() => handleDeleteSession(session.id, session.title)}
-                    className="p-1.5 text-zinc-400 hover:text-rose-600 hover:bg-rose-50 border border-transparent hover:border-rose-200 rounded-lg transition active:scale-[0.98] cursor-pointer"
+                    className="p-2 text-[#102919] hover:text-rose-700 bg-[#E2F4B4] hover:bg-rose-100 border-2 border-[#8BC829] hover:border-rose-300 rounded-xl transition active:scale-[0.98] cursor-pointer"
                     title="Hapus Sesi Ujian"
                   >
                     <Trash2 className="w-3.5 h-3.5" />
@@ -595,15 +595,15 @@ export default function ExamSessionSetup() {
 
               {/* Baris 2: Judul Sesi, Mapel, & Jadwal */}
               <div className="space-y-1.5">
-                <h3 className="font-bold text-zinc-900 text-lg sm:text-xl tracking-tight leading-snug">
+                <h3 className="font-black text-[#102919] text-lg sm:text-xl tracking-tight leading-snug">
                   {session.title}
                 </h3>
-                <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-zinc-600 font-semibold">
+                <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-[#102919]/80 font-bold">
                   <div>
-                    Mata Pelajaran: <span className="text-[#1F4B2C] font-bold">{session.subjectName || session.subject_name || '-'}</span>
+                    Mata Pelajaran: <span className="text-[#102919] font-black">{session.subjectName || session.subject_name || '-'}</span>
                   </div>
-                  <div className="flex items-center gap-1.5 text-zinc-700 font-mono">
-                    <CalendarClock className="w-4 h-4 text-[#1F4B2C] shrink-0" />
+                  <div className="flex items-center gap-1.5 text-[#102919] font-mono">
+                    <CalendarClock className="w-4 h-4 text-[#102919] shrink-0" />
                     <span>{scheduleDisplay}</span>
                   </div>
                 </div>
@@ -612,16 +612,16 @@ export default function ExamSessionSetup() {
               {/* Baris 3: Status Regenerasi 10 Menit & DUO TOKEN TILES */}
               <div className="space-y-2.5 pt-1">
                 {/* Banner Status Regenerasi 10 Menit */}
-                <div className="flex items-center justify-between text-xs px-3.5 py-2 rounded-xl bg-[#F4FFFC] border border-[#91EAAF]/40 text-zinc-700 shadow-2xs">
-                  <span className="flex items-center gap-2 font-medium">
-                    <span className="w-2.5 h-2.5 rounded-full bg-[#C3E956] animate-pulse shrink-0" />
-                    <span className="text-[#1F4B2C] font-bold">Regenerasi Otomatis 10 Menit Aktif</span>
-                    <span className="hidden md:inline text-zinc-500">• Token & PIN otomatis berganti demi keamanan ujian</span>
+                <div className="flex items-center justify-between text-xs px-4 py-2.5 rounded-2xl bg-[#E2F4B4] border-2 border-[#8BC829] text-[#102919] shadow-xs">
+                  <span className="flex items-center gap-2 font-bold">
+                    <span className="w-2.5 h-2.5 rounded-full bg-[#102919] animate-pulse shrink-0" />
+                    <span className="text-[#102919] font-black">Regenerasi Otomatis 10 Menit Aktif</span>
+                    <span className="hidden md:inline text-[#102919]/70">• Token & PIN otomatis berganti demi keamanan ujian</span>
                   </span>
-                  <span className="font-mono text-zinc-600 flex items-center gap-1.5 shrink-0">
-                    <Clock className="w-3.5 h-3.5 text-[#1F4B2C]" />
-                    <span className="hidden xs:inline font-semibold">Berganti:</span>
-                    <strong className="text-[#1F4B2C] bg-white border border-[#91EAAF]/60 px-2 py-0.5 rounded-md font-bold text-xs tabular-nums shadow-2xs">
+                  <span className="font-mono text-[#102919] flex items-center gap-1.5 shrink-0">
+                    <Clock className="w-3.5 h-3.5 text-[#102919]" />
+                    <span className="hidden xs:inline font-bold">Berganti:</span>
+                    <strong className="text-[#102919] bg-[#F9FDEE] border border-[#8BC829] px-2 py-0.5 rounded-md font-black text-xs tabular-nums shadow-xs">
                       {countdownStr}
                     </strong>
                   </span>
@@ -632,33 +632,33 @@ export default function ExamSessionSetup() {
                   <button
                     type="button"
                     onClick={() => handleCopyToken(entryVal, 'entry', session.id)}
-                    className={`p-4 rounded-xl border text-center transition-all duration-150 group relative cursor-pointer active:scale-[0.98] select-none hover:-translate-y-0.5 shadow-xs ${
+                    className={`p-4 rounded-2xl border-2 text-center transition-all duration-150 group relative cursor-pointer active:scale-[0.98] select-none hover:-translate-y-0.5 shadow-xs ${
                       copiedKey === `${session.id}-entry`
-                        ? 'bg-[#E1F8ED] border-[#1F4B2C] ring-2 ring-[#C3E956]'
-                        : 'bg-white hover:bg-[#F4FFFC] border-[#91EAAF]/50 hover:border-[#1F4B2C]'
+                        ? 'bg-[#C3E956] border-[#102919] ring-2 ring-[#102919]'
+                        : 'bg-[#F9FDEE] hover:bg-[#EFF9CE] border-[#8BC829] hover:border-[#102919]'
                     }`}
                     title="Klik untuk menyalin Token Masuk ke keyboard"
                   >
-                    <div className="flex items-center justify-between text-xs font-bold text-zinc-600 mb-1">
-                      <span className="flex items-center gap-1.5 uppercase tracking-wider truncate">
-                        <KeyRound className="w-3.5 h-3.5 text-[#1F4B2C] shrink-0" />
+                    <div className="flex items-center justify-between text-xs font-bold text-[#102919]/80 mb-1">
+                      <span className="flex items-center gap-1.5 uppercase tracking-wider truncate font-black">
+                        <KeyRound className="w-3.5 h-3.5 text-[#102919] shrink-0" />
                         Token Masuk Siswa
                       </span>
-                      <span className="font-mono text-[11px] text-[#1F4B2C] bg-[#E1F8ED] border border-[#91EAAF]/60 px-2 py-0.5 rounded-md flex items-center gap-1 font-bold shrink-0 shadow-2xs" title="Token berganti setiap 10 menit">
-                        <RotateCcw className="w-3 h-3 animate-spin text-[#1F4B2C]" style={{ animationDuration: '6s' }} />
+                      <span className="font-mono text-[11px] text-[#0A1D11] bg-[#C3E956] border border-[#4D7111]/30 px-2 py-0.5 rounded-md flex items-center gap-1 font-black shrink-0 shadow-xs" title="Token berganti setiap 10 menit">
+                        <RotateCcw className="w-3 h-3 animate-spin text-[#0A1D11]" style={{ animationDuration: '6s' }} />
                         <span>{countdownStr}</span>
                       </span>
                     </div>
-                    <div className="font-mono font-black text-xl sm:text-2xl text-[#1F4B2C] tracking-widest truncate py-1.5">
+                    <div className="font-mono font-black text-xl sm:text-2xl text-[#102919] tracking-widest truncate py-1.5">
                       {entryVal}
                     </div>
-                    <div className="text-xs font-semibold mt-1">
+                    <div className="text-xs font-bold mt-1">
                       {copiedKey === `${session.id}-entry` ? (
-                        <span className="text-[#1F4B2C] font-bold flex items-center justify-center gap-1 animate-pulse">
+                        <span className="text-[#0A1D11] font-black flex items-center justify-center gap-1 animate-pulse">
                           <Check className="w-3.5 h-3.5 stroke-[2.5]" /> Tersalin!
                         </span>
                       ) : (
-                        <span className="text-zinc-500 group-hover:text-[#1F4B2C] flex items-center justify-center gap-1">
+                        <span className="text-[#102919]/70 group-hover:text-[#102919] flex items-center justify-center gap-1">
                           <Copy className="w-3 h-3" /> Salin Token • Berganti tiap 10 mnt
                         </span>
                       )}
@@ -669,33 +669,33 @@ export default function ExamSessionSetup() {
                   <button
                     type="button"
                     onClick={() => handleCopyToken(pinVal, 'supervisor', session.id)}
-                    className={`p-4 rounded-xl border text-center transition-all duration-150 group relative cursor-pointer active:scale-[0.98] select-none hover:-translate-y-0.5 shadow-xs ${
+                    className={`p-4 rounded-2xl border-2 text-center transition-all duration-150 group relative cursor-pointer active:scale-[0.98] select-none hover:-translate-y-0.5 shadow-xs ${
                       copiedKey === `${session.id}-supervisor`
-                        ? 'bg-[#E1F8ED] border-[#1F4B2C] ring-2 ring-[#C3E956]'
-                        : 'bg-[#F4FFFC] hover:bg-[#E1F8ED]/60 border-[#C3E956]/60 hover:border-[#4D7111]'
+                        ? 'bg-[#C3E956] border-[#102919] ring-2 ring-[#102919]'
+                        : 'bg-[#F9FDEE] hover:bg-[#EFF9CE] border-[#8BC829] hover:border-[#102919]'
                     }`}
                     title="Klik untuk menyalin PIN Pengawas ke keyboard"
                   >
-                    <div className="flex items-center justify-between text-xs font-bold text-[#4D7111] mb-1">
-                      <span className="flex items-center gap-1.5 uppercase tracking-wider truncate">
-                        <ShieldCheck className="w-3.5 h-3.5 text-[#4D7111] shrink-0" />
+                    <div className="flex items-center justify-between text-xs font-bold text-[#102919]/80 mb-1">
+                      <span className="flex items-center gap-1.5 uppercase tracking-wider truncate font-black">
+                        <ShieldCheck className="w-3.5 h-3.5 text-[#102919] shrink-0" />
                         PIN Buka Kunci Pengawas
                       </span>
-                      <span className="font-mono text-[11px] text-[#4D7111] bg-[#C3E956]/30 border border-[#C3E956]/50 px-2 py-0.5 rounded-md flex items-center gap-1 font-bold shrink-0 shadow-2xs" title="PIN berganti setiap 10 menit">
-                        <RotateCcw className="w-3 h-3 animate-spin text-[#4D7111]" style={{ animationDuration: '6s' }} />
+                      <span className="font-mono text-[11px] text-[#0A1D11] bg-[#C3E956] border border-[#4D7111]/30 px-2 py-0.5 rounded-md flex items-center gap-1 font-black shrink-0 shadow-xs" title="PIN berganti setiap 10 menit">
+                        <RotateCcw className="w-3 h-3 animate-spin text-[#0A1D11]" style={{ animationDuration: '6s' }} />
                         <span>{countdownStr}</span>
                       </span>
                     </div>
-                    <div className="font-mono font-black text-xl sm:text-2xl text-[#1F4B2C] tracking-widest truncate py-1.5">
+                    <div className="font-mono font-black text-xl sm:text-2xl text-[#102919] tracking-widest truncate py-1.5">
                       {pinVal}
                     </div>
-                    <div className="text-xs font-semibold mt-1">
+                    <div className="text-xs font-bold mt-1">
                       {copiedKey === `${session.id}-supervisor` ? (
-                        <span className="text-[#1F4B2C] font-bold flex items-center justify-center gap-1 animate-pulse">
+                        <span className="text-[#0A1D11] font-black flex items-center justify-center gap-1 animate-pulse">
                           <Check className="w-3.5 h-3.5 stroke-[2.5]" /> Tersalin!
                         </span>
                       ) : (
-                        <span className="text-[#4D7111] group-hover:text-[#1F4B2C] flex items-center justify-center gap-1">
+                        <span className="text-[#102919]/70 group-hover:text-[#102919] flex items-center justify-center gap-1">
                           <Copy className="w-3 h-3" /> Salin PIN • Berganti tiap 10 mnt
                         </span>
                       )}
@@ -742,20 +742,20 @@ export default function ExamSessionSetup() {
           </div>
 
           {/* PILIH KELAS PESERTA (BISA BEBERAPA ATAU SEMUA KELAS) */}
-          <div className="space-y-2 bg-zinc-50/90 p-3 sm:p-4 rounded-xl border border-zinc-200">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 pb-2 border-b border-zinc-200/80">
-              <label className="text-xs font-bold text-zinc-900 flex items-center gap-1.5">
-                <Users className="w-3.5 h-3.5 text-blue-600" />
+          <div className="space-y-2 bg-[#E2F4B4] p-3.5 sm:p-4 rounded-2xl border-2 border-[#8BC829]">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 pb-2 border-b-2 border-[#8BC829]/30">
+              <label className="text-xs font-black text-[#102919] flex items-center gap-1.5">
+                <Users className="w-3.5 h-3.5 text-[#1F4B2C]" />
                 Pilih Kelas Peserta Ujian:
               </label>
               <div className="flex items-center gap-2 flex-wrap">
                 <button
                   type="button"
                   onClick={handleToggleAllClasses}
-                  className={`text-[11px] font-semibold px-2 py-0.5 rounded transition-all active:scale-95 ${
+                  className={`text-[11px] font-black px-2.5 py-1 rounded-xl transition-all cursor-pointer ${
                     allowAllClasses 
-                      ? 'bg-purple-100 text-purple-900 border border-purple-300 ring-1 ring-purple-300' 
-                      : 'bg-white hover:bg-zinc-100 text-blue-700 border border-zinc-200 shadow-2xs'
+                      ? 'bg-[#102919] text-[#C3E956] border-2 border-[#102919]' 
+                      : 'bg-[#EFF9CE] hover:bg-[#d6f0a3] text-[#102919] border-2 border-[#8BC829]'
                   }`}
                 >
                   {allowAllClasses ? '✓ Mode Semua Kelas Aktif' : 'Pilih Semua Kelas'}
@@ -765,15 +765,15 @@ export default function ExamSessionSetup() {
                     <button
                       type="button"
                       onClick={handleSelectAllIndividual}
-                      className="text-[11px] text-zinc-600 hover:text-zinc-900 underline"
+                      className="text-[11px] text-[#102919] hover:underline font-bold cursor-pointer"
                     >
                       Centang Semua
                     </button>
-                    <span className="text-zinc-300">•</span>
+                    <span className="text-[#8BC829]">•</span>
                     <button
                       type="button"
                       onClick={handleDeselectAll}
-                      className="text-[11px] text-zinc-500 hover:text-rose-600 underline"
+                      className="text-[11px] text-rose-700 hover:underline font-bold cursor-pointer"
                     >
                       Bersihkan
                     </button>
@@ -785,10 +785,10 @@ export default function ExamSessionSetup() {
             {/* Tombol Opsi Cepat: Semua Kelas */}
             <div
               onClick={handleToggleAllClasses}
-              className={`p-2.5 rounded-lg border transition-all cursor-pointer flex items-center justify-between select-none ${
+              className={`p-3 rounded-xl border-2 transition-all cursor-pointer flex items-center justify-between select-none ${
                 allowAllClasses
-                  ? 'bg-purple-50/90 border-purple-400 ring-2 ring-purple-300/60 shadow-2xs'
-                  : 'bg-white border-zinc-200 hover:border-zinc-300'
+                  ? 'bg-[#C3E956] border-[#4D7111] ring-2 ring-[#4D7111]/30 shadow-2xs'
+                  : 'bg-[#EFF9CE] border-[#8BC829] hover:bg-[#d6f0a3]'
               }`}
             >
               <div className="flex items-center gap-2">
@@ -796,19 +796,19 @@ export default function ExamSessionSetup() {
                   type="checkbox"
                   checked={allowAllClasses}
                   onChange={handleToggleAllClasses}
-                  className="w-4 h-4 rounded text-purple-600 focus:ring-purple-500 cursor-pointer"
+                  className="w-4 h-4 rounded text-[#1F4B2C] focus:ring-0 cursor-pointer"
                 />
                 <div>
-                  <div className="text-xs font-bold text-zinc-900">
+                  <div className="text-xs font-black text-[#102919]">
                     🌟 Buka untuk Semua Kelas (Seluruh Siswa Sekolah)
                   </div>
-                  <div className="text-[10px] text-zinc-500">
+                  <div className="text-[10px] text-[#102919]/70 font-medium">
                     Siswa dari seluruh kelas terdaftar dapat mengakses dan mengerjakan sesi ini.
                   </div>
                 </div>
               </div>
-              <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
-                allowAllClasses ? 'bg-purple-600 text-white' : 'bg-zinc-100 text-zinc-600'
+              <span className={`text-[10px] font-black px-2.5 py-0.5 rounded-xl border ${
+                allowAllClasses ? 'bg-[#102919] text-[#C3E956] border-[#102919]' : 'bg-[#E2F4B4] text-[#102919] border-[#8BC829]'
               }`}>
                 Semua Kelas
               </span>
@@ -816,21 +816,21 @@ export default function ExamSessionSetup() {
 
             {/* Grid Checkbox Kelas Spesifik (Multi-Select) */}
             <div className="pt-1">
-              <div className="text-[11px] font-medium text-zinc-500 mb-1.5 flex items-center justify-between">
+              <div className="text-[11px] font-black text-[#102919] mb-1.5 flex items-center justify-between">
                 <span>Atau pilih satu / beberapa kelas di bawah:</span>
-                <span className="text-[10px] text-zinc-400">({classroomsList.length} kelas tersedia)</span>
+                <span className="text-[10px] text-[#102919]/60 font-bold">({classroomsList.length} kelas tersedia)</span>
               </div>
               {classroomsList.length > 0 ? (
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5 max-h-40 overflow-y-auto p-1.5 bg-white rounded-lg border border-zinc-200">
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5 max-h-40 overflow-y-auto p-2 bg-[#F9FDEE] rounded-xl border-2 border-[#8BC829]">
                   {classroomsList.map((c) => {
                     const isChecked = allowAllClasses || selectedClassroomIds.some((id) => String(id) === String(c.id));
                     return (
                       <label
                         key={c.id}
-                        className={`flex items-center gap-2 px-2.5 py-1.5 rounded-md border text-xs font-semibold cursor-pointer transition-all select-none ${
+                        className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg border text-xs font-bold cursor-pointer transition-all select-none ${
                           isChecked
-                            ? 'bg-blue-50 border-blue-400 text-blue-900 shadow-2xs'
-                            : 'bg-zinc-50/50 border-zinc-200/80 text-zinc-700 hover:bg-zinc-100/80'
+                            ? 'bg-[#C3E956] border-[#4D7111] text-[#0A1D11] shadow-2xs'
+                            : 'bg-[#EFF9CE] border-[#8BC829] text-[#102919] hover:bg-[#E2F4B4]'
                         }`}
                       >
                         <input
@@ -838,7 +838,7 @@ export default function ExamSessionSetup() {
                           checked={isChecked}
                           disabled={allowAllClasses}
                           onChange={() => handleToggleClassroom(c.id)}
-                          className="w-3.5 h-3.5 rounded text-blue-600 focus:ring-blue-500 cursor-pointer"
+                          className="w-3.5 h-3.5 rounded text-[#1F4B2C] focus:ring-0 cursor-pointer"
                         />
                         <span className="truncate">{c.name}</span>
                       </label>
@@ -846,17 +846,17 @@ export default function ExamSessionSetup() {
                   })}
                 </div>
               ) : (
-                <div className="p-2.5 text-xs text-zinc-500 italic bg-white rounded border border-zinc-200">
+                <div className="p-2.5 text-xs text-[#102919]/60 italic bg-[#EFF9CE] rounded-xl border border-[#8BC829]">
                   Belum ada data kelas di sistem. Silakan tambah data kelas di menu Data Kelas / Rombel.
                 </div>
               )}
             </div>
 
             {/* Ringkasan Kelas Terpilih */}
-            <div className="text-[11px] pt-1 flex items-center justify-between text-zinc-600 bg-white/60 px-2.5 py-1.5 rounded border border-zinc-200/60">
-              <span className="font-medium text-zinc-500">Kelas Terpilih:</span>
-              <span className={`font-bold truncate max-w-[260px] sm:max-w-md text-right ${
-                allowAllClasses ? 'text-purple-700' : selectedClassroomIds.length > 0 ? 'text-blue-700' : 'text-rose-600'
+            <div className="text-[11px] pt-1 flex items-center justify-between text-[#102919] bg-[#EFF9CE] px-3 py-1.5 rounded-xl border border-[#8BC829]">
+              <span className="font-black text-[#102919]/70">Kelas Terpilih:</span>
+              <span className={`font-black truncate max-w-[260px] sm:max-w-md text-right ${
+                allowAllClasses ? 'text-[#1F4B2C]' : selectedClassroomIds.length > 0 ? 'text-[#102919]' : 'text-rose-700'
               }`}>
                 {getSelectedClassroomNames()}
               </span>
@@ -865,7 +865,7 @@ export default function ExamSessionSetup() {
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <div className="sm:col-span-2">
-              <label className="block text-xs font-semibold text-zinc-700 mb-1">
+              <label className="block text-xs font-black text-[#102919] uppercase tracking-wider mb-1">
                 Judul Sesi Ujian:
               </label>
               <input
@@ -874,12 +874,12 @@ export default function ExamSessionSetup() {
                 value={sessionTitle}
                 onChange={(e) => setSessionTitle(e.target.value)}
                 placeholder="Contoh: PH Pewarisan Sifat Kelas IX"
-                className="w-full px-3 py-2 border border-zinc-200 rounded-lg text-xs sm:text-sm font-medium focus:outline-none focus:border-zinc-400"
+                className="w-full px-3 py-2 border-2 border-[#8BC829] rounded-xl text-xs sm:text-sm font-bold bg-[#F9FDEE] text-[#102919] placeholder-[#102919]/40 focus:bg-[#EFF9CE] focus:outline-none focus:border-[#102919]"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-zinc-700 mb-1">
+              <label className="block text-xs font-black text-[#102919] uppercase tracking-wider mb-1">
                 Durasi Ujian (Menit):
               </label>
               <input
@@ -889,22 +889,22 @@ export default function ExamSessionSetup() {
                 required
                 value={durationMinutes}
                 onChange={(e) => setDurationMinutes(e.target.value)}
-                className="w-full px-3 py-2 border border-zinc-200 rounded-lg text-xs sm:text-sm font-medium focus:outline-none focus:border-zinc-400"
+                className="w-full px-3 py-2 border-2 border-[#8BC829] rounded-xl text-xs sm:text-sm font-bold bg-[#F9FDEE] text-[#102919] focus:bg-[#EFF9CE] focus:outline-none focus:border-[#102919]"
               />
             </div>
           </div>
 
           {/* Rentang Tanggal & Waktu Mulai serta Berakhir */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 p-3.5 bg-zinc-50 rounded-lg border border-zinc-200">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 p-3.5 bg-[#E2F4B4] rounded-2xl border-2 border-[#8BC829]">
             {/* 1. Jadwal Mulai Ujian */}
             <div className="space-y-2">
-              <div className="text-[11px] font-semibold uppercase text-zinc-700 tracking-wider flex items-center gap-1.5">
-                <CalendarClock className="w-3.5 h-3.5 text-zinc-500" />
+              <div className="text-[11px] font-black uppercase text-[#102919] tracking-wider flex items-center gap-1.5">
+                <CalendarClock className="w-3.5 h-3.5 text-[#1F4B2C]" />
                 <span>Jadwal Mulai Ujian</span>
               </div>
               <div className="grid grid-cols-2 gap-2">
                 <div>
-                  <label className="block text-[10px] font-medium text-zinc-500 uppercase tracking-wider mb-1">
+                  <label className="block text-[10px] font-black text-[#102919]/70 uppercase tracking-wider mb-1">
                     Tanggal Mulai:
                   </label>
                   <input
@@ -912,11 +912,11 @@ export default function ExamSessionSetup() {
                     required
                     value={startDate}
                     onChange={(e) => setStartDate(e.target.value)}
-                    className="w-full px-2.5 py-1.5 border border-zinc-200 rounded-md text-xs font-medium focus:outline-none focus:border-zinc-400 bg-white"
+                    className="w-full px-2.5 py-1.5 border border-[#8BC829] rounded-xl text-xs font-bold text-[#102919] focus:outline-none focus:border-[#102919] bg-[#F9FDEE]"
                   />
                 </div>
                 <div>
-                  <label className="block text-[10px] font-medium text-zinc-500 uppercase tracking-wider mb-1">
+                  <label className="block text-[10px] font-black text-[#102919]/70 uppercase tracking-wider mb-1">
                     Waktu Mulai:
                   </label>
                   <input
@@ -924,7 +924,7 @@ export default function ExamSessionSetup() {
                     required
                     value={startTime}
                     onChange={(e) => setStartTime(e.target.value)}
-                    className="w-full px-2.5 py-1.5 border border-zinc-200 rounded-md text-xs font-medium focus:outline-none focus:border-zinc-400 bg-white"
+                    className="w-full px-2.5 py-1.5 border border-[#8BC829] rounded-xl text-xs font-bold text-[#102919] focus:outline-none focus:border-[#102919] bg-[#F9FDEE]"
                   />
                 </div>
               </div>
@@ -932,13 +932,13 @@ export default function ExamSessionSetup() {
 
             {/* 2. Jadwal Berakhir Ujian */}
             <div className="space-y-2">
-              <div className="text-[11px] font-semibold uppercase text-rose-700 tracking-wider flex items-center gap-1.5">
+              <div className="text-[11px] font-black uppercase text-rose-800 tracking-wider flex items-center gap-1.5">
                 <Clock className="w-3.5 h-3.5 text-rose-600" />
                 <span>Jadwal Berakhir Ujian</span>
               </div>
               <div className="grid grid-cols-2 gap-2">
                 <div>
-                  <label className="block text-[10px] font-medium text-zinc-500 uppercase tracking-wider mb-1">
+                  <label className="block text-[10px] font-black text-[#102919]/70 uppercase tracking-wider mb-1">
                     Tanggal Berakhir:
                   </label>
                   <input
@@ -946,11 +946,11 @@ export default function ExamSessionSetup() {
                     required
                     value={endDate}
                     onChange={(e) => setEndDate(e.target.value)}
-                    className="w-full px-2.5 py-1.5 border border-zinc-200 rounded-md text-xs font-medium focus:outline-none focus:border-zinc-400 bg-white"
+                    className="w-full px-2.5 py-1.5 border border-[#8BC829] rounded-xl text-xs font-bold text-[#102919] focus:outline-none focus:border-[#102919] bg-[#F9FDEE]"
                   />
                 </div>
                 <div>
-                  <label className="block text-[10px] font-medium text-zinc-500 uppercase tracking-wider mb-1">
+                  <label className="block text-[10px] font-black text-[#102919]/70 uppercase tracking-wider mb-1">
                     Waktu Berakhir:
                   </label>
                   <input
@@ -958,7 +958,7 @@ export default function ExamSessionSetup() {
                     required
                     value={endTime}
                     onChange={(e) => setEndTime(e.target.value)}
-                    className="w-full px-2.5 py-1.5 border border-zinc-200 rounded-md text-xs font-medium focus:outline-none focus:border-zinc-400 bg-white"
+                    className="w-full px-2.5 py-1.5 border border-[#8BC829] rounded-xl text-xs font-bold text-[#102919] focus:outline-none focus:border-[#102919] bg-[#F9FDEE]"
                   />
                 </div>
               </div>
@@ -967,15 +967,15 @@ export default function ExamSessionSetup() {
 
           {/* Konfigurasi Password Masuk & PIN Pengawas */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1">
-            <div className="p-3 rounded-lg bg-zinc-50 border border-zinc-200 space-y-1.5">
+            <div className="p-3 rounded-2xl bg-[#E2F4B4] border-2 border-[#8BC829] space-y-1.5">
               <div className="flex items-center justify-between">
-                <label className="text-[11px] font-semibold text-zinc-800 uppercase tracking-wider flex items-center gap-1">
-                  <KeyRound className="w-3 h-3 text-zinc-500" /> Password Masuk (Token)
+                <label className="text-[11px] font-black text-[#102919] uppercase tracking-wider flex items-center gap-1">
+                  <KeyRound className="w-3 h-3 text-[#1F4B2C]" /> Password Masuk (Token)
                 </label>
                 <button
                   type="button"
                   onClick={handleGenerateEntryPassword}
-                  className="text-[10px] text-zinc-600 hover:text-zinc-900 font-medium flex items-center gap-0.5"
+                  className="text-[10px] text-[#102919] hover:text-[#4D7111] font-black flex items-center gap-0.5 cursor-pointer"
                 >
                   <Shuffle className="w-2.5 h-2.5" /> Acak
                 </button>
@@ -985,20 +985,20 @@ export default function ExamSessionSetup() {
                 required
                 value={entryPassword}
                 onChange={(e) => setEntryPassword(e.target.value.toUpperCase())}
-                className="w-full px-2.5 py-1.5 border border-zinc-200 rounded-md text-xs font-mono font-bold tracking-wider text-zinc-900 bg-white uppercase text-center"
+                className="w-full px-2.5 py-1.5 border-2 border-[#8BC829] rounded-xl text-xs font-mono font-black tracking-wider text-[#102919] bg-[#F9FDEE] uppercase text-center focus:bg-[#EFF9CE] focus:outline-none focus:border-[#102919]"
               />
-              <span className="text-[10px] text-zinc-400 block">Diberikan ke siswa untuk memulai ujian</span>
+              <span className="text-[10px] text-[#102919]/70 font-bold block">Diberikan ke siswa untuk memulai ujian</span>
             </div>
 
-            <div className="p-3 rounded-lg bg-amber-50/50 border border-amber-200 space-y-1.5">
+            <div className="p-3 rounded-2xl bg-[#E2F4B4] border-2 border-[#8BC829] space-y-1.5">
               <div className="flex items-center justify-between">
-                <label className="text-[11px] font-semibold text-amber-900 uppercase tracking-wider flex items-center gap-1">
-                  <ShieldCheck className="w-3 h-3 text-amber-600" /> PIN Pengawas Ruangan
+                <label className="text-[11px] font-black text-amber-900 uppercase tracking-wider flex items-center gap-1">
+                  <ShieldCheck className="w-3 h-3 text-amber-700" /> PIN Pengawas Ruangan
                 </label>
                 <button
                   type="button"
                   onClick={handleGenerateSupervisorPin}
-                  className="text-[10px] text-amber-700 hover:text-amber-900 font-medium flex items-center gap-0.5"
+                  className="text-[10px] text-amber-800 hover:text-amber-950 font-black flex items-center gap-0.5 cursor-pointer"
                 >
                   <Shuffle className="w-2.5 h-2.5" /> Acak
                 </button>
@@ -1008,56 +1008,56 @@ export default function ExamSessionSetup() {
                 required
                 value={supervisorPin}
                 onChange={(e) => setSupervisorPin(e.target.value.toUpperCase())}
-                className="w-full px-2.5 py-1.5 border border-amber-200 rounded-md text-xs font-mono font-bold tracking-wider text-amber-950 bg-white uppercase text-center"
+                className="w-full px-2.5 py-1.5 border-2 border-amber-400 rounded-xl text-xs font-mono font-black tracking-wider text-amber-950 bg-[#F9FDEE] uppercase text-center focus:bg-[#EFF9CE] focus:outline-none focus:border-[#102919]"
               />
-              <span className="text-[10px] text-zinc-400 block">Dipegang guru untuk membuka layar siswa yang terkunci</span>
+              <span className="text-[10px] text-[#102919]/70 font-bold block">Dipegang guru untuk membuka layar siswa yang terkunci</span>
             </div>
 
             {/* Kotak Informasi Regenerasi Otomatis 10 Menit */}
-            <div className="p-3 rounded-lg bg-emerald-50/70 border border-emerald-200/80 col-span-1 sm:col-span-2 text-[11px] text-emerald-900 space-y-1">
-              <div className="font-semibold flex items-center gap-1.5 text-emerald-950">
-                <RotateCcw className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+            <div className="p-3 rounded-2xl bg-[#EFF9CE] border-2 border-[#8BC829] col-span-1 sm:col-span-2 text-[11px] text-[#102919] space-y-1">
+              <div className="font-black flex items-center gap-1.5 text-[#102919]">
+                <RotateCcw className="w-3.5 h-3.5 text-[#1F4B2C] shrink-0" />
                 <span>Fitur Keamanan Aktif: Regenerasi Token Otomatis Setiap 10 Menit</span>
               </div>
-              <p className="text-emerald-700 leading-relaxed text-[10.5px]">
+              <p className="text-[#102919]/80 font-medium leading-relaxed text-[10.5px]">
                 Sistem E-Ujian Pro secara otomatis me-regenerate Token Masuk Siswa dan PIN Pengawas menjadi kode baru setiap 10 menit saat asesmen berjalan. Siswa tidak dapat menggunakan token lama berulang kali dan harus meminta token terbaru kepada pengawas ruangan.
               </p>
             </div>
           </div>
 
           {/* Pengacakan Soal & Opsi Jawaban (Standar Ujian Anti-Contek) */}
-          <div className="p-3.5 rounded-lg bg-zinc-50 border border-zinc-200 space-y-2">
-            <div className="text-xs font-semibold uppercase text-zinc-800 tracking-wider flex items-center gap-1.5">
-              <Shuffle className="w-3.5 h-3.5 text-zinc-500" />
+          <div className="p-3.5 rounded-2xl bg-[#E2F4B4] border-2 border-[#8BC829] space-y-2">
+            <div className="text-xs font-black uppercase text-[#102919] tracking-wider flex items-center gap-1.5">
+              <Shuffle className="w-3.5 h-3.5 text-[#1F4B2C]" />
               <span>Pengacakan Butir Soal & Pilihan Jawaban (Anti-Sontek)</span>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
-              <label className="flex items-start gap-2.5 p-2.5 rounded-md bg-white border border-zinc-200 cursor-pointer hover:border-zinc-300 transition">
+              <label className="flex items-start gap-2.5 p-2.5 rounded-xl bg-[#EFF9CE] border border-[#8BC829] cursor-pointer hover:bg-[#d6f0a3] transition">
                 <input
                   type="checkbox"
                   checked={shuffleQuestions}
                   onChange={(e) => setShuffleQuestions(e.target.checked)}
-                  className="mt-0.5 w-4 h-4 rounded text-zinc-900 accent-zinc-900 cursor-pointer"
+                  className="mt-0.5 w-4 h-4 rounded text-[#1F4B2C] accent-[#1F4B2C] cursor-pointer"
                 />
                 <div>
-                  <span className="font-semibold text-zinc-800 block">Acak Urutan Butir Soal</span>
-                  <span className="text-[11px] text-zinc-500 block leading-tight">
+                  <span className="font-black text-[#102919] block">Acak Urutan Butir Soal</span>
+                  <span className="text-[11px] text-[#102919]/70 block leading-tight font-medium">
                     Nomor 1 siswa A berbeda dengan nomor 1 siswa B.
                   </span>
                 </div>
               </label>
 
-              <label className="flex items-start gap-2.5 p-2.5 rounded-md bg-white border border-zinc-200 cursor-pointer hover:border-zinc-300 transition">
+              <label className="flex items-start gap-2.5 p-2.5 rounded-xl bg-[#EFF9CE] border border-[#8BC829] cursor-pointer hover:bg-[#d6f0a3] transition">
                 <input
                   type="checkbox"
                   checked={shuffleOptions}
                   onChange={(e) => setShuffleOptions(e.target.checked)}
-                  className="mt-0.5 w-4 h-4 rounded text-zinc-900 accent-zinc-900 cursor-pointer"
+                  className="mt-0.5 w-4 h-4 rounded text-[#1F4B2C] accent-[#1F4B2C] cursor-pointer"
                 />
                 <div>
-                  <span className="font-semibold text-zinc-800 block">Acak Urutan Pilihan (A-E)</span>
-                  <span className="text-[11px] text-zinc-500 block leading-tight">
+                  <span className="font-black text-[#102919] block">Acak Urutan Pilihan (A-E)</span>
+                  <span className="text-[11px] text-[#102919]/70 block leading-tight font-medium">
                     Posisi opsi A, B, C, D diacak posisinya antar siswa.
                   </span>
                 </div>
@@ -1065,17 +1065,17 @@ export default function ExamSessionSetup() {
             </div>
           </div>
 
-          <div className="flex items-center justify-end gap-2 pt-3 border-t border-zinc-100">
+          <div className="flex items-center justify-end gap-2 pt-3 border-t-2 border-[#8BC829]/30">
             <button
               type="button"
               onClick={() => setIsModalOpen(false)}
-              className="px-3.5 py-2 border border-zinc-200 rounded-lg text-xs font-medium text-zinc-700 hover:bg-zinc-50 transition"
+              className="px-3.5 py-2 border-2 border-[#8BC829] rounded-xl text-xs font-black text-[#102919] bg-[#E2F4B4] hover:bg-[#d6f0a3] transition cursor-pointer"
             >
               Batal
             </button>
             <button
               type="submit"
-              className="px-4 py-2 bg-zinc-900 hover:bg-zinc-800 active:scale-[0.98] text-white rounded-lg text-xs font-semibold shadow-xs transition hover:-translate-y-0.5"
+              className="px-4 py-2 bg-[#C3E956] hover:bg-[#b8e337] active:scale-[0.98] text-[#0A1D11] rounded-xl text-xs font-black border-2 border-[#4D7111]/30 shadow-xs transition hover:-translate-y-0.5 cursor-pointer"
             >
               {isEditing ? 'Simpan Perubahan' : 'Buka Sesi Ujian'}
             </button>

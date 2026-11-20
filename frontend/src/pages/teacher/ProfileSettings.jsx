@@ -293,15 +293,15 @@ export default function ProfileSettings() {
           {/* Kolom 1 & 2: Informasi Data Diri & Ganti Sandi */}
           <div className="lg:col-span-2 space-y-6">
             {/* Card 1: Biodata Diri & Kontak */}
-            <div className="bg-white rounded-3xl border border-[#91EAAF]/40 shadow-xs overflow-hidden p-6 space-y-5">
-              <div className="flex items-center justify-between border-b border-[#91EAAF]/30 pb-4">
+            <div className="bg-[#EFF9CE] rounded-3xl border-2 border-[#8BC829] shadow-xs overflow-hidden p-6 space-y-5">
+              <div className="flex items-center justify-between border-b-2 border-[#8BC829]/30 pb-4">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-[#E1F8ED] border border-[#91EAAF]/60 text-[#1F4B2C] flex items-center justify-center shadow-2xs">
-                    <UserCheck className="w-5 h-5" />
+                  <div className="w-10 h-10 rounded-xl bg-[#E2F4B4] border-2 border-[#8BC829] text-[#102919] flex items-center justify-center shadow-2xs">
+                    <UserCheck className="w-5 h-5 text-[#1F4B2C]" />
                   </div>
                   <div>
-                    <h2 className="text-base font-bold text-[#102919]">Informasi Data Diri Pengawas</h2>
-                    <p className="text-xs text-zinc-500">Data resmi yang dicantumkan pada E-Jurnal & Berita Acara Asesmen</p>
+                    <h2 className="text-base font-black text-[#102919]">Informasi Data Diri Pengawas</h2>
+                    <p className="text-xs text-[#102919]/70 font-medium">Data resmi yang dicantumkan pada E-Jurnal & Berita Acara Asesmen</p>
                   </div>
                 </div>
               </div>
@@ -309,8 +309,8 @@ export default function ProfileSettings() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {/* Nama Lengkap & Gelar */}
                 <div className="sm:col-span-2 space-y-1.5">
-                  <label className="block text-xs font-bold text-zinc-800">
-                    Nama Lengkap & Gelar Akademik <span className="text-rose-500">*</span>
+                  <label className="block text-xs font-black text-[#102919]">
+                    Nama Lengkap & Gelar Akademik <span className="text-rose-600">*</span>
                   </label>
                   <input
                     type="text"
@@ -319,15 +319,15 @@ export default function ProfileSettings() {
                     onChange={handleChange}
                     placeholder="Contoh: Supeni, S.Pd"
                     required
-                    className="w-full px-4 py-2.5 bg-[#F4FFFC] rounded-xl border border-[#91EAAF]/70 text-xs sm:text-sm font-semibold text-zinc-900 focus:bg-white focus:ring-2 focus:ring-[#91EAAF]/50 focus:border-[#1F4B2C] outline-none transition"
+                    className="w-full px-4 py-2.5 bg-[#F9FDEE] rounded-xl border-2 border-[#8BC829] text-xs sm:text-sm font-bold text-[#102919] focus:bg-[#EFF9CE] focus:outline-none focus:border-[#102919] outline-none transition"
                   />
-                  <p className="text-[11px] text-zinc-400">Dicantumkan pada Tanda Tangan digital Guru Pengawas.</p>
+                  <p className="text-[11px] text-[#102919]/70 font-medium">Dicantumkan pada Tanda Tangan digital Guru Pengawas.</p>
                 </div>
 
                 {/* Username / NIP */}
                 <div className="space-y-1.5">
-                  <label className="block text-xs font-bold text-zinc-800">
-                    Nomor Induk Pegawai (NIP / Username) <span className="text-rose-500">*</span>
+                  <label className="block text-xs font-black text-[#102919]">
+                    Nomor Induk Pegawai (NIP / Username) <span className="text-rose-600">*</span>
                   </label>
                   <input
                     type="text"
@@ -336,15 +336,15 @@ export default function ProfileSettings() {
                     onChange={handleChange}
                     placeholder="Contoh: 198005122005012001"
                     required
-                    className="w-full px-4 py-2.5 bg-[#F4FFFC] rounded-xl border border-[#91EAAF]/70 text-xs sm:text-sm font-mono font-bold text-[#102919] focus:bg-white focus:ring-2 focus:ring-[#91EAAF]/50 focus:border-[#1F4B2C] outline-none transition"
+                    className="w-full px-4 py-2.5 bg-[#F9FDEE] rounded-xl border-2 border-[#8BC829] text-xs sm:text-sm font-mono font-black text-[#102919] focus:bg-[#EFF9CE] focus:outline-none focus:border-[#102919] outline-none transition"
                   />
-                  <p className="text-[11px] text-zinc-400">Digunakan sebagai username saat login.</p>
+                  <p className="text-[11px] text-[#102919]/70 font-medium">Digunakan sebagai username saat login.</p>
                 </div>
 
                 {/* Alamat Email */}
                 <div className="space-y-1.5">
-                  <label className="block text-xs font-bold text-zinc-800">
-                    Alamat Email Resmi Sekolah <span className="text-rose-500">*</span>
+                  <label className="block text-xs font-black text-[#102919]">
+                    Alamat Email Resmi Sekolah <span className="text-rose-600">*</span>
                   </label>
                   <div className="relative">
                     <input
@@ -353,25 +353,25 @@ export default function ProfileSettings() {
                       value={formData.email}
                       onChange={handleChange}
                       placeholder="Contoh: guru@sdmis.sch.id"
-                      className="w-full pl-10 pr-4 py-2.5 bg-[#F4FFFC] rounded-xl border border-[#91EAAF]/70 text-xs sm:text-sm font-semibold text-zinc-900 focus:bg-white focus:ring-2 focus:ring-[#91EAAF]/50 focus:border-[#1F4B2C] outline-none transition"
+                      className="w-full pl-10 pr-4 py-2.5 bg-[#F9FDEE] rounded-xl border-2 border-[#8BC829] text-xs sm:text-sm font-bold text-[#102919] focus:bg-[#EFF9CE] focus:outline-none focus:border-[#102919] outline-none transition"
                     />
                     <Mail className="w-4 h-4 text-[#1F4B2C] absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
                   </div>
-                  <p className="text-[11px] text-zinc-400">Untuk koordinasi dan notifikasi sistem asesmen.</p>
+                  <p className="text-[11px] text-[#102919]/70 font-medium">Untuk koordinasi dan notifikasi sistem asesmen.</p>
                 </div>
               </div>
             </div>
 
             {/* Card 2: Keamanan & Ganti Kata Sandi */}
-            <div className="bg-white rounded-3xl border border-[#91EAAF]/40 shadow-xs overflow-hidden p-6 space-y-5">
-              <div className="flex items-center justify-between border-b border-[#91EAAF]/30 pb-4">
+            <div className="bg-[#EFF9CE] rounded-3xl border-2 border-[#8BC829] shadow-xs overflow-hidden p-6 space-y-5">
+              <div className="flex items-center justify-between border-b-2 border-[#8BC829]/30 pb-4">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-[#C3E956]/20 border border-[#C3E956]/40 text-[#4D7111] flex items-center justify-center shadow-2xs">
-                    <LockKeyhole className="w-5 h-5" />
+                  <div className="w-10 h-10 rounded-xl bg-[#E2F4B4] border-2 border-[#8BC829] text-[#102919] flex items-center justify-center shadow-2xs">
+                    <LockKeyhole className="w-5 h-5 text-[#1F4B2C]" />
                   </div>
                   <div>
-                    <h2 className="text-base font-bold text-[#102919]">Keamanan & Ganti Kata Sandi</h2>
-                    <p className="text-xs text-zinc-500">Biarkan kosong jika Anda tidak ingin memperbarui kata sandi</p>
+                    <h2 className="text-base font-black text-[#102919]">Keamanan & Ganti Kata Sandi</h2>
+                    <p className="text-xs text-[#102919]/70 font-medium">Biarkan kosong jika Anda tidak ingin memperbarui kata sandi</p>
                   </div>
                 </div>
               </div>
@@ -379,7 +379,7 @@ export default function ProfileSettings() {
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 {/* Kata Sandi Saat Ini */}
                 <div className="space-y-1.5">
-                  <label className="block text-xs font-bold text-zinc-800">
+                  <label className="block text-xs font-black text-[#102919]">
                     Kata Sandi Lama
                   </label>
                   <div className="relative">
@@ -389,22 +389,22 @@ export default function ProfileSettings() {
                       value={formData.current_password}
                       onChange={handleChange}
                       placeholder="Sandi saat ini"
-                      className="w-full pr-10 pl-3.5 py-2.5 bg-[#F4FFFC] rounded-xl border border-[#91EAAF]/70 text-xs sm:text-sm text-zinc-900 focus:bg-white focus:ring-2 focus:ring-[#91EAAF]/50 focus:border-[#1F4B2C] outline-none transition"
+                      className="w-full pr-10 pl-3.5 py-2.5 bg-[#F9FDEE] rounded-xl border-2 border-[#8BC829] text-xs sm:text-sm text-[#102919] font-bold focus:bg-[#EFF9CE] focus:outline-none focus:border-[#102919] outline-none transition"
                     />
                     <button
                       type="button"
                       onClick={() => setShowCurrentPassword(!showCurrentPassword)}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-700 cursor-pointer"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-[#102919]/60 hover:text-[#102919] cursor-pointer"
                     >
                       {showCurrentPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                     </button>
                   </div>
-                  <p className="text-[11px] text-zinc-400">Verifikasi otentikasi akun.</p>
+                  <p className="text-[11px] text-[#102919]/70 font-medium">Verifikasi otentikasi akun.</p>
                 </div>
 
                 {/* Kata Sandi Baru */}
                 <div className="space-y-1.5">
-                  <label className="block text-xs font-bold text-zinc-800">
+                  <label className="block text-xs font-black text-[#102919]">
                     Kata Sandi Baru
                   </label>
                   <div className="relative">
@@ -414,22 +414,22 @@ export default function ProfileSettings() {
                       value={formData.password}
                       onChange={handleChange}
                       placeholder="Min. 6 karakter"
-                      className="w-full pr-10 pl-3.5 py-2.5 bg-[#F4FFFC] rounded-xl border border-[#91EAAF]/70 text-xs sm:text-sm text-zinc-900 focus:bg-white focus:ring-2 focus:ring-[#91EAAF]/50 focus:border-[#1F4B2C] outline-none transition"
+                      className="w-full pr-10 pl-3.5 py-2.5 bg-[#F9FDEE] rounded-xl border-2 border-[#8BC829] text-xs sm:text-sm text-[#102919] font-bold focus:bg-[#EFF9CE] focus:outline-none focus:border-[#102919] outline-none transition"
                     />
                     <button
                       type="button"
                       onClick={() => setShowNewPassword(!showNewPassword)}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-700 cursor-pointer"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-[#102919]/60 hover:text-[#102919] cursor-pointer"
                     >
                       {showNewPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                     </button>
                   </div>
-                  <p className="text-[11px] text-zinc-400">Kombinasi huruf & angka.</p>
+                  <p className="text-[11px] text-[#102919]/70 font-medium">Kombinasi huruf & angka.</p>
                 </div>
 
                 {/* Konfirmasi Kata Sandi Baru */}
                 <div className="space-y-1.5">
-                  <label className="block text-xs font-bold text-zinc-800">
+                  <label className="block text-xs font-black text-[#102919]">
                     Konfirmasi Sandi Baru
                   </label>
                   <div className="relative">
@@ -439,17 +439,17 @@ export default function ProfileSettings() {
                       value={formData.confirm_password}
                       onChange={handleChange}
                       placeholder="Ulangi sandi baru"
-                      className="w-full pr-10 pl-3.5 py-2.5 bg-[#F4FFFC] rounded-xl border border-[#91EAAF]/70 text-xs sm:text-sm text-zinc-900 focus:bg-white focus:ring-2 focus:ring-[#91EAAF]/50 focus:border-[#1F4B2C] outline-none transition"
+                      className="w-full pr-10 pl-3.5 py-2.5 bg-[#F9FDEE] rounded-xl border-2 border-[#8BC829] text-xs sm:text-sm text-[#102919] font-bold focus:bg-[#EFF9CE] focus:outline-none focus:border-[#102919] outline-none transition"
                     />
                     <button
                       type="button"
                       onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-700 cursor-pointer"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-[#102919]/60 hover:text-[#102919] cursor-pointer"
                     >
                       {showConfirmPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                     </button>
                   </div>
-                  <p className="text-[11px] text-zinc-400">Harus sama dengan sandi baru.</p>
+                  <p className="text-[11px] text-[#102919]/70 font-medium">Harus sama dengan sandi baru.</p>
                 </div>
               </div>
             </div>
@@ -457,42 +457,42 @@ export default function ProfileSettings() {
 
           {/* Kolom 3: Hak Akses & Status Kepatuhan Keamanan */}
           <div className="space-y-6">
-            <div className="bg-white rounded-3xl border border-[#91EAAF]/40 shadow-xs p-6 space-y-5">
-              <div className="border-b border-[#91EAAF]/30 pb-4">
-                <h3 className="text-base font-bold text-[#102919] flex items-center gap-2">
+            <div className="bg-[#EFF9CE] rounded-3xl border-2 border-[#8BC829] shadow-xs p-6 space-y-5">
+              <div className="border-b-2 border-[#8BC829]/30 pb-4">
+                <h3 className="text-base font-black text-[#102919] flex items-center gap-2">
                   <ShieldCheck className="w-5 h-5 text-[#1F4B2C]" />
                   <span>Kepatuhan Asesmen</span>
                 </h3>
-                <p className="text-xs text-zinc-500 mt-0.5">Protokol keamanan pengawas</p>
+                <p className="text-xs text-[#102919]/70 font-medium mt-0.5">Protokol keamanan pengawas</p>
               </div>
 
               <div className="space-y-3.5 text-xs">
-                <div className="p-3.5 rounded-2xl bg-[#F4FFFC] border border-[#91EAAF]/50 space-y-1">
-                  <div className="font-bold text-[#102919] flex items-center gap-1.5">
-                    <span className="w-2 h-2 rounded-full bg-[#C3E956]" />
+                <div className="p-3.5 rounded-2xl bg-[#E2F4B4] border-2 border-[#8BC829] space-y-1">
+                  <div className="font-black text-[#102919] flex items-center gap-1.5">
+                    <span className="w-2.5 h-2.5 rounded-full bg-[#1F4B2C]" />
                     <span>Zero-Tolerance Lockdown</span>
                   </div>
-                  <p className="text-zinc-500 text-[11px] leading-relaxed">
+                  <p className="text-[#102919]/80 text-[11px] leading-relaxed font-medium">
                     Setiap aksi siswa keluar dari ExamBrowser akan terkunci seketika dan masuk ke notifikasi pengawas.
                   </p>
                 </div>
 
-                <div className="p-3.5 rounded-2xl bg-[#F4FFFC] border border-[#91EAAF]/50 space-y-1">
-                  <div className="font-bold text-[#102919] flex items-center gap-1.5">
-                    <span className="w-2 h-2 rounded-full bg-[#1F4B2C]" />
+                <div className="p-3.5 rounded-2xl bg-[#E2F4B4] border-2 border-[#8BC829] space-y-1">
+                  <div className="font-black text-[#102919] flex items-center gap-1.5">
+                    <span className="w-2.5 h-2.5 rounded-full bg-[#1F4B2C]" />
                     <span>Sinkronisasi Otomatis E-Jurnal</span>
                   </div>
-                  <p className="text-zinc-500 text-[11px] leading-relaxed">
+                  <p className="text-[#102919]/80 text-[11px] leading-relaxed font-medium">
                     Nama dan NIP pengawas otomatis menjadi penanggung jawab sah pada Berita Acara Asesmen resmi sekolah.
                   </p>
                 </div>
 
-                <div className="p-3.5 rounded-2xl bg-[#F4FFFC] border border-[#91EAAF]/50 space-y-1">
-                  <div className="font-bold text-[#102919] flex items-center gap-1.5">
-                    <span className="w-2 h-2 rounded-full bg-[#C3E956]" />
+                <div className="p-3.5 rounded-2xl bg-[#E2F4B4] border-2 border-[#8BC829] space-y-1">
+                  <div className="font-black text-[#102919] flex items-center gap-1.5">
+                    <span className="w-2.5 h-2.5 rounded-full bg-[#1F4B2C]" />
                     <span>Single-Device Protection</span>
                   </div>
-                  <p className="text-zinc-500 text-[11px] leading-relaxed">
+                  <p className="text-[#102919]/80 text-[11px] leading-relaxed font-medium">
                     Akun terproteksi dari akses bersamaan ganda untuk menjaga kredibilitas hasil evaluasi.
                   </p>
                 </div>
@@ -502,15 +502,15 @@ export default function ProfileSettings() {
         </div>
 
         {/* Action Button Bar */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-5 rounded-3xl bg-white border border-[#91EAAF]/40 shadow-xs">
-          <div className="flex items-center gap-2 text-xs text-zinc-600 font-medium">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-5 rounded-3xl bg-[#EFF9CE] border-2 border-[#8BC829] shadow-xs">
+          <div className="flex items-center gap-2 text-xs text-[#102919] font-bold">
             <Info className="w-4 h-4 text-[#1F4B2C] shrink-0" />
             <span>Perubahan data otomatis disinkronkan ke seluruh sistem asesmen sekolah.</span>
           </div>
           <button
             type="submit"
             disabled={isSaving}
-            className="w-full sm:w-auto px-6 py-3 rounded-2xl bg-[#C3E956] hover:bg-[#d4f76b] text-[#0A1D11] font-bold text-xs sm:text-sm shadow-md active:scale-95 transition-all flex items-center justify-center gap-2 disabled:opacity-50 cursor-pointer"
+            className="w-full sm:w-auto px-6 py-3 rounded-2xl bg-[#C3E956] hover:bg-[#b8e337] text-[#0A1D11] font-black text-xs sm:text-sm border-2 border-[#4D7111]/30 shadow-md active:scale-95 transition-all flex items-center justify-center gap-2 disabled:opacity-50 cursor-pointer"
           >
             {isSaving ? (
               <>

@@ -152,7 +152,7 @@ export default function DashboardTeacher() {
           {/* Top Brand & Metadata Bar */}
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-[#1F4B2C]/80 pb-6">
             <div className="flex items-center gap-4">
-              <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-white p-2.5 flex items-center justify-center shadow-xl ring-2 ring-[#91EAAF]/50 shrink-0">
+              <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-[#EFF9CE] border-2 border-[#8BC829] p-2.5 flex items-center justify-center shadow-xl ring-2 ring-[#C3E956]/50 shrink-0">
                 <img src={logoSdMis} alt="Logo SD Mentari Islamic School" className="w-full h-full object-contain" />
               </div>
               <div>
@@ -217,9 +217,9 @@ export default function DashboardTeacher() {
               </button>
               <button
                 onClick={() => navigate('/teacher/packages')}
-                className="h-10 px-4 rounded-xl bg-white/10 hover:bg-white/15 border border-[#91EAAF]/40 text-[#F4FFFC] text-xs font-semibold tracking-tight transition-all duration-150 hover:-translate-y-0.5 active:scale-[0.98] flex items-center justify-center gap-1.5 cursor-pointer"
+                className="h-10 px-4 rounded-xl bg-[#E2F4B4] hover:bg-[#d6f0a3] border-2 border-[#8BC829] text-[#102919] text-xs font-bold tracking-tight transition-all duration-150 hover:-translate-y-0.5 active:scale-[0.98] flex items-center justify-center gap-1.5 cursor-pointer"
               >
-                <PlusCircle className="w-4 h-4 text-[#91EAAF]" />
+                <PlusCircle className="w-4 h-4 text-[#102919]" />
                 <span>+ Buat Paket</span>
               </button>
             </div>
@@ -234,79 +234,79 @@ export default function DashboardTeacher() {
         {/* Card 1: Total Paket Soal */}
         <div 
           onClick={() => navigate('/teacher/packages')}
-          className="bg-white rounded-2xl p-5 border border-[#91EAAF]/40 shadow-xs hover:border-[#1F4B2C] hover:shadow-md transition-all duration-200 cursor-pointer group"
+          className="bg-[#EFF9CE] rounded-2xl p-5 border-2 border-[#8BC829] shadow-sm hover:border-[#102919] hover:shadow-md transition-all duration-200 cursor-pointer group"
         >
           <div className="flex items-center justify-between">
             <span className="text-[11px] font-mono font-bold text-[#1F4B2C] uppercase tracking-wider">
               Total Bank Soal
             </span>
-            <div className="w-9 h-9 rounded-xl bg-[#E1F8ED] text-[#1F4B2C] flex items-center justify-center border border-[#91EAAF]/60 group-hover:bg-[#1F4B2C] group-hover:text-[#C3E956] transition-colors">
+            <div className="w-9 h-9 rounded-xl bg-[#E2F4B4] text-[#102919] flex items-center justify-center border-2 border-[#8BC829] group-hover:bg-[#102919] group-hover:text-[#C3E956] transition-colors">
               <FolderKanban className="w-4 h-4" />
             </div>
           </div>
           <div className="text-3xl font-black text-[#102919] mt-3 tracking-tight font-mono tabular-nums">
             {examPackages.length}
           </div>
-          <div className="text-xs text-zinc-500 mt-1 flex items-center justify-between">
+          <div className="text-xs text-[#102919]/80 font-bold mt-1 flex items-center justify-between">
             <span>Mandiri AKM & Form</span>
-            <ChevronRight className="w-3.5 h-3.5 text-[#1F4B2C] opacity-0 group-hover:opacity-100 transition-opacity" />
+            <ChevronRight className="w-3.5 h-3.5 text-[#102919] opacity-0 group-hover:opacity-100 transition-opacity" />
           </div>
         </div>
 
         {/* Card 2: Sesi Ujian Aktif */}
         <div 
           onClick={() => navigate('/teacher/sessions')}
-          className="bg-white rounded-2xl p-5 border border-[#91EAAF]/40 shadow-xs hover:border-[#1F4B2C] hover:shadow-md transition-all duration-200 cursor-pointer group"
+          className="bg-[#EFF9CE] rounded-2xl p-5 border-2 border-[#8BC829] shadow-sm hover:border-[#102919] hover:shadow-md transition-all duration-200 cursor-pointer group"
         >
           <div className="flex items-center justify-between">
             <span className="text-[11px] font-mono font-bold text-[#1F4B2C] uppercase tracking-wider">
               Sesi Ujian Aktif
             </span>
-            <div className="w-9 h-9 rounded-xl bg-[#C3E956]/20 text-[#4D7111] flex items-center justify-center border border-[#C3E956]/40 group-hover:bg-[#1F4B2C] group-hover:text-[#C3E956] transition-colors">
+            <div className="w-9 h-9 rounded-xl bg-[#C3E956] text-[#0A1D11] flex items-center justify-center border border-[#4D7111]/30 group-hover:bg-[#102919] group-hover:text-[#C3E956] transition-colors">
               <Clock className="w-4 h-4" />
             </div>
           </div>
-          <div className="text-3xl font-black text-[#1F4B2C] mt-3 tracking-tight font-mono tabular-nums">
+          <div className="text-3xl font-black text-[#102919] mt-3 tracking-tight font-mono tabular-nums">
             {activeSessions.length}
           </div>
-          <div className="text-xs text-[#4D7111] font-bold mt-1 flex items-center justify-between">
+          <div className="text-xs text-[#1F4B2C] font-black mt-1 flex items-center justify-between">
             <span className="flex items-center gap-1">
               <CheckCircle2 className="w-3.5 h-3.5" />
               Siap diakses siswa
             </span>
-            <ChevronRight className="w-3.5 h-3.5 text-[#1F4B2C] opacity-0 group-hover:opacity-100 transition-opacity" />
+            <ChevronRight className="w-3.5 h-3.5 text-[#102919] opacity-0 group-hover:opacity-100 transition-opacity" />
           </div>
         </div>
 
         {/* Card 3: Siswa Mengerjakan */}
         <div 
           onClick={() => navigate('/teacher/proctoring')}
-          className="bg-white rounded-2xl p-5 border border-[#91EAAF]/40 shadow-xs hover:border-[#1F4B2C] hover:shadow-md transition-all duration-200 cursor-pointer group"
+          className="bg-[#EFF9CE] rounded-2xl p-5 border-2 border-[#8BC829] shadow-sm hover:border-[#102919] hover:shadow-md transition-all duration-200 cursor-pointer group"
         >
           <div className="flex items-center justify-between">
             <span className="text-[11px] font-mono font-bold text-[#1F4B2C] uppercase tracking-wider">
               Siswa Sedang Fokus
             </span>
-            <div className="w-9 h-9 rounded-xl bg-[#E1F8ED] text-[#1F4B2C] flex items-center justify-center border border-[#91EAAF]/60 group-hover:bg-[#1F4B2C] group-hover:text-[#C3E956] transition-colors">
+            <div className="w-9 h-9 rounded-xl bg-[#E2F4B4] text-[#102919] flex items-center justify-center border-2 border-[#8BC829] group-hover:bg-[#102919] group-hover:text-[#C3E956] transition-colors">
               <Users className="w-4 h-4" />
             </div>
           </div>
           <div className="text-3xl font-black text-[#102919] mt-3 tracking-tight font-mono tabular-nums">
             {workingStudents.length}
           </div>
-          <div className="text-xs text-zinc-500 mt-1 flex items-center justify-between">
+          <div className="text-xs text-[#102919]/80 font-bold mt-1 flex items-center justify-between">
             <span>{submittedStudents.length} siswa selesai terkirim</span>
-            <ChevronRight className="w-3.5 h-3.5 text-[#1F4B2C] opacity-0 group-hover:opacity-100 transition-opacity" />
+            <ChevronRight className="w-3.5 h-3.5 text-[#102919] opacity-0 group-hover:opacity-100 transition-opacity" />
           </div>
         </div>
 
         {/* Card 4: Status Integritas */}
         <div 
           onClick={() => navigate('/teacher/violations')}
-          className={`rounded-2xl p-5 border shadow-xs transition-all duration-200 cursor-pointer group ${
+          className={`rounded-2xl p-5 border-2 shadow-sm transition-all duration-200 cursor-pointer group ${
             lockedStudents.length > 0 
-              ? 'bg-rose-50/70 border-rose-300 hover:border-rose-500' 
-              : 'bg-white border-[#91EAAF]/40 hover:border-[#1F4B2C] hover:shadow-md'
+              ? 'bg-rose-100 border-rose-400 hover:border-rose-600' 
+              : 'bg-[#EFF9CE] border-[#8BC829] hover:border-[#102919] hover:shadow-md'
           }`}
         >
           <div className="flex items-center justify-between">
@@ -315,30 +315,30 @@ export default function DashboardTeacher() {
             </span>
             <div className={`w-9 h-9 rounded-xl flex items-center justify-center border transition-colors ${
               lockedStudents.length > 0 
-                ? 'bg-rose-100 text-rose-700 border-rose-300 animate-pulse' 
-                : 'bg-[#E1F8ED] text-[#1F4B2C] border-[#91EAAF]/60 group-hover:bg-[#1F4B2C] group-hover:text-[#C3E956]'
+                ? 'bg-rose-200 text-rose-800 border-rose-400 animate-pulse' 
+                : 'bg-[#E2F4B4] text-[#102919] border-2 border-[#8BC829] group-hover:bg-[#102919] group-hover:text-[#C3E956]'
             }`}>
               <ShieldAlert className="w-4 h-4" />
             </div>
           </div>
           <div className={`text-3xl font-black mt-3 tracking-tight font-mono tabular-nums ${
-            lockedStudents.length > 0 ? 'text-rose-700' : 'text-[#102919]'
+            lockedStudents.length > 0 ? 'text-rose-900' : 'text-[#102919]'
           }`}>
             {totalViolationsCount}
           </div>
-          <div className="text-xs font-bold mt-1 flex items-center justify-between">
+          <div className="text-xs font-black mt-1 flex items-center justify-between">
             {lockedStudents.length > 0 ? (
-              <span className="text-rose-700 flex items-center gap-1 animate-pulse">
+              <span className="text-rose-900 flex items-center gap-1 animate-pulse">
                 <AlertTriangle className="w-3.5 h-3.5" />
                 {lockedStudents.length} Siswa Terkunci!
               </span>
             ) : (
-              <span className="text-[#4D7111] flex items-center gap-1">
-                <ShieldCheck className="w-3.5 h-3.5 text-[#4D7111]" />
+              <span className="text-[#1F4B2C] flex items-center gap-1">
+                <ShieldCheck className="w-3.5 h-3.5 text-[#1F4B2C]" />
                 Kondusif & Aman
               </span>
             )}
-            <ChevronRight className="w-3.5 h-3.5 text-[#1F4B2C] opacity-0 group-hover:opacity-100 transition-opacity" />
+            <ChevronRight className="w-3.5 h-3.5 text-[#102919] opacity-0 group-hover:opacity-100 transition-opacity" />
           </div>
         </div>
       </div>
@@ -348,33 +348,33 @@ export default function DashboardTeacher() {
       {/* ======================================================== */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Kolom Kiri (2 Kolom): Sesi Ujian Aktif Hari Ini */}
-        <div className="lg:col-span-2 bg-white rounded-3xl border border-[#91EAAF]/40 shadow-xs p-6 space-y-5">
-          <div className="flex items-center justify-between border-b border-[#91EAAF]/30 pb-4">
+        <div className="lg:col-span-2 bg-[#EFF9CE] rounded-3xl border-2 border-[#8BC829] shadow-sm p-6 space-y-5">
+          <div className="flex items-center justify-between border-b-2 border-[#8BC829]/40 pb-4">
             <div>
-              <h2 className="text-base sm:text-lg font-bold text-[#102919] tracking-tight">
+              <h2 className="text-base sm:text-lg font-black text-[#102919] tracking-tight">
                 Ruang Sesi Asesmen Aktif
               </h2>
-              <p className="text-xs text-zinc-500">
+              <p className="text-xs text-[#102919]/80 font-medium">
                 Token masuk otomatis berotasi tiap 10 menit untuk menjamin kejujuran ujian
               </p>
             </div>
             <button
               onClick={() => navigate('/teacher/sessions')}
-              className="text-xs font-bold text-[#1F4B2C] hover:text-[#4D7111] flex items-center gap-1 transition"
+              className="text-xs font-black text-[#1F4B2C] hover:text-[#0A1D11] flex items-center gap-1 transition"
             >
               <span>Kelola Semua Sesi</span>
-              <ArrowRight className="w-3.5 h-3.5 text-[#4D7111]" />
+              <ArrowRight className="w-3.5 h-3.5 text-[#1F4B2C]" />
             </button>
           </div>
 
           <div className="space-y-3.5">
             {examSessions.length === 0 ? (
-              <div className="p-12 text-center text-zinc-400 text-xs space-y-3">
-                <CalendarClock className="w-10 h-10 text-[#91EAAF] mx-auto" />
-                <p className="font-medium text-zinc-600">Belum ada sesi ujian yang dijadwalkan.</p>
+              <div className="p-12 text-center text-[#102919]/60 text-xs space-y-3">
+                <CalendarClock className="w-10 h-10 text-[#8BC829] mx-auto" />
+                <p className="font-bold text-[#102919]">Belum ada sesi ujian yang dijadwalkan.</p>
                 <button
                   onClick={() => navigate('/teacher/sessions')}
-                  className="px-5 py-2.5 bg-[#1F4B2C] hover:bg-[#183D23] text-white rounded-xl font-bold text-xs shadow-xs transition"
+                  className="px-5 py-2.5 bg-[#C3E956] hover:bg-[#b8e337] text-[#0A1D11] rounded-xl font-black text-xs shadow-sm transition border-2 border-[#4D7111]/30 cursor-pointer"
                 >
                   + Jadwalkan Sesi Asesmen Baru
                 </button>
@@ -393,28 +393,28 @@ export default function DashboardTeacher() {
                 return (
                   <div
                     key={session.id}
-                    className="p-4 sm:p-5 rounded-2xl border border-[#91EAAF]/40 bg-[#F4FFFC]/50 hover:bg-[#F4FFFC] hover:border-[#1F4B2C] transition-all duration-150 flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-2xs"
+                    className="p-4 sm:p-5 rounded-2xl border-2 border-[#8BC829] bg-[#E2F4B4] hover:bg-[#d6f0a3] transition-all duration-150 flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-xs"
                   >
                     <div className="space-y-2 flex-1 min-w-0">
                       <div className="flex items-center gap-2 flex-wrap">
-                        <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-lg bg-[#C3E956]/20 text-[#4D7111] border border-[#C3E956]/40">
+                        <span className="text-[11px] font-black px-2.5 py-0.5 rounded-lg bg-[#EFF9CE] text-[#102919] border border-[#8BC829]">
                           {classroomName === 'Semua Kelas' ? '🌟 Semua Kelas' : `Kelas ${classroomName}`}
                         </span>
-                        <span className="text-[11px] font-semibold px-2.5 py-0.5 rounded-lg bg-white text-zinc-700 border border-zinc-200">
+                        <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-lg bg-[#EFF9CE] text-[#102919] border border-[#8BC829]">
                           ⏱️ {duration} Menit
                         </span>
                         {examType === 'EXTERNAL_LINK' ? (
-                          <span className="text-[11px] font-semibold px-2.5 py-0.5 rounded-lg bg-blue-50 text-blue-700 border border-blue-200 flex items-center gap-1">
+                          <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-lg bg-blue-100 text-blue-900 border border-blue-300 flex items-center gap-1">
                             <ExternalLink className="w-3 h-3" /> Form Eksternal
                           </span>
                         ) : (
-                          <span className="text-[11px] font-semibold px-2.5 py-0.5 rounded-lg bg-[#E1F8ED] text-[#1F4B2C] border border-[#91EAAF]/50 flex items-center gap-1">
+                          <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-lg bg-[#EFF9CE] text-[#1F4B2C] border border-[#8BC829] flex items-center gap-1">
                             <BookOpen className="w-3 h-3 text-[#1F4B2C]" /> Soal Mandiri
                           </span>
                         )}
                       </div>
 
-                      <h3 className="font-bold text-zinc-900 text-sm sm:text-base tracking-tight truncate">
+                      <h3 className="font-black text-[#102919] text-sm sm:text-base tracking-tight truncate">
                         {sessionTitle}
                       </h3>
 
@@ -422,22 +422,22 @@ export default function DashboardTeacher() {
                       <div className="flex flex-wrap items-center gap-2 text-xs pt-0.5">
                         <div 
                           onClick={() => handleCopyToken(entryPw, `entry-${session.id}`)}
-                          className="flex items-center gap-1.5 bg-white border border-[#91EAAF]/60 px-2.5 py-1 rounded-lg text-zinc-700 font-medium cursor-pointer hover:border-[#1F4B2C] transition"
+                          className="flex items-center gap-1.5 bg-[#F9FDEE] border-2 border-[#8BC829] px-2.5 py-1 rounded-xl text-[#102919] font-bold cursor-pointer hover:border-[#102919] transition"
                           title="Klik untuk menyalin Token Masuk Siswa"
                         >
-                          <KeyRound className="w-3.5 h-3.5 text-[#1F4B2C]" />
-                          <span>Token: <strong className="text-[#1F4B2C] font-mono font-bold">{entryPw}</strong></span>
+                          <KeyRound className="w-3.5 h-3.5 text-[#102919]" />
+                          <span>Token: <strong className="text-[#102919] font-mono font-black">{entryPw}</strong></span>
                           {copiedToken === `entry-${session.id}` && (
-                            <span className="text-[10px] text-[#4D7111] font-bold animate-pulse">Tersalin!</span>
+                            <span className="text-[10px] text-[#0A1D11] bg-[#C3E956] px-1.5 rounded font-black animate-pulse">Tersalin!</span>
                           )}
                         </div>
 
-                        <div className="flex items-center gap-1.5 bg-white border border-zinc-200 px-2.5 py-1 rounded-lg text-zinc-700 font-medium">
-                          <span>PIN: <strong className="text-[#102919] font-mono font-bold">{pinPw}</strong></span>
+                        <div className="flex items-center gap-1.5 bg-[#F9FDEE] border-2 border-[#8BC829] px-2.5 py-1 rounded-xl text-[#102919] font-bold">
+                          <span>PIN: <strong className="text-[#102919] font-mono font-black">{pinPw}</strong></span>
                         </div>
 
-                        <div className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#C3E956]/20 border border-[#C3E956]/40 text-[#4D7111] font-mono font-bold text-[11px]">
-                          <RotateCcw className="w-3 h-3 text-[#4D7111] animate-spin" style={{ animationDuration: '6s' }} />
+                        <div className="flex items-center gap-1 px-2.5 py-1 rounded-xl bg-[#C3E956] border border-[#4D7111]/30 text-[#0A1D11] font-mono font-black text-[11px]">
+                          <RotateCcw className="w-3 h-3 text-[#0A1D11] animate-spin" style={{ animationDuration: '6s' }} />
                           <span>Rotasi: {countdownStr}</span>
                         </div>
                       </div>
@@ -446,16 +446,16 @@ export default function DashboardTeacher() {
                     <div className="flex items-center gap-2 self-start md:self-center shrink-0">
                       <button
                         onClick={() => navigate('/teacher/proctoring')}
-                        className="h-9 px-4 bg-[#1F4B2C] hover:bg-[#183D23] text-[#C3E956] rounded-xl text-xs font-bold transition-all duration-150 hover:-translate-y-0.5 active:scale-[0.98] flex items-center gap-1.5 shadow-xs cursor-pointer"
+                        className="h-9 px-4 bg-[#102919] hover:bg-[#1F4B2C] text-[#C3E956] rounded-xl text-xs font-black transition-all duration-150 hover:-translate-y-0.5 active:scale-[0.98] flex items-center gap-1.5 shadow-sm border border-[#C3E956]/40 cursor-pointer"
                       >
                         <Radio className="w-3.5 h-3.5 text-[#C3E956]" />
                         <span>Pantau Live</span>
                       </button>
                       <button
                         onClick={() => navigate(`/teacher/results?session=${session.id}`)}
-                        className="h-9 px-3.5 bg-white border border-[#91EAAF]/60 hover:bg-[#F4FFFC] text-[#1F4B2C] rounded-xl text-xs font-semibold transition flex items-center gap-1.5 shadow-2xs cursor-pointer"
+                        className="h-9 px-3.5 bg-[#F9FDEE] border-2 border-[#8BC829] hover:bg-[#C3E956] hover:text-[#0A1D11] text-[#102919] rounded-xl text-xs font-black transition flex items-center gap-1.5 shadow-xs cursor-pointer"
                       >
-                        <Award className="w-3.5 h-3.5 text-[#4D7111]" />
+                        <Award className="w-3.5 h-3.5 text-[#102919]" />
                         <span>Nilai</span>
                       </button>
                     </div>
@@ -467,14 +467,14 @@ export default function DashboardTeacher() {
         </div>
 
         {/* Kolom Kanan (1 Kolom): Feed Pelanggaran Siswa Real-Time */}
-        <div className="bg-white rounded-3xl border border-[#91EAAF]/40 shadow-xs p-6 space-y-5 flex flex-col justify-between">
+        <div className="bg-[#EFF9CE] rounded-3xl border-2 border-[#8BC829] shadow-sm p-6 space-y-5 flex flex-col justify-between">
           <div className="space-y-4">
-            <div className="flex items-center justify-between border-b border-[#91EAAF]/30 pb-4">
+            <div className="flex items-center justify-between border-b-2 border-[#8BC829]/40 pb-4">
               <div>
-                <h2 className="text-base font-bold text-[#102919] tracking-tight">
+                <h2 className="text-base font-black text-[#102919] tracking-tight">
                   Audit Pelanggaran Siswa
                 </h2>
-                <p className="text-xs text-zinc-500">
+                <p className="text-xs text-[#102919]/80 font-medium">
                   Sensor deteksi keluar tab & aplikasi
                 </p>
               </div>
@@ -483,10 +483,10 @@ export default function DashboardTeacher() {
 
             <div className="space-y-3">
               {studentsWithViolations.length === 0 ? (
-                <div className="p-8 text-center text-zinc-400 text-xs space-y-2">
-                  <ShieldCheck className="w-10 h-10 text-[#91EAAF] mx-auto" />
-                  <div className="font-semibold text-zinc-700">Ruang Asesmen Kondusif</div>
-                  <p className="text-[11px] text-zinc-400 leading-relaxed">
+                <div className="p-8 text-center text-[#102919]/60 text-xs space-y-2">
+                  <ShieldCheck className="w-10 h-10 text-[#8BC829] mx-auto" />
+                  <div className="font-black text-[#102919]">Ruang Asesmen Kondusif</div>
+                  <p className="text-[11px] text-[#102919]/70 leading-relaxed font-medium">
                     Belum ada insiden perpindahan tab atau aplikasi yang terdeteksi pada seluruh siswa aktif.
                   </p>
                 </div>
@@ -501,38 +501,38 @@ export default function DashboardTeacher() {
                   return (
                     <div
                       key={student.studentId || student.id}
-                      className={`p-3.5 rounded-2xl border text-xs transition-colors space-y-2 ${
+                      className={`p-3.5 rounded-2xl border-2 text-xs transition-colors space-y-2 ${
                         isCurrentlyLocked
-                          ? 'bg-rose-50/70 border-rose-300'
-                          : 'bg-[#F4FFFC]/50 border-[#91EAAF]/40'
+                          ? 'bg-rose-100 border-rose-300'
+                          : 'bg-[#E2F4B4] border-[#8BC829]'
                       }`}
                     >
                       <div className="flex items-start justify-between gap-2">
                         <div>
-                          <div className="font-bold text-zinc-900 text-sm leading-tight">{sName}</div>
-                          <div className="text-[10px] font-mono text-zinc-500 mt-0.5">
+                          <div className="font-black text-[#102919] text-sm leading-tight">{sName}</div>
+                          <div className="text-[10px] font-mono text-[#102919]/80 font-bold mt-0.5">
                             NISN: {sNisn} ({sClass})
                           </div>
                         </div>
-                        <span className={`text-[10px] font-bold px-2 py-0.5 rounded-md border ${
+                        <span className={`text-[10px] font-black px-2 py-0.5 rounded-lg border ${
                           isCurrentlyLocked 
-                            ? 'bg-rose-500 text-white border-rose-600 animate-pulse' 
-                            : 'bg-[#C3E956]/20 text-[#4D7111] border-[#C3E956]/40'
+                            ? 'bg-rose-600 text-white border-rose-700 animate-pulse' 
+                            : 'bg-[#C3E956] text-[#0A1D11] border-[#4D7111]/30'
                         }`}>
                           {vCount}x Pelanggaran
                         </span>
                       </div>
 
                       {student.lastViolation && (
-                        <div className="text-[11px] text-zinc-600 bg-white p-2 rounded-xl border border-zinc-200/80">
-                          <span className="font-bold text-rose-600">[{student.lastViolation.time}]</span> {student.lastViolation.description}
+                        <div className="text-[11px] text-[#102919] bg-[#F9FDEE] p-2 rounded-xl border border-[#8BC829] font-medium">
+                          <span className="font-black text-rose-700">[{student.lastViolation.time}]</span> {student.lastViolation.description}
                         </div>
                       )}
 
                       {isCurrentlyLocked && (
                         <button
                           onClick={() => unlockStudent(student.studentId || student.id)}
-                          className="w-full py-2 bg-[#1F4B2C] hover:bg-[#183D23] text-[#C3E956] rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5 shadow-2xs cursor-pointer active:scale-[0.98]"
+                          className="w-full py-2 bg-[#102919] hover:bg-[#1F4B2C] text-[#C3E956] rounded-xl text-xs font-black transition flex items-center justify-center gap-1.5 shadow-sm border border-[#C3E956]/40 cursor-pointer active:scale-[0.98]"
                         >
                           <Unlock className="w-3.5 h-3.5 text-[#C3E956]" />
                           <span>Buka Kunci Layar Siswa</span>
@@ -545,10 +545,10 @@ export default function DashboardTeacher() {
             </div>
           </div>
 
-          <div className="pt-4 border-t border-[#91EAAF]/30">
+          <div className="pt-4 border-t-2 border-[#8BC829]/40">
             <button
               onClick={() => navigate('/teacher/proctoring')}
-              className="w-full h-11 bg-gradient-to-r from-[#102919] to-[#1F4B2C] hover:from-[#0E2416] hover:to-[#183D23] text-[#C3E956] rounded-xl text-xs font-bold tracking-tight transition flex items-center justify-center gap-2 shadow-xs border border-[#C3E956]/40 cursor-pointer"
+              className="w-full h-11 bg-gradient-to-r from-[#102919] to-[#1F4B2C] hover:from-[#0E2416] hover:to-[#183D23] text-[#C3E956] rounded-xl text-xs font-black tracking-tight transition flex items-center justify-center gap-2 shadow-sm border border-[#C3E956]/40 cursor-pointer"
             >
               <Radio className="w-4 h-4 text-[#C3E956]" />
               <span>Buka Ruang Live Proctoring</span>
@@ -562,10 +562,10 @@ export default function DashboardTeacher() {
       {/* ======================================================== */}
       <div className="space-y-4">
         <div className="flex items-center justify-between">
-          <h2 className="text-base font-bold text-[#102919] tracking-tight">
+          <h2 className="text-base font-black text-[#102919] tracking-tight">
             Layanan & Fasilitas Pengawas Asesmen
           </h2>
-          <span className="text-xs text-zinc-500">Akses cepat modul sistem</span>
+          <span className="text-xs text-[#102919]/80 font-bold">Akses cepat modul sistem</span>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -575,30 +575,30 @@ export default function DashboardTeacher() {
               <div
                 key={idx}
                 onClick={() => navigate(srv.path)}
-                className="bg-white rounded-2xl p-5 border border-[#91EAAF]/40 shadow-xs hover:border-[#1F4B2C] hover:shadow-md transition-all duration-150 cursor-pointer flex flex-col justify-between space-y-4 group"
+                className="bg-[#EFF9CE] rounded-2xl p-5 border-2 border-[#8BC829] shadow-sm hover:border-[#102919] hover:shadow-md transition-all duration-150 cursor-pointer flex flex-col justify-between space-y-4 group"
               >
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
-                    <div className="w-10 h-10 rounded-xl bg-[#E1F8ED] border border-[#91EAAF]/60 flex items-center justify-center text-[#1F4B2C] group-hover:bg-[#1F4B2C] group-hover:text-[#C3E956] transition-colors shadow-2xs">
+                    <div className="w-10 h-10 rounded-xl bg-[#E2F4B4] border-2 border-[#8BC829] flex items-center justify-center text-[#102919] group-hover:bg-[#102919] group-hover:text-[#C3E956] transition-colors shadow-xs">
                       <Icon className="w-5 h-5" />
                     </div>
-                    <span className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full border ${
+                    <span className={`text-[10px] font-black px-2.5 py-0.5 rounded-full border ${
                       srv.isAlert
                         ? 'bg-rose-500 text-white border-rose-600 animate-pulse'
-                        : 'bg-[#C3E956]/20 text-[#4D7111] border-[#C3E956]/40'
+                        : 'bg-[#C3E956] text-[#0A1D11] border-[#4D7111]/30'
                     }`}>
                       {srv.tag}
                     </span>
                   </div>
-                  <h3 className="font-bold text-zinc-900 text-sm group-hover:text-[#1F4B2C] transition-colors">
+                  <h3 className="font-black text-[#102919] text-sm group-hover:text-[#1F4B2C] transition-colors">
                     {srv.title}
                   </h3>
-                  <p className="text-xs text-zinc-500 leading-relaxed">
+                  <p className="text-xs text-[#102919]/80 leading-relaxed font-medium">
                     {srv.desc}
                   </p>
                 </div>
 
-                <div className="flex items-center gap-1 text-xs font-bold text-[#1F4B2C] pt-2 border-t border-zinc-100 group-hover:text-[#4D7111] transition-colors">
+                <div className="flex items-center gap-1 text-xs font-black text-[#102919] pt-2 border-t-2 border-[#8BC829]/40 group-hover:text-[#1F4B2C] transition-colors">
                   <span>Buka Modul</span>
                   <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                 </div>
