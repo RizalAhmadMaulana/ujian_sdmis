@@ -24,6 +24,7 @@ import {
   Award 
 } from 'lucide-react';
 import WelcomeProfileModal from '../components/modals/WelcomeProfileModal';
+import logoSdMis from '../assets/logo sd mis.png';
 
 export default function TeacherLayout() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -132,12 +133,12 @@ export default function TeacherLayout() {
       {/* ======================================================== */}
       <div className="md:hidden bg-[#090D16] text-zinc-100 flex items-center justify-between px-4 py-3 border-b border-zinc-800 sticky top-0 z-40">
         <div className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-lg bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-200">
-            <ShieldCheck className="w-4 h-4 text-blue-400" />
+          <div className="w-8 h-8 rounded-lg bg-white/95 p-1 flex items-center justify-center shadow-xs shrink-0">
+            <img src={logoSdMis} alt="Logo SDMIS" className="w-full h-full object-contain" />
           </div>
           <div>
-            <div className="font-bold text-sm tracking-tight text-zinc-100">E-Ujian & E-Jurnal</div>
-            <div className="text-[10px] font-mono text-zinc-400 uppercase tracking-wider">Guru Pengawas</div>
+            <div className="font-bold text-xs tracking-tight text-zinc-100">SD MENTARI ISLAMIC SCHOOL</div>
+            <div className="text-[10px] font-mono text-emerald-400 uppercase tracking-wider">Guru Pengawas</div>
           </div>
         </div>
 
@@ -179,12 +180,12 @@ export default function TeacherLayout() {
         {/* Brand / Logo */}
         <div className="p-4 border-b border-zinc-800/80 flex items-center justify-between">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-200 shadow-xs">
-              <ShieldCheck className="w-4 h-4 text-blue-400" />
+            <div className="w-9 h-9 rounded-lg bg-white/95 p-1 flex items-center justify-center shadow-xs shrink-0">
+              <img src={logoSdMis} alt="Logo SDMIS" className="w-full h-full object-contain" />
             </div>
-            <div>
-              <div className="font-bold text-zinc-100 text-sm tracking-tight">E-UJIAN PRO</div>
-              <div className="text-[10px] font-mono text-zinc-400 uppercase tracking-wider">Portal Pengawas</div>
+            <div className="min-w-0">
+              <div className="font-bold text-zinc-100 text-xs tracking-tight truncate max-w-[130px]">SD MENTARI</div>
+              <div className="text-[10px] font-mono text-emerald-400 uppercase tracking-wider">Portal Pengawas</div>
             </div>
           </div>
           <button
@@ -296,7 +297,7 @@ export default function TeacherLayout() {
         <header className="hidden md:flex bg-white border-b border-zinc-200/80 px-6 py-3 items-center justify-between sticky top-0 z-30">
           <div className="flex items-center gap-2">
             <span className="text-xs font-medium px-2 py-0.5 rounded bg-zinc-100 text-zinc-700 border border-zinc-200/80">
-              {schoolSettings?.name || 'MIS RISALAH'}
+              {schoolSettings?.name || 'SD MENTARI ISLAMIC SCHOOL'}
             </span>
             <span className="text-zinc-300">•</span>
             <span className="text-xs text-emerald-700 font-medium flex items-center gap-1.5">

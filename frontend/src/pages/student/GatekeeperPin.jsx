@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useExamStore } from '../../store/useExamStore';
 import { getSessionsApi, verifyEntryPasswordApi, startExamAttemptApi } from '../../api/examApi';
 import { isValidEntryToken } from '../../utils/tokenGenerator';
+import logoSdMis from '../../assets/logo sd mis.png';
 import { 
   ShieldCheck, 
   KeyRound, 
@@ -343,14 +344,18 @@ export default function GatekeeperPin() {
       {/* ======================================================== */}
       <header className="bg-[#090D16]/90 border-b border-zinc-800/80 px-4 sm:px-8 py-3 flex items-center justify-between sticky top-0 z-30 backdrop-blur-md shrink-0">
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-lg bg-zinc-800 border border-zinc-700/80 flex items-center justify-center text-zinc-300 shrink-0">
-            <GraduationCap className="w-5 h-5" />
+          <div className="w-10 h-10 rounded-xl bg-white/95 p-1.5 flex items-center justify-center shadow-md shadow-black/40 ring-1 ring-white/20 shrink-0">
+            <img 
+              src={logoSdMis} 
+              alt="Logo SD Mentari Islamic School" 
+              className="w-full h-full object-contain"
+            />
           </div>
           <div>
             <div className="font-bold text-sm sm:text-base text-zinc-100 tracking-tight flex items-center gap-2">
-              <span>ExamBrowser Portal</span>
-              <span className="text-[10px] font-medium px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 hidden sm:inline-block">
-                Terkunci Aman
+              <span>SD Mentari Islamic School</span>
+              <span className="text-[10px] font-semibold px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 hidden sm:inline-block">
+                NPSN: 70047473
               </span>
               <button
                 type="button"
@@ -415,17 +420,21 @@ export default function GatekeeperPin() {
       <main className="flex-1 flex flex-col justify-center items-center px-3 py-2 relative z-10 overflow-hidden">
         {/* Header Identitas Sekolah & ExamBrowser Branding */}
         <div className="max-w-md w-full text-center mb-3 z-10 space-y-1">
-          <div className="inline-flex items-center justify-center p-1.5 bg-zinc-800 border border-zinc-700 rounded-lg shadow-2xs mb-0.5">
-            <ShieldCheck className="w-5 h-5 text-zinc-200" />
+          <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-white/95 p-1.5 shadow-md mx-auto mb-1 ring-1 ring-white/20">
+            <img 
+              src={logoSdMis} 
+              alt="Logo SD Mentari Islamic School" 
+              className="w-full h-full object-contain"
+            />
           </div>
-          <div className="text-[10px] font-semibold uppercase tracking-widest text-zinc-400">
-            {schoolSettings?.name || currentUser?.schoolName || 'PORTAL ASESMEN SEKOLAH'}
+          <div className="text-[11px] font-bold uppercase tracking-widest text-emerald-400">
+            SD MENTARI ISLAMIC SCHOOL
           </div>
           <h1 className="text-lg sm:text-xl font-bold text-white tracking-tight">
             PORTAL E-UJIAN ANTI-CHEAT
           </h1>
-          <p className="text-[11px] text-zinc-400 max-w-xs mx-auto line-clamp-1">
-            Sistem Asesmen Sekolah Mandiri Berstandar Zero-Tolerance Security
+          <p className="text-[11px] text-zinc-300 font-medium">
+            'Digital Mind, Islamic Heart' • NPSN: 70047473
           </p>
         </div>
 

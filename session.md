@@ -101,7 +101,36 @@ Tampilan menu Koreksi Esai dirombak total sesuai kebutuhan guru pengawas asesmen
 
 ---
 
-### 7. Apakah Perlu `makemigrations` dan `migrate` di Production?
+### 🎯 7. Rombak Tampilan Depan / Halaman Login & Identitas Resmi SD Mentari Islamic School
+- **Latar Belakang Permintaan Client:**  
+  Client meminta agar tampilan depan sistem asesmen / ujian dipercantik dan dibenahi dengan identitas resmi lembaga:
+  - **Nama Sekolah:** `SD MENTARI ISLAMIC SCHOOL`
+  - **NPSN:** `70047473`
+  - **Alamat:** `Lembu RT 02/ RW 01, Jimus, Polanharjo, Klaten`
+  - **Aset Logo:** Memasang logo resmi perisai sekolah `frontend/src/assets/logo sd mis.png`
+  - **Foto Gedung:** Memasang foto gedung sekolah `frontend/src/assets/loc-mis.jpeg`
+  - **Tagline & Visi Resmi:**  
+    > *"Sistem evaluasi SD Mentari Islamic School"*  
+    > *"Kami bangga menjadi pelopor dalam menggabungkan teknologi modern dengan nilai-nilai Islam yang kokoh. 'Digital Mind, Islamic Heart'."*
+- **Perubahan yang Diterapkan:**
+  1. **`frontend/src/pages/auth/LoginPage.jsx` (Redesain Total Halaman Depan):**
+     - Desain modern bernuansa **biru tua sedikit kehitaman (`#070B14`, `#090D16`)** dengan glassmorphism mewah dan glowing accent.
+     - **Layout Split Responsif (Desktop/Tablet):**
+       - Sisi Kiri: Menampilkan foto gedung sekolah (`loc-mis.jpeg`) dengan overlay gradien biru-hitam artistik, logo resmi sekolah (`logo sd mis.png`), badge `NPSN: 70047473`, kartu kutipan visi sekolah, highlight tagline signature `'Digital Mind, Islamic Heart'`, dan alamat Klaten.
+       - Sisi Kanan: Kartu form login bersih, aman, dan responsif untuk memasukkan NISN/NIP dan Kata Sandi.
+     - **Tampilan Mobile:** Didesain compact, touch-friendly, logo proporsional, dan form langsung siap input tanpa scrolling berlebih.
+  2. **`frontend/src/pages/student/StudentLobby.jsx`:**
+     - Header beranda siswa menampilkan logo resmi `logo sd mis.png`, nama `SD Mentari Islamic School`, `NPSN: 70047473`, dan banner kutipan `'Digital Mind, Islamic Heart'`.
+  3. **`frontend/src/pages/student/GatekeeperPin.jsx`:**
+     - Menampilkan logo resmi `logo sd mis.png`, nama `SD MENTARI ISLAMIC SCHOOL`, dan tagline `'Digital Mind, Islamic Heart'`.
+  4. **`frontend/src/layouts/TeacherLayout.jsx`:**
+     - Sidebar brand dan mobile header menampilkan logo resmi `logo sd mis.png` dan nama `SD MENTARI ISLAMIC SCHOOL`.
+  5. **`frontend/src/pages/teacher/SchoolSettings.jsx` & `frontend/src/store/useExamStore.js`:**
+     - Master identitas default sekolah disinkronkan ke `SD MENTARI ISLAMIC SCHOOL`, NPSN `70047473`, dan alamat `Lembu RT 02/ RW 01, Jimus, Polanharjo, Klaten`.
+
+---
+
+### 8. Apakah Perlu `makemigrations` dan `migrate` di Production?
 
 > 💡 **JAWABAN: TIDAK PERLU!**  
 > Seluruh perbaikan ini murni pada frontend React dan endpoint serializer/views Django REST framework. Struktur database tidak mengalami perubahan.
@@ -144,6 +173,11 @@ Tampilan menu Koreksi Esai dirombak total sesuai kebutuhan guru pengawas asesmen
 | 2026-11-20 | `frontend/src/pages/teacher/EssayGrading.jsx` | Rombak Total UI | Rombak total menu Koreksi Esai: 3 filter berjenjang di atas, tabel list siswa di bawah, dan modal lembar koreksi interaktif dengan navigasi siswa. |
 | 2026-11-20 | `frontend/src/pages/teacher/StudentResults.jsx` | Update UI | Menampilkan semua tipe ujian pada filter dan menampilkan badge 'Belum Dinilai' pada kolom Nilai Akhir siswa. |
 | 2026-11-20 | `frontend/src/pages/teacher/EssayGrading.jsx` | Fix UI Modal | Implementasi React createPortal (root document.body), z-[9999], bg-black/80, backdrop-blur-md (true full screen tanpa celah header), dan body scroll lock. |
+| 2026-11-20 | `frontend/src/pages/auth/LoginPage.jsx` | Redesain Total UI | Redesain halaman login depan dengan branding resmi SD Mentari Islamic School, logo resmi, foto gedung loc-mis, NPSN 70047473, alamat Klaten, dan tagline 'Digital Mind, Islamic Heart'. |
+| 2026-11-20 | `frontend/src/pages/student/StudentLobby.jsx` | Update UI | Menampilkan logo resmi SDMIS dan tagline 'Digital Mind, Islamic Heart' pada header dan banner siswa. |
+| 2026-11-20 | `frontend/src/pages/student/GatekeeperPin.jsx` | Update UI | Menampilkan logo resmi SDMIS dan branding identitas sekolah pada header dan form PIN masuk ujian. |
+| 2026-11-20 | `frontend/src/layouts/TeacherLayout.jsx` | Update UI | Memasang logo resmi SDMIS pada sidebar guru dan mobile navbar. |
+| 2026-11-20 | `frontend/src/store/useExamStore.js` & `SchoolSettings.jsx` | Sync Config | Menyelaraskan master identitas default sekolah ke SD Mentari Islamic School, NPSN 70047473, dan alamat Klaten. |
 | 2026-11-20 | `session.md` | Update | Dokumentasi lengkap seluruh pembaruan dan panduan deployment. |
 
 ---
@@ -156,8 +190,8 @@ Jalankan di PowerShell komputer Anda:
 ```powershell
 cd C:\xampp\htdocs\mis_dev\ujian_sdmis
 git status
-git add frontend/src/pages/teacher/EssayGrading.jsx session.md
-git commit -m "fix(grading): render essay grading modal via createPortal for true fullscreen and rich glass backdrop blur"
+git add frontend/src/pages/auth/LoginPage.jsx frontend/src/pages/student/StudentLobby.jsx frontend/src/pages/student/GatekeeperPin.jsx frontend/src/layouts/TeacherLayout.jsx frontend/src/pages/teacher/SchoolSettings.jsx frontend/src/store/useExamStore.js frontend/src/pages/teacher/EssayGrading.jsx session.md
+git commit -m "feat(branding): overhaul landing login page with SD Mentari Islamic School identity, logo, photo, and tagline"
 git push origin main
 ```
 

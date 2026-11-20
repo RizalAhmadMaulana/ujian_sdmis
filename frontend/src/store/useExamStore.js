@@ -669,14 +669,14 @@ export const useExamStore = create((set, get) => ({
   // 6. PENGATURAN SEKOLAH (DYNAMIC SCHOOL SETTINGS)
   // ==========================================
   schoolSettings: {
-    name: 'MIS RISALAH',
-    sub_header: 'KEMENTERIAN AGAMA REPUBLIK INDONESIA',
-    address: 'Jl. Raya Karangampel No. 45',
-    phone: '(0234) 123456',
-    email: 'info@mis-risalah.sch.id',
-    principal_name: "H. Ahmad Syafi'i, M.Pd.I",
-    principal_nip: '197508102003121002',
-    city: 'Indramayu',
+    name: 'SD MENTARI ISLAMIC SCHOOL',
+    sub_header: 'NPSN: 70047473',
+    address: 'Lembu RT 02/ RW 01, Jimus, Polanharjo, Klaten',
+    phone: '(0272) 123456',
+    email: 'info@sdmis.sch.id',
+    principal_name: 'Kepala Sekolah SD Mentari Islamic School',
+    principal_nip: '-',
+    city: 'Klaten',
     academic_year: '2026/2027',
     logo_url: '',
   },

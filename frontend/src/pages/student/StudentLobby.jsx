@@ -4,6 +4,7 @@ import { useExamStore } from '../../store/useExamStore';
 import { fetchCurrentUserApi } from '../../api/authApi';
 import Modal from '../../components/common/Modal';
 import WelcomeProfileModal from '../../components/modals/WelcomeProfileModal';
+import logoSdMis from '../../assets/logo sd mis.png';
 import { 
   FileText, 
   Calendar, 
@@ -196,14 +197,18 @@ export default function StudentLobby() {
       {/* ======================================================== */}
       <header className="bg-[#090D16]/90 border-b border-zinc-800/80 px-4 sm:px-8 py-3 flex items-center justify-between sticky top-0 z-30 backdrop-blur-md">
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-lg bg-zinc-800 border border-zinc-700/80 flex items-center justify-center text-zinc-300 shrink-0">
-            <GraduationCap className="w-5 h-5" />
+          <div className="w-10 h-10 rounded-xl bg-white/95 p-1.5 flex items-center justify-center shadow-md shadow-black/40 ring-1 ring-white/20 shrink-0">
+            <img 
+              src={logoSdMis} 
+              alt="Logo SD Mentari Islamic School" 
+              className="w-full h-full object-contain"
+            />
           </div>
           <div>
             <div className="font-bold text-sm sm:text-base text-zinc-100 tracking-tight flex items-center gap-2">
-              <span>ExamBrowser Portal</span>
-              <span className="text-[10px] font-medium px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 hidden sm:inline-block">
-                Terkunci Aman
+              <span>SD Mentari Islamic School</span>
+              <span className="text-[10px] font-semibold px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 hidden sm:inline-block">
+                NPSN: 70047473
               </span>
               <button
                 type="button"
@@ -255,7 +260,10 @@ export default function StudentLobby() {
           <h2 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
             Pusat Aktivitas Asesmen Digital Siswa
           </h2>
-          <p className="text-xs sm:text-sm text-zinc-400 max-w-md mx-auto leading-relaxed">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 font-semibold text-xs font-sans tracking-wide shadow-2xs">
+            <span>✨ 'Digital Mind, Islamic Heart'</span>
+          </div>
+          <p className="text-xs sm:text-sm text-zinc-400 max-w-md mx-auto leading-relaxed pt-1">
             Pilih menu di bawah ini untuk memulai asesmen terkunci, melihat jadwal ujian kelas, atau membaca tata tertib.
           </p>
         </div>
